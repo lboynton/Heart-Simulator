@@ -12,11 +12,11 @@ import java.util.Random;
  */
 public class Main
 {
-    private final int size = 10;                   // size of the grid
-    private final int N = 5;                       //
-    private final int delta1 = 3;                  // first delta value
-    private final int delta2 = 3;                  // second delta value
-    private final int time = 20;                   // duration to run simulation
+    private final int size = 10; // size of the grid
+    private final int N = 5; //
+    private final int delta1 = 3; // first delta value
+    private final int delta2 = 3; // second delta value
+    private final int time = 20; // duration to run simulation
     private int u[][] = new int[size][size]; // voltage values for each cell
     private int v[][] = new int[size][size]; // recovery values for each cell
     private int delta[][] = new int[size][size]; // delta values for each cell
