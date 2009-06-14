@@ -13,16 +13,16 @@ import java.util.Random;
 public class Main
 {
     private final int size = 10;                   // size of the grid
-    private final int n = 5;                       //
+    private final int N = 5;                       //
     private final int delta1 = 3;                  // first delta value
-    private final int delta2 = 7;                  // second delta value
-    private final int time = 10;                   // duration to run simulation
+    private final int delta2 = 3;                  // second delta value
+    private final int time = 20;                   // duration to run simulation
     private int u[][] = new int[size][size]; // voltage values for each cell
     private int v[][] = new int[size][size]; // recovery values for each cell
     private int delta[][] = new int[size][size]; // delta values for each cell
     private int temp[][] = new int[size][size]; // temporary storage of cell values
 
-    private void initGrid()
+    private void initCells()
     {
         Random generator = new Random();
 
@@ -50,24 +50,29 @@ public class Main
             }
         }
 
-        u[size-1][0] = 4;
+        u[size - 2][1] = 4;
     }
 
-    private void printGrid()
+    private void printCells()
     {
         int values[][][] =
         {
-            u, v, delta
+            u, temp, v, delta
         };
 
         String names[] =
         {
-            "Voltage   ", "Recovery  ", "Delta     "
+            "Voltage", "Temp", "Recovery", "Delta"
         };
+
+        for (int i = 0; i < names.length; i++)
+        {
+            names[i] = padRight(names[i], size);
+        }
 
         for (int row = -1; row < size; row++)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < names.length; i++)
             {
                 if (row == -1)
                 {
@@ -87,18 +92,69 @@ public class Main
         }
     }
 
+    private void copyIntoTemp()
+    {
+        for (int row = 0; row < size; row++)
+        {
+            for (int col = 0; col < size; col++)
+            {
+                temp[row][col] = u[row][col];
+            }
+        }
+    }
+
     private void start()
     {
-        for (int i = 0; i < time; i++)
+        for (int t = 0; t < time; t++)
         {
-            for (int row = 0; row < size; row++)
+            // create copy of voltage values
+            this.copyIntoTemp();
+            printCells();
+
+            for (int row = 1; row < size - 1; row++)
             {
-                for (int col = 0; col < size; col++)
+                for (int col = 1; col < size - 1; col++)
                 {
-                    if(u[row][col] >= delta[row][col]) u[row][col]++;
+                    int stmn =
+                            temp[row - 1][col - 1] +
+                            temp[row - 1][col + 1] +
+                            temp[row - 1][col] +
+                            temp[row + 1][col - 1] +
+                            temp[row + 1][col + 1] +
+                            temp[row + 1][col] +
+                            temp[row][col + 1] +
+                            temp[row][col - 1];
+
+                    if (stmn >= delta[row][col])
+                    {
+                        // right
+                        if (u[row][col] < N && v[row][col] == 0)
+                        {
+                            u[row][col]++;
+                            continue;
+                        }
+                        // up
+                        if (u[row][col] == N && v[row][col] < N)
+                        {
+                            v[row][col]++;
+                            continue;
+                        }
+                        // left
+                        if (u[row][col] > 0 && v[row][col] == N)
+                        {
+                            u[row][col]--;
+                            continue;
+                        }
+                        // down
+                        if (u[row][col] == 0 && v[row][col] > 0)
+                        {
+                            v[row][col]--;
+                        }
+                    }
                 }
             }
         }
+        printCells();
     }
 
     /**
@@ -107,9 +163,12 @@ public class Main
     public static void main(String[] args)
     {
         Main test = new Main();
-        test.initGrid();
-        test.printGrid();
+        test.initCells();
         test.start();
-        test.printGrid();
+    }
+
+    public static String padRight(String s, int n)
+    {
+        return String.format("%1$-" + n + "s", s);
     }
 }
