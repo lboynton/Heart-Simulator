@@ -10,19 +10,24 @@ import java.util.Random;
  *
  * @author Lee Boynton
  */
-public class Main
+public class Nishiyama
 {
     private final int size = 10; // size of the grid
     private final int N = 5; //
     private final int delta1 = 3; // first delta value
-    private final int delta2 = 3; // second delta value
-    private final int time = 20; // duration to run simulation
+    private final int delta2 = 7; // second delta value
+    private final int time = 1; // duration to run simulation
     private int u[][] = new int[size][size]; // voltage values for each cell
     private int v[][] = new int[size][size]; // recovery values for each cell
     private int delta[][] = new int[size][size]; // delta values for each cell
     private int temp[][] = new int[size][size]; // temporary storage of cell values
 
-    private void initCells()
+    public int[][] getU()
+    {
+        return u;
+    }
+    
+    public void initCells()
     {
         Random generator = new Random();
 
@@ -103,7 +108,7 @@ public class Main
         }
     }
 
-    private void start()
+    public void start()
     {
         for (int t = 0; t < time; t++)
         {
@@ -162,7 +167,7 @@ public class Main
      */
     public static void main(String[] args)
     {
-        Main test = new Main();
+        Nishiyama test = new Nishiyama();
         test.initCells();
         test.start();
     }
