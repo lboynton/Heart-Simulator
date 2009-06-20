@@ -33,7 +33,7 @@ public class BinaryPlotPanel extends javax.swing.JPanel
 
     public BinaryPlotPanel(int x, int y)
     {
-        buffIm = new BufferedImage(x, y, BufferedImage.TYPE_BYTE_BINARY);
+        buffIm = new BufferedImage(x, y, BufferedImage.TYPE_BYTE_GRAY);
         WritableRaster rasta = buffIm.getRaster();
         DataBufferByte buf = (DataBufferByte) rasta.getDataBuffer();
         buffer = buf.getData();

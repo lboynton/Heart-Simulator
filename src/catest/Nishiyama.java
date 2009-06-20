@@ -12,7 +12,7 @@ import java.util.Random;
  */
 public class Nishiyama
 {
-    private final int size = 10; // size of the grid
+    private final int size = 400; // size of the grid
     private final int N = 5; //
     private final int delta1 = 3; // first delta value
     private final int delta2 = 7; // second delta value
@@ -55,7 +55,7 @@ public class Nishiyama
             }
         }
 
-        u[size - 2][1] = 4;
+        u[size / 2][size / 2] = 4;
     }
 
     private void printCells()
@@ -114,7 +114,7 @@ public class Nishiyama
         {
             // create copy of voltage values
             this.copyIntoTemp();
-            printCells();
+            //printCells();
 
             for (int row = 1; row < size - 1; row++)
             {
@@ -159,7 +159,7 @@ public class Nishiyama
                 }
             }
         }
-        printCells();
+        //printCells();
     }
 
     /**
