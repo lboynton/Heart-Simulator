@@ -1,3 +1,4 @@
 dist/*
 build/*
-*private*
+nbproject/private/*
+lib/nblibraries-private.properties
