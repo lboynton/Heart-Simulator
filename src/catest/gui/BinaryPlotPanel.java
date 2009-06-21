@@ -39,6 +39,15 @@ public class BinaryPlotPanel extends javax.swing.JPanel
         buffer = buf.getData();
     }
 
+    public void reset()
+    {
+        for(int i = 0; i < buffer.length; i++)
+        {
+            buffer[i] = 0;
+        }
+        this.repaint();
+    }
+
     public byte[] getBuffer()
     {
         return buffer;
