@@ -58,6 +58,7 @@ public class MainUI extends javax.swing.JFrame
         btnReset = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Nishiyama");
 
         javax.swing.GroupLayout displayPanelLayout = new javax.swing.GroupLayout(displayPanel);
         displayPanel.setLayout(displayPanelLayout);
@@ -76,7 +77,7 @@ public class MainUI extends javax.swing.JFrame
         jLabel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
         jToolBar1.add(jLabel1);
 
-        txtTime.setText("100");
+        txtTime.setText("400");
         txtTime.setPreferredSize(new java.awt.Dimension(100, 25));
         jToolBar1.add(txtTime);
 
