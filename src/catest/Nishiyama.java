@@ -13,12 +13,12 @@ import java.util.Random;
  */
 public class Nishiyama
 {
-    private int height = 100; // height of the grid
-    private int width = 100; // width of the grid
+    private int height = 10; // height of the grid
+    private int width = 10; // width of the grid
     private final int N = 5; //
     private final int delta1 = 3; // first delta value
     private final int delta2 = 7; // second delta value
-    private final int time = 1; // duration to run simulation
+    private static final int time = 50; // duration to run simulation
     private int u[][] = new int[height][width]; // voltage values for each cell
     private int v[][] = new int[height][width]; // recovery values for each cell
     private int delta[][] = new int[height][width]; // delta values for each cell
@@ -35,7 +35,7 @@ public class Nishiyama
         width = d.width;
         initCells();
     }
-    
+
     public void initCells()
     {
         Random generator = new Random();
@@ -122,58 +122,53 @@ public class Nishiyama
         }
     }
 
-    public void start()
+    public void step()
     {
-        for (int t = 0; t < time; t++)
+        // create copy of voltage values
+        copyIntoTemp();
+
+        for (int row = 1; row < height - 1; row++)
         {
-            // create copy of voltage values
-            this.copyIntoTemp();
-            //printCells();
-
-            for (int row = 1; row < height - 1; row++)
+            for (int col = 1; col < width - 1; col++)
             {
-                for (int col = 1; col < width - 1; col++)
-                {
-                    int stmn =
-                            temp[row - 1][col - 1] +
-                            temp[row - 1][col + 1] +
-                            temp[row - 1][col] +
-                            temp[row + 1][col - 1] +
-                            temp[row + 1][col + 1] +
-                            temp[row + 1][col] +
-                            temp[row][col + 1] +
-                            temp[row][col - 1];
+                int stmn =
+                        temp[row - 1][col - 1] +
+                        temp[row - 1][col + 1] +
+                        temp[row - 1][col] +
+                        temp[row + 1][col - 1] +
+                        temp[row + 1][col + 1] +
+                        temp[row + 1][col] +
+                        temp[row][col + 1] +
+                        temp[row][col - 1];
 
-                    if (stmn >= delta[row][col])
+                if (stmn >= delta[row][col])
+                {
+                    // right
+                    if (u[row][col] < N && v[row][col] == 0)
                     {
-                        // right
-                        if (u[row][col] < N && v[row][col] == 0)
-                        {
-                            u[row][col]++;
-                            continue;
-                        }
-                        // up
-                        if (u[row][col] == N && v[row][col] < N)
-                        {
-                            v[row][col]++;
-                            continue;
-                        }
-                        // left
-                        if (u[row][col] > 0 && v[row][col] == N)
-                        {
-                            u[row][col]--;
-                            continue;
-                        }
-                        // down
-                        if (u[row][col] == 0 && v[row][col] > 0)
-                        {
-                            v[row][col]--;
-                        }
+                        u[row][col]++;
+                        continue;
+                    }
+                    // up
+                    if (u[row][col] == N && v[row][col] < N)
+                    {
+                        v[row][col]++;
+                        continue;
+                    }
+                    // left
+                    if (u[row][col] > 0 && v[row][col] == N)
+                    {
+                        u[row][col]--;
+                        continue;
+                    }
+                    // down
+                    if (u[row][col] == 0 && v[row][col] > 0)
+                    {
+                        v[row][col]--;
                     }
                 }
             }
         }
-        //printCells();
     }
 
     /**
@@ -183,7 +178,14 @@ public class Nishiyama
     {
         Nishiyama test = new Nishiyama();
         test.initCells();
-        test.start();
+
+        for(int t = 0; t < time; t++)
+        {
+            test.printCells();
+            test.step();
+        }
+
+        test.printCells();
     }
 
     public static String padRight(String s, int n)

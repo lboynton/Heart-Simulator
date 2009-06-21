@@ -20,9 +20,9 @@ import javax.swing.UIManager;
  */
 public class MainUI extends javax.swing.JFrame
 {
-    Nishiyama test;
-    SwingWorker worker;
-    int time;
+    private Nishiyama nishiyama;
+    private SwingWorker worker;
+    private int time;
 
     /** Creates new form MainUI */
     public MainUI()
@@ -36,8 +36,8 @@ public class MainUI extends javax.swing.JFrame
             System.err.println("Unable to use system look and feel");
         }
         initComponents();
-        test = new Nishiyama();
-        test.initCells();
+        nishiyama = new Nishiyama();
+        nishiyama.initCells();
     }
 
     /** This method is called from within the constructor to
@@ -49,9 +49,9 @@ public class MainUI extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        displayPanel = new BinaryPlotPanel(400, 400);
-        jToolBar1 = new javax.swing.JToolBar();
-        jLabel1 = new javax.swing.JLabel();
+        pnlDisplay = new BinaryPlotPanel(400, 400);
+        toolbar = new javax.swing.JToolBar();
+        lblTime = new javax.swing.JLabel();
         txtTime = new javax.swing.JTextField();
         btnStart = new javax.swing.JButton();
         btnStop = new javax.swing.JButton();
@@ -65,26 +65,26 @@ public class MainUI extends javax.swing.JFrame
             }
         });
 
-        javax.swing.GroupLayout displayPanelLayout = new javax.swing.GroupLayout(displayPanel);
-        displayPanel.setLayout(displayPanelLayout);
-        displayPanelLayout.setHorizontalGroup(
-            displayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlDisplayLayout = new javax.swing.GroupLayout(pnlDisplay);
+        pnlDisplay.setLayout(pnlDisplayLayout);
+        pnlDisplayLayout.setHorizontalGroup(
+            pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
         );
-        displayPanelLayout.setVerticalGroup(
-            displayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlDisplayLayout.setVerticalGroup(
+            pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 379, Short.MAX_VALUE)
         );
 
-        jToolBar1.setRollover(true);
+        toolbar.setRollover(true);
 
-        jLabel1.setText("Time:");
-        jLabel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
-        jToolBar1.add(jLabel1);
+        lblTime.setText("Time:");
+        lblTime.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
+        toolbar.add(lblTime);
 
         txtTime.setText("400");
         txtTime.setPreferredSize(new java.awt.Dimension(100, 25));
-        jToolBar1.add(txtTime);
+        toolbar.add(txtTime);
 
         btnStart.setText("Start");
         btnStart.addActionListener(new java.awt.event.ActionListener() {
@@ -92,7 +92,7 @@ public class MainUI extends javax.swing.JFrame
                 btnStartActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnStart);
+        toolbar.add(btnStart);
 
         btnStop.setText("Stop");
         btnStop.setFocusable(false);
@@ -103,7 +103,7 @@ public class MainUI extends javax.swing.JFrame
                 btnStopActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnStop);
+        toolbar.add(btnStop);
 
         btnReset.setText("Reset");
         btnReset.setFocusable(false);
@@ -114,21 +114,21 @@ public class MainUI extends javax.swing.JFrame
                 btnResetActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnReset);
+        toolbar.add(btnReset);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-            .addComponent(displayPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(toolbar, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(pnlDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(toolbar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(displayPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnlDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -141,9 +141,9 @@ public class MainUI extends javax.swing.JFrame
             @Override
             public Object doInBackground() throws Exception
             {
-                byte[] data = ((BinaryPlotPanel) displayPanel).getBuffer();
+                byte[] data = ((BinaryPlotPanel) pnlDisplay).getBuffer();
 
-                int[][] u = test.getU();
+                int[][] u = nishiyama.getU();
                 time = Integer.parseInt(txtTime.getText());
 
                 for (int t = 0; t < time; t++)
@@ -167,8 +167,8 @@ public class MainUI extends javax.swing.JFrame
                         }
                     }
 
-                    test.start();
-                    displayPanel.repaint();
+                    nishiyama.step();
+                    pnlDisplay.repaint();
                 }
 
                 return new Object();
@@ -181,8 +181,8 @@ public class MainUI extends javax.swing.JFrame
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnResetActionPerformed
     {//GEN-HEADEREND:event_btnResetActionPerformed
-        test.initCells();
-        ((BinaryPlotPanel)displayPanel).reset();
+        nishiyama.initCells();
+        ((BinaryPlotPanel)pnlDisplay).reset();
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStopActionPerformed
@@ -192,8 +192,8 @@ public class MainUI extends javax.swing.JFrame
 
     private void formComponentResized(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_formComponentResized
     {//GEN-HEADEREND:event_formComponentResized
-        displayPanel.setSize(displayPanel.getSize());
-        test.setSize(displayPanel.getSize());
+        pnlDisplay.setSize(pnlDisplay.getSize());
+        nishiyama.setSize(pnlDisplay.getSize());
     }//GEN-LAST:event_formComponentResized
 
     /**
@@ -213,9 +213,9 @@ public class MainUI extends javax.swing.JFrame
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnStart;
     private javax.swing.JButton btnStop;
-    private javax.swing.JPanel displayPanel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel lblTime;
+    private javax.swing.JPanel pnlDisplay;
+    private javax.swing.JToolBar toolbar;
     private javax.swing.JTextField txtTime;
     // End of variables declaration//GEN-END:variables
 }
