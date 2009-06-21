@@ -4,6 +4,7 @@
  */
 package catest;
 
+import java.awt.Dimension;
 import java.util.Random;
 
 /**
@@ -12,28 +13,41 @@ import java.util.Random;
  */
 public class Nishiyama
 {
-    private final int size = 400; // size of the grid
+    private int height = 100; // height of the grid
+    private int width = 100; // width of the grid
     private final int N = 5; //
     private final int delta1 = 3; // first delta value
     private final int delta2 = 7; // second delta value
     private final int time = 1; // duration to run simulation
-    private int u[][] = new int[size][size]; // voltage values for each cell
-    private int v[][] = new int[size][size]; // recovery values for each cell
-    private int delta[][] = new int[size][size]; // delta values for each cell
-    private int temp[][] = new int[size][size]; // temporary storage of cell values
+    private int u[][] = new int[height][width]; // voltage values for each cell
+    private int v[][] = new int[height][width]; // recovery values for each cell
+    private int delta[][] = new int[height][width]; // delta values for each cell
+    private int temp[][] = new int[height][width]; // temporary storage of cell values
 
     public int[][] getU()
     {
         return u;
+    }
+
+    public void setSize(Dimension d)
+    {
+        height = d.height;
+        width = d.width;
+        initCells();
     }
     
     public void initCells()
     {
         Random generator = new Random();
 
-        for (int row = 0; row < size; row++)
+        u = new int[height][width]; // voltage values for each cell
+        v = new int[height][width]; // recovery values for each cell
+        delta = new int[height][width]; // delta values for each cell
+        temp = new int[height][width]; // temporary storage of cell values
+
+        for (int row = 0; row < height; row++)
         {
-            for (int col = 0; col < size; col++)
+            for (int col = 0; col < width; col++)
             {
                 // initialise voltage values
                 u[row][col] = 0;
@@ -55,7 +69,7 @@ public class Nishiyama
             }
         }
 
-        u[size / 2][size / 2] = 4;
+        u[height / 2][width / 2] = 4;
     }
 
     private void printCells()
@@ -72,10 +86,10 @@ public class Nishiyama
 
         for (int i = 0; i < names.length; i++)
         {
-            names[i] = padRight(names[i], size);
+            names[i] = padRight(names[i], width);
         }
 
-        for (int row = -1; row < size; row++)
+        for (int row = -1; row < height; row++)
         {
             for (int i = 0; i < names.length; i++)
             {
@@ -85,7 +99,7 @@ public class Nishiyama
                     continue;
                 }
 
-                for (int col = 0; col < size; col++)
+                for (int col = 0; col < width; col++)
                 {
                     System.out.print(values[i][row][col]);
                 }
@@ -99,9 +113,9 @@ public class Nishiyama
 
     private void copyIntoTemp()
     {
-        for (int row = 0; row < size; row++)
+        for (int row = 0; row < height; row++)
         {
-            for (int col = 0; col < size; col++)
+            for (int col = 0; col < width; col++)
             {
                 temp[row][col] = u[row][col];
             }
@@ -116,9 +130,9 @@ public class Nishiyama
             this.copyIntoTemp();
             //printCells();
 
-            for (int row = 1; row < size - 1; row++)
+            for (int row = 1; row < height - 1; row++)
             {
-                for (int col = 1; col < size - 1; col++)
+                for (int col = 1; col < width - 1; col++)
                 {
                     int stmn =
                             temp[row - 1][col - 1] +

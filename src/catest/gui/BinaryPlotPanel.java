@@ -10,6 +10,7 @@
  */
 package catest.gui;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -37,6 +38,16 @@ public class BinaryPlotPanel extends javax.swing.JPanel
         WritableRaster rasta = buffIm.getRaster();
         DataBufferByte buf = (DataBufferByte) rasta.getDataBuffer();
         buffer = buf.getData();
+    }
+
+    @Override
+    public void setSize(Dimension d)
+    {
+        buffIm = new BufferedImage(d.width, d.height, BufferedImage.TYPE_BYTE_GRAY);
+        WritableRaster rasta = buffIm.getRaster();
+        DataBufferByte buf = (DataBufferByte) rasta.getDataBuffer();
+        buffer = buf.getData();
+        super.setSize(d);
     }
 
     public void reset()
@@ -95,6 +106,7 @@ public class BinaryPlotPanel extends javax.swing.JPanel
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
