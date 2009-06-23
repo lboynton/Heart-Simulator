@@ -54,6 +54,12 @@ public class MainUI extends javax.swing.JFrame
         toolbar = new javax.swing.JToolBar();
         lblTime = new javax.swing.JLabel();
         txtTime = new javax.swing.JTextField();
+        lblN = new javax.swing.JLabel();
+        txtN = new javax.swing.JTextField();
+        lblDelta1 = new javax.swing.JLabel();
+        txtDelta1 = new javax.swing.JTextField();
+        lblDelta2 = new javax.swing.JLabel();
+        txtDelta2 = new javax.swing.JTextField();
         btnStart = new javax.swing.JButton();
         btnStop = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
@@ -70,7 +76,7 @@ public class MainUI extends javax.swing.JFrame
         pnlDisplay.setLayout(pnlDisplayLayout);
         pnlDisplayLayout.setHorizontalGroup(
             pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 491, Short.MAX_VALUE)
+            .addGap(0, 530, Short.MAX_VALUE)
         );
         pnlDisplayLayout.setVerticalGroup(
             pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -80,12 +86,36 @@ public class MainUI extends javax.swing.JFrame
         toolbar.setRollover(true);
 
         lblTime.setText("Time:");
-        lblTime.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
+        lblTime.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 4));
         toolbar.add(lblTime);
 
         txtTime.setText("400");
-        txtTime.setPreferredSize(new java.awt.Dimension(100, 25));
+        txtTime.setPreferredSize(new java.awt.Dimension(50, 25));
         toolbar.add(txtTime);
+
+        lblN.setText("N:");
+        lblN.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 4));
+        toolbar.add(lblN);
+
+        txtN.setText("5");
+        txtN.setPreferredSize(new java.awt.Dimension(50, 25));
+        toolbar.add(txtN);
+
+        lblDelta1.setText("Delta1:");
+        lblDelta1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 4));
+        toolbar.add(lblDelta1);
+
+        txtDelta1.setText("3");
+        txtDelta1.setPreferredSize(new java.awt.Dimension(50, 25));
+        toolbar.add(txtDelta1);
+
+        lblDelta2.setText("Delta2:");
+        lblDelta2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 4));
+        toolbar.add(lblDelta2);
+
+        txtDelta2.setText("7");
+        txtDelta2.setPreferredSize(new java.awt.Dimension(50, 25));
+        toolbar.add(txtDelta2);
 
         btnStart.setText("Start");
         btnStart.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +151,7 @@ public class MainUI extends javax.swing.JFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(toolbar, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+            .addComponent(toolbar, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
             .addComponent(pnlDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -137,6 +167,12 @@ public class MainUI extends javax.swing.JFrame
 
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStartActionPerformed
     {//GEN-HEADEREND:event_btnStartActionPerformed
+        nishiyama.setDelta1(Integer.parseInt(txtDelta1.getText()));
+        nishiyama.setDelta2(Integer.parseInt(txtDelta2.getText()));
+        nishiyama.setN(Integer.parseInt(txtN.getText()));
+        nishiyama.initCells();
+        pnlDisplay.repaint();
+
         worker = new SwingWorker<Object, Void>()
         {
             @Override
@@ -183,7 +219,7 @@ public class MainUI extends javax.swing.JFrame
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnResetActionPerformed
     {//GEN-HEADEREND:event_btnResetActionPerformed
         nishiyama.initCells();
-        ((BinaryPlotPanel)pnlDisplay).reset();
+        ((BinaryPlotPanel) pnlDisplay).reset();
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStopActionPerformed
@@ -214,9 +250,15 @@ public class MainUI extends javax.swing.JFrame
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnStart;
     private javax.swing.JButton btnStop;
+    private javax.swing.JLabel lblDelta1;
+    private javax.swing.JLabel lblDelta2;
+    private javax.swing.JLabel lblN;
     private javax.swing.JLabel lblTime;
     private javax.swing.JPanel pnlDisplay;
     private javax.swing.JToolBar toolbar;
+    private javax.swing.JTextField txtDelta1;
+    private javax.swing.JTextField txtDelta2;
+    private javax.swing.JTextField txtN;
     private javax.swing.JTextField txtTime;
     // End of variables declaration//GEN-END:variables
 }

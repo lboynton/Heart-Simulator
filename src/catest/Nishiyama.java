@@ -15,18 +15,34 @@ public class Nishiyama
 {
     private int height = 10; // height of the grid
     private int width = 10; // width of the grid
-    private final int N = 5; //
-    private final int delta1 = 3; // first delta value
-    private final int delta2 = 7; // second delta value
+    private int N = 5; //
+    private int delta1 = 3; // first delta value
+    private int delta2 = 7; // second delta value
     private static final int time = 50; // duration to run simulation
     private int u[][] = new int[height][width]; // voltage values for each cell
     private int v[][] = new int[height][width]; // recovery values for each cell
     private int delta[][] = new int[height][width]; // delta values for each cell
     private int tempu[][] = new int[height][width]; // temporary storage of cell values
     private int tempv[][] = new int[height][width];
+
     public int[][] getU()
     {
         return u;
+    }
+
+    public void setN(int N)
+    {
+        this.N = N;
+    }
+
+    public void setDelta1(int delta1)
+    {
+        this.delta1 = delta1;
+    }
+
+    public void setDelta2(int delta2)
+    {
+        this.delta2 = delta2;
     }
 
     public void setSize(Dimension d)
