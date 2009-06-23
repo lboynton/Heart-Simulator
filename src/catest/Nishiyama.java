@@ -22,8 +22,8 @@ public class Nishiyama
     private int u[][] = new int[height][width]; // voltage values for each cell
     private int v[][] = new int[height][width]; // recovery values for each cell
     private int delta[][] = new int[height][width]; // delta values for each cell
-    private int temp[][] = new int[height][width]; // temporary storage of cell values
-
+    private int tempu[][] = new int[height][width]; // temporary storage of cell values
+    private int tempv[][] = new int[height][width];
     public int[][] getU()
     {
         return u;
@@ -43,7 +43,8 @@ public class Nishiyama
         u = new int[height][width]; // voltage values for each cell
         v = new int[height][width]; // recovery values for each cell
         delta = new int[height][width]; // delta values for each cell
-        temp = new int[height][width]; // temporary storage of cell values
+        tempu = new int[height][width]; // temporary storage of cell values
+        tempv = new int[height][width];
 
         for (int row = 0; row < height; row++)
         {
@@ -76,7 +77,7 @@ public class Nishiyama
     {
         int values[][][] =
         {
-            u, temp, v, delta
+            u, tempu, v, delta
         };
 
         String names[] =
@@ -117,7 +118,8 @@ public class Nishiyama
         {
             for (int col = 0; col < width; col++)
             {
-                temp[row][col] = u[row][col];
+                tempu[row][col] = u[row][col];
+                tempv[row][col] = v[row][col];
             }
         }
     }
@@ -132,40 +134,46 @@ public class Nishiyama
             for (int col = 1; col < width - 1; col++)
             {
                 int stmn =
-                        temp[row - 1][col - 1] +
-                        temp[row - 1][col + 1] +
-                        temp[row - 1][col] +
-                        temp[row + 1][col - 1] +
-                        temp[row + 1][col + 1] +
-                        temp[row + 1][col] +
-                        temp[row][col + 1] +
-                        temp[row][col - 1];
+                        tempu[row - 1][col - 1] +
+                        tempu[row - 1][col + 1] +
+                        tempu[row - 1][col] +
+                        tempu[row + 1][col - 1] +
+                        tempu[row + 1][col + 1] +
+                        tempu[row + 1][col] +
+                        tempu[row][col + 1] +
+                        tempu[row][col - 1];
 
                 if (stmn >= delta[row][col])
                 {
+                    int count = 0;
+
                     // right
-                    if (u[row][col] < N && v[row][col] == 0)
+                    if (tempu[row][col] < N && tempv[row][col] == 0)
                     {
                         u[row][col]++;
-                        continue;
+                        count++;
                     }
                     // up
-                    if (u[row][col] == N && v[row][col] < N)
+                    if (tempu[row][col] >= N && tempv[row][col] < N)
                     {
                         v[row][col]++;
-                        continue;
+                        count++;
                     }
                     // left
-                    if (u[row][col] > 0 && v[row][col] == N)
+                    if (tempu[row][col] > 0 && tempv[row][col] >= N)
                     {
                         u[row][col]--;
-                        continue;
+                        count++;
                     }
                     // down
-                    if (u[row][col] == 0 && v[row][col] > 0)
+                    if (tempu[row][col] == 0 && tempv[row][col] > 0)
                     {
                         v[row][col]--;
+                        count++;
                     }
+
+                    // count should be 1 each time, check that it is
+                    if(count != 1) System.out.println("U: " + u[row][col] + " v: " + v[row][col]);
                 }
             }
         }
