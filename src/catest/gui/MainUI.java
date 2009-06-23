@@ -80,7 +80,7 @@ public class MainUI extends javax.swing.JFrame
         );
         pnlDisplayLayout.setVerticalGroup(
             pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 439, Short.MAX_VALUE)
+            .addGap(0, 445, Short.MAX_VALUE)
         );
 
         toolbar.setRollover(true);
@@ -126,6 +126,7 @@ public class MainUI extends javax.swing.JFrame
         toolbar.add(btnStart);
 
         btnStop.setText("Stop");
+        btnStop.setEnabled(false);
         btnStop.setFocusable(false);
         btnStop.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnStop.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -137,6 +138,7 @@ public class MainUI extends javax.swing.JFrame
         toolbar.add(btnStop);
 
         btnReset.setText("Reset");
+        btnReset.setEnabled(false);
         btnReset.setFocusable(false);
         btnReset.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnReset.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -158,7 +160,7 @@ public class MainUI extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(toolbar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(pnlDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -178,6 +180,10 @@ public class MainUI extends javax.swing.JFrame
             @Override
             public Object doInBackground() throws Exception
             {
+                btnStart.setEnabled(false);
+                btnReset.setEnabled(false);
+                btnStop.setEnabled(true);
+
                 byte[] data = ((BinaryPlotPanel) pnlDisplay).getBuffer();
 
                 int[][] u = nishiyama.getU();
@@ -209,6 +215,15 @@ public class MainUI extends javax.swing.JFrame
                 }
 
                 return new Object();
+            }
+
+            @Override
+            protected void done()
+            {
+                super.done();
+                btnStart.setEnabled(true);
+                btnStop.setEnabled(false);
+                btnReset.setEnabled(true);
             }
         };
 
