@@ -23,7 +23,6 @@ public class Nishiyama
     private int v[][] = new int[height][width]; // recovery values for each cell
     private int delta[][] = new int[height][width]; // delta values for each cell
     private int tempu[][] = new int[height][width]; // temporary storage of cell values
-    private int tempv[][] = new int[height][width];
 
     public int[][] getU()
     {
@@ -60,7 +59,6 @@ public class Nishiyama
         v = new int[height][width]; // recovery values for each cell
         delta = new int[height][width]; // delta values for each cell
         tempu = new int[height][width]; // temporary storage of cell values
-        tempv = new int[height][width];
 
         for (int row = 0; row < height; row++)
         {
@@ -86,7 +84,11 @@ public class Nishiyama
             }
         }
 
-        u[height / 2][width / 2] = 4;
+        // center
+        u[height / 2][width / 2] = 10;
+
+        // bottom left
+        //u[height - 2][1] = 1;
     }
 
     private void printCells()
@@ -135,7 +137,6 @@ public class Nishiyama
             for (int col = 0; col < width; col++)
             {
                 tempu[row][col] = u[row][col];
-                tempv[row][col] = v[row][col];
             }
         }
     }
@@ -149,47 +150,36 @@ public class Nishiyama
         {
             for (int col = 1; col < width - 1; col++)
             {
-                int stmn =
-                        tempu[row - 1][col - 1] +
-                        tempu[row - 1][col + 1] +
-                        tempu[row - 1][col] +
-                        tempu[row + 1][col - 1] +
-                        tempu[row + 1][col + 1] +
-                        tempu[row + 1][col] +
-                        tempu[row][col + 1] +
-                        tempu[row][col - 1];
-
-                if (stmn >= delta[row][col])
+                if (u[row][col] == 0)
                 {
-                    int count = 0;
-
-                    // right
-                    if (tempu[row][col] < N && tempv[row][col] == 0)
+                    if (v[row][col] == 0)
                     {
-                        u[row][col]++;
-                        count++;
+                        // check for stimulation
+                        // inefficient count of neighbours
+                        if (tempu[row - 1][col - 1] + tempu[row][col - 1] +
+                                tempu[row + 1][col - 1] + tempu[row - 1][col] +
+                                tempu[row + 1][col] + tempu[row - 1][col + 1] +
+                                tempu[row][col + 1] + tempu[row + 1][col + 1] >= delta[row][col])
+                        {
+                            u[row][col] = 1;  // stimulated
+                        }
                     }
-                    // up
-                    if (tempu[row][col] >= N && tempv[row][col] < N)
+                    else
                     {
-                        v[row][col]++;
-                        count++;
+                        v[row][col]--;  // refractory
                     }
-                    // left
-                    if (tempu[row][col] > 0 && tempv[row][col] >= N)
-                    {
-                        u[row][col]--;
-                        count++;
-                    }
-                    // down
-                    if (tempu[row][col] == 0 && tempv[row][col] > 0)
-                    {
-                        v[row][col]--;
-                        count++;
-                    }
-
-                    // count should be 1 each time, check that it is
-                    if(count != 1) System.out.println("U: " + u[row][col] + " v: " + v[row][col]);
+                }
+                else if (v[row][col] == N - 1)
+                {
+                    u[row][col]--;  // downstoke
+                }
+                else if (u[row][col] == N - 1)
+                {
+                    v[row][col]++;  // plateau
+                }
+                else
+                {
+                    u[row][col]++;  // upstroke
                 }
             }
         }
@@ -203,7 +193,7 @@ public class Nishiyama
         Nishiyama test = new Nishiyama();
         test.initCells();
 
-        for(int t = 0; t < time; t++)
+        for (int t = 0; t < time; t++)
         {
             test.printCells();
             test.step();
