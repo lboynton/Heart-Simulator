@@ -5,6 +5,12 @@
 package catest;
 
 import java.awt.Dimension;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Random;
 
 /**
@@ -13,8 +19,8 @@ import java.util.Random;
  */
 public class Nishiyama
 {
-    private int height = 10; // height of the grid
-    private int width = 10; // width of the grid
+    private int height = 100; // height of the grid
+    private int width = 100; // width of the grid
     private int N = 5; //
     private int delta1 = 3; // first delta value
     private int delta2 = 7; // second delta value
@@ -23,6 +29,7 @@ public class Nishiyama
     private int v[][] = new int[height][width]; // recovery values for each cell
     private int delta[][] = new int[height][width]; // delta values for each cell
     private int tempu[][] = new int[height][width]; // temporary storage of cell values
+    private boolean cells[][] = new boolean[height][width]; // true/false if there is a cell
 
     public int[][] getU()
     {
@@ -51,6 +58,23 @@ public class Nishiyama
         initCells();
     }
 
+    private void readCellsFile() throws FileNotFoundException, IOException
+    {
+        FileInputStream fstream = new FileInputStream("./heart_lattice_2d");
+        DataInputStream in = new DataInputStream(fstream);
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+
+        String strLine;
+
+        while ((strLine = br.readLine()) != null)
+        {
+            String coords[] = strLine.split(" ");
+            cells[Integer.parseInt(coords[0])][Integer.parseInt(coords[1])] = true;
+        }
+
+        in.close();
+    }
+
     public void initCells()
     {
         Random generator = new Random();
@@ -59,6 +83,7 @@ public class Nishiyama
         v = new int[height][width]; // recovery values for each cell
         delta = new int[height][width]; // delta values for each cell
         tempu = new int[height][width]; // temporary storage of cell values
+        cells = new boolean[height][width]; // true/false if there is a cell
 
         for (int row = 0; row < height; row++)
         {
@@ -69,6 +94,9 @@ public class Nishiyama
 
                 // initialise recovery values
                 v[row][col] = 0;
+
+                // initialise cells
+                cells[row][col] = false;
 
                 // initialise delta values
                 int randomDelta = generator.nextInt(2);
@@ -89,9 +117,36 @@ public class Nishiyama
 
         // bottom left
         //u[height - 2][1] = 1;
+
+        try
+        {
+            readCellsFile();
+        }
+        catch (Exception ex)
+        {
+            System.err.println("Could not open cells file");
+            System.err.println(ex.toString());
+            System.exit(1);
+        }
     }
 
     private void printCells()
+    {
+        System.out.println("Cells:");
+        
+        for(int row = 0; row < height; row++)
+        {
+            for(int col = 0; col < width; col++)
+            {
+                if(cells[row][col]) System.out.print("*");
+                else System.out.print(" ");
+            }
+
+            System.out.println();
+        }
+    }
+
+    private void printArrays()
     {
         int values[][][] =
         {
@@ -192,14 +247,15 @@ public class Nishiyama
     {
         Nishiyama test = new Nishiyama();
         test.initCells();
+        test.printCells();
 
         for (int t = 0; t < time; t++)
         {
-            test.printCells();
+            //test.printArrays();
             test.step();
         }
 
-        test.printCells();
+        test.printArrays();
     }
 
     public static String padRight(String s, int n)
