@@ -113,10 +113,12 @@ public class Nishiyama
         }
 
         // center
-        u[height / 2][width / 2] = 10;
+        //u[height / 2][width / 2] = 10;
 
         // bottom left
         //u[height - 2][1] = 1;
+
+        u[11][42] = 1;
 
         try
         {
@@ -205,6 +207,8 @@ public class Nishiyama
         {
             for (int col = 1; col < width - 1; col++)
             {
+                if(!cells[row][col]) continue;
+                
                 if (u[row][col] == 0)
                 {
                     if (v[row][col] == 0)
