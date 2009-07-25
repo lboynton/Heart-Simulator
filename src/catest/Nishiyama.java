@@ -112,13 +112,8 @@ public class Nishiyama
             }
         }
 
-        // center
-        //u[height / 2][width / 2] = 10;
-
-        // bottom left
-        //u[height - 2][1] = 1;
-
-        u[11][42] = 1;
+        // initially stimulate bottom of heart
+        u[87][37] = 1;
 
         try
         {
