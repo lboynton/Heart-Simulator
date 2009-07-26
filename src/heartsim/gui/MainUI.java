@@ -10,6 +10,7 @@
  */
 package heartsim.gui;
 
+import heartsim.DataLoader;
 import heartsim.ca.Nishiyama;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
@@ -38,7 +39,6 @@ public class MainUI extends javax.swing.JFrame
         initComponents();
         this.setLocationRelativeTo(null);
         nishiyama = new Nishiyama();
-        nishiyama.initCells();
     }
 
     /** This method is called from within the constructor to
@@ -96,6 +96,11 @@ public class MainUI extends javax.swing.JFrame
         cboResolution.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "x1", "x2", "x3", "x4", "x5" }));
 
         btnLoad.setText("Load");
+        btnLoad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoadActionPerformed(evt);
+            }
+        });
 
         txtTime.setText("400");
         txtTime.setPreferredSize(new java.awt.Dimension(50, 25));
@@ -308,6 +313,13 @@ public class MainUI extends javax.swing.JFrame
         pnlDisplay.setSize(pnlDisplay.getSize());
         nishiyama.setSize(pnlDisplay.getSize());
     }//GEN-LAST:event_formComponentResized
+
+    private void btnLoadActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnLoadActionPerformed
+    {//GEN-HEADEREND:event_btnLoadActionPerformed
+        DataLoader loader = new DataLoader("./geometry_data/heart.svg");
+        loader.setSize(2);
+        nishiyama.setCells(loader.getGrid());
+    }//GEN-LAST:event_btnLoadActionPerformed
 
     /**
      * @param args the command line arguments

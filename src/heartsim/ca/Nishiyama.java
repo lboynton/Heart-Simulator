@@ -5,12 +5,6 @@
 package heartsim.ca;
 
 import java.awt.Dimension;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Random;
 
 /**
@@ -19,8 +13,8 @@ import java.util.Random;
  */
 public class Nishiyama
 {
-    private int height = 100; // height of the grid
-    private int width = 100; // width of the grid
+    private int height = 200; // height of the grid
+    private int width = 200; // width of the grid
     private int N = 5; //
     private int delta1 = 3; // first delta value
     private int delta2 = 7; // second delta value
@@ -55,24 +49,11 @@ public class Nishiyama
     {
         height = d.height;
         width = d.width;
-        initCells();
     }
 
-    private void readCellsFile() throws FileNotFoundException, IOException
+    public void setCells(boolean[][] cells)
     {
-        FileInputStream fstream = new FileInputStream("./geometry_data/heart_lattice_2d");
-        DataInputStream in = new DataInputStream(fstream);
-        BufferedReader br = new BufferedReader(new InputStreamReader(in));
-
-        String strLine;
-
-        while ((strLine = br.readLine()) != null)
-        {
-            String coords[] = strLine.split(" ");
-            cells[Integer.parseInt(coords[0])][Integer.parseInt(coords[1])] = true;
-        }
-
-        in.close();
+        this.cells = cells;
     }
 
     public void initCells()
@@ -83,7 +64,6 @@ public class Nishiyama
         v = new int[height][width]; // recovery values for each cell
         delta = new int[height][width]; // delta values for each cell
         tempu = new int[height][width]; // temporary storage of cell values
-        cells = new boolean[height][width]; // true/false if there is a cell
 
         for (int row = 0; row < height; row++)
         {
@@ -94,9 +74,6 @@ public class Nishiyama
 
                 // initialise recovery values
                 v[row][col] = 0;
-
-                // initialise cells
-                cells[row][col] = false;
 
                 // initialise delta values
                 int randomDelta = generator.nextInt(2);
@@ -113,27 +90,18 @@ public class Nishiyama
         }
 
         // initially stimulate bottom of heart
+        //u[348][148] = 1;
+        //u[174][74] = 1;
         u[87][37] = 1;
-
-        try
-        {
-            readCellsFile();
-        }
-        catch (Exception ex)
-        {
-            System.err.println("Could not open cells file");
-            System.err.println(ex.toString());
-            System.exit(1);
-        }
     }
 
-    private void printCells()
+    public void printCells()
     {
         System.out.println("Cells:");
         
-        for(int row = 0; row < height; row++)
+        for(int row = 0; row < cells.length; row++)
         {
-            for(int col = 0; col < width; col++)
+            for(int col = 0; col < cells[0].length; col++)
             {
                 if(cells[row][col]) System.out.print("*");
                 else System.out.print(" ");
@@ -143,7 +111,7 @@ public class Nishiyama
         }
     }
 
-    private void printArrays()
+    public void printArrays()
     {
         int values[][][] =
         {
@@ -198,9 +166,9 @@ public class Nishiyama
         // create copy of voltage values
         copyIntoTemp();
 
-        for (int row = 1; row < height - 1; row++)
+        for (int row = 1; row < cells.length - 1; row++)
         {
-            for (int col = 1; col < width - 1; col++)
+            for (int col = 1; col < cells[0].length - 1; col++)
             {
                 if(!cells[row][col]) continue;
                 
