@@ -31,7 +31,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="splitPane" alignment="1" pref="364" max="32767" attributes="0"/>
+          <Component id="splitPane" alignment="1" pref="328" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -58,7 +58,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="364" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="328" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -83,30 +83,35 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnLoad" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblResolution" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblTime" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblN" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblDelta2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblDelta1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtTime" alignment="1" pref="94" max="32767" attributes="0"/>
-                                  <Component id="cboResolution" alignment="0" pref="94" max="32767" attributes="0"/>
-                                  <Component id="txtN" alignment="0" pref="94" max="32767" attributes="0"/>
-                                  <Component id="txtDelta1" alignment="0" pref="94" max="32767" attributes="0"/>
-                                  <Component id="txtDelta2" alignment="0" pref="94" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" attributes="0">
+                          <Component id="btnLoad" alignment="1" pref="172" max="32767" attributes="0"/>
+                          <Component id="btnBrowse" alignment="0" pref="172" max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
                               <Component id="btnStart" pref="70" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnStop" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnReset" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="lblFile" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lblResolution" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="cboResolution" pref="108" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblTime" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblN" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblDelta2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblDelta1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="txtTime" alignment="1" pref="108" max="32767" attributes="0"/>
+                                  <Component id="txtN" alignment="0" pref="108" max="32767" attributes="0"/>
+                                  <Component id="txtDelta1" alignment="0" pref="108" max="32767" attributes="0"/>
+                                  <Component id="txtDelta2" alignment="0" pref="108" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -116,6 +121,10 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
+                      <Component id="lblFile" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnBrowse" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblResolution" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cboResolution" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -142,11 +151,11 @@
                           <Component id="txtDelta2" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                           <Component id="lblDelta2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="122" max="32767" attributes="0"/>
+                      <EmptySpace pref="22" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnStart" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                          <Component id="btnReset" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                          <Component id="btnStop" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                          <Component id="btnStart" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnReset" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnStop" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -156,18 +165,18 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="lblResolution">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Resolution"/>
+                <Property name="text" type="java.lang.String" value="Cell size"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="cboResolution">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="5">
-                    <StringItem index="0" value="x1"/>
-                    <StringItem index="1" value="x2"/>
-                    <StringItem index="2" value="x3"/>
-                    <StringItem index="3" value="x4"/>
-                    <StringItem index="4" value="x5"/>
+                    <StringItem index="0" value="4"/>
+                    <StringItem index="1" value="3"/>
+                    <StringItem index="2" value="2"/>
+                    <StringItem index="3" value="1"/>
+                    <StringItem index="4" value="0.5"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -283,6 +292,25 @@
                   </Border>
                 </Property>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblFile">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="No file loaded"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblFileMouseEntered"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JLabel()&#xa;{&#xa;    public void setText(String text)&#xa;    {&#xa;        super.setText(text);&#xa;        this.setToolTipText(text);&#xa;    }&#xa;}"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnBrowse">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Browse"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBrowseActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

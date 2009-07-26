@@ -12,6 +12,8 @@ package heartsim.gui;
 
 import heartsim.DataLoader;
 import heartsim.ca.Nishiyama;
+import java.io.File;
+import javax.swing.JFileChooser;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 
@@ -24,6 +26,7 @@ public class MainUI extends javax.swing.JFrame
     private Nishiyama nishiyama;
     private SwingWorker worker;
     private int time;
+    private File svgFile;
 
     /** Creates new form MainUI */
     public MainUI()
@@ -39,6 +42,13 @@ public class MainUI extends javax.swing.JFrame
         initComponents();
         this.setLocationRelativeTo(null);
         nishiyama = new Nishiyama();
+        setSvgFile(new File("geometry_data/heart.svg"));
+    }
+
+    private void setSvgFile(File svgFile)
+    {
+        this.svgFile = svgFile;
+        lblFile.setText(svgFile.getName());
     }
 
     /** This method is called from within the constructor to
@@ -67,6 +77,15 @@ public class MainUI extends javax.swing.JFrame
         lblN = new javax.swing.JLabel();
         lblDelta1 = new javax.swing.JLabel();
         lblDelta2 = new javax.swing.JLabel();
+        lblFile = new javax.swing.JLabel()
+        {
+            public void setText(String text)
+            {
+                super.setText(text);
+                this.setToolTipText(text);
+            }
+        };
+        btnBrowse = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Nishiyama");
@@ -84,16 +103,16 @@ public class MainUI extends javax.swing.JFrame
         );
         pnlDisplayLayout.setVerticalGroup(
             pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 364, Short.MAX_VALUE)
+            .addGap(0, 328, Short.MAX_VALUE)
         );
 
         splitPane.setLeftComponent(pnlDisplay);
 
         pnlControls.setBorder(javax.swing.BorderFactory.createTitledBorder("Controls"));
 
-        lblResolution.setText("Resolution");
+        lblResolution.setText("Cell size");
 
-        cboResolution.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "x1", "x2", "x3", "x4", "x5" }));
+        cboResolution.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "4", "3", "2", "1", "0.5" }));
 
         btnLoad.setText("Load");
         btnLoad.addActionListener(new java.awt.event.ActionListener() {
@@ -155,6 +174,20 @@ public class MainUI extends javax.swing.JFrame
         lblDelta2.setText("Delta 2");
         lblDelta2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 4));
 
+        lblFile.setText("No file loaded");
+        lblFile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblFileMouseEntered(evt);
+            }
+        });
+
+        btnBrowse.setText("Browse");
+        btnBrowse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBrowseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlControlsLayout = new javax.swing.GroupLayout(pnlControls);
         pnlControls.setLayout(pnlControlsLayout);
         pnlControlsLayout.setHorizontalGroup(
@@ -162,32 +195,40 @@ public class MainUI extends javax.swing.JFrame
             .addGroup(pnlControlsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnLoad, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnlControlsLayout.createSequentialGroup()
-                        .addGroup(pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblResolution)
-                            .addComponent(lblTime)
-                            .addComponent(lblN)
-                            .addComponent(lblDelta2)
-                            .addComponent(lblDelta1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                            .addComponent(cboResolution, 0, 94, Short.MAX_VALUE)
-                            .addComponent(txtN, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                            .addComponent(txtDelta1, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                            .addComponent(txtDelta2, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)))
-                    .addGroup(pnlControlsLayout.createSequentialGroup()
+                    .addComponent(btnLoad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                    .addComponent(btnBrowse, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlControlsLayout.createSequentialGroup()
                         .addComponent(btnStart, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnStop)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnReset)))
+                        .addComponent(btnReset))
+                    .addComponent(lblFile, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlControlsLayout.createSequentialGroup()
+                        .addComponent(lblResolution)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboResolution, 0, 108, Short.MAX_VALUE))
+                    .addGroup(pnlControlsLayout.createSequentialGroup()
+                        .addGroup(pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTime)
+                            .addComponent(lblN)
+                            .addComponent(lblDelta2)
+                            .addComponent(lblDelta1))
+                        .addGap(13, 13, 13)
+                        .addGroup(pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtTime, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                            .addComponent(txtN, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                            .addComponent(txtDelta1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                            .addComponent(txtDelta2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         pnlControlsLayout.setVerticalGroup(
             pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlControlsLayout.createSequentialGroup()
+                .addComponent(lblFile)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBrowse)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblResolution)
                     .addComponent(cboResolution, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -209,11 +250,11 @@ public class MainUI extends javax.swing.JFrame
                 .addGroup(pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDelta2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDelta2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnStop, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnStart)
+                    .addComponent(btnReset)
+                    .addComponent(btnStop))
                 .addContainerGap())
         );
 
@@ -227,7 +268,7 @@ public class MainUI extends javax.swing.JFrame
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(splitPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+            .addComponent(splitPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
         );
 
         pack();
@@ -316,10 +357,27 @@ public class MainUI extends javax.swing.JFrame
 
     private void btnLoadActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnLoadActionPerformed
     {//GEN-HEADEREND:event_btnLoadActionPerformed
-        DataLoader loader = new DataLoader("./geometry_data/heart.svg");
-        loader.setSize(2);
+        DataLoader loader = new DataLoader(svgFile.getPath());
+        double size = Double.parseDouble(String.valueOf(cboResolution.getSelectedItem()));
+        loader.setSize(size);
         nishiyama.setCells(loader.getGrid());
-    }//GEN-LAST:event_btnLoadActionPerformed
+}//GEN-LAST:event_btnLoadActionPerformed
+
+    private void btnBrowseActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnBrowseActionPerformed
+    {//GEN-HEADEREND:event_btnBrowseActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        int result = chooser.showOpenDialog(this);
+
+        if(result == JFileChooser.APPROVE_OPTION)
+        {
+            setSvgFile(chooser.getSelectedFile());
+        }
+    }//GEN-LAST:event_btnBrowseActionPerformed
+
+    private void lblFileMouseEntered(java.awt.event.MouseEvent evt)//GEN-FIRST:event_lblFileMouseEntered
+    {//GEN-HEADEREND:event_lblFileMouseEntered
+        lblFile.setToolTipText(lblFile.getText());
+    }//GEN-LAST:event_lblFileMouseEntered
 
     /**
      * @param args the command line arguments
@@ -335,6 +393,7 @@ public class MainUI extends javax.swing.JFrame
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBrowse;
     private javax.swing.JButton btnLoad;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnStart;
@@ -342,6 +401,7 @@ public class MainUI extends javax.swing.JFrame
     private javax.swing.JComboBox cboResolution;
     private javax.swing.JLabel lblDelta1;
     private javax.swing.JLabel lblDelta2;
+    private javax.swing.JLabel lblFile;
     private javax.swing.JLabel lblN;
     private javax.swing.JLabel lblResolution;
     private javax.swing.JLabel lblTime;

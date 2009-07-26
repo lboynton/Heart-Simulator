@@ -76,8 +76,8 @@ public class DataLoader
 
         cells = new boolean[maxX][maxY];
 
-        System.out.println(s.getBounds2D().getMaxX() / size);
-        System.out.println(s.getBounds2D().getMaxY() / size);
+        System.out.println("Max X boundary: " + s.getBounds2D().getMaxX() / size);
+        System.out.println("Max Y boundary: " + s.getBounds2D().getMaxY() / size);
 
         for(double y = 0; y < s.getBounds2D().getMaxY(); y = y + size)
         {
