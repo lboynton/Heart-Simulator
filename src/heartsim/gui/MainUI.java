@@ -64,7 +64,7 @@ public class MainUI extends javax.swing.JFrame
         pnlDisplay = new BinaryPlotPanel(400, 400);
         pnlControls = new javax.swing.JPanel();
         lblResolution = new javax.swing.JLabel();
-        cboResolution = new javax.swing.JComboBox();
+        cboCellSize = new javax.swing.JComboBox();
         btnLoad = new javax.swing.JButton();
         txtTime = new javax.swing.JTextField();
         lblTime = new javax.swing.JLabel();
@@ -112,7 +112,7 @@ public class MainUI extends javax.swing.JFrame
 
         lblResolution.setText("Cell size");
 
-        cboResolution.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "4", "3", "2", "1", "0.5" }));
+        cboCellSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "4", "3", "2", "1", "0.5" }));
 
         btnLoad.setText("Load");
         btnLoad.addActionListener(new java.awt.event.ActionListener() {
@@ -207,7 +207,7 @@ public class MainUI extends javax.swing.JFrame
                     .addGroup(pnlControlsLayout.createSequentialGroup()
                         .addComponent(lblResolution)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cboResolution, 0, 108, Short.MAX_VALUE))
+                        .addComponent(cboCellSize, 0, 108, Short.MAX_VALUE))
                     .addGroup(pnlControlsLayout.createSequentialGroup()
                         .addGroup(pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTime)
@@ -231,7 +231,7 @@ public class MainUI extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblResolution)
-                    .addComponent(cboResolution, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboCellSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLoad)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -358,7 +358,7 @@ public class MainUI extends javax.swing.JFrame
     private void btnLoadActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnLoadActionPerformed
     {//GEN-HEADEREND:event_btnLoadActionPerformed
         DataLoader loader = new DataLoader(svgFile.getPath());
-        double size = Double.parseDouble(String.valueOf(cboResolution.getSelectedItem()));
+        double size = Double.parseDouble(String.valueOf(cboCellSize.getSelectedItem()));
         loader.setSize(size);
         nishiyama.setCells(loader.getGrid());
 }//GEN-LAST:event_btnLoadActionPerformed
@@ -398,7 +398,7 @@ public class MainUI extends javax.swing.JFrame
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnStart;
     private javax.swing.JButton btnStop;
-    private javax.swing.JComboBox cboResolution;
+    private javax.swing.JComboBox cboCellSize;
     private javax.swing.JLabel lblDelta1;
     private javax.swing.JLabel lblDelta2;
     private javax.swing.JLabel lblFile;

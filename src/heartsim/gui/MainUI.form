@@ -96,7 +96,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="lblResolution" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="cboResolution" pref="108" max="32767" attributes="0"/>
+                              <Component id="cboCellSize" pref="108" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -127,7 +127,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblResolution" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cboResolution" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cboCellSize" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnLoad" min="-2" max="-2" attributes="0"/>
@@ -168,7 +168,7 @@
                 <Property name="text" type="java.lang.String" value="Cell size"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="cboResolution">
+            <Component class="javax.swing.JComboBox" name="cboCellSize">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="5">
