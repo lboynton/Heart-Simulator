@@ -60,7 +60,7 @@ public class Nishiyama
 
     private void readCellsFile() throws FileNotFoundException, IOException
     {
-        FileInputStream fstream = new FileInputStream("./heart_lattice_2d");
+        FileInputStream fstream = new FileInputStream("./geometry_data/heart_lattice_2d");
         DataInputStream in = new DataInputStream(fstream);
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
 
