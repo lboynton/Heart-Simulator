@@ -8,9 +8,9 @@
  *
  * Created on 15-Jun-2009, 13:37:52
  */
-package catest.gui;
+package heartsim.gui;
 
-import catest.Nishiyama;
+import heartsim.ca.Nishiyama;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 
@@ -50,19 +50,23 @@ public class MainUI extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        splitPane = new javax.swing.JSplitPane();
         pnlDisplay = new BinaryPlotPanel(400, 400);
-        toolbar = new javax.swing.JToolBar();
-        lblTime = new javax.swing.JLabel();
+        pnlControls = new javax.swing.JPanel();
+        lblResolution = new javax.swing.JLabel();
+        cboResolution = new javax.swing.JComboBox();
+        btnLoad = new javax.swing.JButton();
         txtTime = new javax.swing.JTextField();
-        lblN = new javax.swing.JLabel();
+        lblTime = new javax.swing.JLabel();
         txtN = new javax.swing.JTextField();
-        lblDelta1 = new javax.swing.JLabel();
         txtDelta1 = new javax.swing.JTextField();
-        lblDelta2 = new javax.swing.JLabel();
         txtDelta2 = new javax.swing.JTextField();
         btnStart = new javax.swing.JButton();
         btnStop = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
+        lblN = new javax.swing.JLabel();
+        lblDelta1 = new javax.swing.JLabel();
+        lblDelta2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Nishiyama");
@@ -76,46 +80,37 @@ public class MainUI extends javax.swing.JFrame
         pnlDisplay.setLayout(pnlDisplayLayout);
         pnlDisplayLayout.setHorizontalGroup(
             pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 530, Short.MAX_VALUE)
+            .addGap(0, 376, Short.MAX_VALUE)
         );
         pnlDisplayLayout.setVerticalGroup(
             pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 445, Short.MAX_VALUE)
+            .addGap(0, 364, Short.MAX_VALUE)
         );
 
-        toolbar.setRollover(true);
+        splitPane.setLeftComponent(pnlDisplay);
 
-        lblTime.setText("Time:");
-        lblTime.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 4));
-        toolbar.add(lblTime);
+        pnlControls.setBorder(javax.swing.BorderFactory.createTitledBorder("Controls"));
+
+        lblResolution.setText("Resolution");
+
+        cboResolution.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "x1", "x2", "x3", "x4", "x5" }));
+
+        btnLoad.setText("Load");
 
         txtTime.setText("400");
         txtTime.setPreferredSize(new java.awt.Dimension(50, 25));
-        toolbar.add(txtTime);
 
-        lblN.setText("N:");
-        lblN.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 4));
-        toolbar.add(lblN);
+        lblTime.setText("Time");
+        lblTime.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 4));
 
         txtN.setText("5");
         txtN.setPreferredSize(new java.awt.Dimension(50, 25));
-        toolbar.add(txtN);
-
-        lblDelta1.setText("Delta1:");
-        lblDelta1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 4));
-        toolbar.add(lblDelta1);
 
         txtDelta1.setText("3");
         txtDelta1.setPreferredSize(new java.awt.Dimension(50, 25));
-        toolbar.add(txtDelta1);
-
-        lblDelta2.setText("Delta2:");
-        lblDelta2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 4));
-        toolbar.add(lblDelta2);
 
         txtDelta2.setText("7");
         txtDelta2.setPreferredSize(new java.awt.Dimension(50, 25));
-        toolbar.add(txtDelta2);
 
         btnStart.setText("Start");
         btnStart.addActionListener(new java.awt.event.ActionListener() {
@@ -123,7 +118,6 @@ public class MainUI extends javax.swing.JFrame
                 btnStartActionPerformed(evt);
             }
         });
-        toolbar.add(btnStart);
 
         btnStop.setText("Stop");
         btnStop.setEnabled(false);
@@ -135,7 +129,6 @@ public class MainUI extends javax.swing.JFrame
                 btnStopActionPerformed(evt);
             }
         });
-        toolbar.add(btnStop);
 
         btnReset.setText("Reset");
         btnReset.setEnabled(false);
@@ -147,21 +140,89 @@ public class MainUI extends javax.swing.JFrame
                 btnResetActionPerformed(evt);
             }
         });
-        toolbar.add(btnReset);
+
+        lblN.setText("N");
+        lblN.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 4));
+
+        lblDelta1.setText("Delta 1");
+        lblDelta1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 4));
+
+        lblDelta2.setText("Delta 2");
+        lblDelta2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 4));
+
+        javax.swing.GroupLayout pnlControlsLayout = new javax.swing.GroupLayout(pnlControls);
+        pnlControls.setLayout(pnlControlsLayout);
+        pnlControlsLayout.setHorizontalGroup(
+            pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlControlsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnLoad, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlControlsLayout.createSequentialGroup()
+                        .addGroup(pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblResolution)
+                            .addComponent(lblTime)
+                            .addComponent(lblN)
+                            .addComponent(lblDelta2)
+                            .addComponent(lblDelta1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                            .addComponent(cboResolution, 0, 94, Short.MAX_VALUE)
+                            .addComponent(txtN, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                            .addComponent(txtDelta1, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                            .addComponent(txtDelta2, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)))
+                    .addGroup(pnlControlsLayout.createSequentialGroup()
+                        .addComponent(btnStart, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnStop)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnReset)))
+                .addContainerGap())
+        );
+        pnlControlsLayout.setVerticalGroup(
+            pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlControlsLayout.createSequentialGroup()
+                .addGroup(pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblResolution)
+                    .addComponent(cboResolution, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnLoad)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTime))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtN, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblN))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDelta1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDelta1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDelta2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDelta2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                .addGroup(pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnStop, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        splitPane.setRightComponent(pnlControls);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(toolbar, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
-            .addComponent(pnlDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(splitPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(toolbar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(pnlDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(splitPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
         );
 
         pack();
@@ -262,15 +323,19 @@ public class MainUI extends javax.swing.JFrame
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLoad;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnStart;
     private javax.swing.JButton btnStop;
+    private javax.swing.JComboBox cboResolution;
     private javax.swing.JLabel lblDelta1;
     private javax.swing.JLabel lblDelta2;
     private javax.swing.JLabel lblN;
+    private javax.swing.JLabel lblResolution;
     private javax.swing.JLabel lblTime;
+    private javax.swing.JPanel pnlControls;
     private javax.swing.JPanel pnlDisplay;
-    private javax.swing.JToolBar toolbar;
+    private javax.swing.JSplitPane splitPane;
     private javax.swing.JTextField txtDelta1;
     private javax.swing.JTextField txtDelta2;
     private javax.swing.JTextField txtN;

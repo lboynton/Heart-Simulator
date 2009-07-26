@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package catest;
+package heartsim.ca;
 
 import java.awt.Dimension;
 import java.io.BufferedReader;
