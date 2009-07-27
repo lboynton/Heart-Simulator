@@ -5,3 +5,4 @@
 - Make visualisation more efficient, trim the array sizes
 - Code tidy up/refactor
 - GUI tidy up
+- Support different cellular automata models
