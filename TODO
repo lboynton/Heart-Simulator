@@ -1,2 +1,7 @@
 - Draw outline of heart
 - Allow update interval to be specified
+- Centre heart in JPanel
+- Use steps in the voltage chart
+- Make visualisation more efficient, trim the array sizes
+- Code tidy up/refactor
+- GUI tidy up
