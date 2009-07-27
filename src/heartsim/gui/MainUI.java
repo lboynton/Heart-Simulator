@@ -36,6 +36,8 @@ public class MainUI extends javax.swing.JFrame
     private File svgFile;
     private final JFreeChart chart;
     private final DefaultCategoryDataset chartData;
+    private int stimX;
+    private int stimY;
 
     /** Creates new form MainUI */
     public MainUI()
@@ -144,6 +146,7 @@ public class MainUI extends javax.swing.JFrame
         txtDelta2.setPreferredSize(new java.awt.Dimension(50, 25));
 
         btnStart.setText("Start");
+        btnStart.setEnabled(false);
         btnStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnStartActionPerformed(evt);
@@ -281,6 +284,12 @@ public class MainUI extends javax.swing.JFrame
 
         splitPane.setRightComponent(pnlControls);
 
+        pnlDisplay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlDisplayMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlDisplayLayout = new javax.swing.GroupLayout(pnlDisplay);
         pnlDisplay.setLayout(pnlDisplayLayout);
         pnlDisplayLayout.setHorizontalGroup(
@@ -314,6 +323,7 @@ public class MainUI extends javax.swing.JFrame
         nishiyama.setDelta2(Integer.parseInt(txtDelta2.getText()));
         nishiyama.setN(Integer.parseInt(txtN.getText()));
         nishiyama.initCells();
+        nishiyama.stimulate(stimX, stimY);
         pnlDisplay.repaint();
 
         worker = new SwingWorker<Object, Void>()
@@ -415,6 +425,13 @@ public class MainUI extends javax.swing.JFrame
     {//GEN-HEADEREND:event_lblFileMouseEntered
         lblFile.setToolTipText(lblFile.getText());
     }//GEN-LAST:event_lblFileMouseEntered
+
+    private void pnlDisplayMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_pnlDisplayMouseClicked
+    {//GEN-HEADEREND:event_pnlDisplayMouseClicked
+        stimX = evt.getY();
+        stimY = evt.getX();
+        this.btnStartActionPerformed(null);
+    }//GEN-LAST:event_pnlDisplayMouseClicked
 
     /**
      * @param args the command line arguments

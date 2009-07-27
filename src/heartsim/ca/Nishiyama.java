@@ -56,6 +56,11 @@ public class Nishiyama
         this.cells = cells;
     }
 
+    public void stimulate(int x, int y)
+    {
+        u[x][y] = 1;
+    }
+
     public void initCells()
     {
         Random generator = new Random();
@@ -92,7 +97,7 @@ public class Nishiyama
         // initially stimulate bottom of heart
         //u[348][148] = 1;
         //u[174][74] = 1;
-        u[87][37] = 1;
+        //u[87][37] = 1;
     }
 
     public void printCells()
