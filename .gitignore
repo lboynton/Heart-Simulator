@@ -3,3 +3,4 @@ build/*
 nbproject/private/*
 lib/nblibraries-private.properties
 geometry_data/bin2vtk
+lib/*/javadoc
