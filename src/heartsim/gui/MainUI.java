@@ -78,7 +78,7 @@ public class MainUI extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        splitPane = new javax.swing.JSplitPane();
+        pnlDisplay = new heartsim.gui.BinaryPlotPanel();
         pnlControls = new javax.swing.JPanel();
         lblResolution = new javax.swing.JLabel();
         cboCellSize = new javax.swing.JComboBox();
@@ -105,7 +105,6 @@ public class MainUI extends javax.swing.JFrame
         btnBrowse = new javax.swing.JButton();
         pnlChart = new ChartPanel(chart);
         pnlChart.setPreferredSize(new Dimension(300,200));
-        pnlDisplay = new heartsim.gui.BinaryPlotPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Nishiyama");
@@ -115,7 +114,22 @@ public class MainUI extends javax.swing.JFrame
             }
         });
 
-        splitPane.setDividerLocation(400);
+        pnlDisplay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlDisplayMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlDisplayLayout = new javax.swing.GroupLayout(pnlDisplay);
+        pnlDisplay.setLayout(pnlDisplayLayout);
+        pnlDisplayLayout.setHorizontalGroup(
+            pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 418, Short.MAX_VALUE)
+        );
+        pnlDisplayLayout.setVerticalGroup(
+            pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 456, Short.MAX_VALUE)
+        );
 
         pnlControls.setBorder(javax.swing.BorderFactory.createTitledBorder("Controls"));
 
@@ -279,39 +293,22 @@ public class MainUI extends javax.swing.JFrame
                     .addComponent(btnStart)
                     .addComponent(btnStop)
                     .addComponent(btnReset))
-                .addContainerGap())
+                .addContainerGap(32, Short.MAX_VALUE))
         );
-
-        splitPane.setRightComponent(pnlControls);
-
-        pnlDisplay.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pnlDisplayMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlDisplayLayout = new javax.swing.GroupLayout(pnlDisplay);
-        pnlDisplay.setLayout(pnlDisplayLayout);
-        pnlDisplayLayout.setHorizontalGroup(
-            pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        pnlDisplayLayout.setVerticalGroup(
-            pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 440, Short.MAX_VALUE)
-        );
-
-        splitPane.setLeftComponent(pnlDisplay);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(splitPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(pnlDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlControls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(splitPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+            .addComponent(pnlControls, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlDisplay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -462,7 +459,6 @@ public class MainUI extends javax.swing.JFrame
     private javax.swing.JPanel pnlChart;
     private javax.swing.JPanel pnlControls;
     private heartsim.gui.BinaryPlotPanel pnlDisplay;
-    private javax.swing.JSplitPane splitPane;
     private javax.swing.JTextField txtDelta1;
     private javax.swing.JTextField txtDelta2;
     private javax.swing.JTextField txtN;
