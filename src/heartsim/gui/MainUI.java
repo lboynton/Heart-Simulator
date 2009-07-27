@@ -47,7 +47,7 @@ public class MainUI extends javax.swing.JFrame
 
         chart = ChartFactory.createLineChart(null, null, null, chartData, PlotOrientation.VERTICAL, false, true, true);
         ((CategoryPlot)chart.getPlot()).getRangeAxis().setRange(0, 5);
-        chart.setBackgroundPaint(new Color(0, 0, 0));
+        chart.setBackgroundPaint(null);
 
         try
         {
