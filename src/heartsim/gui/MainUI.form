@@ -277,7 +277,8 @@
         </Component>
         <Container class="javax.swing.JPanel" name="pnlChart">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new ChartPanel(chart);&#xa;pnlChart.setPreferredSize(new Dimension(300,200));"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="createChart();"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="pnlChart.setPreferredSize(new Dimension(250,150));"/>
           </AuxValues>
 
           <Layout>

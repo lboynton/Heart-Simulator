@@ -12,7 +12,6 @@ package heartsim.gui;
 
 import heartsim.DataLoader;
 import heartsim.ca.Nishiyama;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
 import javax.swing.JFileChooser;
@@ -31,24 +30,18 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class MainUI extends javax.swing.JFrame
 {
-    private Nishiyama nishiyama;
+    private Nishiyama nishiyama = new Nishiyama();
     private SwingWorker worker;
     private int time;
     private File svgFile;
-    private final JFreeChart chart;
-    private final DefaultCategoryDataset chartData;
+    private JFreeChart chart;
+    private DefaultCategoryDataset chartData;
     private int stimX;
     private int stimY;
 
     /** Creates new form MainUI */
     public MainUI()
     {
-        chartData = new DefaultCategoryDataset();
-
-        chart = ChartFactory.createLineChart(null, null, null, chartData, PlotOrientation.VERTICAL, false, true, true);
-        ((CategoryPlot)chart.getPlot()).getRangeAxis().setRange(0, 5);
-        chart.setBackgroundPaint(null);
-
         try
         {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -58,9 +51,7 @@ public class MainUI extends javax.swing.JFrame
             System.err.println("Unable to use system look and feel");
         }
         initComponents();
-        pnlChart.setPreferredSize(new Dimension(250,150));
         this.setLocationRelativeTo(null);
-        nishiyama = new Nishiyama();
         setSvgFile(new File("geometry_data/heart.svg"));
     }
 
@@ -68,6 +59,19 @@ public class MainUI extends javax.swing.JFrame
     {
         this.svgFile = svgFile;
         txtFile.setText(svgFile.getName());
+    }
+
+    private ChartPanel createChart()
+    {
+        chartData = new DefaultCategoryDataset();
+
+        chart = ChartFactory.createLineChart(null, null, null, chartData, PlotOrientation.VERTICAL, false, true, true);
+        ((CategoryPlot)chart.getPlot()).getRangeAxis().setRange(0, 5);
+        chart.setBackgroundPaint(null);
+        
+        ChartPanel panel = new ChartPanel(chart);
+
+        return panel;
     }
 
     /** This method is called from within the constructor to
@@ -90,8 +94,8 @@ public class MainUI extends javax.swing.JFrame
         pnlParameters = new javax.swing.JPanel();
         btnStart = new javax.swing.JButton();
         btnStop = new javax.swing.JButton();
-        pnlChart = new ChartPanel(chart);
-        pnlChart.setPreferredSize(new Dimension(300,200));
+        pnlChart = createChart();
+        pnlChart.setPreferredSize(new Dimension(250,150));
         btnReset = new javax.swing.JButton();
         lblN = new javax.swing.JLabel();
         lblDelta1 = new javax.swing.JLabel();
