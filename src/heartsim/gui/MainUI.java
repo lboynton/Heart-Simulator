@@ -136,9 +136,11 @@ public class MainUI extends javax.swing.JFrame
                 chartData.removeColumn(0);
             }
 
-            chartData.addValue(u[stimX][stimY], "Voltage", String.valueOf(currentTime++));
+            chartData.addValue(u[stimX][stimY], "Voltage", String.valueOf(currentTime));
+            chartData.addValue(nishiyama.getV(stimX, stimY), "Recovery", String.valueOf(currentTime));
             nishiyama.step();
             pnlDisplay.repaint();
+            currentTime++;
         }
 
         btnStart.setEnabled(true);

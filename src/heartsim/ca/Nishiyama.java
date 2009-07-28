@@ -30,6 +30,11 @@ public class Nishiyama
         return u;
     }
 
+    public int getV(int x, int y)
+    {
+        return v[x][y];
+    }
+
     public void setN(int N)
     {
         this.N = N;
