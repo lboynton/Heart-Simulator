@@ -428,7 +428,7 @@ public class MainUI extends javax.swing.JFrame
 
                     if(chartData.getColumnCount() > 6) chartData.removeColumn(0);
 
-                    chartData.addValue(u[87][34], "Voltage", String.valueOf(t));
+                    chartData.addValue(u[stimX][stimY], "Voltage", String.valueOf(t));
                     nishiyama.step();
                     pnlDisplay.repaint();
                 }
