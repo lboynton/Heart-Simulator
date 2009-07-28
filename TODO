@@ -1,4 +1,4 @@
-- Draw outline of heart
+- Draw outline of heart, maybe by overlaying SVG?
 - Allow update interval to be specified
 - Centre heart in JPanel
 - Use steps in the voltage chart
