@@ -99,7 +99,7 @@ public class MainUI extends javax.swing.JFrame
         btnStop.setEnabled(false);
     }
 
-    private void runSimulation(int time)
+    private void runSimulation()
     {
         btnStart.setEnabled(false);
         btnReset.setEnabled(false);
@@ -110,7 +110,7 @@ public class MainUI extends javax.swing.JFrame
 
         int[][] u = nishiyama.getU();
 
-        for (int t = 0; t < time; t++)
+        for (int t = 0; t < this.time; t++)
         {
             int k = 0;
 
@@ -499,7 +499,8 @@ public class MainUI extends javax.swing.JFrame
             @Override
             public Object doInBackground() throws Exception
             {
-                runSimulation(Integer.parseInt(txtTime.getText()));
+                time = Integer.parseInt(txtTime.getText());
+                runSimulation();
 
                 return new Object();
             }
@@ -527,6 +528,7 @@ public class MainUI extends javax.swing.JFrame
 
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStopActionPerformed
     {//GEN-HEADEREND:event_btnStopActionPerformed
+        System.out.println("Stopped");
         time = 0;
     }//GEN-LAST:event_btnStopActionPerformed
 
@@ -564,7 +566,8 @@ public class MainUI extends javax.swing.JFrame
 
     private void btnStepActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStepActionPerformed
     {//GEN-HEADEREND:event_btnStepActionPerformed
-        runSimulation(1);
+        time = 1;
+        runSimulation();
         btnStep.requestFocus();
     }//GEN-LAST:event_btnStepActionPerformed
 
