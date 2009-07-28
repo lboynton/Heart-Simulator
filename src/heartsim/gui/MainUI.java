@@ -260,7 +260,6 @@ public class MainUI extends javax.swing.JFrame
 
         btnStop.setText("Stop");
         btnStop.setEnabled(false);
-        btnStop.setFocusable(false);
         btnStop.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnStop.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnStop.addActionListener(new java.awt.event.ActionListener() {
@@ -271,7 +270,6 @@ public class MainUI extends javax.swing.JFrame
 
         btnReset.setText("Reset");
         btnReset.setEnabled(false);
-        btnReset.setFocusable(false);
         btnReset.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnReset.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnReset.addActionListener(new java.awt.event.ActionListener() {
@@ -305,7 +303,6 @@ public class MainUI extends javax.swing.JFrame
         txtTime.setPreferredSize(new java.awt.Dimension(50, 25));
 
         btnStep.setText("Step");
-        btnStep.setFocusable(false);
         btnStep.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnStep.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnStep.addActionListener(new java.awt.event.ActionListener() {
@@ -417,7 +414,7 @@ public class MainUI extends javax.swing.JFrame
         );
         pnlChartLayout.setVerticalGroup(
             pnlChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 97, Short.MAX_VALUE)
+            .addGap(0, 99, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout pnlChartContainerLayout = new javax.swing.GroupLayout(pnlChartContainer);
@@ -433,7 +430,7 @@ public class MainUI extends javax.swing.JFrame
         );
         pnlChartContainerLayout.setVerticalGroup(
             pnlChartContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 111, Short.MAX_VALUE)
+            .addGap(0, 113, Short.MAX_VALUE)
             .addGroup(pnlChartContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlChartContainerLayout.createSequentialGroup()
                     .addComponent(pnlChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -542,6 +539,7 @@ public class MainUI extends javax.swing.JFrame
     private void btnStepActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStepActionPerformed
     {//GEN-HEADEREND:event_btnStepActionPerformed
         runSimulation(1);
+        btnStep.requestFocus();
     }//GEN-LAST:event_btnStepActionPerformed
 
     /**
