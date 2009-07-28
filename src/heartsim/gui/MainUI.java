@@ -72,6 +72,7 @@ public class MainUI extends javax.swing.JFrame
         final CategoryAxis domainAxis = new CategoryAxis();
         final ValueAxis rangeAxis = new NumberAxis();
         rangeAxis.setRange(0, 5);
+        rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         final CategoryPlot plot = new CategoryPlot(chartData, domainAxis, rangeAxis, renderer);
         chart = new JFreeChart(null, plot);
         chart.removeLegend();
