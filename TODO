@@ -1,5 +1,5 @@
 - Draw outline of heart, maybe by overlaying SVG?
-- Allow update interval to be specified
+- Allow update interval to be specified. Put in pacemaker panel.
 - Centre heart in JPanel
 - Make visualisation more efficient, trim the array sizes
 - Code tidy up/refactor

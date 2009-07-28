@@ -406,7 +406,7 @@ public class MainUI extends javax.swing.JFrame
                 .addContainerGap())
         );
 
-        pnlChartContainer.setBorder(javax.swing.BorderFactory.createTitledBorder("Voltage"));
+        pnlChartContainer.setBorder(javax.swing.BorderFactory.createTitledBorder("Voltage/Recovery"));
 
         javax.swing.GroupLayout pnlChartLayout = new javax.swing.GroupLayout(pnlChart);
         pnlChart.setLayout(pnlChartLayout);
