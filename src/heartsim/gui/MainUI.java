@@ -181,6 +181,8 @@ public class MainUI extends javax.swing.JFrame
         pnlChartContainer = new javax.swing.JPanel();
         pnlChart = createChart();
         pnlChart.setPreferredSize(new Dimension(250,150));
+        chkBxVoltage = new javax.swing.JCheckBox();
+        chkBoxRecovery = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Nishiyama");
@@ -360,7 +362,7 @@ public class MainUI extends javax.swing.JFrame
                 .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDelta2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDelta2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnStart)
                     .addComponent(btnStop)
@@ -385,7 +387,7 @@ public class MainUI extends javax.swing.JFrame
         );
         pnlDisplayLayout.setVerticalGroup(
             pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 447, Short.MAX_VALUE)
+            .addGap(0, 452, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout pnlDisplayContainerLayout = new javax.swing.GroupLayout(pnlDisplayContainer);
@@ -414,27 +416,49 @@ public class MainUI extends javax.swing.JFrame
         );
         pnlChartLayout.setVerticalGroup(
             pnlChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 99, Short.MAX_VALUE)
+            .addGap(0, 101, Short.MAX_VALUE)
         );
+
+        chkBxVoltage.setSelected(true);
+        chkBxVoltage.setText("Voltage");
+        chkBxVoltage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkBxVoltageActionPerformed(evt);
+            }
+        });
+
+        chkBoxRecovery.setSelected(true);
+        chkBoxRecovery.setText("Recovery");
+        chkBoxRecovery.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkBoxRecoveryActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlChartContainerLayout = new javax.swing.GroupLayout(pnlChartContainer);
         pnlChartContainer.setLayout(pnlChartContainerLayout);
         pnlChartContainerLayout.setHorizontalGroup(
             pnlChartContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 255, Short.MAX_VALUE)
-            .addGroup(pnlChartContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlChartContainerLayout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+            .addGroup(pnlChartContainerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(chkBxVoltage)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkBoxRecovery)
+                .addContainerGap(82, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlChartContainerLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         pnlChartContainerLayout.setVerticalGroup(
             pnlChartContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 113, Short.MAX_VALUE)
-            .addGroup(pnlChartContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnlChartContainerLayout.createSequentialGroup()
-                    .addComponent(pnlChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlChartContainerLayout.createSequentialGroup()
+                .addComponent(pnlChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlChartContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chkBxVoltage)
+                    .addComponent(chkBoxRecovery))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -445,9 +469,9 @@ public class MainUI extends javax.swing.JFrame
                 .addComponent(pnlDisplayContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(pnlChartContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlParameters, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlDataSource, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlChartContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(pnlDataSource, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -542,6 +566,16 @@ public class MainUI extends javax.swing.JFrame
         btnStep.requestFocus();
     }//GEN-LAST:event_btnStepActionPerformed
 
+    private void chkBxVoltageActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chkBxVoltageActionPerformed
+    {//GEN-HEADEREND:event_chkBxVoltageActionPerformed
+        // TODO add code to toggle voltage visibility on chart
+    }//GEN-LAST:event_chkBxVoltageActionPerformed
+
+    private void chkBoxRecoveryActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chkBoxRecoveryActionPerformed
+    {//GEN-HEADEREND:event_chkBoxRecoveryActionPerformed
+        // TODO add code to toggle recovery visibility on chart
+    }//GEN-LAST:event_chkBoxRecoveryActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -563,6 +597,8 @@ public class MainUI extends javax.swing.JFrame
     private javax.swing.JButton btnStep;
     private javax.swing.JButton btnStop;
     private javax.swing.JComboBox cboCellSize;
+    private javax.swing.JCheckBox chkBoxRecovery;
+    private javax.swing.JCheckBox chkBxVoltage;
     private javax.swing.JLabel lblDelta1;
     private javax.swing.JLabel lblDelta2;
     private javax.swing.JLabel lblN;

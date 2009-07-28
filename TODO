@@ -7,3 +7,4 @@
 - Support different cellular automata models
 - Fix crash when heart is larger than the visible area of display panel
 - Fix problem when mouse is clicked more than once on simulation
+- Implement chart checkboxes
