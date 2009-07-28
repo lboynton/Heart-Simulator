@@ -12,18 +12,19 @@ package heartsim.gui;
 
 import heartsim.DataLoader;
 import heartsim.ca.Nishiyama;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
-import javax.swing.border.LineBorder;
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.CategoryItemRenderer;
+import org.jfree.chart.renderer.category.CategoryStepRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
@@ -67,10 +68,15 @@ public class MainUI extends javax.swing.JFrame
     {
         chartData = new DefaultCategoryDataset();
 
-        chart = ChartFactory.createLineChart(null, null, null, chartData, PlotOrientation.VERTICAL, false, true, true);
-        ((CategoryPlot)chart.getPlot()).getRangeAxis().setRange(0, 5);
+        final CategoryItemRenderer renderer = new CategoryStepRenderer(true);
+        final CategoryAxis domainAxis = new CategoryAxis();
+        final ValueAxis rangeAxis = new NumberAxis();
+        rangeAxis.setRange(0, 5);
+        final CategoryPlot plot = new CategoryPlot(chartData, domainAxis, rangeAxis, renderer);
+        chart = new JFreeChart(null, plot);
+        chart.removeLegend();
         chart.setBackgroundPaint(null);
-        
+
         ChartPanel panel = new ChartPanel(chart);
 
         return panel;
@@ -426,7 +432,10 @@ public class MainUI extends javax.swing.JFrame
                         }
                     }
 
-                    if(chartData.getColumnCount() > 6) chartData.removeColumn(0);
+                    if (chartData.getColumnCount() > 6)
+                    {
+                        chartData.removeColumn(0);
+                    }
 
                     chartData.addValue(u[stimX][stimY], "Voltage", String.valueOf(t));
                     nishiyama.step();
@@ -480,7 +489,7 @@ public class MainUI extends javax.swing.JFrame
         JFileChooser chooser = new JFileChooser();
         int result = chooser.showOpenDialog(this);
 
-        if(result == JFileChooser.APPROVE_OPTION)
+        if (result == JFileChooser.APPROVE_OPTION)
         {
             setSvgFile(chooser.getSelectedFile());
         }
