@@ -29,10 +29,10 @@
           <Group type="102" alignment="1" attributes="0">
               <Component id="pnlDisplayContainer" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="pnlChartContainer" max="32767" attributes="1"/>
-                  <Component id="pnlParameters" max="32767" attributes="1"/>
-                  <Component id="pnlDataSource" alignment="1" min="-2" max="-2" attributes="1"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="pnlParameters" alignment="1" max="32767" attributes="1"/>
+                  <Component id="pnlChartContainer" alignment="1" min="0" max="32767" attributes="1"/>
+                  <Component id="pnlDataSource" alignment="1" max="32767" attributes="1"/>
               </Group>
           </Group>
       </Group>
@@ -42,9 +42,10 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="pnlDataSource" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="pnlChartContainer" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="pnlChartContainer" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="pnlParameters" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
           <Component id="pnlDisplayContainer" alignment="0" max="32767" attributes="0"/>
       </Group>
@@ -71,8 +72,8 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtFile" pref="115" max="32767" attributes="0"/>
-                      <Component id="cboCellSize" alignment="0" pref="115" max="32767" attributes="0"/>
+                      <Component id="txtFile" pref="103" max="32767" attributes="0"/>
+                      <Component id="cboCellSize" alignment="0" pref="103" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -165,7 +166,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="btnStart" pref="141" max="32767" attributes="0"/>
+                          <Component id="btnStart" pref="129" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnStop" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -174,7 +175,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblTime" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                          <Component id="txtTime" pref="179" max="32767" attributes="0"/>
+                          <Component id="txtTime" pref="167" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -184,9 +185,9 @@
                           </Group>
                           <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="txtN" alignment="0" pref="179" max="32767" attributes="0"/>
-                              <Component id="txtDelta1" alignment="0" pref="179" max="32767" attributes="0"/>
-                              <Component id="txtDelta2" alignment="0" pref="179" max="32767" attributes="0"/>
+                              <Component id="txtN" alignment="0" pref="167" max="32767" attributes="0"/>
+                              <Component id="txtDelta1" alignment="0" pref="167" max="32767" attributes="0"/>
+                              <Component id="txtDelta2" alignment="0" pref="167" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -372,7 +373,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="307" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="354" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -396,7 +397,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="267" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="255" max="32767" attributes="0"/>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
@@ -428,7 +429,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="243" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="231" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
