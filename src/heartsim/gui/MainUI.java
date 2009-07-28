@@ -36,6 +36,7 @@ public class MainUI extends javax.swing.JFrame
     private Nishiyama nishiyama = new Nishiyama();
     private SwingWorker worker;
     private int time;
+    private int currentTime = 0;
     private File svgFile;
     private JFreeChart chart;
     private DefaultCategoryDataset chartData;
@@ -83,6 +84,69 @@ public class MainUI extends javax.swing.JFrame
         return panel;
     }
 
+    private void resetSimulation()
+    {
+        currentTime = 0;
+        nishiyama.setDelta1(Integer.parseInt(txtDelta1.getText()));
+        nishiyama.setDelta2(Integer.parseInt(txtDelta2.getText()));
+        nishiyama.setN(Integer.parseInt(txtN.getText()));
+        nishiyama.initCells();
+        nishiyama.stimulate(stimX, stimY);
+        pnlDisplay.repaint();
+        btnStart.setEnabled(true);
+        btnStep.setEnabled(true);
+        btnReset.setEnabled(false);
+        btnStop.setEnabled(false);
+    }
+
+    private void runSimulation(int time)
+    {
+        btnStart.setEnabled(false);
+        btnReset.setEnabled(false);
+        btnStep.setEnabled(false);
+        btnStop.setEnabled(true);
+
+        byte[] data = pnlDisplay.getBuffer();
+
+        int[][] u = nishiyama.getU();
+
+        for (int t = 0; t < time; t++)
+        {
+            int k = 0;
+
+            for (int i = 0; i < u.length; i++)
+            {
+                for (int j = 0; j < u[0].length; j++)
+                {
+                    byte val = (byte) u[i][j];
+                    if (val == 0)
+                    {
+                        data[k] = -10;
+                    }
+                    else
+                    {
+                        data[k] = (byte) u[i][j];
+                    }
+                    k++;
+                }
+            }
+
+            if (chartData.getColumnCount() > 6)
+            {
+                chartData.removeColumn(0);
+            }
+
+            chartData.addValue(u[stimX][stimY], "Voltage", String.valueOf(currentTime++));
+            nishiyama.step();
+            pnlDisplay.repaint();
+        }
+
+        btnStart.setEnabled(true);
+        btnReset.setEnabled(true);
+        btnStep.setEnabled(true);
+        btnStop.setEnabled(false);
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -111,6 +175,7 @@ public class MainUI extends javax.swing.JFrame
         txtN = new javax.swing.JTextField();
         lblTime = new javax.swing.JLabel();
         txtTime = new javax.swing.JTextField();
+        btnStep = new javax.swing.JButton();
         pnlDisplayContainer = new javax.swing.JPanel();
         pnlDisplay = new heartsim.gui.BinaryPlotPanel();
         pnlChartContainer = new javax.swing.JPanel();
@@ -239,6 +304,16 @@ public class MainUI extends javax.swing.JFrame
         txtTime.setText("400");
         txtTime.setPreferredSize(new java.awt.Dimension(50, 25));
 
+        btnStep.setText("Step");
+        btnStep.setFocusable(false);
+        btnStep.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnStep.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnStep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStepActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlParametersLayout = new javax.swing.GroupLayout(pnlParameters);
         pnlParameters.setLayout(pnlParametersLayout);
         pnlParametersLayout.setHorizontalGroup(
@@ -246,8 +321,10 @@ public class MainUI extends javax.swing.JFrame
             .addGroup(pnlParametersLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlParametersLayout.createSequentialGroup()
-                        .addComponent(btnStart, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlParametersLayout.createSequentialGroup()
+                        .addComponent(btnStart, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnStep)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnStop)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -286,11 +363,12 @@ public class MainUI extends javax.swing.JFrame
                 .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDelta2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDelta2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnStart)
                     .addComponent(btnStop)
-                    .addComponent(btnReset))
+                    .addComponent(btnReset)
+                    .addComponent(btnStep))
                 .addContainerGap())
         );
 
@@ -306,11 +384,11 @@ public class MainUI extends javax.swing.JFrame
         pnlDisplay.setLayout(pnlDisplayLayout);
         pnlDisplayLayout.setHorizontalGroup(
             pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 354, Short.MAX_VALUE)
+            .addGap(0, 339, Short.MAX_VALUE)
         );
         pnlDisplayLayout.setVerticalGroup(
             pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 447, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout pnlDisplayContainerLayout = new javax.swing.GroupLayout(pnlDisplayContainer);
@@ -355,7 +433,7 @@ public class MainUI extends javax.swing.JFrame
         );
         pnlChartContainerLayout.setVerticalGroup(
             pnlChartContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 109, Short.MAX_VALUE)
+            .addGap(0, 111, Short.MAX_VALUE)
             .addGroup(pnlChartContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlChartContainerLayout.createSequentialGroup()
                     .addComponent(pnlChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -371,18 +449,18 @@ public class MainUI extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(pnlParameters, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlChartContainer, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlDataSource, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(pnlDataSource, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlChartContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlDataSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlChartContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlParameters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap())
             .addComponent(pnlDisplayContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -391,57 +469,14 @@ public class MainUI extends javax.swing.JFrame
 
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStartActionPerformed
     {//GEN-HEADEREND:event_btnStartActionPerformed
-        nishiyama.setDelta1(Integer.parseInt(txtDelta1.getText()));
-        nishiyama.setDelta2(Integer.parseInt(txtDelta2.getText()));
-        nishiyama.setN(Integer.parseInt(txtN.getText()));
-        nishiyama.initCells();
-        nishiyama.stimulate(stimX, stimY);
-        pnlDisplay.repaint();
+        resetSimulation();
 
         worker = new SwingWorker<Object, Void>()
         {
             @Override
             public Object doInBackground() throws Exception
             {
-                btnStart.setEnabled(false);
-                btnReset.setEnabled(false);
-                btnStop.setEnabled(true);
-
-                byte[] data = pnlDisplay.getBuffer();
-
-                int[][] u = nishiyama.getU();
-                time = Integer.parseInt(txtTime.getText());
-
-                for (int t = 0; t < time; t++)
-                {
-                    int k = 0;
-
-                    for (int i = 0; i < u.length; i++)
-                    {
-                        for (int j = 0; j < u[0].length; j++)
-                        {
-                            byte val = (byte) u[i][j];
-                            if (val == 0)
-                            {
-                                data[k] = -10;
-                            }
-                            else
-                            {
-                                data[k] = (byte) u[i][j];
-                            }
-                            k++;
-                        }
-                    }
-
-                    if (chartData.getColumnCount() > 6)
-                    {
-                        chartData.removeColumn(0);
-                    }
-
-                    chartData.addValue(u[stimX][stimY], "Voltage", String.valueOf(t));
-                    nishiyama.step();
-                    pnlDisplay.repaint();
-                }
+                runSimulation(Integer.parseInt(txtTime.getText()));
 
                 return new Object();
             }
@@ -450,6 +485,7 @@ public class MainUI extends javax.swing.JFrame
             protected void done()
             {
                 super.done();
+                btnStep.setEnabled(true);
                 btnStart.setEnabled(true);
                 btnStop.setEnabled(false);
                 btnReset.setEnabled(true);
@@ -503,6 +539,11 @@ public class MainUI extends javax.swing.JFrame
         this.btnStartActionPerformed(null);
     }//GEN-LAST:event_pnlDisplayMouseClicked
 
+    private void btnStepActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStepActionPerformed
+    {//GEN-HEADEREND:event_btnStepActionPerformed
+        runSimulation(1);
+    }//GEN-LAST:event_btnStepActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -521,6 +562,7 @@ public class MainUI extends javax.swing.JFrame
     private javax.swing.JButton btnLoad;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnStart;
+    private javax.swing.JButton btnStep;
     private javax.swing.JButton btnStop;
     private javax.swing.JComboBox cboCellSize;
     private javax.swing.JLabel lblDelta1;
