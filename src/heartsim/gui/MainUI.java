@@ -54,17 +54,26 @@ public class MainUI extends javax.swing.JFrame
         {
             System.err.println("Unable to use system look and feel");
         }
+
         initComponents();
+
         // content pane of JFrame isn't always same colour as panels
         this.getContentPane().setBackground(pnlDisplay.getBackground());
+
+        // center frame on window
         this.setLocationRelativeTo(null);
+
+        // initially load an SVG file
         setSvgFile(new File("geometry_data/heart.svg"));
     }
 
     private void setSvgFile(File svgFile)
     {
-        this.svgFile = svgFile;
-        txtFile.setText(svgFile.getName());
+        if(svgFile.exists())
+        {
+            this.svgFile = svgFile;
+            txtFile.setText(svgFile.getName());
+        }
     }
 
     private ChartPanel createChart()
@@ -94,7 +103,7 @@ public class MainUI extends javax.swing.JFrame
         nishiyama.setN(Integer.parseInt(txtN.getText()));
         nishiyama.initCells();
         nishiyama.stimulate(stimX, stimY);
-        pnlDisplay.repaint();
+        pnlDisplay.reset();
         btnStart.setEnabled(true);
         btnStep.setEnabled(true);
         btnReset.setEnabled(false);
@@ -515,7 +524,7 @@ public class MainUI extends javax.swing.JFrame
                 time = Integer.parseInt(txtTime.getText());
                 runSimulation();
 
-                return new Object();
+                return null;
             }
 
             @Override
@@ -526,6 +535,7 @@ public class MainUI extends javax.swing.JFrame
                 btnStart.setEnabled(true);
                 btnStop.setEnabled(false);
                 btnReset.setEnabled(true);
+                lblStatus.setText("Simulation finished");
             }
         };
 
@@ -535,13 +545,12 @@ public class MainUI extends javax.swing.JFrame
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnResetActionPerformed
     {//GEN-HEADEREND:event_btnResetActionPerformed
-        nishiyama.initCells();
-        pnlDisplay.reset();
+        resetSimulation();
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStopActionPerformed
     {//GEN-HEADEREND:event_btnStopActionPerformed
-        System.out.println("Stopped");
+        lblStatus.setText("Simulation finished");
         time = 0;
     }//GEN-LAST:event_btnStopActionPerformed
 
@@ -589,6 +598,8 @@ public class MainUI extends javax.swing.JFrame
 
     private void btnStepActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStepActionPerformed
     {//GEN-HEADEREND:event_btnStepActionPerformed
+        if(currentTime == 0) resetSimulation();
+        lblStatus.setText("Stepped simulation at X: " + stimX + " Y: " + stimY);
         time = 1;
         runSimulation();
         btnStep.requestFocus();
