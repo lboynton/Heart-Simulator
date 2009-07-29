@@ -12,6 +12,7 @@ package heartsim.gui;
 
 import heartsim.DataLoader;
 import heartsim.ca.Nishiyama;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
 import javax.swing.JFileChooser;
@@ -55,6 +56,8 @@ public class MainUI extends javax.swing.JFrame
             System.err.println("Unable to use system look and feel");
         }
         initComponents();
+        // content pane of JFrame isn't always same colour as panels
+        this.getContentPane().setBackground(pnlDisplay.getBackground());
         this.setLocationRelativeTo(null);
         setSvgFile(new File("geometry_data/heart.svg"));
     }
