@@ -6,5 +6,4 @@
 - GUI tidy up
 - Support different cellular automata models
 - Fix crash when heart is larger than the visible area of display panel
-- Implement chart checkboxes
 - Don't reset simulation each time start is pressed, treat it as being paused

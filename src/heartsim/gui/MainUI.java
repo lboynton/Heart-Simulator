@@ -12,7 +12,6 @@ package heartsim.gui;
 
 import heartsim.DataLoader;
 import heartsim.ca.Nishiyama;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
 import javax.swing.JFileChooser;
@@ -24,7 +23,6 @@ import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.renderer.category.CategoryStepRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -43,6 +41,7 @@ public class MainUI extends javax.swing.JFrame
     private DefaultCategoryDataset chartData;
     private int stimX;
     private int stimY;
+    private CategoryStepRenderer renderer;
 
     /** Creates new form MainUI */
     public MainUI()
@@ -72,7 +71,7 @@ public class MainUI extends javax.swing.JFrame
     {
         chartData = new DefaultCategoryDataset();
 
-        final CategoryItemRenderer renderer = new CategoryStepRenderer(true);
+        renderer = new CategoryStepRenderer(true);
         final CategoryAxis domainAxis = new CategoryAxis();
         final ValueAxis rangeAxis = new NumberAxis();
         rangeAxis.setRange(0, 5);
@@ -186,7 +185,7 @@ public class MainUI extends javax.swing.JFrame
         pnlChartContainer = new javax.swing.JPanel();
         pnlChart = createChart();
         pnlChart.setPreferredSize(new Dimension(250,150));
-        chkBxVoltage = new javax.swing.JCheckBox();
+        chkBoxVoltage = new javax.swing.JCheckBox();
         chkBoxRecovery = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -392,7 +391,7 @@ public class MainUI extends javax.swing.JFrame
         );
         pnlDisplayLayout.setVerticalGroup(
             pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 448, Short.MAX_VALUE)
+            .addGap(0, 449, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout pnlDisplayContainerLayout = new javax.swing.GroupLayout(pnlDisplayContainer);
@@ -424,12 +423,12 @@ public class MainUI extends javax.swing.JFrame
             .addGap(0, 101, Short.MAX_VALUE)
         );
 
-        chkBxVoltage.setForeground(java.awt.Color.red);
-        chkBxVoltage.setSelected(true);
-        chkBxVoltage.setText("Voltage");
-        chkBxVoltage.addActionListener(new java.awt.event.ActionListener() {
+        chkBoxVoltage.setForeground(java.awt.Color.red);
+        chkBoxVoltage.setSelected(true);
+        chkBoxVoltage.setText("Voltage");
+        chkBoxVoltage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkBxVoltageActionPerformed(evt);
+                chkBoxVoltageActionPerformed(evt);
             }
         });
 
@@ -448,7 +447,7 @@ public class MainUI extends javax.swing.JFrame
             pnlChartContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlChartContainerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(chkBxVoltage)
+                .addComponent(chkBoxVoltage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkBoxRecovery)
                 .addContainerGap(84, Short.MAX_VALUE))
@@ -463,7 +462,7 @@ public class MainUI extends javax.swing.JFrame
                 .addComponent(pnlChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlChartContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chkBxVoltage)
+                    .addComponent(chkBoxVoltage)
                     .addComponent(chkBoxRecovery))
                 .addContainerGap())
         );
@@ -586,14 +585,14 @@ public class MainUI extends javax.swing.JFrame
         btnStep.requestFocus();
     }//GEN-LAST:event_btnStepActionPerformed
 
-    private void chkBxVoltageActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chkBxVoltageActionPerformed
-    {//GEN-HEADEREND:event_chkBxVoltageActionPerformed
-        // TODO add code to toggle voltage visibility on chart
-    }//GEN-LAST:event_chkBxVoltageActionPerformed
+    private void chkBoxVoltageActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chkBoxVoltageActionPerformed
+    {//GEN-HEADEREND:event_chkBoxVoltageActionPerformed
+        renderer.setSeriesVisible(0, chkBoxVoltage.isSelected());
+    }//GEN-LAST:event_chkBoxVoltageActionPerformed
 
     private void chkBoxRecoveryActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chkBoxRecoveryActionPerformed
     {//GEN-HEADEREND:event_chkBoxRecoveryActionPerformed
-        // TODO add code to toggle recovery visibility on chart
+        renderer.setSeriesVisible(1, chkBoxRecovery.isSelected());
     }//GEN-LAST:event_chkBoxRecoveryActionPerformed
 
     /**
@@ -618,7 +617,7 @@ public class MainUI extends javax.swing.JFrame
     private javax.swing.JButton btnStop;
     private javax.swing.JComboBox cboCellSize;
     private javax.swing.JCheckBox chkBoxRecovery;
-    private javax.swing.JCheckBox chkBxVoltage;
+    private javax.swing.JCheckBox chkBoxVoltage;
     private javax.swing.JLabel lblDelta1;
     private javax.swing.JLabel lblDelta2;
     private javax.swing.JLabel lblN;

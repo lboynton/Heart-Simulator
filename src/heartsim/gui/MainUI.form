@@ -410,7 +410,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="chkBxVoltage" min="-2" max="-2" attributes="0"/>
+                  <Component id="chkBoxVoltage" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="chkBoxRecovery" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="84" max="32767" attributes="0"/>
@@ -428,7 +428,7 @@
                   <Component id="pnlChart" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="chkBxVoltage" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="chkBoxVoltage" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="chkBoxRecovery" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -456,7 +456,7 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Component class="javax.swing.JCheckBox" name="chkBxVoltage">
+        <Component class="javax.swing.JCheckBox" name="chkBoxVoltage">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" id="red" palette="1" red="ff" type="palette"/>
@@ -465,7 +465,7 @@
             <Property name="text" type="java.lang.String" value="Voltage"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkBxVoltageActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkBoxVoltageActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JCheckBox" name="chkBoxRecovery">
