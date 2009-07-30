@@ -50,7 +50,7 @@ public abstract class CAModel
 
     /**
      * Gets a list of the parameters this cellular automata model takes
-     * @return
+     * @return List of parameter names
      */
     public abstract String[] getParameterList();
 }
