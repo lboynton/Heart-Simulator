@@ -4,6 +4,7 @@
  */
 package heartsim.ca;
 
+import heartsim.util.StringUtils;
 import java.awt.Dimension;
 import java.util.Random;
 
@@ -11,7 +12,7 @@ import java.util.Random;
  *
  * @author Lee Boynton
  */
-public class Nishiyama
+public class Nishiyama extends CAModel
 {
     private int height = 200; // height of the grid
     private int width = 200; // width of the grid
@@ -24,6 +25,8 @@ public class Nishiyama
     private int delta[][] = new int[height][width]; // delta values for each cell
     private int tempu[][] = new int[height][width]; // temporary storage of cell values
     private boolean cells[][] = new boolean[height][width]; // true/false if there is a cell
+    private String name = "Nishiyama";
+    private String[] params = {"N", "Delta 1", "Delta 2"};
 
     public int[][] getU()
     {
@@ -135,7 +138,7 @@ public class Nishiyama
 
         for (int i = 0; i < names.length; i++)
         {
-            names[i] = padRight(names[i], width);
+            names[i] = StringUtils.padRight(names[i], width);
         }
 
         for (int row = -1; row < height; row++)
@@ -235,8 +238,15 @@ public class Nishiyama
         test.printArrays();
     }
 
-    public static String padRight(String s, int n)
+    @Override
+    public String getName()
     {
-        return String.format("%1$-" + n + "s", s);
+        return name;
+    }
+
+    @Override
+    public String[] getParameterList()
+    {
+        return params;
     }
 }
