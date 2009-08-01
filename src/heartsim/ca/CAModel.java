@@ -113,4 +113,10 @@ public abstract class CAModel
     {
         return v[x][y];
     }
+
+    @Override
+    public String toString()
+    {
+        return name;
+    }
 }
