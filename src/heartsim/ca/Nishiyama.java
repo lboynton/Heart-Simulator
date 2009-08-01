@@ -4,64 +4,50 @@
  */
 package heartsim.ca;
 
+import heartsim.util.ArrayUtils;
 import heartsim.util.StringUtils;
 import java.awt.Dimension;
 import java.util.Random;
 
 /**
- *
+ * Nishiyama cellular automata model
  * @author Lee Boynton
  */
 public class Nishiyama extends CAModel
 {
-    private int height = 200; // height of the grid
-    private int width = 200; // width of the grid
-    private int N = 5; //
-    private int delta1 = 3; // first delta value
-    private int delta2 = 7; // second delta value
-    private static final int time = 50; // duration to run simulation
-    private int u[][] = new int[height][width]; // voltage values for each cell
-    private int v[][] = new int[height][width]; // recovery values for each cell
     private int delta[][] = new int[height][width]; // delta values for each cell
     private int tempu[][] = new int[height][width]; // temporary storage of cell values
-    private boolean cells[][] = new boolean[height][width]; // true/false if there is a cell
-    private String name = "Nishiyama";
-    private String[] params = {"N", "Delta 1", "Delta 2"};
+    private Random generator = new Random();
 
-    public int[][] getU()
+    public Nishiyama()
     {
-        return u;
-    }
+        // set name of CA model
+        super("Nishiyama");
 
-    public int getV(int x, int y)
-    {
-        return v[x][y];
+        // create parameters
+        CAModelParameter<Integer> NParam = new CAModelParameter<Integer>(5);
+        CAModelParameter<Integer> delta1Param = new CAModelParameter<Integer>(3);
+        CAModelParameter<Integer> delta2Param = new CAModelParameter<Integer>(7);
+
+        // add parameters
+        this.setParameter("N", NParam);
+        this.setParameter("Delta 1", delta1Param);
+        this.setParameter("Delta 2", delta2Param);
     }
 
     public void setN(int N)
     {
-        this.N = N;
+        this.setParameter("N", new CAModelParameter<Integer>(N));
     }
 
     public void setDelta1(int delta1)
     {
-        this.delta1 = delta1;
+        this.setParameter("Delta 1", new CAModelParameter<Integer>(delta1));
     }
 
     public void setDelta2(int delta2)
     {
-        this.delta2 = delta2;
-    }
-
-    public void setSize(Dimension d)
-    {
-        height = d.height;
-        width = d.width;
-    }
-
-    public void setCells(boolean[][] cells)
-    {
-        this.cells = cells;
+        this.setParameter("Delta 2", new CAModelParameter<Integer>(delta2));
     }
 
     public void stimulate(int x, int y)
@@ -71,7 +57,8 @@ public class Nishiyama extends CAModel
 
     public void initCells()
     {
-        Random generator = new Random();
+        int delta1 = (Integer) this.getParameter("Delta 1").getValue();
+        int delta2 = (Integer) this.getParameter("Delta 2").getValue();
 
         u = new int[height][width]; // voltage values for each cell
         v = new int[height][width]; // recovery values for each cell
@@ -101,23 +88,24 @@ public class Nishiyama extends CAModel
                 }
             }
         }
-
-        // initially stimulate bottom of heart
-        //u[348][148] = 1;
-        //u[174][74] = 1;
-        //u[87][37] = 1;
     }
 
     public void printCells()
     {
         System.out.println("Cells:");
-        
-        for(int row = 0; row < cells.length; row++)
+
+        for (int row = 0; row < cells.length; row++)
         {
-            for(int col = 0; col < cells[0].length; col++)
+            for (int col = 0; col < cells[0].length; col++)
             {
-                if(cells[row][col]) System.out.print("*");
-                else System.out.print(" ");
+                if (cells[row][col])
+                {
+                    System.out.print("*");
+                }
+                else
+                {
+                    System.out.print(" ");
+                }
             }
 
             System.out.println();
@@ -163,28 +151,22 @@ public class Nishiyama extends CAModel
         }
     }
 
-    private void copyIntoTemp()
-    {
-        for (int row = 0; row < height; row++)
-        {
-            for (int col = 0; col < width; col++)
-            {
-                tempu[row][col] = u[row][col];
-            }
-        }
-    }
-
     public void step()
     {
-        // create copy of voltage values
-        copyIntoTemp();
+        // copy voltage values into temporary array
+        ArrayUtils.copy2DArray(u, tempu);
+
+        int N = (Integer) this.getParameter("N").getValue();
 
         for (int row = 1; row < cells.length - 1; row++)
         {
-            for (int col = 1; col < cells[0].length - 1; col++)
+            for (int col = 1; col < cells[row].length - 1; col++)
             {
-                if(!cells[row][col]) continue;
-                
+                if (!cells[row][col])
+                {
+                    continue;
+                }
+
                 if (u[row][col] == 0)
                 {
                     if (v[row][col] == 0)
@@ -226,27 +208,27 @@ public class Nishiyama extends CAModel
     public static void main(String[] args)
     {
         Nishiyama test = new Nishiyama();
+        boolean[][] cells = new boolean[10][10];
+        for (int i = 0; i < cells.length; i++)
+        {
+            for (int j = 0; j < cells[i].length; j++)
+            {
+                cells[i][j] = true;
+            }
+        }
+        test.setCells(cells);
+        test.setSize(new Dimension(10, 10));
         test.initCells();
+        test.stimulate(1, 1);
         test.printCells();
+        int time = 20;
 
         for (int t = 0; t < time; t++)
         {
-            //test.printArrays();
+            test.printArrays();
             test.step();
         }
 
         test.printArrays();
-    }
-
-    @Override
-    public String getName()
-    {
-        return name;
-    }
-
-    @Override
-    public String[] getParameterList()
-    {
-        return params;
     }
 }
