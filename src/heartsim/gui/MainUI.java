@@ -27,6 +27,8 @@ import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import heartsim.gui.layout.SpringUtilities;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JTextField;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -230,13 +232,14 @@ public class MainUI extends javax.swing.JFrame
             JLabel lbl = new JLabel(p.getName());
             final JTextField txt = new JTextField();
             txt.setText(p.getValue().toString());
-            txt.addActionListener(new ActionListener()
+            txt.addKeyListener(new KeyAdapter()
             {
-                public void actionPerformed(ActionEvent e)
+                @Override
+                public void keyReleased(KeyEvent evt)
                 {
-                    if(!p.setValue(txt.getText()))
+                    if (!p.setValue(txt.getText()))
                     {
-                        output("Invalid format");
+                        output("Invalid parameter: " + txt.getText());
                     }
                     CAModel.setParameter(p.getName(), p);
                 }
