@@ -92,7 +92,7 @@ public abstract class CAModel
 
     /**
      * Sets the size of the grid
-     * @param dimension
+     * @param d
      */
     public void setSize(Dimension d)
     {
