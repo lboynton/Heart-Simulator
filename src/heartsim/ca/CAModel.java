@@ -58,6 +58,11 @@ public abstract class CAModel
         return parameters.get(name);
     }
 
+    public boolean isCell(int x, int y)
+    {
+        return cells[x][y];
+    }
+
     /**
      * Steps the simulation
      */

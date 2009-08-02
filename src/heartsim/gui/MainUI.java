@@ -175,11 +175,12 @@ public class MainUI extends javax.swing.JFrame
                 chartData.removeColumn(0);
             }
 
+            currentTime++;
             chartData.addValue(u[stimX][stimY], "Voltage", String.valueOf(currentTime));
             chartData.addValue(CAModel.getV(stimX, stimY), "Recovery", String.valueOf(currentTime));
             CAModel.step();
             pnlDisplay.repaint();
-            currentTime++;
+            
         }
 
         btnStart.setEnabled(true);
@@ -438,11 +439,11 @@ public class MainUI extends javax.swing.JFrame
         pnlDisplay.setLayout(pnlDisplayLayout);
         pnlDisplayLayout.setHorizontalGroup(
             pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 469, Short.MAX_VALUE)
+            .addGap(0, 381, Short.MAX_VALUE)
         );
         pnlDisplayLayout.setVerticalGroup(
             pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 506, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout pnlDisplayContainerLayout = new javax.swing.GroupLayout(pnlDisplayContainer);
@@ -471,7 +472,7 @@ public class MainUI extends javax.swing.JFrame
         );
         pnlChartLayout.setVerticalGroup(
             pnlChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 91, Short.MAX_VALUE)
+            .addGap(0, 85, Short.MAX_VALUE)
         );
 
         chkBoxVoltage.setForeground(java.awt.Color.red);
@@ -580,14 +581,14 @@ public class MainUI extends javax.swing.JFrame
                         .addComponent(pnlChartContainer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(pnlDataSource, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(0, 0, 0))
-            .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)
+            .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlDataSource, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pnlDataSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlChartContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -610,6 +611,15 @@ public class MainUI extends javax.swing.JFrame
     {//GEN-HEADEREND:event_btnStartActionPerformed
         resetSimulation();
         lblStatus.setText("Started simulation at X: " + stimX + " Y: " + stimY);
+        
+        if(CAModel.isCell(stimX, stimY))
+        {
+            output("No cell at X: " + stimX + " Y: " + stimY);
+        }
+        else
+        {
+            output("Started simulation at X: " + stimX + " Y: " + stimY);
+        }
 
         worker = new SwingWorker<Object, Void>()
         {
