@@ -14,6 +14,7 @@ import heartsim.DataLoader;
 import heartsim.ca.CAModel;
 import heartsim.ca.parameter.CAModelParameter;
 import heartsim.ca.Nishiyama;
+import heartsim.ca.Tyson;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -92,6 +93,7 @@ public class MainUI extends javax.swing.JFrame
 
         // add CA models to combo box model
         CAModels.addElement(new Nishiyama());
+        CAModels.addElement(new Tyson());
 
         return CAModels;
     }
