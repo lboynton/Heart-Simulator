@@ -36,6 +36,7 @@ public class DataLoader
     public void setSize(double size)
     {
         this.size = size;
+        cells = null;
     }
 
     private void createGrid()
@@ -93,7 +94,7 @@ public class DataLoader
 
     public boolean[][] getGrid()
     {
-        createGrid();
+        if(cells == null) createGrid();
         return cells;
     }
 
