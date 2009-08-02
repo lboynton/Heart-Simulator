@@ -218,6 +218,10 @@ public class MainUI extends javax.swing.JFrame
         pnlParameters.add(lblModel);
         pnlParameters.add(cboBoxModel);
 
+        // add time
+        pnlParameters.add(lblTime);
+        pnlParameters.add(txtTime);
+
         // loop through the parameters in the CA model and put them on the GUI
         for (CAModelParameter p : model.getParameters().values())
         {
@@ -225,6 +229,7 @@ public class MainUI extends javax.swing.JFrame
 
             JLabel lbl = new JLabel(p.getName());
             JTextField txt = new JTextField();
+            txt.setText(p.getValue().toString());
 
             pnlParameters.add(lbl);
             pnlParameters.add(txt);
@@ -232,7 +237,7 @@ public class MainUI extends javax.swing.JFrame
 
         // place components in grid
         SpringUtilities.makeCompactGrid(pnlParameters,
-                model.getParameters().size()+1, 2, //rows, cols
+                model.getParameters().size()+2, 2, //rows, cols
                 0, 0, //initX, initY
                 10, 6);       //xPad, yPad
 
@@ -436,10 +441,10 @@ public class MainUI extends javax.swing.JFrame
             .addGroup(pnlControlsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlControlsLayout.createSequentialGroup()
+                    .addGroup(pnlControlsLayout.createSequentialGroup()
                         .addComponent(lblModel)
-                        .addGap(40, 40, 40)
-                        .addComponent(cboBoxModel, 0, 165, Short.MAX_VALUE))
+                        .addGap(28, 28, 28)
+                        .addComponent(cboBoxModel, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(pnlParameters, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
