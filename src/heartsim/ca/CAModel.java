@@ -7,6 +7,7 @@ package heartsim.ca;
 import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Base class for cellular automata models
@@ -21,7 +22,7 @@ public abstract class CAModel
     protected int u[][] = new int[height][width]; // voltage values for each cell
     protected int v[][] = new int[height][width]; // recovery values for each cell
     protected boolean cells[][] = new boolean[height][width]; // true/false if there is a cell
-    protected Map<String, CAModelParameter> parameters = new HashMap<String, CAModelParameter>();
+    protected Map<String, CAModelParameter> parameters = new TreeMap<String, CAModelParameter>();
 
     protected CAModel(String name)
     {
