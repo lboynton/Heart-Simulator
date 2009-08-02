@@ -4,6 +4,7 @@
  */
 package heartsim.ca;
 
+import heartsim.ca.parameter.CAModelIntParameter;
 import heartsim.util.ArrayUtils;
 import heartsim.util.StringUtils;
 import java.awt.Dimension;
@@ -25,29 +26,14 @@ public class Nishiyama extends CAModel
         super("Nishiyama");
 
         // create parameters
-        CAModelParameter<Integer> NParam = new CAModelParameter<Integer>(5);
-        CAModelParameter<Integer> delta1Param = new CAModelParameter<Integer>(3);
-        CAModelParameter<Integer> delta2Param = new CAModelParameter<Integer>(7);
+        CAModelIntParameter NParam = new CAModelIntParameter(5);
+        CAModelIntParameter delta1Param = new CAModelIntParameter(3);
+        CAModelIntParameter delta2Param = new CAModelIntParameter(7);
 
         // add parameters
         this.setParameter("N", NParam);
         this.setParameter("Delta 1", delta1Param);
         this.setParameter("Delta 2", delta2Param);
-    }
-
-    public void setN(int N)
-    {
-        this.setParameter("N", new CAModelParameter<Integer>(N));
-    }
-
-    public void setDelta1(int delta1)
-    {
-        this.setParameter("Delta 1", new CAModelParameter<Integer>(delta1));
-    }
-
-    public void setDelta2(int delta2)
-    {
-        this.setParameter("Delta 2", new CAModelParameter<Integer>(delta2));
     }
 
     public void stimulate(int x, int y)

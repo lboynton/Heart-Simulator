@@ -12,9 +12,10 @@ package heartsim.gui;
 
 import heartsim.DataLoader;
 import heartsim.ca.CAModel;
-import heartsim.ca.CAModelParameter;
+import heartsim.ca.parameter.CAModelParameter;
 import heartsim.ca.Nishiyama;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.io.File;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -24,6 +25,7 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import heartsim.gui.layout.SpringUtilities;
+import java.awt.event.ActionListener;
 import javax.swing.JTextField;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -40,8 +42,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class MainUI extends javax.swing.JFrame
 {
-    private Nishiyama nishiyama = new Nishiyama();
-    private CAModel model; // CA model being used in the simulation
+    private CAModel CAModel; // CA model being used in the simulation
     private SwingWorker worker;
     private int time; // time to run simulation
     private int currentTime = 0; // current time in simulation
@@ -126,11 +127,8 @@ public class MainUI extends javax.swing.JFrame
     private void resetSimulation()
     {
         currentTime = 0;
-        nishiyama.setDelta1(Integer.parseInt(txtDelta1.getText()));
-        nishiyama.setDelta2(Integer.parseInt(txtDelta2.getText()));
-        nishiyama.setN(Integer.parseInt(txtN.getText()));
-        nishiyama.initCells();
-        nishiyama.stimulate(stimX, stimY);
+        CAModel.initCells();
+        CAModel.stimulate(stimX, stimY);
         pnlDisplay.reset();
         btnStart.setEnabled(true);
         btnStep.setEnabled(true);
@@ -147,7 +145,7 @@ public class MainUI extends javax.swing.JFrame
 
         byte[] data = pnlDisplay.getBuffer();
 
-        int[][] u = nishiyama.getU();
+        int[][] u = CAModel.getU();
 
         for (int t = 0; t < this.time; t++)
         {
@@ -176,8 +174,8 @@ public class MainUI extends javax.swing.JFrame
             }
 
             chartData.addValue(u[stimX][stimY], "Voltage", String.valueOf(currentTime));
-            chartData.addValue(nishiyama.getV(stimX, stimY), "Recovery", String.valueOf(currentTime));
-            nishiyama.step();
+            chartData.addValue(CAModel.getV(stimX, stimY), "Recovery", String.valueOf(currentTime));
+            CAModel.step();
             pnlDisplay.repaint();
             currentTime++;
         }
@@ -197,16 +195,16 @@ public class MainUI extends javax.swing.JFrame
         output("Loading model parameters");
 
         // skip loading parameters if model hasn't changed
-        if(model != null && model.equals(cboBoxModel.getSelectedItem()))
+        if (CAModel != null && CAModel.equals(cboBoxModel.getSelectedItem()))
         {
             output("Same model selected, skipping.");
             return;
         }
 
         // get the CA model that was selected
-        model = (CAModel) cboBoxModel.getSelectedItem();
+        CAModel = (CAModel) cboBoxModel.getSelectedItem();
 
-        output("Model selected is " + model.getName());
+        output("Model selected is " + CAModel.getName());
 
         // clear any existing parameters in the GUI
         pnlParameters.removeAll();
@@ -223,13 +221,24 @@ public class MainUI extends javax.swing.JFrame
         pnlParameters.add(txtTime);
 
         // loop through the parameters in the CA model and put them on the GUI
-        for (CAModelParameter p : model.getParameters().values())
+        for (final CAModelParameter p : CAModel.getParameters().values())
         {
             output("Found parameter: " + p.getName());
 
             JLabel lbl = new JLabel(p.getName());
-            JTextField txt = new JTextField();
+            final JTextField txt = new JTextField();
             txt.setText(p.getValue().toString());
+            txt.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    if(!p.setValue(txt.getText()))
+                    {
+                        output("Invalid format");
+                    }
+                    CAModel.setParameter(p.getName(), p);
+                }
+            });
 
             pnlParameters.add(lbl);
             pnlParameters.add(txt);
@@ -237,7 +246,7 @@ public class MainUI extends javax.swing.JFrame
 
         // place components in grid
         SpringUtilities.makeCompactGrid(pnlParameters,
-                model.getParameters().size()+2, 2, //rows, cols
+                CAModel.getParameters().size() + 2, 2, //rows, cols
                 0, 0, //initX, initY
                 10, 6);       //xPad, yPad
 
@@ -273,12 +282,6 @@ public class MainUI extends javax.swing.JFrame
         lblModel = new javax.swing.JLabel();
         cboBoxModel = new javax.swing.JComboBox();
         pnlParameters = new javax.swing.JPanel();
-        lblDelta2 = new javax.swing.JLabel();
-        txtDelta2 = new javax.swing.JTextField();
-        txtDelta1 = new javax.swing.JTextField();
-        lblDelta1 = new javax.swing.JLabel();
-        lblN = new javax.swing.JLabel();
-        txtN = new javax.swing.JTextField();
         txtTime = new javax.swing.JTextField();
         lblTime = new javax.swing.JLabel();
         pnlDisplayContainer = new javax.swing.JPanel();
@@ -371,24 +374,6 @@ public class MainUI extends javax.swing.JFrame
             }
         });
 
-        lblDelta2.setText("Delta 2");
-        lblDelta2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 4));
-
-        txtDelta2.setText("7");
-        txtDelta2.setPreferredSize(new java.awt.Dimension(50, 25));
-
-        txtDelta1.setText("3");
-        txtDelta1.setPreferredSize(new java.awt.Dimension(50, 25));
-
-        lblDelta1.setText("Delta 1");
-        lblDelta1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 4));
-
-        lblN.setText("N");
-        lblN.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 4));
-
-        txtN.setText("5");
-        txtN.setPreferredSize(new java.awt.Dimension(50, 25));
-
         txtTime.setText("400");
         txtTime.setPreferredSize(new java.awt.Dimension(50, 25));
 
@@ -400,18 +385,10 @@ public class MainUI extends javax.swing.JFrame
         pnlParametersLayout.setHorizontalGroup(
             pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlParametersLayout.createSequentialGroup()
-                .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblN)
-                    .addComponent(lblDelta2)
-                    .addComponent(lblDelta1)
-                    .addComponent(lblTime))
-                .addGap(13, 13, 13)
-                .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtN, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDelta1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDelta2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addComponent(lblTime)
+                .addGap(30, 30, 30)
+                .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         pnlParametersLayout.setVerticalGroup(
             pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -419,19 +396,7 @@ public class MainUI extends javax.swing.JFrame
                 .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTime)
                     .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtN, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblN))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDelta1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDelta1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDelta2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDelta2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlControlsLayout = new javax.swing.GroupLayout(pnlControls);
@@ -682,7 +647,7 @@ public class MainUI extends javax.swing.JFrame
     private void formComponentResized(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_formComponentResized
     {//GEN-HEADEREND:event_formComponentResized
         pnlDisplay.setSize(pnlDisplay.getSize());
-        nishiyama.setSize(pnlDisplay.getSize());
+        CAModel.setSize(pnlDisplay.getSize());
     }//GEN-LAST:event_formComponentResized
 
     private void btnLoadActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnLoadActionPerformed
@@ -690,7 +655,7 @@ public class MainUI extends javax.swing.JFrame
         DataLoader loader = new DataLoader(svgFile.getPath());
         double size = Double.parseDouble(String.valueOf(cboCellSize.getSelectedItem()));
         loader.setSize(size);
-        nishiyama.setCells(loader.getGrid());
+        CAModel.setCells(loader.getGrid());
 }//GEN-LAST:event_btnLoadActionPerformed
 
     private void btnBrowseActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnBrowseActionPerformed
@@ -717,7 +682,7 @@ public class MainUI extends javax.swing.JFrame
         else
         {
             // simulation is running, don't need to start it, just stimulate cell
-            nishiyama.stimulate(stimX, stimY);
+            CAModel.stimulate(stimX, stimY);
         }
     }//GEN-LAST:event_pnlDisplayMouseClicked
 
@@ -772,10 +737,7 @@ public class MainUI extends javax.swing.JFrame
     private javax.swing.JComboBox cboCellSize;
     private javax.swing.JCheckBox chkBoxRecovery;
     private javax.swing.JCheckBox chkBoxVoltage;
-    private javax.swing.JLabel lblDelta1;
-    private javax.swing.JLabel lblDelta2;
     private javax.swing.JLabel lblModel;
-    private javax.swing.JLabel lblN;
     private javax.swing.JLabel lblResolution;
     private javax.swing.JLabel lblResolution1;
     private javax.swing.JLabel lblStatus;
@@ -787,10 +749,7 @@ public class MainUI extends javax.swing.JFrame
     private heartsim.gui.BinaryPlotPanel pnlDisplay;
     private javax.swing.JPanel pnlDisplayContainer;
     private javax.swing.JPanel pnlParameters;
-    private javax.swing.JTextField txtDelta1;
-    private javax.swing.JTextField txtDelta2;
     private javax.swing.JTextField txtFile;
-    private javax.swing.JTextField txtN;
     private javax.swing.JTextField txtTime;
     // End of variables declaration//GEN-END:variables
 }

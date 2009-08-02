@@ -2,34 +2,27 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package heartsim.ca;
+package heartsim.ca.parameter;
 
 /**
  *
  * @author Lee Boynton
  */
-public class CAModelParameter<T>
+public abstract class CAModelParameter
 {
-    private String name;
-    private T value;
-    
-    public CAModelParameter(T value)
-    {
-        this.value = value;
-    }
+    protected String name;
 
     public String getName()
     {
         return name;
     }
 
-    public T getValue()
-    {
-        return value;
-    }
-
     public void setName(String name)
     {
         this.name = name;
     }
+
+    public abstract boolean setValue(String value);
+
+    public abstract Object getValue();
 }

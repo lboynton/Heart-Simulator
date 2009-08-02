@@ -4,8 +4,8 @@
  */
 package heartsim.ca;
 
+import heartsim.ca.parameter.CAModelParameter;
 import java.awt.Dimension;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
