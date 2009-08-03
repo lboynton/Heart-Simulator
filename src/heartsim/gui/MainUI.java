@@ -256,6 +256,7 @@ public class MainUI extends javax.swing.JFrame
 
         // draw the new GUI elements
         pnlParameters.revalidate();
+        pack();
     }
 
     private void output(String output)
