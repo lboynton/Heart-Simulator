@@ -54,7 +54,8 @@ public class MainUI extends javax.swing.JFrame
     private int stimY; // Y-axis location cell which should be stimulated
     private CategoryStepRenderer renderer; // line chart renderer
     private final boolean DEBUG = true; // if debug is true then print output messages
-
+    private boolean dataLoaded = false;
+    
     /** Creates new form MainUI */
     public MainUI()
     {
@@ -103,7 +104,7 @@ public class MainUI extends javax.swing.JFrame
         if (svgFile.exists())
         {
             this.svgFile = svgFile;
-            txtFile.setText(svgFile.getName());
+            lblFile.setText(svgFile.getName());
         }
     }
 
@@ -144,6 +145,22 @@ public class MainUI extends javax.swing.JFrame
         btnReset.setEnabled(false);
         btnStep.setEnabled(false);
         btnStop.setEnabled(true);
+        if(!dataLoaded)
+        {
+            DataLoader loader = new DataLoader(svgFile.getPath());
+            double size = Double.parseDouble(String.valueOf(cboCellSize.getSelectedItem()));
+            loader.setSize(size);
+            CAModel.setCells(loader.getGrid());
+        }
+
+        if(CAModel.isCell(stimX, stimY))
+        {
+            output("No cell at X: " + stimX + " Y: " + stimY);
+        }
+        else
+        {
+            output("Started simulation at X: " + stimX + " Y: " + stimY);
+        }
 
         byte[] data = pnlDisplay.getBuffer();
 
@@ -219,10 +236,6 @@ public class MainUI extends javax.swing.JFrame
         pnlParameters.add(lblModel);
         pnlParameters.add(cboBoxModel);
 
-        // add time
-        pnlParameters.add(lblTime);
-        pnlParameters.add(txtTime);
-
         // loop through the parameters in the CA model and put them on the GUI
         for (final CAModelParameter p : CAModel.getParameters().values())
         {
@@ -250,7 +263,7 @@ public class MainUI extends javax.swing.JFrame
 
         // place components in grid
         SpringUtilities.makeCompactGrid(pnlParameters,
-                CAModel.getParameters().size() + 2, 2, //rows, cols
+                CAModel.getParameters().size() + 1, 2, //rows, cols
                 0, 0, //initX, initY
                 10, 6);       //xPad, yPad
 
@@ -279,16 +292,12 @@ public class MainUI extends javax.swing.JFrame
         pnlDataSource = new javax.swing.JPanel();
         lblResolution = new javax.swing.JLabel();
         cboCellSize = new javax.swing.JComboBox();
-        btnLoad = new javax.swing.JButton();
-        btnBrowse = new javax.swing.JButton();
-        lblResolution1 = new javax.swing.JLabel();
-        txtFile = new javax.swing.JTextField();
+        lblTime = new javax.swing.JLabel();
+        txtTime = new javax.swing.JTextField();
         pnlControls = new javax.swing.JPanel();
         lblModel = new javax.swing.JLabel();
         cboBoxModel = new javax.swing.JComboBox();
         pnlParameters = new javax.swing.JPanel();
-        txtTime = new javax.swing.JTextField();
-        lblTime = new javax.swing.JLabel();
         pnlDisplayContainer = new javax.swing.JPanel();
         pnlDisplay = new heartsim.gui.BinaryPlotPanel();
         pnlChartContainer = new javax.swing.JPanel();
@@ -297,10 +306,13 @@ public class MainUI extends javax.swing.JFrame
         chkBoxVoltage = new javax.swing.JCheckBox();
         chkBoxRecovery = new javax.swing.JCheckBox();
         lblStatus = new javax.swing.JLabel();
+        jToolBar1 = new javax.swing.JToolBar();
+        btnBrowse = new javax.swing.JButton();
         btnStart = new javax.swing.JButton();
         btnStep = new javax.swing.JButton();
         btnStop = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
+        lblFile = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Nishiyama");
@@ -310,29 +322,22 @@ public class MainUI extends javax.swing.JFrame
             }
         });
 
-        pnlDataSource.setBorder(javax.swing.BorderFactory.createTitledBorder("Heart Data"));
+        pnlDataSource.setBorder(javax.swing.BorderFactory.createTitledBorder("Simulation Controls"));
 
         lblResolution.setText("Cell size");
 
         cboCellSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "4", "3", "2", "1", "0.5" }));
-
-        btnLoad.setText("Load");
-        btnLoad.addActionListener(new java.awt.event.ActionListener() {
+        cboCellSize.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoadActionPerformed(evt);
+                cboCellSizeActionPerformed(evt);
             }
         });
 
-        btnBrowse.setText("Browse");
-        btnBrowse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBrowseActionPerformed(evt);
-            }
-        });
+        lblTime.setText("Time");
+        lblTime.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 4));
 
-        lblResolution1.setText("File");
-
-        txtFile.setEditable(false);
+        txtTime.setText("400");
+        txtTime.setPreferredSize(new java.awt.Dimension(50, 25));
 
         javax.swing.GroupLayout pnlDataSourceLayout = new javax.swing.GroupLayout(pnlDataSource);
         pnlDataSource.setLayout(pnlDataSourceLayout);
@@ -342,33 +347,27 @@ public class MainUI extends javax.swing.JFrame
                 .addContainerGap()
                 .addGroup(pnlDataSourceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblResolution)
-                    .addComponent(lblResolution1))
+                    .addComponent(lblTime))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlDataSourceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtFile, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
-                    .addComponent(cboCellSize, 0, 103, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlDataSourceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnLoad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBrowse, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cboCellSize, 0, 189, Short.MAX_VALUE)
+                    .addComponent(txtTime, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlDataSourceLayout.setVerticalGroup(
             pnlDataSourceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDataSourceLayout.createSequentialGroup()
                 .addGroup(pnlDataSourceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBrowse)
-                    .addComponent(lblResolution1)
-                    .addComponent(txtFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblResolution)
+                    .addComponent(cboCellSize, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlDataSourceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblResolution)
-                    .addComponent(cboCellSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLoad))
+                    .addComponent(lblTime)
+                    .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlControls.setBorder(javax.swing.BorderFactory.createTitledBorder("Simulation Controls"));
+        pnlControls.setBorder(javax.swing.BorderFactory.createTitledBorder("Cellular Automata Model Settings"));
 
         lblModel.setText("Model");
 
@@ -379,29 +378,15 @@ public class MainUI extends javax.swing.JFrame
             }
         });
 
-        txtTime.setText("400");
-        txtTime.setPreferredSize(new java.awt.Dimension(50, 25));
-
-        lblTime.setText("Time");
-        lblTime.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 4));
-
         javax.swing.GroupLayout pnlParametersLayout = new javax.swing.GroupLayout(pnlParameters);
         pnlParameters.setLayout(pnlParametersLayout);
         pnlParametersLayout.setHorizontalGroup(
             pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlParametersLayout.createSequentialGroup()
-                .addComponent(lblTime)
-                .addGap(30, 30, 30)
-                .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+            .addGap(0, 262, Short.MAX_VALUE)
         );
         pnlParametersLayout.setVerticalGroup(
             pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlParametersLayout.createSequentialGroup()
-                .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTime)
-                    .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(99, Short.MAX_VALUE))
+            .addGap(0, 122, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout pnlControlsLayout = new javax.swing.GroupLayout(pnlControls);
@@ -411,12 +396,12 @@ public class MainUI extends javax.swing.JFrame
             .addGroup(pnlControlsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlParameters, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlControlsLayout.createSequentialGroup()
                         .addComponent(lblModel)
-                        .addGap(28, 28, 28)
-                        .addComponent(cboBoxModel, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(pnlParameters, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                        .addComponent(cboBoxModel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12))))
         );
         pnlControlsLayout.setVerticalGroup(
             pnlControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -425,7 +410,8 @@ public class MainUI extends javax.swing.JFrame
                     .addComponent(lblModel)
                     .addComponent(cboBoxModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlParameters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(pnlParameters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pnlDisplayContainer.setBorder(javax.swing.BorderFactory.createTitledBorder("Visualisation"));
@@ -440,11 +426,11 @@ public class MainUI extends javax.swing.JFrame
         pnlDisplay.setLayout(pnlDisplayLayout);
         pnlDisplayLayout.setHorizontalGroup(
             pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 381, Short.MAX_VALUE)
+            .addGap(0, 357, Short.MAX_VALUE)
         );
         pnlDisplayLayout.setVerticalGroup(
             pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+            .addGap(0, 485, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout pnlDisplayContainerLayout = new javax.swing.GroupLayout(pnlDisplayContainer);
@@ -469,11 +455,11 @@ public class MainUI extends javax.swing.JFrame
         pnlChart.setLayout(pnlChartLayout);
         pnlChartLayout.setHorizontalGroup(
             pnlChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 231, Short.MAX_VALUE)
+            .addGap(0, 250, Short.MAX_VALUE)
         );
         pnlChartLayout.setVerticalGroup(
             pnlChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 85, Short.MAX_VALUE)
+            .addGap(0, 150, Short.MAX_VALUE)
         );
 
         chkBoxVoltage.setForeground(java.awt.Color.red);
@@ -499,16 +485,15 @@ public class MainUI extends javax.swing.JFrame
         pnlChartContainerLayout.setHorizontalGroup(
             pnlChartContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlChartContainerLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(pnlChartContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlChartContainerLayout.createSequentialGroup()
-                        .addComponent(pnlChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                    .addComponent(pnlChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlChartContainerLayout.createSequentialGroup()
                         .addComponent(chkBoxVoltage)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chkBoxRecovery)
-                        .addGap(51, 51, 51))))
+                        .addGap(44, 44, 44)))
+                .addContainerGap())
         );
         pnlChartContainerLayout.setVerticalGroup(
             pnlChartContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -524,6 +509,17 @@ public class MainUI extends javax.swing.JFrame
         lblStatus.setText(" ");
         lblStatus.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jToolBar1.setFloatable(false);
+        jToolBar1.setRollover(true);
+
+        btnBrowse.setText("Select File");
+        btnBrowse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBrowseActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnBrowse);
+
         btnStart.setText("Start");
         btnStart.setEnabled(false);
         btnStart.addActionListener(new java.awt.event.ActionListener() {
@@ -531,6 +527,7 @@ public class MainUI extends javax.swing.JFrame
                 btnStartActionPerformed(evt);
             }
         });
+        jToolBar1.add(btnStart);
 
         btnStep.setText("Step");
         btnStep.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -540,6 +537,7 @@ public class MainUI extends javax.swing.JFrame
                 btnStepActionPerformed(evt);
             }
         });
+        jToolBar1.add(btnStep);
 
         btnStop.setText("Stop");
         btnStop.setEnabled(false);
@@ -550,6 +548,7 @@ public class MainUI extends javax.swing.JFrame
                 btnStopActionPerformed(evt);
             }
         });
+        jToolBar1.add(btnStop);
 
         btnReset.setText("Reset");
         btnReset.setEnabled(false);
@@ -560,49 +559,46 @@ public class MainUI extends javax.swing.JFrame
                 btnResetActionPerformed(evt);
             }
         });
+        jToolBar1.add(btnReset);
+
+        lblFile.setText("jLabel1");
+        lblFile.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(pnlDisplayContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnStep)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnStop)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnReset))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(pnlControls, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pnlChartContainer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pnlDataSource, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(0, 0, 0))
-            .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pnlChartContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(pnlDataSource, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnlControls, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblFile, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlDataSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(pnlChartContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlControls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pnlDataSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnStart)
-                            .addComponent(btnStep)
-                            .addComponent(btnStop)
-                            .addComponent(btnReset)))
+                        .addComponent(pnlControls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(pnlDisplayContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblStatus))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblStatus)
+                    .addComponent(lblFile)))
         );
 
         pack();
@@ -612,15 +608,6 @@ public class MainUI extends javax.swing.JFrame
     {//GEN-HEADEREND:event_btnStartActionPerformed
         resetSimulation();
         lblStatus.setText("Started simulation at X: " + stimX + " Y: " + stimY);
-        
-        if(CAModel.isCell(stimX, stimY))
-        {
-            output("No cell at X: " + stimX + " Y: " + stimY);
-        }
-        else
-        {
-            output("Started simulation at X: " + stimX + " Y: " + stimY);
-        }
 
         worker = new SwingWorker<Object, Void>()
         {
@@ -665,14 +652,6 @@ public class MainUI extends javax.swing.JFrame
         pnlDisplay.setSize(pnlDisplay.getSize());
         CAModel.setSize(pnlDisplay.getSize());
     }//GEN-LAST:event_formComponentResized
-
-    private void btnLoadActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnLoadActionPerformed
-    {//GEN-HEADEREND:event_btnLoadActionPerformed
-        DataLoader loader = new DataLoader(svgFile.getPath());
-        double size = Double.parseDouble(String.valueOf(cboCellSize.getSelectedItem()));
-        loader.setSize(size);
-        CAModel.setCells(loader.getGrid());
-}//GEN-LAST:event_btnLoadActionPerformed
 
     private void btnBrowseActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnBrowseActionPerformed
     {//GEN-HEADEREND:event_btnBrowseActionPerformed
@@ -729,6 +708,11 @@ public class MainUI extends javax.swing.JFrame
         loadModelParameters();
     }//GEN-LAST:event_cboBoxModelActionPerformed
 
+    private void cboCellSizeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cboCellSizeActionPerformed
+    {//GEN-HEADEREND:event_cboCellSizeActionPerformed
+        dataLoaded = false;
+    }//GEN-LAST:event_cboCellSizeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -744,7 +728,6 @@ public class MainUI extends javax.swing.JFrame
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBrowse;
-    private javax.swing.JButton btnLoad;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnStart;
     private javax.swing.JButton btnStep;
@@ -753,9 +736,10 @@ public class MainUI extends javax.swing.JFrame
     private javax.swing.JComboBox cboCellSize;
     private javax.swing.JCheckBox chkBoxRecovery;
     private javax.swing.JCheckBox chkBoxVoltage;
+    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel lblFile;
     private javax.swing.JLabel lblModel;
     private javax.swing.JLabel lblResolution;
-    private javax.swing.JLabel lblResolution1;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblTime;
     private javax.swing.JPanel pnlChart;
@@ -765,7 +749,6 @@ public class MainUI extends javax.swing.JFrame
     private heartsim.gui.BinaryPlotPanel pnlDisplay;
     private javax.swing.JPanel pnlDisplayContainer;
     private javax.swing.JPanel pnlParameters;
-    private javax.swing.JTextField txtFile;
     private javax.swing.JTextField txtTime;
     // End of variables declaration//GEN-END:variables
 }
