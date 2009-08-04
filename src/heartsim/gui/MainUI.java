@@ -25,6 +25,7 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import heartsim.gui.layout.SpringUtilities;
+import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JTextField;
@@ -252,6 +253,11 @@ public class MainUI extends javax.swing.JFrame
                     if (!p.setValue(txt.getText()))
                     {
                         output("Invalid parameter: " + txt.getText());
+                        txt.setForeground(Color.red);
+                    }
+                    else
+                    {
+                        txt.setForeground(Color.BLACK);
                     }
                     CAModel.setParameter(p.getName(), p);
                 }
