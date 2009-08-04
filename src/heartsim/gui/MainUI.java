@@ -10,6 +10,7 @@
  */
 package heartsim.gui;
 
+import heartsim.gui.util.FileChooserFilter;
 import heartsim.DataLoader;
 import heartsim.ca.CAModel;
 import heartsim.ca.parameter.CAModelParameter;
@@ -661,6 +662,7 @@ public class MainUI extends javax.swing.JFrame
     private void btnBrowseActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnBrowseActionPerformed
     {//GEN-HEADEREND:event_btnBrowseActionPerformed
         JFileChooser chooser = new JFileChooser();
+        chooser.setFileFilter(new FileChooserFilter("svg", "SVG Files"));
         int result = chooser.showOpenDialog(this);
 
         if (result == JFileChooser.APPROVE_OPTION)
