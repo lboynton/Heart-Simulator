@@ -7,3 +7,4 @@
 - Support different cellular automata models
 - Fix crash when heart is larger than the visible area of display panel
 - Don't reset simulation each time start is pressed, treat it as being paused
+- Perhaps change cell size to a zoom button
