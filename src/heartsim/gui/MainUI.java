@@ -318,6 +318,7 @@ public class MainUI extends javax.swing.JFrame
         lblStatus = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
         btnBrowse = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
         btnStart = new javax.swing.JButton();
         btnStep = new javax.swing.JButton();
         btnStop = new javax.swing.JButton();
@@ -440,7 +441,7 @@ public class MainUI extends javax.swing.JFrame
         );
         pnlDisplayLayout.setVerticalGroup(
             pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 461, Short.MAX_VALUE)
+            .addGap(0, 455, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout pnlDisplayContainerLayout = new javax.swing.GroupLayout(pnlDisplayContainer);
@@ -531,6 +532,7 @@ public class MainUI extends javax.swing.JFrame
             }
         });
         jToolBar1.add(btnBrowse);
+        jToolBar1.add(jSeparator1);
 
         btnStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/media-playback-start.png"))); // NOI18N
         btnStart.setText("Start");
@@ -664,7 +666,7 @@ public class MainUI extends javax.swing.JFrame
 
     private void btnBrowseActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnBrowseActionPerformed
     {//GEN-HEADEREND:event_btnBrowseActionPerformed
-        JFileChooser chooser = new JFileChooser();
+        JFileChooser chooser = new JFileChooser(".");
         chooser.setFileFilter(new FileChooserFilter("svg", "SVG Files"));
         int result = chooser.showOpenDialog(this);
 
@@ -746,6 +748,7 @@ public class MainUI extends javax.swing.JFrame
     private javax.swing.JComboBox cboCellSize;
     private javax.swing.JCheckBox chkBoxRecovery;
     private javax.swing.JCheckBox chkBoxVoltage;
+    private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblFile;
     private javax.swing.JLabel lblModel;

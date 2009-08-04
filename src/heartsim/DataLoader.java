@@ -27,7 +27,9 @@ public class DataLoader
     private String file; // svg file to load from
     private boolean cells[][]; // resized array of cells
     private double size; // cell size (smaller cell size means bigger heart)
-
+    private Document doc;
+    private ExtendedGeneralPath heartPath;
+    
     public DataLoader(String file)
     {
         this.file = file;
@@ -39,26 +41,35 @@ public class DataLoader
         cells = null;
     }
 
-    private void createGrid()
+    public void setSize(int width, int height)
+    {
+        
+    }
+
+    private void openFile()
     {
         String parser = XMLResourceDescriptor.getXMLParserClassName();
-        SAXSVGDocumentFactory f = new SAXSVGDocumentFactory(parser);
+        SAXSVGDocumentFactory documentFactory = new SAXSVGDocumentFactory(parser);
         String uri = new File(file).toURI().toString();
-        Document doc = null;
+
         try
         {
-            doc = (Document) f.createDocument(uri);
+            doc = (Document) documentFactory.createDocument(uri);
         }
         catch (IOException ex)
         {
             Logger.getLogger(DataLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 
+    private void createGrid()
+    {
+        openFile();
         Element e = (Element) doc.getElementById("heart");
-        ExtendedGeneralPath s = null;
+
         try
         {
-            s = (ExtendedGeneralPath) AWTPathProducer.createShape(new StringReader(e.getAttributeNS(null, "d")), GeneralPath.WIND_EVEN_ODD);
+            heartPath = (ExtendedGeneralPath) AWTPathProducer.createShape(new StringReader(e.getAttributeNS(null, "d")), GeneralPath.WIND_EVEN_ODD);
         }
         catch (IOException ex)
         {
@@ -72,19 +83,19 @@ public class DataLoader
         int xval = 0;
         int yval = 0;
 
-        int maxX = (int) (s.getBounds2D().getMaxY() / size) + 1;
-        int maxY = (int) (s.getBounds2D().getMaxX() / size) + 1;
+        int maxX = (int) (heartPath.getBounds2D().getMaxY() / size) + 1;
+        int maxY = (int) (heartPath.getBounds2D().getMaxX() / size) + 1;
 
         cells = new boolean[maxX][maxY];
 
-        System.out.println("Max X boundary: " + s.getBounds2D().getMaxX() / size);
-        System.out.println("Max Y boundary: " + s.getBounds2D().getMaxY() / size);
+        System.out.println("Max X boundary: " + heartPath.getBounds2D().getMaxX() / size);
+        System.out.println("Max Y boundary: " + heartPath.getBounds2D().getMaxY() / size);
 
-        for(double y = 0; y < s.getBounds2D().getMaxY(); y = y + size)
+        for(double y = 0; y < heartPath.getBounds2D().getMaxY(); y = y + size)
         {
-            for(double x = 0; x < s.getBounds2D().getMaxX(); x = x + size)
+            for(double x = 0; x < heartPath.getBounds2D().getMaxX(); x = x + size)
             {
-                cells[xval][yval++] = s.contains(x, y);
+                cells[xval][yval++] = heartPath.contains(x, y);
             }
 
             yval=0;

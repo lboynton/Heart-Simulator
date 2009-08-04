@@ -60,7 +60,14 @@ public abstract class CAModel
 
     public boolean isCell(int x, int y)
     {
-        return cells[x][y];
+        try
+        {
+            return cells[x][y];
+        }
+        catch(IndexOutOfBoundsException ex)
+        {
+            return false;
+        }
     }
 
     /**
