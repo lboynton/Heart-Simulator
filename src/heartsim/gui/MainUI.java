@@ -56,8 +56,7 @@ public class MainUI extends javax.swing.JFrame
     private int stimY; // Y-axis location cell which should be stimulated
     private CategoryStepRenderer renderer; // line chart renderer
     private final boolean DEBUG = true; // if debug is true then print output messages
-    private boolean dataLoaded = false;
-    
+
     /** Creates new form MainUI */
     public MainUI()
     {
@@ -103,11 +102,22 @@ public class MainUI extends javax.swing.JFrame
 
     private void setSvgFile(File svgFile)
     {
-        if (svgFile.exists())
+        if (!svgFile.exists())
         {
-            this.svgFile = svgFile;
-            lblFile.setText(svgFile.getName());
+            return;
         }
+
+        this.svgFile = svgFile;
+        lblFile.setText(svgFile.getName());
+        loadHeart();
+    }
+
+    private void loadHeart()
+    {
+        DataLoader loader = new DataLoader(svgFile.getPath());
+        double size = Double.parseDouble(String.valueOf(cboCellSize.getSelectedItem()));
+        loader.setSize(size);
+        CAModel.setCells(loader.getGrid());
     }
 
     private ChartPanel createChart()
@@ -147,15 +157,8 @@ public class MainUI extends javax.swing.JFrame
         btnReset.setEnabled(false);
         btnStep.setEnabled(false);
         btnStop.setEnabled(true);
-        if(!dataLoaded)
-        {
-            DataLoader loader = new DataLoader(svgFile.getPath());
-            double size = Double.parseDouble(String.valueOf(cboCellSize.getSelectedItem()));
-            loader.setSize(size);
-            CAModel.setCells(loader.getGrid());
-        }
 
-        if(CAModel.isCell(stimX, stimY))
+        if (CAModel.isCell(stimX, stimY))
         {
             output("No cell at X: " + stimX + " Y: " + stimY);
         }
@@ -199,7 +202,7 @@ public class MainUI extends javax.swing.JFrame
             chartData.addValue(CAModel.getV(stimX, stimY), "Recovery", String.valueOf(currentTime));
             CAModel.step();
             pnlDisplay.repaint();
-            
+
         }
 
         btnStart.setEnabled(true);
@@ -717,7 +720,7 @@ public class MainUI extends javax.swing.JFrame
 
     private void cboCellSizeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cboCellSizeActionPerformed
     {//GEN-HEADEREND:event_cboCellSizeActionPerformed
-        dataLoaded = false;
+        loadHeart();
     }//GEN-LAST:event_cboCellSizeActionPerformed
 
     /**
