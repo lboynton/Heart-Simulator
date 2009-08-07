@@ -4,7 +4,6 @@
  */
 package heartsim.gui.component;
 
-import heartsim.gui.*;
 import java.awt.Component;
 import javax.swing.JTabbedPane;
 

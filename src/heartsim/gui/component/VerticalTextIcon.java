@@ -18,7 +18,11 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 /**
- * Creates a vertical text icon, for use in vertical jtabbedpanes
+ * Creates a vertical text icon, for use in vertical jtabbedpanes. See
+ *
+ * <a href="http://www.jroller.com/santhosh/entry/adobe_like_tabbedpane_in_swing">
+ * http://www.jroller.com/santhosh/entry/adobe_like_tabbedpane_in_swing</a>
+ *
  * @author Santhosh Kumar
  */
 public class VerticalTextIcon implements Icon, SwingConstants
