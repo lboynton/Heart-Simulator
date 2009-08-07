@@ -4,7 +4,17 @@
 - Make visualisation more efficient, trim the array sizes
 - Code tidy up/refactor
 - GUI tidy up
-- Support different cellular automata models
 - Fix crash when heart is larger than the visible area of display panel
 - Don't reset simulation each time start is pressed, treat it as being paused
 - Perhaps change cell size to a zoom button
+- Ensure heart is facing the right way
+
+User should be able to:
+- Select different cellular automata models
+- Specify CA parameters for different heart tissue
+- Change heart rate
+- See wave form for different points
+- Change size of visualisation
+- Change speed of visualisation
+- Kill a specific region of the heart
+- Simulate heart block
