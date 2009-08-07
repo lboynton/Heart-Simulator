@@ -10,19 +10,21 @@
  */
 package heartsim.gui;
 
+import heartsim.DataLoader;
 import heartsim.ca.CAModel;
 import heartsim.ca.Nishiyama;
 import heartsim.ca.Tyson;
 import heartsim.ca.parameter.CAModelParameter;
 import heartsim.gui.layout.SpringUtilities;
+import heartsim.gui.util.FileChooserFilter;
 import java.awt.Color;
-import java.awt.Insets;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.UIManager;
@@ -35,6 +37,8 @@ public class MainUI2 extends javax.swing.JFrame
 {
     private CAModel CAModel; // CA model being used in the simulation
     private final boolean DEBUG = true; // if debug is true then print output messages
+    private File svgFile; // svg containing heart geometry
+    private double cellSize = 1;
     
     /** Creates new form MainUI2 */
     public MainUI2()
@@ -49,6 +53,12 @@ public class MainUI2 extends javax.swing.JFrame
         }
 
         initComponents();
+
+        // initially load an SVG file
+        setSvgFile(new File("geometry_data/heart.svg"));
+
+        // load initially selected CA model
+        cboBoxModel.setSelectedIndex(0);
     }
 
     /**
@@ -146,6 +156,30 @@ public class MainUI2 extends javax.swing.JFrame
         }
     }
 
+    private void setStatusBar(String text)
+    {
+        lblStatus.setText(text);
+    }
+
+    private void setSvgFile(File svgFile)
+    {
+        if (!svgFile.exists())
+        {
+            return;
+        }
+
+        this.svgFile = svgFile;
+        setStatusBar("Loaded file: " + svgFile.getName());
+        loadHeart();
+    }
+
+    private void loadHeart()
+    {
+        DataLoader loader = new DataLoader(svgFile.getPath());
+        loader.setSize(cellSize);
+        //CAModel.setCells(loader.getGrid());
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -155,6 +189,7 @@ public class MainUI2 extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblStatus = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
         btnOpen = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
@@ -167,7 +202,7 @@ public class MainUI2 extends javax.swing.JFrame
         jSeparator3 = new javax.swing.JToolBar.Separator();
         btnAbout = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        verticalJTabbedPane1 = new javax.swing.JTabbedPane();
+        tabbedPane = new javax.swing.JTabbedPane();
         pnlCA = new javax.swing.JPanel();
         pnlParameters = new javax.swing.JPanel();
         lblTissue = new javax.swing.JLabel();
@@ -185,6 +220,8 @@ public class MainUI2 extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        lblStatus.setText("Status");
+
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
@@ -192,6 +229,11 @@ public class MainUI2 extends javax.swing.JFrame
         btnOpen.setFocusable(false);
         btnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOpenActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btnOpen);
         jToolBar1.add(jSeparator1);
 
@@ -218,12 +260,22 @@ public class MainUI2 extends javax.swing.JFrame
         btnZoomIn.setFocusable(false);
         btnZoomIn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnZoomIn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnZoomIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnZoomInActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btnZoomIn);
 
         btnZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/zoom-out.png"))); // NOI18N
         btnZoomOut.setFocusable(false);
         btnZoomOut.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnZoomOut.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnZoomOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnZoomOutActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btnZoomOut);
         jToolBar1.add(jSeparator3);
 
@@ -285,10 +337,10 @@ public class MainUI2 extends javax.swing.JFrame
             pnlCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCALayout.createSequentialGroup()
                 .addComponent(pnlParameters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(281, Short.MAX_VALUE))
+                .addContainerGap(259, Short.MAX_VALUE))
         );
 
-        verticalJTabbedPane1.addTab("Model", pnlCA);
+        tabbedPane.addTab("Model", pnlCA);
 
         jLabel4.setText("Heart rate");
 
@@ -312,10 +364,10 @@ public class MainUI2 extends javax.swing.JFrame
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(326, Short.MAX_VALUE))
+                .addContainerGap(304, Short.MAX_VALUE))
         );
 
-        verticalJTabbedPane1.addTab("Pacemaker", jPanel2);
+        tabbedPane.addTab("Pacemaker", jPanel2);
 
         lblTime.setText("Time");
 
@@ -349,31 +401,37 @@ public class MainUI2 extends javax.swing.JFrame
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(293, Short.MAX_VALUE))
+                .addContainerGap(271, Short.MAX_VALUE))
         );
 
-        verticalJTabbedPane1.addTab("Simulation", jPanel3);
+        tabbedPane.addTab("Simulation", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(verticalJTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(verticalJTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+                    .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblStatus)
                 .addContainerGap())
         );
 
@@ -384,6 +442,30 @@ public class MainUI2 extends javax.swing.JFrame
     {//GEN-HEADEREND:event_cboBoxModelActionPerformed
         loadModelParameters();
     }//GEN-LAST:event_cboBoxModelActionPerformed
+
+    private void btnOpenActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnOpenActionPerformed
+    {//GEN-HEADEREND:event_btnOpenActionPerformed
+        JFileChooser chooser = new JFileChooser(".");
+        chooser.setFileFilter(new FileChooserFilter("svg", "SVG Files"));
+        int result = chooser.showOpenDialog(this);
+
+        if (result == JFileChooser.APPROVE_OPTION)
+        {
+            setSvgFile(chooser.getSelectedFile());
+        }
+    }//GEN-LAST:event_btnOpenActionPerformed
+
+    private void btnZoomInActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnZoomInActionPerformed
+    {//GEN-HEADEREND:event_btnZoomInActionPerformed
+        cellSize = cellSize - .5;
+        loadHeart();
+    }//GEN-LAST:event_btnZoomInActionPerformed
+
+    private void btnZoomOutActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnZoomOutActionPerformed
+    {//GEN-HEADEREND:event_btnZoomOutActionPerformed
+        cellSize = cellSize + .5;
+        loadHeart();
+    }//GEN-LAST:event_btnZoomOutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -420,11 +502,12 @@ public class MainUI2 extends javax.swing.JFrame
     private javax.swing.JTextField jTextField2;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblModel;
+    private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblTime;
     private javax.swing.JLabel lblTissue;
     private javax.swing.JPanel pnlCA;
     private javax.swing.JPanel pnlParameters;
+    private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JTextField txtTime;
-    private javax.swing.JTabbedPane verticalJTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }

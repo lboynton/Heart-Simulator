@@ -22,14 +22,19 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jToolBar1" alignment="0" pref="583" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="verticalJTabbedPane1" min="-2" pref="216" max="-2" attributes="0"/>
+              <Component id="tabbedPane" min="-2" pref="216" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" pref="337" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="lblStatus" pref="559" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
-          <Component id="jToolBar1" alignment="0" pref="583" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -37,16 +42,23 @@
           <Group type="102" attributes="0">
               <Component id="jToolBar1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="verticalJTabbedPane1" pref="396" max="32767" attributes="0"/>
-                  <Component id="jScrollPane1" alignment="1" pref="396" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane1" pref="374" max="32767" attributes="0"/>
+                  <Component id="tabbedPane" alignment="0" pref="374" max="32767" attributes="0"/>
               </Group>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="lblStatus" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
+    <Component class="javax.swing.JLabel" name="lblStatus">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Status"/>
+      </Properties>
+    </Component>
     <Container class="javax.swing.JToolBar" name="jToolBar1">
       <Properties>
         <Property name="floatable" type="boolean" value="false"/>
@@ -64,6 +76,9 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOpenActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JToolBar$Separator" name="jSeparator1">
         </Component>
@@ -108,6 +123,9 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnZoomInActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnZoomOut">
           <Properties>
@@ -118,6 +136,9 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnZoomOutActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JToolBar$Separator" name="jSeparator3">
         </Component>
@@ -137,7 +158,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
     </Container>
-    <Container class="heartsim.gui.component.VerticalJTabbedPane" name="verticalJTabbedPane1">
+    <Container class="javax.swing.JTabbedPane" name="tabbedPane">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -160,7 +181,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="pnlParameters" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="281" max="32767" attributes="0"/>
+                      <EmptySpace pref="259" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -267,7 +288,7 @@
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="326" max="32767" attributes="0"/>
+                      <EmptySpace pref="304" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -325,7 +346,7 @@
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="293" max="32767" attributes="0"/>
+                      <EmptySpace pref="271" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
