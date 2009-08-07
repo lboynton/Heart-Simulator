@@ -18,6 +18,7 @@ import heartsim.ca.parameter.CAModelParameter;
 import heartsim.gui.layout.SpringUtilities;
 import heartsim.gui.util.FileChooserFilter;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -45,6 +46,7 @@ public class MainUI2 extends javax.swing.JFrame
     private int stimX = 53; // X-axis location cell which should be stimulated
     private int stimY = 18; // Y-axis location cell which should be stimulated
     private SwingWorker<Object, Void> worker;
+    private DataLoader loader;
     
     /** Creates new form MainUI2 */
     public MainUI2()
@@ -184,7 +186,7 @@ public class MainUI2 extends javax.swing.JFrame
 
     private void loadHeart()
     {
-        DataLoader loader = new DataLoader(svgFile.getPath());
+        loader = new DataLoader(svgFile.getPath());
         loader.setSize(cellSize);
         CAModel.setCells(loader.getGrid());
         CAModel.setSize(pnlDisplay.getSize());
@@ -195,6 +197,9 @@ public class MainUI2 extends javax.swing.JFrame
         currentTime = 0;
         CAModel.initCells();
         CAModel.stimulate(stimX, stimY);
+//        pnlDisplay.setPreferredSize(new Dimension(loader.getGrid().length, loader.getGrid()[0].length));
+//        pnlDisplay.setSize(new Dimension(loader.getGrid().length, loader.getGrid()[0].length));
+        pnlDisplay.setSize(pnlDisplay.getSize());
         pnlDisplay.reset();
         btnStart.setEnabled(true);
         btnStepForward.setEnabled(true);
@@ -280,6 +285,7 @@ public class MainUI2 extends javax.swing.JFrame
         jSeparator3 = new javax.swing.JToolBar.Separator();
         btnAbout = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
         pnlDisplay = new heartsim.gui.BinaryPlotPanel();
         tabbedPane = new javax.swing.JTabbedPane();
         pnlCA = new javax.swing.JPanel();
@@ -331,6 +337,11 @@ public class MainUI2 extends javax.swing.JFrame
         btnStop.setFocusable(false);
         btnStop.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnStop.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnStop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStopActionPerformed(evt);
+            }
+        });
         toolBar.add(btnStop);
 
         btnStepForward.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/media-seek-forward.png"))); // NOI18N
@@ -369,18 +380,39 @@ public class MainUI2 extends javax.swing.JFrame
         btnAbout.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         toolBar.add(btnAbout);
 
+        jPanel1.setBackground(java.awt.Color.white);
+
+        pnlDisplay.setBackground(java.awt.Color.white);
+
         javax.swing.GroupLayout pnlDisplayLayout = new javax.swing.GroupLayout(pnlDisplay);
         pnlDisplay.setLayout(pnlDisplayLayout);
         pnlDisplayLayout.setHorizontalGroup(
             pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 335, Short.MAX_VALUE)
+            .addGap(0, 157, Short.MAX_VALUE)
         );
         pnlDisplayLayout.setVerticalGroup(
             pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 372, Short.MAX_VALUE)
+            .addGap(0, 157, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(pnlDisplay);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(107, Short.MAX_VALUE)
+                .addComponent(pnlDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(83, 83, 83))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(123, Short.MAX_VALUE)
+                .addComponent(pnlDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(104, 104, 104))
+        );
+
+        jScrollPane1.setViewportView(jPanel1);
 
         lblTissue.setText("Tissue");
 
@@ -434,7 +466,7 @@ public class MainUI2 extends javax.swing.JFrame
             pnlCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCALayout.createSequentialGroup()
                 .addComponent(pnlParameters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(259, Short.MAX_VALUE))
+                .addContainerGap(271, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Model", pnlCA);
@@ -461,7 +493,7 @@ public class MainUI2 extends javax.swing.JFrame
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(304, Short.MAX_VALUE))
+                .addContainerGap(316, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Pacemaker", jPanel2);
@@ -498,7 +530,7 @@ public class MainUI2 extends javax.swing.JFrame
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(271, Short.MAX_VALUE))
+                .addContainerGap(283, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Simulation", jPanel3);
@@ -512,8 +544,7 @@ public class MainUI2 extends javax.swing.JFrame
                 .addContainerGap()
                 .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
@@ -525,8 +556,8 @@ public class MainUI2 extends javax.swing.JFrame
                 .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
-                    .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE))
+                    .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblStatus)
                 .addContainerGap())
@@ -594,6 +625,11 @@ public class MainUI2 extends javax.swing.JFrame
         worker.execute();
     }//GEN-LAST:event_btnStartActionPerformed
 
+    private void btnStopActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStopActionPerformed
+    {//GEN-HEADEREND:event_btnStopActionPerformed
+        resetSimulation();
+    }//GEN-LAST:event_btnStopActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -619,6 +655,7 @@ public class MainUI2 extends javax.swing.JFrame
     private javax.swing.JComboBox cboBoxTissue;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;

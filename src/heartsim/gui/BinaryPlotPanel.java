@@ -54,7 +54,7 @@ public class BinaryPlotPanel extends javax.swing.JPanel
     {
         for(int i = 0; i < buffer.length; i++)
         {
-            buffer[i] = 0;
+            buffer[i] = -1;
         }
         this.repaint();
     }

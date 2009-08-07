@@ -56,7 +56,8 @@ public class Nishiyama extends CAModel
             for (int col = 0; col < width; col++)
             {
                 // initialise voltage values
-                u[row][col] = 0;
+                if(isCell(row,col)) u[row][col] = 0;
+                else u[row][col] = -1;
 
                 // initialise recovery values
                 v[row][col] = 0;
