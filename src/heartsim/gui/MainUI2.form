@@ -138,18 +138,14 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
     </Container>
     <Container class="heartsim.gui.component.VerticalJTabbedPane" name="verticalJTabbedPane1">
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="UIManager.put(&quot;TabbedPane.textIconGap&quot;, textIconGap); &#xa;UIManager.put(&quot;TabbedPane.tabInsets&quot;, tabInsets); &#xa;verticalJTabbedPane1.setTabPlacement(JTabbedPane.LEFT);"/>
-        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="Object textIconGap = UIManager.get(&quot;TabbedPane.textIconGap&quot;); &#xa;Insets tabInsets = UIManager.getInsets(&quot;TabbedPane.tabInsets&quot;); &#xa;UIManager.put(&quot;TabbedPane.textIconGap&quot;, new Integer(1)); &#xa;UIManager.put(&quot;TabbedPane.tabInsets&quot;, new Insets(tabInsets.left, tabInsets.top, tabInsets.right, tabInsets.bottom)); "/>
-      </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="pnlCA">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Cellular Automata">
-                <Property name="tabTitle" type="java.lang.String" value="Cellular Automata"/>
+              <JTabbedPaneConstraints tabName="Model">
+                <Property name="tabTitle" type="java.lang.String" value="Model"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -164,7 +160,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="pnlParameters" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="256" max="32767" attributes="0"/>
+                      <EmptySpace pref="281" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -271,7 +267,7 @@
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="301" max="32767" attributes="0"/>
+                      <EmptySpace pref="326" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -329,7 +325,7 @@
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="268" max="32767" attributes="0"/>
+                      <EmptySpace pref="293" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

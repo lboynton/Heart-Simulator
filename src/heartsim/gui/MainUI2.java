@@ -167,14 +167,7 @@ public class MainUI2 extends javax.swing.JFrame
         jSeparator3 = new javax.swing.JToolBar.Separator();
         btnAbout = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Object textIconGap = UIManager.get("TabbedPane.textIconGap");
-        Insets tabInsets = UIManager.getInsets("TabbedPane.tabInsets");
-        UIManager.put("TabbedPane.textIconGap", new Integer(1));
-        UIManager.put("TabbedPane.tabInsets", new Insets(tabInsets.left, tabInsets.top, tabInsets.right, tabInsets.bottom));
-        verticalJTabbedPane1 = new heartsim.gui.component.VerticalJTabbedPane();
-        UIManager.put("TabbedPane.textIconGap", textIconGap);
-        UIManager.put("TabbedPane.tabInsets", tabInsets);
-        verticalJTabbedPane1.setTabPlacement(JTabbedPane.LEFT);
+        verticalJTabbedPane1 = new javax.swing.JTabbedPane();
         pnlCA = new javax.swing.JPanel();
         pnlParameters = new javax.swing.JPanel();
         lblTissue = new javax.swing.JLabel();
@@ -292,10 +285,10 @@ public class MainUI2 extends javax.swing.JFrame
             pnlCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCALayout.createSequentialGroup()
                 .addComponent(pnlParameters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(256, Short.MAX_VALUE))
+                .addContainerGap(281, Short.MAX_VALUE))
         );
 
-        verticalJTabbedPane1.addTab("Cellular Automata", pnlCA);
+        verticalJTabbedPane1.addTab("Model", pnlCA);
 
         jLabel4.setText("Heart rate");
 
@@ -319,7 +312,7 @@ public class MainUI2 extends javax.swing.JFrame
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(301, Short.MAX_VALUE))
+                .addContainerGap(326, Short.MAX_VALUE))
         );
 
         verticalJTabbedPane1.addTab("Pacemaker", jPanel2);
@@ -356,7 +349,7 @@ public class MainUI2 extends javax.swing.JFrame
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(268, Short.MAX_VALUE))
+                .addContainerGap(293, Short.MAX_VALUE))
         );
 
         verticalJTabbedPane1.addTab("Simulation", jPanel3);
@@ -432,6 +425,6 @@ public class MainUI2 extends javax.swing.JFrame
     private javax.swing.JPanel pnlCA;
     private javax.swing.JPanel pnlParameters;
     private javax.swing.JTextField txtTime;
-    private heartsim.gui.component.VerticalJTabbedPane verticalJTabbedPane1;
+    private javax.swing.JTabbedPane verticalJTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }
