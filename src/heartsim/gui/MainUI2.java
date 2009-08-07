@@ -27,6 +27,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
+import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 
 /**
@@ -38,7 +39,12 @@ public class MainUI2 extends javax.swing.JFrame
     private CAModel CAModel; // CA model being used in the simulation
     private final boolean DEBUG = true; // if debug is true then print output messages
     private File svgFile; // svg containing heart geometry
-    private double cellSize = 1;
+    private double cellSize = 4;
+    private int time; // time to run simulation
+    private int currentTime = 0; // current time in simulation
+    private int stimX = 53; // X-axis location cell which should be stimulated
+    private int stimY = 18; // Y-axis location cell which should be stimulated
+    private SwingWorker<Object, Void> worker;
     
     /** Creates new form MainUI2 */
     public MainUI2()
@@ -54,11 +60,14 @@ public class MainUI2 extends javax.swing.JFrame
 
         initComponents();
 
-        // initially load an SVG file
-        setSvgFile(new File("geometry_data/heart.svg"));
+        // center frame on window
+        this.setLocationRelativeTo(null);
 
         // load initially selected CA model
         cboBoxModel.setSelectedIndex(0);
+
+        // initially load an SVG file
+        setSvgFile(new File("geometry_data/heart.svg"));
     }
 
     /**
@@ -177,7 +186,76 @@ public class MainUI2 extends javax.swing.JFrame
     {
         DataLoader loader = new DataLoader(svgFile.getPath());
         loader.setSize(cellSize);
-        //CAModel.setCells(loader.getGrid());
+        CAModel.setCells(loader.getGrid());
+        CAModel.setSize(pnlDisplay.getSize());
+    }
+
+    private void resetSimulation()
+    {
+        currentTime = 0;
+        CAModel.initCells();
+        CAModel.stimulate(stimX, stimY);
+        pnlDisplay.reset();
+        btnStart.setEnabled(true);
+        btnStepForward.setEnabled(true);
+        btnStop.setEnabled(false);
+    }
+
+    private void runSimulation()
+    {
+        btnStart.setEnabled(false);
+        btnStepForward.setEnabled(false);
+        btnStop.setEnabled(true);
+
+        if (!CAModel.isCell(stimX, stimY))
+        {
+            output("No cell at X: " + stimX + " Y: " + stimY);
+            return;
+        }
+
+        output("Started simulation at X: " + stimX + " Y: " + stimY);
+
+        byte[] data = pnlDisplay.getBuffer();
+
+        int[][] u = CAModel.getU();
+
+        for (int t = 0; t < this.time; t++)
+        {
+            int k = 0;
+
+            for (int i = 0; i < u.length; i++)
+            {
+                for (int j = 0; j < u[0].length; j++)
+                {
+                    byte val = (byte) u[i][j];
+                    if (val == 0)
+                    {
+                        data[k] = -10;
+                    }
+                    else
+                    {
+                        data[k] = (byte) u[i][j];
+                    }
+                    k++;
+                }
+            }
+
+            /*if (chartData.getColumnCount() > 6)
+            {
+                chartData.removeColumn(0);
+            }*/
+
+            currentTime++;
+            //chartData.addValue(u[stimX][stimY], "Voltage", String.valueOf(currentTime));
+            //chartData.addValue(CAModel.getV(stimX, stimY), "Recovery", String.valueOf(currentTime));
+            CAModel.step();
+            pnlDisplay.repaint();
+
+        }
+
+        btnStart.setEnabled(true);
+        btnStepForward.setEnabled(true);
+        btnStop.setEnabled(false);
     }
 
     /** This method is called from within the constructor to
@@ -190,10 +268,10 @@ public class MainUI2 extends javax.swing.JFrame
     private void initComponents() {
 
         lblStatus = new javax.swing.JLabel();
-        jToolBar1 = new javax.swing.JToolBar();
+        toolBar = new javax.swing.JToolBar();
         btnOpen = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
-        btnPlayPause = new javax.swing.JButton();
+        btnStart = new javax.swing.JButton();
         btnStop = new javax.swing.JButton();
         btnStepForward = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
@@ -202,6 +280,7 @@ public class MainUI2 extends javax.swing.JFrame
         jSeparator3 = new javax.swing.JToolBar.Separator();
         btnAbout = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
+        pnlDisplay = new heartsim.gui.BinaryPlotPanel();
         tabbedPane = new javax.swing.JTabbedPane();
         pnlCA = new javax.swing.JPanel();
         pnlParameters = new javax.swing.JPanel();
@@ -222,8 +301,8 @@ public class MainUI2 extends javax.swing.JFrame
 
         lblStatus.setText("Status");
 
-        jToolBar1.setFloatable(false);
-        jToolBar1.setRollover(true);
+        toolBar.setFloatable(false);
+        toolBar.setRollover(true);
 
         btnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/document-open.png"))); // NOI18N
         btnOpen.setFocusable(false);
@@ -234,27 +313,32 @@ public class MainUI2 extends javax.swing.JFrame
                 btnOpenActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnOpen);
-        jToolBar1.add(jSeparator1);
+        toolBar.add(btnOpen);
+        toolBar.add(jSeparator1);
 
-        btnPlayPause.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/media-playback-start.png"))); // NOI18N
-        btnPlayPause.setFocusable(false);
-        btnPlayPause.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnPlayPause.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(btnPlayPause);
+        btnStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/media-playback-start.png"))); // NOI18N
+        btnStart.setFocusable(false);
+        btnStart.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnStart.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStartActionPerformed(evt);
+            }
+        });
+        toolBar.add(btnStart);
 
         btnStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/media-playback-stop.png"))); // NOI18N
         btnStop.setFocusable(false);
         btnStop.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnStop.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(btnStop);
+        toolBar.add(btnStop);
 
         btnStepForward.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/media-seek-forward.png"))); // NOI18N
         btnStepForward.setFocusable(false);
         btnStepForward.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnStepForward.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(btnStepForward);
-        jToolBar1.add(jSeparator2);
+        toolBar.add(btnStepForward);
+        toolBar.add(jSeparator2);
 
         btnZoomIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/zoom-in.png"))); // NOI18N
         btnZoomIn.setFocusable(false);
@@ -265,7 +349,7 @@ public class MainUI2 extends javax.swing.JFrame
                 btnZoomInActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnZoomIn);
+        toolBar.add(btnZoomIn);
 
         btnZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/zoom-out.png"))); // NOI18N
         btnZoomOut.setFocusable(false);
@@ -276,14 +360,27 @@ public class MainUI2 extends javax.swing.JFrame
                 btnZoomOutActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnZoomOut);
-        jToolBar1.add(jSeparator3);
+        toolBar.add(btnZoomOut);
+        toolBar.add(jSeparator3);
 
         btnAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/help-browser.png"))); // NOI18N
         btnAbout.setFocusable(false);
         btnAbout.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnAbout.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(btnAbout);
+        toolBar.add(btnAbout);
+
+        javax.swing.GroupLayout pnlDisplayLayout = new javax.swing.GroupLayout(pnlDisplay);
+        pnlDisplay.setLayout(pnlDisplayLayout);
+        pnlDisplayLayout.setHorizontalGroup(
+            pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 335, Short.MAX_VALUE)
+        );
+        pnlDisplayLayout.setVerticalGroup(
+            pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 372, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(pnlDisplay);
 
         lblTissue.setText("Tissue");
 
@@ -410,7 +507,7 @@ public class MainUI2 extends javax.swing.JFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
+            .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -425,7 +522,7 @@ public class MainUI2 extends javax.swing.JFrame
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
@@ -467,6 +564,36 @@ public class MainUI2 extends javax.swing.JFrame
         loadHeart();
     }//GEN-LAST:event_btnZoomOutActionPerformed
 
+    private void btnStartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStartActionPerformed
+    {//GEN-HEADEREND:event_btnStartActionPerformed
+        resetSimulation();
+        lblStatus.setText("Started simulation at X: " + stimX + " Y: " + stimY);
+
+        worker = new SwingWorker<Object, Void>()
+        {
+            @Override
+            public Object doInBackground() throws Exception
+            {
+                time = Integer.parseInt(txtTime.getText());
+                runSimulation();
+
+                return null;
+            }
+
+            @Override
+            protected void done()
+            {
+                super.done();
+                btnStepForward.setEnabled(true);
+                btnStart.setEnabled(true);
+                btnStop.setEnabled(false);
+                lblStatus.setText("Simulation finished");
+            }
+        };
+
+        worker.execute();
+    }//GEN-LAST:event_btnStartActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -483,7 +610,7 @@ public class MainUI2 extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAbout;
     private javax.swing.JButton btnOpen;
-    private javax.swing.JButton btnPlayPause;
+    private javax.swing.JButton btnStart;
     private javax.swing.JButton btnStepForward;
     private javax.swing.JButton btnStop;
     private javax.swing.JButton btnZoomIn;
@@ -500,14 +627,15 @@ public class MainUI2 extends javax.swing.JFrame
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblModel;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblTime;
     private javax.swing.JLabel lblTissue;
     private javax.swing.JPanel pnlCA;
+    private heartsim.gui.BinaryPlotPanel pnlDisplay;
     private javax.swing.JPanel pnlParameters;
     private javax.swing.JTabbedPane tabbedPane;
+    private javax.swing.JToolBar toolBar;
     private javax.swing.JTextField txtTime;
     // End of variables declaration//GEN-END:variables
 }
