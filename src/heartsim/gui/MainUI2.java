@@ -394,6 +394,11 @@ public class MainUI2 extends javax.swing.JFrame
         pnlDisplayContainer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlDisplay.setBackground(java.awt.Color.white);
+        pnlDisplay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pnlDisplayMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlDisplayLayout = new javax.swing.GroupLayout(pnlDisplay);
         pnlDisplay.setLayout(pnlDisplayLayout);
@@ -625,6 +630,13 @@ public class MainUI2 extends javax.swing.JFrame
     {//GEN-HEADEREND:event_btnStopActionPerformed
         resetSimulation();
     }//GEN-LAST:event_btnStopActionPerformed
+
+    private void pnlDisplayMousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_pnlDisplayMousePressed
+    {//GEN-HEADEREND:event_pnlDisplayMousePressed
+        stimX = evt.getY();
+        stimY = evt.getX();
+        this.btnStartActionPerformed(null);
+    }//GEN-LAST:event_pnlDisplayMousePressed
 
     /**
      * @param args the command line arguments

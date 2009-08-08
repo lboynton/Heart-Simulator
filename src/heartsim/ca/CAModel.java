@@ -84,8 +84,9 @@ public abstract class CAModel
      * Stimulates a cell so that it starts an electrical wave
      * @param x
      * @param y
+     * @return True if cell was stimulated, false if not
      */
-    public abstract void stimulate(int x, int y);
+    public abstract boolean stimulate(int x, int y);
 
     /**
      * Sets the cell geometry

@@ -41,9 +41,18 @@ public class Nishiyama extends CAModel
         this.setParameter("Delta 2", delta2);
     }
 
-    public void stimulate(int x, int y)
+    public boolean stimulate(int x, int y)
     {
-        u[x][y] = 1;
+        try
+        {
+            u[x][y] = 1;
+        }
+        catch(java.lang.ArrayIndexOutOfBoundsException ex)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     public void initCells()

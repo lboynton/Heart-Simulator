@@ -50,7 +50,7 @@ public class Tyson extends CAModel
     }
 
     @Override
-    public void stimulate(int x, int y)
+    public boolean stimulate(int x, int y)
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
