@@ -47,7 +47,7 @@ public class MainUI2 extends javax.swing.JFrame
     private int stimY = 18; // Y-axis location cell which should be stimulated
     private SwingWorker<Object, Void> worker;
     private DataLoader loader;
-    
+
     /** Creates new form MainUI2 */
     public MainUI2()
     {
@@ -113,7 +113,7 @@ public class MainUI2 extends javax.swing.JFrame
 
         // use spring layout for this panel
         pnlParameters.setLayout(new SpringLayout());
-        
+
         // add the tissue combo box selector first
         pnlParameters.add(lblTissue);
         pnlParameters.add(cboBoxTissue);
@@ -189,8 +189,14 @@ public class MainUI2 extends javax.swing.JFrame
     {
         loader = new DataLoader(svgFile.getPath());
         loader.setSize(cellSize);
+        pnlDisplay.setPreferredSize(new Dimension(loader.getGrid()[0].length, loader.getGrid().length));
+        pnlDisplay.setSize(new Dimension(loader.getGrid()[0].length, loader.getGrid().length));
+        int x = (scrollPaneDisplay.getWidth() / 2) - (pnlDisplay.getPreferredSize().width / 2);
+        int y = (scrollPaneDisplay.getHeight() / 2) - (pnlDisplay.getPreferredSize().height / 2);
+        pnlDisplayContainer.add(pnlDisplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(x, y, -1, -1));
         CAModel.setCells(loader.getGrid());
         CAModel.setSize(pnlDisplay.getSize());
+        pnlDisplay.reset();
     }
 
     private void resetSimulation()
@@ -198,10 +204,6 @@ public class MainUI2 extends javax.swing.JFrame
         currentTime = 0;
         CAModel.initCells();
         CAModel.stimulate(stimX, stimY);
-//        pnlDisplay.setPreferredSize(new Dimension(loader.getGrid().length, loader.getGrid()[0].length));
-//        pnlDisplay.setSize(new Dimension(loader.getGrid().length, loader.getGrid()[0].length));
-        pnlDisplay.setSize(pnlDisplay.getSize());
-        pnlDisplay.reset();
         btnStart.setEnabled(true);
         btnStepForward.setEnabled(true);
         btnStop.setEnabled(false);
@@ -248,7 +250,7 @@ public class MainUI2 extends javax.swing.JFrame
 
             /*if (chartData.getColumnCount() > 6)
             {
-                chartData.removeColumn(0);
+            chartData.removeColumn(0);
             }*/
 
             currentTime++;
@@ -285,8 +287,8 @@ public class MainUI2 extends javax.swing.JFrame
         btnZoomOut = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
         btnAbout = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel1 = new javax.swing.JPanel();
+        scrollPaneDisplay = new javax.swing.JScrollPane();
+        pnlDisplayContainer = new javax.swing.JPanel();
         pnlDisplay = new heartsim.gui.BinaryPlotPanel();
         tabbedPane = new javax.swing.JTabbedPane();
         pnlCA = new javax.swing.JPanel();
@@ -388,7 +390,8 @@ public class MainUI2 extends javax.swing.JFrame
         btnAbout.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         toolBar.add(btnAbout);
 
-        jPanel1.setBackground(java.awt.Color.white);
+        pnlDisplayContainer.setBackground(java.awt.Color.white);
+        pnlDisplayContainer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlDisplay.setBackground(java.awt.Color.white);
 
@@ -403,24 +406,9 @@ public class MainUI2 extends javax.swing.JFrame
             .addGap(0, 157, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(107, Short.MAX_VALUE)
-                .addComponent(pnlDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(83, 83, 83))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(123, Short.MAX_VALUE)
-                .addComponent(pnlDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(104, 104, 104))
-        );
+        pnlDisplayContainer.add(pnlDisplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, -1, -1));
 
-        jScrollPane1.setViewportView(jPanel1);
+        scrollPaneDisplay.setViewportView(pnlDisplayContainer);
 
         lblTissue.setText("Tissue");
 
@@ -552,7 +540,7 @@ public class MainUI2 extends javax.swing.JFrame
                 .addContainerGap()
                 .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
+                .addComponent(scrollPaneDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
@@ -564,8 +552,8 @@ public class MainUI2 extends javax.swing.JFrame
                 .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scrollPaneDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
+                    .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblStatus)
                 .addContainerGap())
@@ -663,10 +651,8 @@ public class MainUI2 extends javax.swing.JFrame
     private javax.swing.JComboBox cboBoxTissue;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
@@ -678,7 +664,9 @@ public class MainUI2 extends javax.swing.JFrame
     private javax.swing.JLabel lblTissue;
     private javax.swing.JPanel pnlCA;
     private heartsim.gui.BinaryPlotPanel pnlDisplay;
+    private javax.swing.JPanel pnlDisplayContainer;
     private javax.swing.JPanel pnlParameters;
+    private javax.swing.JScrollPane scrollPaneDisplay;
     private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JToolBar toolBar;
     private javax.swing.JTextField txtTime;
