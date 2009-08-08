@@ -315,7 +315,6 @@ public class MainUI2 extends javax.swing.JFrame
 
         btnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/document-open.png"))); // NOI18N
         btnOpen.setToolTipText("Open SVG file containing heart geometry");
-        btnOpen.setFocusable(false);
         btnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnOpen.addActionListener(new java.awt.event.ActionListener() {
@@ -328,7 +327,6 @@ public class MainUI2 extends javax.swing.JFrame
 
         btnStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/media-playback-start.png"))); // NOI18N
         btnStart.setToolTipText("Run the simulation with the specified parameters");
-        btnStart.setFocusable(false);
         btnStart.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnStart.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnStart.addActionListener(new java.awt.event.ActionListener() {
@@ -340,7 +338,6 @@ public class MainUI2 extends javax.swing.JFrame
 
         btnStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/media-playback-stop.png"))); // NOI18N
         btnStop.setToolTipText("Stop simulation");
-        btnStop.setFocusable(false);
         btnStop.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnStop.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnStop.addActionListener(new java.awt.event.ActionListener() {
@@ -352,15 +349,18 @@ public class MainUI2 extends javax.swing.JFrame
 
         btnStepForward.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/media-seek-forward.png"))); // NOI18N
         btnStepForward.setToolTipText("Step simulation forward");
-        btnStepForward.setFocusable(false);
         btnStepForward.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnStepForward.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnStepForward.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStepForwardActionPerformed(evt);
+            }
+        });
         toolBar.add(btnStepForward);
         toolBar.add(jSeparator2);
 
         btnZoomIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/zoom-in.png"))); // NOI18N
         btnZoomIn.setToolTipText("Zoom in");
-        btnZoomIn.setFocusable(false);
         btnZoomIn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnZoomIn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnZoomIn.addActionListener(new java.awt.event.ActionListener() {
@@ -372,7 +372,6 @@ public class MainUI2 extends javax.swing.JFrame
 
         btnZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/zoom-out.png"))); // NOI18N
         btnZoomOut.setToolTipText("Zoom out");
-        btnZoomOut.setFocusable(false);
         btnZoomOut.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnZoomOut.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnZoomOut.addActionListener(new java.awt.event.ActionListener() {
@@ -385,7 +384,6 @@ public class MainUI2 extends javax.swing.JFrame
 
         btnAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/help-browser.png"))); // NOI18N
         btnAbout.setToolTipText("About");
-        btnAbout.setFocusable(false);
         btnAbout.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnAbout.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         toolBar.add(btnAbout);
@@ -544,8 +542,9 @@ public class MainUI2 extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrollPaneDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
@@ -637,6 +636,18 @@ public class MainUI2 extends javax.swing.JFrame
         stimY = evt.getX();
         this.btnStartActionPerformed(null);
     }//GEN-LAST:event_pnlDisplayMousePressed
+
+    private void btnStepForwardActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStepForwardActionPerformed
+    {//GEN-HEADEREND:event_btnStepForwardActionPerformed
+        if (currentTime == 0)
+        {
+            resetSimulation();
+        }
+        lblStatus.setText("Stepped simulation at X: " + stimX + " Y: " + stimY);
+        time = 1;
+        runSimulation();
+        btnStepForward.requestFocus();
+    }//GEN-LAST:event_btnStepForwardActionPerformed
 
     /**
      * @param args the command line arguments
