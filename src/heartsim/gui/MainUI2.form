@@ -233,7 +233,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="pnlParameters" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="283" max="32767" attributes="0"/>
+                      <EmptySpace pref="250" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -252,8 +252,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="cboBoxTissue" pref="136" max="32767" attributes="1"/>
-                              <Component id="cboBoxModel" alignment="1" pref="136" max="32767" attributes="1"/>
+                              <Component id="cboBoxTissue" pref="132" max="32767" attributes="1"/>
+                              <Component id="cboBoxModel" alignment="1" pref="132" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -326,7 +326,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextField2" pref="110" max="32767" attributes="0"/>
+                      <Component id="jTextField2" pref="106" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -339,7 +339,7 @@
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="316" max="32767" attributes="0"/>
+                      <EmptySpace pref="283" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -377,8 +377,8 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTextField1" pref="135" max="32767" attributes="0"/>
-                          <Component id="txtTime" alignment="0" pref="135" max="32767" attributes="0"/>
+                          <Component id="jTextField1" pref="131" max="32767" attributes="0"/>
+                          <Component id="txtTime" alignment="0" pref="131" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -397,7 +397,7 @@
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="283" max="32767" attributes="0"/>
+                      <EmptySpace pref="250" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

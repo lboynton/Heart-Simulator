@@ -143,7 +143,7 @@ public class MainUI2 extends javax.swing.JFrame
                     }
                     else
                     {
-                        txt.setForeground(Color.BLACK);
+                        txt.setForeground(UIManager.getColor("JTextField.foreground"));
                     }
                     CAModel.setParameter(p.getName(), p);
                 }
