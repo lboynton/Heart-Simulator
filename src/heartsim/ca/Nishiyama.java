@@ -26,7 +26,7 @@ public class Nishiyama extends CAModel
         super("Nishiyama");
 
         // create parameters
-        CAModelIntParameter N = new CAModelIntParameter(5);
+        CAModelIntParameter N = new CAModelIntParameter(6);
         CAModelIntParameter delta1 = new CAModelIntParameter(3);
         CAModelIntParameter delta2 = new CAModelIntParameter(7);
 
