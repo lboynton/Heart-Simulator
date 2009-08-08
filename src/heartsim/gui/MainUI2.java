@@ -130,6 +130,7 @@ public class MainUI2 extends javax.swing.JFrame
             JLabel lbl = new JLabel(p.getName());
             final JTextField txt = new JTextField();
             txt.setText(p.getValue().toString());
+            txt.setToolTipText(p.getDescription());
             txt.addKeyListener(new KeyAdapter()
             {
                 @Override
@@ -311,6 +312,7 @@ public class MainUI2 extends javax.swing.JFrame
         toolBar.setRollover(true);
 
         btnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/document-open.png"))); // NOI18N
+        btnOpen.setToolTipText("Open SVG file containing heart geometry");
         btnOpen.setFocusable(false);
         btnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -323,6 +325,7 @@ public class MainUI2 extends javax.swing.JFrame
         toolBar.add(jSeparator1);
 
         btnStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/media-playback-start.png"))); // NOI18N
+        btnStart.setToolTipText("Run the simulation with the specified parameters");
         btnStart.setFocusable(false);
         btnStart.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnStart.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -334,6 +337,7 @@ public class MainUI2 extends javax.swing.JFrame
         toolBar.add(btnStart);
 
         btnStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/media-playback-stop.png"))); // NOI18N
+        btnStop.setToolTipText("Stop simulation");
         btnStop.setFocusable(false);
         btnStop.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnStop.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -345,6 +349,7 @@ public class MainUI2 extends javax.swing.JFrame
         toolBar.add(btnStop);
 
         btnStepForward.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/media-seek-forward.png"))); // NOI18N
+        btnStepForward.setToolTipText("Step simulation forward");
         btnStepForward.setFocusable(false);
         btnStepForward.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnStepForward.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -352,6 +357,7 @@ public class MainUI2 extends javax.swing.JFrame
         toolBar.add(jSeparator2);
 
         btnZoomIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/zoom-in.png"))); // NOI18N
+        btnZoomIn.setToolTipText("Zoom in");
         btnZoomIn.setFocusable(false);
         btnZoomIn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnZoomIn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -363,6 +369,7 @@ public class MainUI2 extends javax.swing.JFrame
         toolBar.add(btnZoomIn);
 
         btnZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/zoom-out.png"))); // NOI18N
+        btnZoomOut.setToolTipText("Zoom out");
         btnZoomOut.setFocusable(false);
         btnZoomOut.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnZoomOut.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -375,6 +382,7 @@ public class MainUI2 extends javax.swing.JFrame
         toolBar.add(jSeparator3);
 
         btnAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/help-browser.png"))); // NOI18N
+        btnAbout.setToolTipText("About");
         btnAbout.setFocusable(false);
         btnAbout.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnAbout.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);

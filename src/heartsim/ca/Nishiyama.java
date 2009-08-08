@@ -26,14 +26,19 @@ public class Nishiyama extends CAModel
         super("Nishiyama");
 
         // create parameters
-        CAModelIntParameter NParam = new CAModelIntParameter(5);
-        CAModelIntParameter delta1Param = new CAModelIntParameter(3);
-        CAModelIntParameter delta2Param = new CAModelIntParameter(7);
+        CAModelIntParameter N = new CAModelIntParameter(5);
+        CAModelIntParameter delta1 = new CAModelIntParameter(3);
+        CAModelIntParameter delta2 = new CAModelIntParameter(7);
+
+        // set descriptions of parameters
+        N.setDescription("This value affects how high the voltage/recovery of a cell can go before it plateaus");
+        delta1.setDescription("<html>Cells are randomly assigned either delta 1 or delta 2.<br>The sum of the Moore neighbours must be at least this value before a cell becomes excited.</html>");
+        delta2.setDescription(delta1.getDescription());
 
         // add parameters
-        this.setParameter("N", NParam);
-        this.setParameter("Delta 1", delta1Param);
-        this.setParameter("Delta 2", delta2Param);
+        this.setParameter("N", N);
+        this.setParameter("Delta 1", delta1);
+        this.setParameter("Delta 2", delta2);
     }
 
     public void stimulate(int x, int y)

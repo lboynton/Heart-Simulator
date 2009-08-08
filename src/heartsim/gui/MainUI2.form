@@ -71,6 +71,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/heartsim/gui/icon/document-open.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Open SVG file containing heart geometry"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -86,6 +87,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/heartsim/gui/icon/media-playback-start.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Run the simulation with the specified parameters"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -99,6 +101,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/heartsim/gui/icon/media-playback-stop.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Stop simulation"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -112,6 +115,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/heartsim/gui/icon/media-seek-forward.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Step simulation forward"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -124,6 +128,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/heartsim/gui/icon/zoom-in.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Zoom in"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -137,6 +142,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/heartsim/gui/icon/zoom-out.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Zoom out"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -152,6 +158,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/heartsim/gui/icon/help-browser.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="About"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
