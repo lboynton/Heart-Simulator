@@ -1,13 +1,13 @@
+TODO
 - Draw outline of heart, maybe by overlaying SVG?
 - Allow update interval to be specified. Put in pacemaker panel.
-- Centre heart in JPanel
-- Make visualisation more efficient, trim the array sizes
+- Make visualisation more efficient
 - Code tidy up/refactor
 - GUI tidy up
-- Fix crash when heart is larger than the visible area of display panel
 - Don't reset simulation each time start is pressed, treat it as being paused
-- Perhaps change cell size to a zoom button
 - Ensure heart is facing the right way
+- Add in different heart tissue, SA node, AV node, bundle of His, purkinje fibres
+  left and right bundle branches, atria, ventricles
 
 User should be able to:
 - Select different cellular automata models
