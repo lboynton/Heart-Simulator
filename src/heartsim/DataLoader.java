@@ -13,12 +13,16 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.batik.dom.svg.SAXSVGDocumentFactory;
+import org.apache.batik.dom.svg.SVGOMPathElement;
 import org.apache.batik.ext.awt.geom.ExtendedGeneralPath;
 import org.apache.batik.parser.AWTPathProducer;
 import org.apache.batik.parser.ParseException;
 import org.apache.batik.util.XMLResourceDescriptor;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * Reads data from SVG file
@@ -240,6 +244,23 @@ public class DataLoader
                 sizeY = maxY;
             }
         }
+    }
+
+    public String[] getPathsInFile()
+    {
+        // ensure file has been opened
+        openFile();
+
+        NodeList pathsInFile = doc.getElementsByTagName("path");
+
+        String[] pathNames = new String[pathsInFile.getLength()];
+
+        for(int i = 0; i < pathsInFile.getLength(); i++)
+        {
+            pathNames[i] = ((SVGOMPathElement)pathsInFile.item(i)).getAttribute("id");
+        }
+
+        return pathNames;
     }
 
     public boolean[][] getGrid()
