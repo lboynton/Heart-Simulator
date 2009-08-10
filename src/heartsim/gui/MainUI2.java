@@ -72,7 +72,7 @@ public class MainUI2 extends javax.swing.JFrame
         cboBoxModel.setSelectedIndex(0);
 
         // initially load an SVG file
-        setSvgFile(new File("geometry_data/heart2.svg"));
+        setSvgFile(new File("geometry_data/heart.svg"));
     }
 
     /**
