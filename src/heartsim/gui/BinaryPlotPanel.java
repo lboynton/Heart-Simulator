@@ -96,6 +96,13 @@ public class BinaryPlotPanel extends javax.swing.JPanel
         {
             for (ExtendedGeneralPath path : paths)
             {
+                // TODO
+                // If SVG contains more than one path then the outline may not
+                // be in the centre, so it needs to be moved to the correct place
+                // an affine transform probably isn't the best way though
+                //AffineTransform at = new AffineTransform();
+                //at.translate(-100, -300);
+                //g2.transform(at);
                 g2.draw(path);
             }
         }
