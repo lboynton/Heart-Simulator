@@ -40,13 +40,13 @@ public class MainUI2 extends javax.swing.JFrame
     private CAModel CAModel; // CA model being used in the simulation
     private final boolean DEBUG = true; // if debug is true then print output messages
     private File svgFile; // svg containing heart geometry
-    private double cellSize = 2.5;
+    private double cellSize = 1;
     private int time; // time to run simulation
     private int currentTime = 0; // current time in simulation
-    private int stimX = 231; // X-axis location cell which should be stimulated
-    private int stimY = 112; // Y-axis location cell which should be stimulated
+    private int stimX = 458; // X-axis location cell which should be stimulated
+    private int stimY = 221; // Y-axis location cell which should be stimulated
     private SwingWorker<Object, Void> worker;
-    private DataLoader loader;
+    private DataLoader loader = new DataLoader();
 
     /** Creates new form MainUI2 */
     public MainUI2()
@@ -69,7 +69,7 @@ public class MainUI2 extends javax.swing.JFrame
         cboBoxModel.setSelectedIndex(0);
 
         // initially load an SVG file
-        setSvgFile(new File("geometry_data/heart2.svg"));
+        setSvgFile(new File("geometry_data/heart.svg"));
     }
 
     /**
@@ -190,7 +190,7 @@ public class MainUI2 extends javax.swing.JFrame
 
     private void loadHeart()
     {
-        loader = new DataLoader(svgFile.getPath());
+        loader.setFile(svgFile.getPath());
         loader.setSize(cellSize);
         pnlDisplay.setPreferredSize(new Dimension(loader.getGrid()[0].length, loader.getGrid().length));
         pnlDisplay.setSize(new Dimension(loader.getGrid()[0].length, loader.getGrid().length));
@@ -198,6 +198,8 @@ public class MainUI2 extends javax.swing.JFrame
         CAModel.setCells(loader.getGrid());
         CAModel.setSize(pnlDisplay.getSize());
         pnlDisplay.reset();
+        pnlDisplay.setVentriclesPath(loader.getVentriclesPath());
+        pnlDisplay.repaint();
     }
 
     private void positionHeartInCentre()

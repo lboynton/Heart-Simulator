@@ -13,9 +13,11 @@ package heartsim.gui;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.awt.image.WritableRaster;
+import org.apache.batik.ext.awt.geom.ExtendedGeneralPath;
 
 /**
  *
@@ -25,6 +27,7 @@ public class BinaryPlotPanel extends javax.swing.JPanel
 {
     private BufferedImage buffIm;
     private byte[] buffer;
+    private ExtendedGeneralPath ventriclesPath;
 
     /** Creates new form BinaryPlotPanel */
     public BinaryPlotPanel()
@@ -52,7 +55,7 @@ public class BinaryPlotPanel extends javax.swing.JPanel
 
     public void reset()
     {
-        for(int i = 0; i < buffer.length; i++)
+        for (int i = 0; i < buffer.length; i++)
         {
             buffer[i] = -1;
         }
@@ -62,6 +65,11 @@ public class BinaryPlotPanel extends javax.swing.JPanel
     public byte[] getBuffer()
     {
         return buffer;
+    }
+
+    public void setVentriclesPath(ExtendedGeneralPath ventriclesPath)
+    {
+        this.ventriclesPath = ventriclesPath;
     }
 
     public Graphics2D getBufferGraphics()
@@ -84,6 +92,10 @@ public class BinaryPlotPanel extends javax.swing.JPanel
     {
         Graphics2D g2 = (Graphics2D) g;
         g2.drawImage(buffIm, 0, 0, this);
+        if (ventriclesPath != null)
+        {
+            g2.draw(ventriclesPath);
+        }
     }
 
     /** This method is called from within the constructor to
@@ -106,7 +118,6 @@ public class BinaryPlotPanel extends javax.swing.JPanel
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

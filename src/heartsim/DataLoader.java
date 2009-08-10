@@ -29,6 +29,10 @@ public class DataLoader
     private double size; // cell size (smaller cell size means bigger heart)
     private Document doc;
     private ExtendedGeneralPath ventriclesPath;
+
+    public DataLoader()
+    {
+    }
     
     public DataLoader(String file)
     {
@@ -46,8 +50,14 @@ public class DataLoader
         
     }
 
+    public void setFile(String file)
+    {
+        this.file = file;
+    }
+
     private void openFile()
     {
+        
         String parser = XMLResourceDescriptor.getXMLParserClassName();
         SAXSVGDocumentFactory documentFactory = new SAXSVGDocumentFactory(parser);
         String uri = new File(file).toURI().toString();
@@ -60,6 +70,11 @@ public class DataLoader
         {
             Logger.getLogger(DataLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public ExtendedGeneralPath getVentriclesPath()
+    {
+        return ventriclesPath;
     }
 
     private void createGrid()
