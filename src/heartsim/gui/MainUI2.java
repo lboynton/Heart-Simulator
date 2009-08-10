@@ -40,11 +40,11 @@ public class MainUI2 extends javax.swing.JFrame
     private CAModel CAModel; // CA model being used in the simulation
     private final boolean DEBUG = true; // if debug is true then print output messages
     private File svgFile; // svg containing heart geometry
-    private double cellSize = 4;
+    private double cellSize = 2.5;
     private int time; // time to run simulation
     private int currentTime = 0; // current time in simulation
-    private int stimX = 53; // X-axis location cell which should be stimulated
-    private int stimY = 18; // Y-axis location cell which should be stimulated
+    private int stimX = 231; // X-axis location cell which should be stimulated
+    private int stimY = 112; // Y-axis location cell which should be stimulated
     private SwingWorker<Object, Void> worker;
     private DataLoader loader;
 
@@ -69,7 +69,7 @@ public class MainUI2 extends javax.swing.JFrame
         cboBoxModel.setSelectedIndex(0);
 
         // initially load an SVG file
-        setSvgFile(new File("geometry_data/heart.svg"));
+        setSvgFile(new File("geometry_data/heart2.svg"));
     }
 
     /**

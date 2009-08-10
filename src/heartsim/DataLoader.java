@@ -28,7 +28,7 @@ public class DataLoader
     private boolean cells[][]; // resized array of cells
     private double size; // cell size (smaller cell size means bigger heart)
     private Document doc;
-    private ExtendedGeneralPath heartPath;
+    private ExtendedGeneralPath ventriclesPath;
     
     public DataLoader(String file)
     {
@@ -65,11 +65,11 @@ public class DataLoader
     private void createGrid()
     {
         openFile();
-        Element e = (Element) doc.getElementById("heart");
+        Element ventriclesElement = (Element) doc.getElementById("ventricles");
 
         try
         {
-            heartPath = (ExtendedGeneralPath) AWTPathProducer.createShape(new StringReader(e.getAttributeNS(null, "d")), GeneralPath.WIND_EVEN_ODD);
+            ventriclesPath = (ExtendedGeneralPath) AWTPathProducer.createShape(new StringReader(ventriclesElement.getAttributeNS(null, "d")), GeneralPath.WIND_EVEN_ODD);
         }
         catch (IOException ex)
         {
@@ -80,26 +80,26 @@ public class DataLoader
             Logger.getLogger(DataLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        int xval = 0;
-        int yval = 0;
+        int xVal = 0;
+        int yVal = 0;
 
-        int maxX = (int) (heartPath.getBounds2D().getMaxY() / size) + 1;
-        int maxY = (int) (heartPath.getBounds2D().getMaxX() / size) + 1;
+        // work out how big the 2D cells array should be and add two because we
+        // are dividing doubles which will return a decimal value which needs to
+        // be rounded up
+        int sizeX = (int) ((int) (ventriclesPath.getBounds2D().getMaxY() / size) - (ventriclesPath.getBounds2D().getMinY() / size)) + 2;
+        int sizeY = (int) ((int) (ventriclesPath.getBounds2D().getMaxX() / size) - (ventriclesPath.getBounds2D().getMinX() / size)) + 2;
 
-        cells = new boolean[maxX][maxY];
+        cells = new boolean[sizeX][sizeY];
 
-        System.out.println("Max X boundary: " + heartPath.getBounds2D().getMaxX() / size);
-        System.out.println("Max Y boundary: " + heartPath.getBounds2D().getMaxY() / size);
-
-        for(double y = 0; y < heartPath.getBounds2D().getMaxY(); y = y + size)
+        for(double y = ventriclesPath.getBounds2D().getMinY(); y < ventriclesPath.getBounds2D().getMaxY(); y = y + size)
         {
-            for(double x = 0; x < heartPath.getBounds2D().getMaxX(); x = x + size)
+            for(double x = ventriclesPath.getBounds2D().getMinX(); x < ventriclesPath.getBounds2D().getMaxX(); x = x + size)
             {
-                cells[xval][yval++] = heartPath.contains(x, y);
+                cells[xVal][yVal++] = ventriclesPath.contains(x, y);
             }
 
-            yval=0;
-            xval++;
+            yVal=0;
+            xVal++;
         }
     }
 
