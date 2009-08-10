@@ -194,12 +194,17 @@ public class MainUI2 extends javax.swing.JFrame
         loader.setSize(cellSize);
         pnlDisplay.setPreferredSize(new Dimension(loader.getGrid()[0].length, loader.getGrid().length));
         pnlDisplay.setSize(new Dimension(loader.getGrid()[0].length, loader.getGrid().length));
-        int x = (scrollPaneDisplay.getWidth() / 2) - (pnlDisplay.getPreferredSize().width / 2);
-        int y = (scrollPaneDisplay.getHeight() / 2) - (pnlDisplay.getPreferredSize().height / 2);
-        pnlDisplayContainer.add(pnlDisplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(x, y, -1, -1));
+        positionHeartInCentre();
         CAModel.setCells(loader.getGrid());
         CAModel.setSize(pnlDisplay.getSize());
         pnlDisplay.reset();
+    }
+
+    private void positionHeartInCentre()
+    {
+        int x = (scrollPaneDisplay.getWidth() / 2) - (pnlDisplay.getPreferredSize().width / 2);
+        int y = (scrollPaneDisplay.getHeight() / 2) - (pnlDisplay.getPreferredSize().height / 2);
+        pnlDisplayContainer.add(pnlDisplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(x, y, -1, -1));
     }
 
     private void resetSimulation()
@@ -392,6 +397,11 @@ public class MainUI2 extends javax.swing.JFrame
         toolBar.add(btnAbout);
 
         pnlDisplayContainer.setBackground(java.awt.Color.white);
+        pnlDisplayContainer.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                pnlDisplayContainerComponentResized(evt);
+            }
+        });
         pnlDisplayContainer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlDisplay.setBackground(java.awt.Color.white);
@@ -660,6 +670,11 @@ public class MainUI2 extends javax.swing.JFrame
         runSimulation();
         btnStepForward.requestFocus();
     }//GEN-LAST:event_btnStepForwardActionPerformed
+
+    private void pnlDisplayContainerComponentResized(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_pnlDisplayContainerComponentResized
+    {//GEN-HEADEREND:event_pnlDisplayContainerComponentResized
+        positionHeartInCentre();
+    }//GEN-LAST:event_pnlDisplayContainerComponentResized
 
     /**
      * @param args the command line arguments
