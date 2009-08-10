@@ -636,7 +636,17 @@ public class MainUI2 extends javax.swing.JFrame
     {//GEN-HEADEREND:event_pnlDisplayMousePressed
         stimX = evt.getY();
         stimY = evt.getX();
-        this.btnStartActionPerformed(null);
+
+        if (worker == null || worker.isDone())
+        {
+            // simulation isn't running, start it
+            this.btnStartActionPerformed(null);
+        }
+        else
+        {
+            // simulation is running, don't need to start it, just stimulate cell
+            CAModel.stimulate(stimX, stimY);
+        }
     }//GEN-LAST:event_pnlDisplayMousePressed
 
     private void btnStepForwardActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStepForwardActionPerformed
