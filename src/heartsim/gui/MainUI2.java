@@ -43,10 +43,10 @@ public class MainUI2 extends javax.swing.JFrame
     private double cellSize = 1;
     private int time; // time to run simulation
     private int currentTime = 0; // current time in simulation
-    private int stimX = 458; // X-axis location cell which should be stimulated
-    private int stimY = 221; // Y-axis location cell which should be stimulated
+    private int stimX = 459; // X-axis location cell which should be stimulated
+    private int stimY = 297; // Y-axis location cell which should be stimulated
     private SwingWorker<Object, Void> worker;
-    private DataLoader loader = new DataLoader();
+    private DataLoader loader = new DataLoader(new String[] {"ventricles"});
 
     /** Creates new form MainUI2 */
     public MainUI2()
