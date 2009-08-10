@@ -155,6 +155,15 @@ public class DataLoader
         }
     }
 
+    public ExtendedGeneralPath[] getPathShapes()
+    {
+        ExtendedGeneralPath[] shapes = new ExtendedGeneralPath[pathShapes.size()];
+
+        pathShapes.toArray(shapes);
+
+        return shapes;
+    }
+
     private void loadPaths()
     {
         ExtendedGeneralPath shape;

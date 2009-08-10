@@ -30,6 +30,7 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
+import org.apache.batik.ext.awt.geom.ExtendedGeneralPath;
 
 /**
  *
@@ -198,7 +199,7 @@ public class MainUI2 extends javax.swing.JFrame
         CAModel.setCells(loader.getGrid());
         CAModel.setSize(pnlDisplay.getSize());
         pnlDisplay.reset();
-        pnlDisplay.setVentriclesPath(loader.getVentriclesPath());
+        pnlDisplay.setPaths(loader.getPathShapes());
         pnlDisplay.repaint();
     }
 

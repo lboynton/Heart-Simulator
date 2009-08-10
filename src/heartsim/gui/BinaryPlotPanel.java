@@ -27,7 +27,7 @@ public class BinaryPlotPanel extends javax.swing.JPanel
 {
     private BufferedImage buffIm;
     private byte[] buffer;
-    private ExtendedGeneralPath ventriclesPath;
+    private ExtendedGeneralPath[] paths;
 
     /** Creates new form BinaryPlotPanel */
     public BinaryPlotPanel()
@@ -67,9 +67,9 @@ public class BinaryPlotPanel extends javax.swing.JPanel
         return buffer;
     }
 
-    public void setVentriclesPath(ExtendedGeneralPath ventriclesPath)
+    public void setPaths(ExtendedGeneralPath[] paths)
     {
-        this.ventriclesPath = ventriclesPath;
+        this.paths = paths;
     }
 
     public Graphics2D getBufferGraphics()
@@ -92,9 +92,12 @@ public class BinaryPlotPanel extends javax.swing.JPanel
     {
         Graphics2D g2 = (Graphics2D) g;
         g2.drawImage(buffIm, 0, 0, this);
-        if (ventriclesPath != null)
+        if (paths != null)
         {
-            g2.draw(ventriclesPath);
+            for (ExtendedGeneralPath path : paths)
+            {
+                g2.draw(path);
+            }
         }
     }
 
