@@ -24,6 +24,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -699,15 +700,25 @@ public class MainUI2 extends javax.swing.JFrame
 
     private void pnlDisplayMousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_pnlDisplayMousePressed
     {//GEN-HEADEREND:event_pnlDisplayMousePressed
-        stimX = evt.getY();
-        stimY = evt.getX();
-
-        if (!simulationRunning)
+        // left click
+        if (evt.getButton() == MouseEvent.BUTTON1)
         {
-            this.btnStartActionPerformed(null);
+            stimX = evt.getY();
+            stimY = evt.getX();
+
+            if (!simulationRunning)
+            {
+                this.btnStartActionPerformed(null);
+            }
+
+            CAModel.stimulate(stimX, stimY);
         }
 
-        CAModel.stimulate(stimX, stimY);
+        // right click
+        if(evt.getButton() == MouseEvent.BUTTON3)
+        {
+            // TODO pause
+        }
     }//GEN-LAST:event_pnlDisplayMousePressed
 
     private void btnStepForwardActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStepForwardActionPerformed
