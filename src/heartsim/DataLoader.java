@@ -20,8 +20,6 @@ import org.apache.batik.parser.ParseException;
 import org.apache.batik.util.XMLResourceDescriptor;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
@@ -204,18 +202,21 @@ public class DataLoader
 
     private void loadData()
     {
-        cells = new boolean[sizeX][sizeY];
-
         for (ExtendedGeneralPath path : pathShapes)
         {
-            int xVal = 0;
-            int yVal = 0;
+            int xVal = (int) (path.getBounds2D().getMinY() / size);
+            int yVal = (int) (path.getBounds2D().getMinX() / size);
 
             for (double y = path.getBounds2D().getMinY(); y < path.getBounds2D().getMaxY(); y = y + size)
             {
                 for (double x = path.getBounds2D().getMinX(); x < path.getBounds2D().getMaxX(); x = x + size)
                 {
-                    cells[xVal][yVal++] = path.contains(x, y);
+                    if (path.contains(x, y))
+                    {
+                        cells[xVal][yVal] = true;
+                    }
+
+                    yVal++;
                 }
 
                 yVal = 0;
@@ -224,6 +225,8 @@ public class DataLoader
         }
     }
 
+
+
     private void computeSize()
     {
         for (ExtendedGeneralPath path : pathShapes)
@@ -231,8 +234,12 @@ public class DataLoader
             // work out how big the 2D cells array should be and add two because we
             // are dividing doubles which will return a decimal value which needs to
             // be rounded up
-            int maxX = (int) ((int) (path.getBounds2D().getMaxY() / size) - (path.getBounds2D().getMinY() / size)) + 2;
-            int maxY = (int) ((int) (path.getBounds2D().getMaxX() / size) - (path.getBounds2D().getMinX() / size)) + 2;
+            int maxX = (int) (path.getBounds2D().getMaxY() / size) + 2;
+            int maxY = (int) (path.getBounds2D().getMaxX() / size) + 2;
+
+            // this trims off top and left whitespace
+//            int maxX = (int) ((int) (path.getBounds2D().getMaxY() / size) - (path.getBounds2D().getMinY() / size)) + 2;
+//            int maxY = (int) ((int) (path.getBounds2D().getMaxX() / size) - (path.getBounds2D().getMinX() / size)) + 2;
 
             // store the largest X and Y value as the size
             if (maxX > sizeX)
@@ -244,6 +251,8 @@ public class DataLoader
                 sizeY = maxY;
             }
         }
+
+        cells = new boolean[sizeX][sizeY];
     }
 
     public String[] getPathsInFile()
@@ -255,9 +264,9 @@ public class DataLoader
 
         String[] pathNames = new String[pathsInFile.getLength()];
 
-        for(int i = 0; i < pathsInFile.getLength(); i++)
+        for (int i = 0; i < pathsInFile.getLength(); i++)
         {
-            pathNames[i] = ((SVGOMPathElement)pathsInFile.item(i)).getAttribute("id");
+            pathNames[i] = ((SVGOMPathElement) pathsInFile.item(i)).getAttribute("id");
         }
 
         return pathNames;

@@ -56,7 +56,8 @@ public class MainUI2 extends javax.swing.JFrame
     private boolean simulationRunning = false;
     private DataLoader loader = new DataLoader(new String[]
             {
-                "ventricles"
+                "ventricles",
+                "atria"
             });
 
     /** Creates new form MainUI2 */
@@ -80,7 +81,7 @@ public class MainUI2 extends javax.swing.JFrame
         cboBoxModel.setSelectedIndex(0);
 
         // initially load an SVG file
-        setSvgFile(new File("geometry_data/heart.svg"));
+        setSvgFile(new File("geometry_data/heart3.svg"));
     }
 
     /**
