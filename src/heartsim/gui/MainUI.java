@@ -167,7 +167,7 @@ public class MainUI extends javax.swing.JFrame
             output("Started simulation at X: " + stimX + " Y: " + stimY);
         }
 
-        byte[] data = pnlDisplay.getBuffer();
+        int[] data = pnlDisplay.getBuffer();
 
         int[][] u = CAModel.getU();
 
@@ -179,14 +179,13 @@ public class MainUI extends javax.swing.JFrame
             {
                 for (int j = 0; j < u[0].length; j++)
                 {
-                    byte val = (byte) u[i][j];
-                    if (val == 0)
+                    if (u[i][j] == 0)
                     {
-                        data[k] = -10;
+                        data[k] = -1;
                     }
                     else
                     {
-                        data[k] = (byte) u[i][j];
+                        data[k] = u[i][j];
                     }
                     k++;
                 }

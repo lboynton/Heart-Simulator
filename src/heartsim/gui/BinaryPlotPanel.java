@@ -14,9 +14,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
+import java.awt.image.DataBufferInt;
 import java.awt.image.WritableRaster;
 import org.apache.batik.ext.awt.geom.ExtendedGeneralPath;
 
@@ -27,7 +26,7 @@ import org.apache.batik.ext.awt.geom.ExtendedGeneralPath;
 public class BinaryPlotPanel extends javax.swing.JPanel
 {
     private BufferedImage buffIm;
-    private byte[] buffer;
+    private int[] buffer;
     private ExtendedGeneralPath[] paths;
 
     /** Creates new form BinaryPlotPanel */
@@ -38,18 +37,18 @@ public class BinaryPlotPanel extends javax.swing.JPanel
 
     public BinaryPlotPanel(int x, int y)
     {
-        buffIm = new BufferedImage(x, y, BufferedImage.TYPE_BYTE_GRAY);
+        buffIm = new BufferedImage(x, y, BufferedImage.TYPE_INT_RGB);
         WritableRaster rasta = buffIm.getRaster();
-        DataBufferByte buf = (DataBufferByte) rasta.getDataBuffer();
+        DataBufferInt buf =  (DataBufferInt) rasta.getDataBuffer();
         buffer = buf.getData();
     }
 
     @Override
     public void setSize(Dimension d)
     {
-        buffIm = new BufferedImage(d.width, d.height, BufferedImage.TYPE_BYTE_GRAY);
+        buffIm = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_RGB);
         WritableRaster rasta = buffIm.getRaster();
-        DataBufferByte buf = (DataBufferByte) rasta.getDataBuffer();
+        DataBufferInt buf =  (DataBufferInt) rasta.getDataBuffer();
         buffer = buf.getData();
         super.setSize(d);
     }
@@ -63,7 +62,7 @@ public class BinaryPlotPanel extends javax.swing.JPanel
         this.repaint();
     }
 
-    public byte[] getBuffer()
+    public int[] getBuffer()
     {
         return buffer;
     }

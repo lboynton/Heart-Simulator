@@ -255,7 +255,7 @@ public class MainUI2 extends javax.swing.JFrame
 
         output("Started simulation at X: " + stimX + " Y: " + stimY);
 
-        byte[] data = pnlDisplay.getBuffer();
+        int[] data = pnlDisplay.getBuffer();
 
         int[][] u = CAModel.getU();
 
@@ -267,14 +267,35 @@ public class MainUI2 extends javax.swing.JFrame
             {
                 for (int j = 0; j < u[0].length; j++)
                 {
-                    byte val = (byte) u[i][j];
-                    if (val == 0)
+                    // this pixel will be white
+                    if (u[i][j] == 0)
                     {
-                        data[k] = -10;
+                        data[k] = -1;
                     }
-                    else
+                    // blue
+                    if (u[i][j] == 1)
                     {
-                        data[k] = (byte) u[i][j];
+                        data[k] = 255;
+                    }
+                    // green
+                    if (u[i][j] == 2)
+                    {
+                        data[k] = 65280;
+                    }
+                    // yellow
+                    if (u[i][j] == 3)
+                    {
+                        data[k] = 16776960;
+                    }
+                    // orange
+                    if (u[i][j] == 4)
+                    {
+                        data[k] = 14251783;
+                    }
+                    // red
+                    if (u[i][j] == 5)
+                    {
+                        data[k] = 16711680;
                     }
                     k++;
                 }
