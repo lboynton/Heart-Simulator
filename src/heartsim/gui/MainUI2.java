@@ -650,11 +650,13 @@ public class MainUI2 extends javax.swing.JFrame
         resetSimulation();
         lblStatus.setText("Started simulation at X: " + stimX + " Y: " + stimY);
         visualisationSwingWorker.execute();
+        btnStop.requestFocus();
     }//GEN-LAST:event_btnStartActionPerformed
 
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStopActionPerformed
     {//GEN-HEADEREND:event_btnStopActionPerformed
         resetSimulation();
+        btnStart.requestFocus();
     }//GEN-LAST:event_btnStopActionPerformed
 
     private void pnlDisplayMousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_pnlDisplayMousePressed
