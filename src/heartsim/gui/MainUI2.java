@@ -48,8 +48,12 @@ public class MainUI2 extends javax.swing.JFrame
     private int currentTime = 0; // current time in simulation
     private int stimX = 459; // X-axis location cell which should be stimulated
     private int stimY = 297; // Y-axis location cell which should be stimulated
-    private SwingWorker<Object, Void> worker;
-    private DataLoader loader = new DataLoader(new String[] {"ventricles"});
+    private SwingWorker<Object, Void> visualisationSwingWorker;
+    private boolean simulationRunning = false;
+    private DataLoader loader = new DataLoader(new String[]
+            {
+                "ventricles"
+            });
 
     /** Creates new form MainUI2 */
     public MainUI2()
@@ -95,9 +99,9 @@ public class MainUI2 extends javax.swing.JFrame
     {
         String[] tissues = loader.getPathsInFile();
 
-        ((GridLayout)pnlTissue.getLayout()).setRows(tissues.length);
+        ((GridLayout) pnlTissue.getLayout()).setRows(tissues.length);
 
-        for(String tissue:tissues)
+        for (String tissue : tissues)
         {
             JCheckBox chkBox = new JCheckBox(tissue);
             pnlTissue.add(chkBox);
@@ -217,12 +221,6 @@ public class MainUI2 extends javax.swing.JFrame
         pnlDisplay.reset();
         pnlDisplay.setPaths(loader.getPathShapes());
         pnlDisplay.repaint();
-        String[] paths = loader.getPathsInFile();
-
-        for(String p:paths)
-        {
-            System.out.println(p);
-        }
     }
 
     private void positionHeartInCentre()
@@ -240,6 +238,7 @@ public class MainUI2 extends javax.swing.JFrame
         btnStart.setEnabled(true);
         btnStepForward.setEnabled(true);
         btnStop.setEnabled(false);
+        visualisationSwingWorker = new VisualisationSwingWorker();
     }
 
     private void runSimulation()
@@ -650,30 +649,7 @@ public class MainUI2 extends javax.swing.JFrame
     {//GEN-HEADEREND:event_btnStartActionPerformed
         resetSimulation();
         lblStatus.setText("Started simulation at X: " + stimX + " Y: " + stimY);
-
-        worker = new SwingWorker<Object, Void>()
-        {
-            @Override
-            public Object doInBackground() throws Exception
-            {
-                time = Integer.parseInt(txtTime.getText());
-                runSimulation();
-
-                return null;
-            }
-
-            @Override
-            protected void done()
-            {
-                super.done();
-                btnStepForward.setEnabled(true);
-                btnStart.setEnabled(true);
-                btnStop.setEnabled(false);
-                lblStatus.setText("Simulation finished");
-            }
-        };
-
-        worker.execute();
+        visualisationSwingWorker.execute();
     }//GEN-LAST:event_btnStartActionPerformed
 
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStopActionPerformed
@@ -686,16 +662,12 @@ public class MainUI2 extends javax.swing.JFrame
         stimX = evt.getY();
         stimY = evt.getX();
 
-        if (worker == null || worker.isDone())
+        if (!simulationRunning)
         {
-            // simulation isn't running, start it
             this.btnStartActionPerformed(null);
         }
-        else
-        {
-            // simulation is running, don't need to start it, just stimulate cell
-            CAModel.stimulate(stimX, stimY);
-        }
+
+        CAModel.stimulate(stimX, stimY);
     }//GEN-LAST:event_pnlDisplayMousePressed
 
     private void btnStepForwardActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStepForwardActionPerformed
@@ -762,4 +734,28 @@ public class MainUI2 extends javax.swing.JFrame
     private javax.swing.JToolBar toolBar;
     private javax.swing.JTextField txtTime;
     // End of variables declaration//GEN-END:variables
+
+    public class VisualisationSwingWorker extends SwingWorker<Object, Void>
+    {
+        @Override
+        public Object doInBackground() throws Exception
+        {
+            simulationRunning = true;
+            time = Integer.parseInt(txtTime.getText());
+            runSimulation();
+
+            return null;
+        }
+
+        @Override
+        protected void done()
+        {
+            super.done();
+            btnStepForward.setEnabled(true);
+            btnStart.setEnabled(true);
+            btnStop.setEnabled(false);
+            lblStatus.setText("Simulation finished");
+            simulationRunning = false;
+        }
+    }
 }

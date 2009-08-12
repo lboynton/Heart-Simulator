@@ -5,7 +5,6 @@ TODO
 - Code tidy up/refactor
 - GUI tidy up
 - Don't reset simulation each time start is pressed, treat it as being paused
-- Ensure heart is facing the right way
 - Add in different heart tissue, SA node, AV node, bundle of His, purkinje fibres
   left and right bundle branches, atria, ventricles
 
