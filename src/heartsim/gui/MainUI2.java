@@ -32,7 +32,6 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
-import org.apache.batik.ext.awt.geom.ExtendedGeneralPath;
 
 /**
  *
@@ -232,6 +231,7 @@ public class MainUI2 extends javax.swing.JFrame
 
     private void resetSimulation()
     {
+        time = 0;
         currentTime = 0;
         CAModel.initCells();
         CAModel.stimulate(stimX, stimY);
