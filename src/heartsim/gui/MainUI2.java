@@ -57,7 +57,9 @@ public class MainUI2 extends javax.swing.JFrame
     private DataLoader loader = new DataLoader(new String[]
             {
                 "ventricles",
-                "atria"
+                "atria",
+                "sanode",
+                "avnode"
             });
 
     /** Creates new form MainUI2 */
@@ -712,11 +714,14 @@ public class MainUI2 extends javax.swing.JFrame
                 this.btnStartActionPerformed(null);
             }
 
-            CAModel.stimulate(stimX, stimY);
+            if (CAModel.isCell(stimX, stimY))
+            {
+                CAModel.stimulate(stimX, stimY);
+            }
         }
 
         // right click
-        if(evt.getButton() == MouseEvent.BUTTON3)
+        if (evt.getButton() == MouseEvent.BUTTON3)
         {
             // TODO pause
         }
