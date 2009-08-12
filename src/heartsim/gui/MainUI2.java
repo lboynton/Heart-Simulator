@@ -20,11 +20,15 @@ import heartsim.gui.util.FileChooserFilter;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -136,10 +140,12 @@ public class MainUI2 extends javax.swing.JFrame
         // add the tissue combo box selector first
         pnlParameters.add(lblTissue);
         pnlParameters.add(cboBoxTissue);
+        pnlParameters.add(new JButton());
 
         // add the CA model combo box selector
         pnlParameters.add(lblModel);
         pnlParameters.add(cboBoxModel);
+        pnlParameters.add(new JButton());
 
         // loop through the parameters in the CA model and put them on the GUI
         for (final CAModelParameter p : CAModel.getParameters().values())
@@ -149,7 +155,6 @@ public class MainUI2 extends javax.swing.JFrame
             JLabel lbl = new JLabel(p.getName());
             final JTextField txt = new JTextField();
             txt.setText(p.getValue().toString());
-            txt.setToolTipText(p.getDescription());
             txt.addKeyListener(new KeyAdapter()
             {
                 @Override
@@ -168,13 +173,25 @@ public class MainUI2 extends javax.swing.JFrame
                 }
             });
 
+            JButton btn = new JButton(new ImageIcon(getClass().getResource("/heartsim/gui/icon/help-browser.png")));
+            btn.setBorder(null);
+            btn.setBorderPainted(false);
+            btn.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    new HelpDialog(MainUI2.this, p.getName(), false, p.getDescription()).setVisible(true);
+                }
+            });
+
             pnlParameters.add(lbl);
             pnlParameters.add(txt);
+            pnlParameters.add(btn);
         }
 
         // place components in grid
         SpringUtilities.makeCompactGrid(pnlParameters,
-                CAModel.getParameters().size() + 2, 2, //rows, cols
+                CAModel.getParameters().size() + 2, 3, //rows, cols
                 10, 12, //initX, initY
                 12, 6);       //xPad, yPad
 
@@ -497,8 +514,8 @@ public class MainUI2 extends javax.swing.JFrame
                     .addComponent(lblModel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cboBoxTissue, 0, 136, Short.MAX_VALUE)
-                    .addComponent(cboBoxModel, 0, 136, Short.MAX_VALUE))
+                    .addComponent(cboBoxTissue, 0, 172, Short.MAX_VALUE)
+                    .addComponent(cboBoxModel, 0, 172, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlParametersLayout.setVerticalGroup(
@@ -541,7 +558,7 @@ public class MainUI2 extends javax.swing.JFrame
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -573,15 +590,15 @@ public class MainUI2 extends javax.swing.JFrame
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pnlTissue, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                    .addComponent(pnlTissue, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTime)
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                            .addComponent(txtTime, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)))
+                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                            .addComponent(txtTime, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)))
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
@@ -609,16 +626,16 @@ public class MainUI2 extends javax.swing.JFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
+            .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollPaneDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPaneDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+                .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -627,8 +644,8 @@ public class MainUI2 extends javax.swing.JFrame
                 .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
-                    .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE))
+                    .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+                    .addComponent(scrollPaneDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblStatus)
                 .addContainerGap())

@@ -22,17 +22,17 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="toolBar" alignment="0" pref="583" max="32767" attributes="0"/>
+          <Component id="toolBar" alignment="0" pref="656" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="tabbedPane" min="-2" pref="216" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="scrollPaneDisplay" pref="331" max="32767" attributes="0"/>
+              <Component id="tabbedPane" min="-2" pref="252" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="scrollPaneDisplay" pref="374" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="lblStatus" pref="559" max="32767" attributes="0"/>
+              <Component id="lblStatus" pref="632" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -43,8 +43,8 @@
               <Component id="toolBar" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scrollPaneDisplay" pref="498" max="32767" attributes="0"/>
-                  <Component id="tabbedPane" alignment="0" pref="498" max="32767" attributes="0"/>
+                  <Component id="tabbedPane" pref="498" max="32767" attributes="0"/>
+                  <Component id="scrollPaneDisplay" alignment="0" pref="498" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lblStatus" min="-2" max="-2" attributes="0"/>
@@ -255,8 +255,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="cboBoxTissue" pref="136" max="32767" attributes="1"/>
-                              <Component id="cboBoxModel" alignment="1" pref="136" max="32767" attributes="1"/>
+                              <Component id="cboBoxTissue" pref="172" max="32767" attributes="1"/>
+                              <Component id="cboBoxModel" alignment="1" pref="172" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -329,7 +329,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextField2" pref="110" max="32767" attributes="0"/>
+                      <Component id="jTextField2" pref="146" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -375,7 +375,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="pnlTissue" alignment="0" pref="188" max="32767" attributes="0"/>
+                          <Component id="pnlTissue" alignment="0" pref="224" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lblTime" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -383,8 +383,8 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jTextField1" pref="135" max="32767" attributes="0"/>
-                                  <Component id="txtTime" alignment="0" pref="135" max="32767" attributes="0"/>
+                                  <Component id="jTextField1" pref="171" max="32767" attributes="0"/>
+                                  <Component id="txtTime" alignment="0" pref="171" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>

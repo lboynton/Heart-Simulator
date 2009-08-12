@@ -31,8 +31,14 @@ public class Nishiyama extends CAModel
         CAModelIntParameter delta2 = new CAModelIntParameter(7);
 
         // set descriptions of parameters
-        N.setDescription("This value affects how high the voltage/recovery of a cell can go before it plateaus");
-        delta1.setDescription("<html>Cells are randomly assigned either delta 1 or delta 2.<br>The sum of the Moore neighbours must be at least this value before a cell becomes excited.</html>");
+        N.setDescription("This value affects how high the voltage/recovery of a " +
+                "cell can go before it plateaus. A larger value for N will" +
+                "result in a thicker wave.");
+        delta1.setDescription("Cells are randomly assigned either delta 1 or " +
+                "delta 2. The sum of the Moore neighbours must be at least this " +
+                "value before a cell becomes excited.\n\n" +
+                "Using the same value for delta 1 and delta 2 will result in " +
+                "an unnatural uniform wave with straight edges.");
         delta2.setDescription(delta1.getDescription());
 
         // add parameters
@@ -47,7 +53,7 @@ public class Nishiyama extends CAModel
         {
             u[x][y] = 1;
         }
-        catch(java.lang.ArrayIndexOutOfBoundsException ex)
+        catch (java.lang.ArrayIndexOutOfBoundsException ex)
         {
             return false;
         }
