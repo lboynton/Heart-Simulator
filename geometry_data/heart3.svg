@@ -60,7 +60,7 @@
      showgrid="false"
      inkscape:zoom="1.2403374"
      inkscape:cx="444.96972"
-     inkscape:cy="572.0804"
+     inkscape:cy="570.46794"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1"
@@ -82,7 +82,7 @@
      sodipodi:rx="9.4065228"
      sodipodi:ry="9.4065228"
      d="m 337.20956,294.66476 a 9.4065228,9.4065228 0 1 1 -18.81304,0 9.4065228,9.4065228 0 1 1 18.81304,0 z"
-     transform="translate(-107.93163,-36.268396)">
+     transform="translate(-107.93163,-38.268396)">
     <desc
        id="desc3697">The atrioventricular node</desc>
   </path>
@@ -98,7 +98,7 @@
      transform="translate(-106.50172,-34.558119)" />
   <path
      style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     d="m 41.441889,135.93416 c 0,0 21.86905,-17.23322 30.13293,-2.21714 8.26388,15.01607 8.46544,15.51997 -4.93817,24.59008 -13.40361,9.07011 -17.33399,13.0005 -27.81501,0.30234 -10.48102,-12.69816 -2.11636,-16.72932 2.62025,-22.67528 z"
+     d="m 41.441889,131.93416 c 0,0 21.86905,-17.23322 30.13293,-2.21714 8.26388,15.01607 8.46544,15.51997 -4.93817,24.59008 -13.40361,9.07011 -17.33399,13.0005 -27.81501,0.30234 -10.48102,-12.69816 -2.11636,-16.72932 2.62025,-22.67528 z"
      id="sanode">
     <desc
        id="desc3740">The sinoatrial node</desc>
