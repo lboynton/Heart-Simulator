@@ -11,7 +11,9 @@ import java.awt.Dimension;
 import java.util.Random;
 
 /**
- * Nishiyama cellular automata model
+ * 2D implementation of the cellular automata model by A. Nishiyama, H. Tanakab
+ * and T. Tokihiroa presented in "An isotropic cellular automaton for excitable
+ * media"
  * @author Lee Boynton
  */
 public class Nishiyama extends CAModel
@@ -24,6 +26,10 @@ public class Nishiyama extends CAModel
     {
         // set name of CA model
         super("Nishiyama");
+
+        this.setDescription("2D implementation of the cellular automata model by" +
+                " A. Nishiyama, H. Tanakab and T. Tokihiroa presented in \"An" +
+                " isotropic cellular automaton for excitable media\"");
 
         // create parameters
         CAModelIntParameter N = new CAModelIntParameter(6);

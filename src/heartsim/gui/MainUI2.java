@@ -149,7 +149,7 @@ public class MainUI2 extends javax.swing.JFrame
         // add the CA model combo box selector
         pnlParameters.add(lblModel);
         pnlParameters.add(cboBoxModel);
-        pnlParameters.add(new JButton());
+        pnlParameters.add(btnModelHelp);
 
         // loop through the parameters in the CA model and put them on the GUI
         for (final CAModelParameter p : CAModel.getParameters().values())
@@ -371,6 +371,7 @@ public class MainUI2 extends javax.swing.JFrame
         lblModel = new javax.swing.JLabel();
         cboBoxTissue = new javax.swing.JComboBox();
         cboBoxModel = new javax.swing.JComboBox();
+        btnModelHelp = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
@@ -507,6 +508,15 @@ public class MainUI2 extends javax.swing.JFrame
             }
         });
 
+        btnModelHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/help-browser.png"))); // NOI18N
+        btnModelHelp.setBorder(null);
+        btnModelHelp.setBorderPainted(false);
+        btnModelHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModelHelpActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlParametersLayout = new javax.swing.GroupLayout(pnlParameters);
         pnlParameters.setLayout(pnlParametersLayout);
         pnlParametersLayout.setHorizontalGroup(
@@ -517,9 +527,12 @@ public class MainUI2 extends javax.swing.JFrame
                     .addComponent(lblTissue)
                     .addComponent(lblModel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cboBoxTissue, 0, 172, Short.MAX_VALUE)
-                    .addComponent(cboBoxModel, 0, 172, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlParametersLayout.createSequentialGroup()
+                        .addComponent(cboBoxModel, 0, 144, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnModelHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         pnlParametersLayout.setVerticalGroup(
@@ -532,7 +545,8 @@ public class MainUI2 extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblModel)
-                    .addComponent(cboBoxModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(cboBoxModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnModelHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout pnlCALayout = new javax.swing.GroupLayout(pnlCA);
@@ -744,6 +758,11 @@ public class MainUI2 extends javax.swing.JFrame
         positionHeartInCentre();
     }//GEN-LAST:event_pnlDisplayContainerComponentResized
 
+    private void btnModelHelpActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnModelHelpActionPerformed
+    {//GEN-HEADEREND:event_btnModelHelpActionPerformed
+        new HelpDialog(this, CAModel.getName(), false, CAModel.getDescription()).setVisible(true);
+    }//GEN-LAST:event_btnModelHelpActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -759,6 +778,7 @@ public class MainUI2 extends javax.swing.JFrame
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAbout;
+    private javax.swing.JButton btnModelHelp;
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnStart;
     private javax.swing.JButton btnStepForward;

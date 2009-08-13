@@ -39,6 +39,20 @@ public abstract class CAModel
     }
 
     /**
+     * Gets the description of the cellular automata model
+     * @return
+     */
+    public String getDescription()
+    {
+        return description;
+    }
+
+    protected void setDescription(String description)
+    {
+        this.description = description;
+    }
+
+    /**
      * Gets a list of the parameters this cellular automata model takes
      * @return List of parameter names
      */
