@@ -14,4 +14,9 @@ public class StringUtils
     {
         return String.format("%1$-" + n + "s", s);
     }
+
+    public static String firstToUpper(String s)
+    {
+        return s.substring(0,1).toUpperCase() + s.substring(1);
+    }
 }

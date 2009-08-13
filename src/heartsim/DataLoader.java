@@ -4,6 +4,7 @@
  */
 package heartsim;
 
+import heartsim.util.StringUtils;
 import java.awt.geom.GeneralPath;
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +37,7 @@ public class DataLoader
     private boolean fileOpened = false;
     private ArrayList<String> paths = new ArrayList<String>();
     private ArrayList<ExtendedGeneralPath> pathShapes = new ArrayList<ExtendedGeneralPath>();
+    private ArrayList<HeartTissue> tissue = new ArrayList<HeartTissue>();
     private int sizeX = 0;
     private int sizeY = 0;
 
@@ -118,6 +120,7 @@ public class DataLoader
 
     public ExtendedGeneralPath[] getPathShapes()
     {
+        // store array list entries in array and return that
         ExtendedGeneralPath[] shapes = new ExtendedGeneralPath[pathShapes.size()];
 
         pathShapes.toArray(shapes);
@@ -125,10 +128,18 @@ public class DataLoader
         return shapes;
     }
 
-    private void loadPaths()
+    public HeartTissue[] getHeartTissues()
     {
-        ExtendedGeneralPath shape;
+        // store array list entries in array and return that
+        HeartTissue[] t = new HeartTissue[tissue.size()];
 
+        tissue.toArray(t);
+
+        return t;
+    }
+
+    private void loadHeartTissue()
+    {
         for (String path : paths)
         {
             Element element = (Element) doc.getElementById(path);
@@ -141,7 +152,39 @@ public class DataLoader
 
             try
             {
-                shape = (ExtendedGeneralPath) AWTPathProducer.createShape(new StringReader(element.getAttributeNS(null, "d")), GeneralPath.WIND_EVEN_ODD);
+                ExtendedGeneralPath shape = (ExtendedGeneralPath) AWTPathProducer.createShape(new StringReader(element.getAttributeNS(null, "d")), GeneralPath.WIND_EVEN_ODD);
+
+                if (shape != null)
+                {
+                    tissue.add(new HeartTissue(shape, StringUtils.firstToUpper(path)));
+                }
+            }
+            catch (IOException ex)
+            {
+                Logger.getLogger(DataLoader.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            catch (ParseException ex)
+            {
+                Logger.getLogger(DataLoader.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    private void loadPaths()
+    {
+        for (String path : paths)
+        {
+            Element element = (Element) doc.getElementById(path);
+
+            if (element == null)
+            {
+                System.out.println("Could not find element: " + path);
+                continue;
+            }
+
+            try
+            {
+                ExtendedGeneralPath shape = (ExtendedGeneralPath) AWTPathProducer.createShape(new StringReader(element.getAttributeNS(null, "d")), GeneralPath.WIND_EVEN_ODD);
 
                 if (shape != null)
                 {
