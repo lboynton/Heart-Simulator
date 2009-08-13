@@ -116,47 +116,6 @@ public class DataLoader
         return ventriclesPath;
     }
 
-    private void createGrid()
-    {
-        openFile();
-        Element ventriclesElement = (Element) doc.getElementById("ventricles");
-
-        try
-        {
-            ventriclesPath = (ExtendedGeneralPath) AWTPathProducer.createShape(new StringReader(ventriclesElement.getAttributeNS(null, "d")), GeneralPath.WIND_EVEN_ODD);
-        }
-        catch (IOException ex)
-        {
-            Logger.getLogger(DataLoader.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (ParseException ex)
-        {
-            Logger.getLogger(DataLoader.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        int xVal = 0;
-        int yVal = 0;
-
-        // work out how big the 2D cells array should be and add two because we
-        // are dividing doubles which will return a decimal value which needs to
-        // be rounded up
-        sizeX = (int) ((int) (ventriclesPath.getBounds2D().getMaxY() / size) - (ventriclesPath.getBounds2D().getMinY() / size)) + 2;
-        sizeY = (int) ((int) (ventriclesPath.getBounds2D().getMaxX() / size) - (ventriclesPath.getBounds2D().getMinX() / size)) + 2;
-
-        cells = new boolean[sizeX][sizeY];
-
-        for (double y = ventriclesPath.getBounds2D().getMinY(); y < ventriclesPath.getBounds2D().getMaxY(); y = y + size)
-        {
-            for (double x = ventriclesPath.getBounds2D().getMinX(); x < ventriclesPath.getBounds2D().getMaxX(); x = x + size)
-            {
-                cells[xVal][yVal++] = ventriclesPath.contains(x, y);
-            }
-
-            yVal = 0;
-            xVal++;
-        }
-    }
-
     public ExtendedGeneralPath[] getPathShapes()
     {
         ExtendedGeneralPath[] shapes = new ExtendedGeneralPath[pathShapes.size()];
@@ -224,8 +183,6 @@ public class DataLoader
             }
         }
     }
-
-
 
     private void computeSize()
     {

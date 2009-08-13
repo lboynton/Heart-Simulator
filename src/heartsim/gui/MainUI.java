@@ -115,6 +115,7 @@ public class MainUI extends javax.swing.JFrame
     private void loadHeart()
     {
         DataLoader loader = new DataLoader(svgFile.getPath());
+        loader.addPath("ventricles");
         double size = Double.parseDouble(String.valueOf(cboCellSize.getSelectedItem()));
         loader.setSize(size);
         CAModel.setCells(loader.getGrid());
