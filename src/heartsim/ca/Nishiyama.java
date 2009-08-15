@@ -27,9 +27,9 @@ public class Nishiyama extends CAModel
         // set name of CA model
         super("Nishiyama");
 
-        this.setDescription("2D implementation of the cellular automata model by" +
-                " A. Nishiyama, H. Tanakab and T. Tokihiroa presented in \"An" +
-                " isotropic cellular automaton for excitable media\"");
+        this.setDescription("2D implementation of the cellular automata model by " +
+                "A. Nishiyama, H. Tanakab and T. Tokihiroa presented in \"An " +
+                "isotropic cellular automaton for excitable media\"");
 
         // create parameters
         CAModelIntParameter N = new CAModelIntParameter(6);
@@ -38,7 +38,7 @@ public class Nishiyama extends CAModel
 
         // set descriptions of parameters
         N.setDescription("This value affects how high the voltage/recovery of a " +
-                "cell can go before it plateaus. A larger value for N will" +
+                "cell can go before it plateaus. A larger value for N will " +
                 "result in a thicker wave.");
         delta1.setDescription("Cells are randomly assigned either delta 1 or " +
                 "delta 2. The sum of the Moore neighbours must be at least this " +

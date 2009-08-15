@@ -37,6 +37,14 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.renderer.category.CategoryStepRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -44,6 +52,9 @@ import javax.swing.UIManager;
  */
 public class MainUI2 extends javax.swing.JFrame
 {
+    private JFreeChart chart; // voltage and recovery line chart
+    private DefaultCategoryDataset chartData; // line chart data
+    private CategoryStepRenderer renderer; // line chart renderer
     private CAModel CAModel; // CA model being used in the simulation
     private final boolean DEBUG = true; // if debug is true then print output messages
     private File svgFile; // svg containing heart geometry
@@ -203,6 +214,25 @@ public class MainUI2 extends javax.swing.JFrame
         pack();
     }
 
+    private ChartPanel createChart()
+    {
+        chartData = new DefaultCategoryDataset();
+
+        renderer = new CategoryStepRenderer(true);
+        final CategoryAxis domainAxis = new CategoryAxis("Time");
+        final ValueAxis rangeAxis = new NumberAxis();
+        rangeAxis.setRange(0, 6);
+        rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        final CategoryPlot plot = new CategoryPlot(chartData, domainAxis, rangeAxis, renderer);
+        chart = new JFreeChart("Voltage and Recovery", plot);
+        chart.removeLegend();
+        chart.setBackgroundPaint(null);
+
+        ChartPanel panel = new ChartPanel(chart);
+
+        return panel;
+    }
+
     private void output(String output)
     {
         if (DEBUG)
@@ -322,14 +352,14 @@ public class MainUI2 extends javax.swing.JFrame
                 }
             }
 
-            /*if (chartData.getColumnCount() > 6)
+            if (chartData.getColumnCount() > 6)
             {
             chartData.removeColumn(0);
-            }*/
+            }
 
             currentTime++;
-            //chartData.addValue(u[stimX][stimY], "Voltage", String.valueOf(currentTime));
-            //chartData.addValue(CAModel.getV(stimX, stimY), "Recovery", String.valueOf(currentTime));
+            chartData.addValue(u[stimX][stimY], "Voltage", String.valueOf(currentTime));
+            chartData.addValue(CAModel.getV(stimX, stimY), "Recovery", String.valueOf(currentTime));
             CAModel.step();
             pnlDisplay.repaint();
 
@@ -383,6 +413,9 @@ public class MainUI2 extends javax.swing.JFrame
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        pnlChart = createChart();
+        chkBoxVoltage = new javax.swing.JCheckBox();
+        chkBoxRecovery = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -538,8 +571,8 @@ public class MainUI2 extends javax.swing.JFrame
                     .addComponent(lblModel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cboBoxTissue, 0, 144, Short.MAX_VALUE)
-                    .addComponent(cboBoxModel, 0, 144, Short.MAX_VALUE))
+                    .addComponent(cboBoxTissue, 0, 0, Short.MAX_VALUE)
+                    .addComponent(cboBoxModel, 0, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnModelHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -576,7 +609,7 @@ public class MainUI2 extends javax.swing.JFrame
             pnlCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCALayout.createSequentialGroup()
                 .addComponent(pnlParameters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(395, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Model", pnlCA);
@@ -593,7 +626,7 @@ public class MainUI2 extends javax.swing.JFrame
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -603,7 +636,7 @@ public class MainUI2 extends javax.swing.JFrame
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(428, Short.MAX_VALUE))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Pacemaker", jPanel2);
@@ -625,15 +658,15 @@ public class MainUI2 extends javax.swing.JFrame
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pnlTissue, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                    .addComponent(pnlTissue, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTime)
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
-                            .addComponent(txtTime, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)))
+                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                            .addComponent(txtTime, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)))
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
@@ -652,25 +685,61 @@ public class MainUI2 extends javax.swing.JFrame
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlTissue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(366, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Simulation", jPanel3);
+
+        pnlChart.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlChart.setPreferredSize(new java.awt.Dimension(252, 200));
+
+        javax.swing.GroupLayout pnlChartLayout = new javax.swing.GroupLayout(pnlChart);
+        pnlChart.setLayout(pnlChartLayout);
+        pnlChartLayout.setHorizontalGroup(
+            pnlChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 224, Short.MAX_VALUE)
+        );
+        pnlChartLayout.setVerticalGroup(
+            pnlChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 169, Short.MAX_VALUE)
+        );
+
+        chkBoxVoltage.setSelected(true);
+        chkBoxVoltage.setText("Voltage");
+        chkBoxVoltage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkBoxVoltageActionPerformed(evt);
+            }
+        });
+
+        chkBoxRecovery.setSelected(true);
+        chkBoxRecovery.setText("Recovery");
+        chkBoxRecovery.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkBoxRecoveryActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
+            .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, 829, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(chkBoxVoltage)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(chkBoxRecovery))
+                    .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                    .addComponent(pnlChart, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrollPaneDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE)
+                .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 805, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -679,8 +748,15 @@ public class MainUI2 extends javax.swing.JFrame
                 .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
-                    .addComponent(scrollPaneDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(chkBoxVoltage)
+                            .addComponent(chkBoxRecovery))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pnlChart, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scrollPaneDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblStatus)
                 .addContainerGap())
@@ -785,6 +861,16 @@ public class MainUI2 extends javax.swing.JFrame
         new HelpDialog(this, "Heart tissue", false, "You can select which heart tissue to alter the parameters of. The tissues listed here were found in the SVG file.").setVisible(true);
     }//GEN-LAST:event_btnTissueHelpActionPerformed
 
+    private void chkBoxVoltageActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chkBoxVoltageActionPerformed
+    {//GEN-HEADEREND:event_chkBoxVoltageActionPerformed
+        renderer.setSeriesVisible(0, chkBoxVoltage.isSelected());
+    }//GEN-LAST:event_chkBoxVoltageActionPerformed
+
+    private void chkBoxRecoveryActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chkBoxRecoveryActionPerformed
+    {//GEN-HEADEREND:event_chkBoxRecoveryActionPerformed
+        renderer.setSeriesVisible(1, chkBoxRecovery.isSelected());
+    }//GEN-LAST:event_chkBoxRecoveryActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -810,6 +896,8 @@ public class MainUI2 extends javax.swing.JFrame
     private javax.swing.JButton btnZoomOut;
     private javax.swing.JComboBox cboBoxModel;
     private javax.swing.JComboBox cboBoxTissue;
+    private javax.swing.JCheckBox chkBoxRecovery;
+    private javax.swing.JCheckBox chkBoxVoltage;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -825,6 +913,7 @@ public class MainUI2 extends javax.swing.JFrame
     private javax.swing.JLabel lblTime;
     private javax.swing.JLabel lblTissue;
     private javax.swing.JPanel pnlCA;
+    private javax.swing.JPanel pnlChart;
     private heartsim.gui.BinaryPlotPanel pnlDisplay;
     private javax.swing.JPanel pnlDisplayContainer;
     private javax.swing.JPanel pnlParameters;
