@@ -57,7 +57,11 @@ public class Nishiyama extends CAModel
     {
         try
         {
-            u[x][y] = 1;
+            // only stimulate if the cell is not already excited and is recovered
+            if (u[x][y] == 0 && v[x][y] == 0)
+            {
+                u[x][y] = 1;
+            }
         }
         catch (java.lang.ArrayIndexOutOfBoundsException ex)
         {
