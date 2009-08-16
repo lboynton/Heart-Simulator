@@ -36,7 +36,16 @@ public class Tyson extends CAModel
         CAModelIntParameter k0Exci = new CAModelIntParameter(0);
         CAModelIntParameter k0Reco = new CAModelIntParameter(5);
 
+        r.setDescription("The radius of the neighbourhood. Larger neighbourhoods " +
+                "give finer spatial resolution to the automaton. As r increases, " +
+                "so too do the number of grid points per unit length.");
         vMax.setDescription("Determines the maximum value of v");
+        gUp.setDescription("The amount the recovery value increases by until it " +
+                "reaches v max");
+        gDown.setDescription("The amount the recovery value decreases until it " +
+                "reaches 0");
+        k0Exci.setDescription("Reflects the excitability of the medium. Smaller " +
+                "values represent higher excitabilities");
 
         // add parameters
         this.setParameter("r", r);
@@ -71,22 +80,33 @@ public class Tyson extends CAModel
                 }
                 if(tempu[row][col] == 0)
                 {
+                    // cell is in a recovery state
                     v[row][col] = Math.max(tempv[row][col] - gDown, 0);
                 }
                 if(tempu[row][col] == 0)
                 {
+                    // cell is recovered
                     u[row][col] = 0;
                 }
                 if(tempu[row][col] == 1 && tempv[row][col] != vMax)
                 {
+                    // cell is becoming excited
                     u[row][col] = 1;
                 }
                 if(tempu[row][col] == 1 && tempv[row][col] == vMax)
                 {
+                    // cell has finished being excited
                     u[row][col] = 0;
                 }
             }
         }
+    }
+
+    private int getExcitedCellsInNeighbourhood(int x, int y)
+    {
+        int r = ((CAModelIntParameter)this.getParameter("r")).getValueAsInt();
+
+        return 0;
     }
 
     @Override
