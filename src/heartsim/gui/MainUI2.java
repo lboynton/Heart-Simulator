@@ -85,6 +85,9 @@ public class MainUI2 extends javax.swing.JFrame
             System.err.println("Unable to use system look and feel");
         }
 
+        // initially load an SVG file
+        svgFile = new File("geometry_data/heart3.svg");
+
         initComponents();
 
         // center frame on window
@@ -92,9 +95,6 @@ public class MainUI2 extends javax.swing.JFrame
 
         // load initially selected CA model
         cboBoxModel.setSelectedIndex(0);
-
-        // initially load an SVG file
-        setSvgFile(new File("geometry_data/heart3.svg"));
     }
 
     /**
@@ -768,6 +768,7 @@ public class MainUI2 extends javax.swing.JFrame
     private void cboBoxModelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cboBoxModelActionPerformed
     {//GEN-HEADEREND:event_cboBoxModelActionPerformed
         loadModelParameters();
+        loadHeart();
     }//GEN-LAST:event_cboBoxModelActionPerformed
 
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnOpenActionPerformed

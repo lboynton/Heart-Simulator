@@ -5,6 +5,8 @@
 package heartsim.ca;
 
 import heartsim.ca.parameter.CAModelIntParameter;
+import heartsim.util.ArrayUtils;
+import java.awt.Dimension;
 
 /**
  *
@@ -12,9 +14,17 @@ import heartsim.ca.parameter.CAModelIntParameter;
  */
 public class Tyson extends CAModel
 {
+    private int tempu[][] = new int[height][width]; // temporary storage of cell values
+    private int tempv[][] = new int[height][width]; // temporary storage of cell values
+
     public Tyson()
     {
         super("Tyson");
+
+        this.setDescription("An implementation of the cellular automaton model " +
+                "by Martin Gerhardt, Heike Schuster and John J. Tyson presented " +
+                "in \"A Cellular Automaton Model of Excitable Media Including " +
+                "Curvature and Dispersion\".");
 
         // create parameters
         CAModelIntParameter r = new CAModelIntParameter(3);
@@ -25,6 +35,8 @@ public class Tyson extends CAModel
         CAModelIntParameter gDown = new CAModelIntParameter(5);
         CAModelIntParameter k0Exci = new CAModelIntParameter(0);
         CAModelIntParameter k0Reco = new CAModelIntParameter(5);
+
+        vMax.setDescription("Determines the maximum value of v");
 
         // add parameters
         this.setParameter("r", r);
@@ -40,18 +52,120 @@ public class Tyson extends CAModel
     @Override
     public void step()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        int gUp = ((CAModelIntParameter)this.getParameter("g up")).getValueAsInt();
+        int vMax = ((CAModelIntParameter)this.getParameter("V max")).getValueAsInt();
+        int gDown = ((CAModelIntParameter)this.getParameter("g down")).getValueAsInt();
+
+        // copy voltage values into temporary array
+        ArrayUtils.copy2DArray(u, tempu);
+        ArrayUtils.copy2DArray(v, tempv);
+
+        for (int row = 1; row < cells.length - 1; row++)
+        {
+            for (int col = 1; col < cells[row].length - 1; col++)
+            {
+                if(tempu[row][col] == 1)
+                {
+                    // cell is in an excited state
+                    v[row][col] = Math.min(tempv[row][col] + gUp, vMax);
+                }
+                if(tempu[row][col] == 0)
+                {
+                    v[row][col] = Math.max(tempv[row][col] - gDown, 0);
+                }
+                if(tempu[row][col] == 0)
+                {
+                    u[row][col] = 0;
+                }
+                if(tempu[row][col] == 1 && tempv[row][col] != vMax)
+                {
+                    u[row][col] = 1;
+                }
+                if(tempu[row][col] == 1 && tempv[row][col] == vMax)
+                {
+                    u[row][col] = 0;
+                }
+            }
+        }
     }
 
     @Override
     public void initCells()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        System.out.println("Init cells");
+        
+        u = new int[height][width]; // voltage values for each cell
+        v = new int[height][width]; // recovery values for each cell
+        tempu = new int[height][width]; // temporary storage of cell values
+        tempv = new int[height][width]; // temporary storage of cell values
+
+        for (int row = 0; row < height; row++)
+        {
+            for (int col = 0; col < width; col++)
+            {
+                // initialise voltage values
+                u[row][col] = 0;
+
+                // initialise recovery values
+                v[row][col] = 0;
+            }
+        }
     }
 
     @Override
     public boolean stimulate(int x, int y)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try
+        {
+            u[x][y] = 1;
+            u[x-1][y] = 1;
+            u[x+1][y] = 1;
+            u[x][y-1] = 1;
+            u[x][y+1] = 1;
+            u[x-1][y-1] = 1;
+            u[x+1][y+1] = 1;
+            u[x-1][y+1] = 1;
+            u[x+1][y-1] = 1;
+        }
+        catch(ArrayIndexOutOfBoundsException e)
+        {
+            //e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    public static void main(String args[])
+    {
+        Tyson test = new Tyson();
+        boolean[][] cells = new boolean[10][10];
+        for (int i = 0; i < cells.length; i++)
+        {
+            for (int j = 0; j < cells[i].length; j++)
+            {
+                cells[i][j] = true;
+            }
+        }
+        test.setCells(cells);
+        test.setSize(new Dimension(10, 10));
+        test.initCells();
+        test.stimulate(5, 5);
+        test.printCells();
+        int time = 20;
+
+        String[] names = {"Voltage", "Recovery"};
+        int[][][] arrays = new int[2][][];
+
+        for (int t = 0; t < time; t++)
+        {
+            arrays[0] = test.tempu;
+            arrays[1] = test.tempv;
+
+            test.printArrays(names, arrays);
+            test.step();
+        }
+
+        test.printArrays(names, arrays);
     }
 }

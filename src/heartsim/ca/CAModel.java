@@ -5,6 +5,7 @@
 package heartsim.ca;
 
 import heartsim.ca.parameter.CAModelParameter;
+import heartsim.util.StringUtils;
 import java.awt.Dimension;
 import java.util.Map;
 import java.util.TreeMap;
@@ -146,5 +147,56 @@ public abstract class CAModel
     public String toString()
     {
         return name;
+    }
+
+    public void printCells()
+    {
+        System.out.println("Cells:");
+
+        for (int row = 0; row < cells.length; row++)
+        {
+            for (int col = 0; col < cells[0].length; col++)
+            {
+                if (cells[row][col])
+                {
+                    System.out.print("*");
+                }
+                else
+                {
+                    System.out.print(" ");
+                }
+            }
+
+            System.out.println();
+        }
+    }
+
+    public void printArrays(String names[], int values[][][])
+    {
+        for (int i = 0; i < names.length; i++)
+        {
+            names[i] = StringUtils.padRight(names[i], width);
+        }
+
+        for (int row = -1; row < height; row++)
+        {
+            for (int i = 0; i < names.length; i++)
+            {
+                if (row == -1)
+                {
+                    System.out.print(names[i] + " ");
+                    continue;
+                }
+
+                for (int col = 0; col < width; col++)
+                {
+                    System.out.print(values[i][row][col]);
+                }
+
+                System.out.print(" ");
+            }
+
+            System.out.println();
+        }
     }
 }

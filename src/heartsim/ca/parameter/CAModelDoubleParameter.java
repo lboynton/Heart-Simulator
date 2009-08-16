@@ -8,11 +8,11 @@ package heartsim.ca.parameter;
  *
  * @author Lee Boynton
  */
-public class CAModelIntParameter extends CAModelParameter
+public class CAModelDoubleParameter extends CAModelParameter
 {
-    private int value;
+    private double value;
 
-    public CAModelIntParameter(int value)
+    public CAModelDoubleParameter(double value)
     {
         this.value = value;
     }
@@ -22,7 +22,7 @@ public class CAModelIntParameter extends CAModelParameter
     {
         try
         {
-            this.value = Integer.valueOf(value);
+            this.value = Double.valueOf(value);
         }
         catch(java.lang.NumberFormatException ex)
         {
@@ -32,12 +32,12 @@ public class CAModelIntParameter extends CAModelParameter
         return true;
     }
 
-    public void setValue(int value)
+    public void setValue(double value)
     {
         this.value = value;
     }
 
-    public int getValueAsInt()
+    public double getValueAsDouble()
     {
         return value;
     }
@@ -45,6 +45,6 @@ public class CAModelIntParameter extends CAModelParameter
     @Override
     public Object getValue()
     {
-        return (Integer) value;
+        return (Double) value;
     }
 }

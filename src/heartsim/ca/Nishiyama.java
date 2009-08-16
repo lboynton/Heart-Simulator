@@ -102,28 +102,6 @@ public class Nishiyama extends CAModel
         }
     }
 
-    public void printCells()
-    {
-        System.out.println("Cells:");
-
-        for (int row = 0; row < cells.length; row++)
-        {
-            for (int col = 0; col < cells[0].length; col++)
-            {
-                if (cells[row][col])
-                {
-                    System.out.print("*");
-                }
-                else
-                {
-                    System.out.print(" ");
-                }
-            }
-
-            System.out.println();
-        }
-    }
-
     public void printArrays()
     {
         int values[][][] =
