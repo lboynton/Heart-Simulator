@@ -21,6 +21,7 @@ public class Nishiyama extends CAModel
     private int delta[][] = new int[height][width]; // delta values for each cell
     private int tempu[][] = new int[height][width]; // temporary storage of cell values
     private Random generator = new Random();
+    private int N;
 
     public Nishiyama()
     {
@@ -32,12 +33,12 @@ public class Nishiyama extends CAModel
                 "isotropic cellular automaton for excitable media\"");
 
         // create parameters
-        CAModelIntParameter N = new CAModelIntParameter(6);
+        CAModelIntParameter Nparam = new CAModelIntParameter(6);
         CAModelIntParameter delta1 = new CAModelIntParameter(3);
         CAModelIntParameter delta2 = new CAModelIntParameter(7);
 
         // set descriptions of parameters
-        N.setDescription("This value affects how high the voltage/recovery of a " +
+        Nparam.setDescription("This value affects how high the voltage/recovery of a " +
                 "cell can go before it plateaus. A larger value for N will " +
                 "result in a thicker wave.");
         delta1.setDescription("Cells are randomly assigned either delta 1 or " +
@@ -48,7 +49,7 @@ public class Nishiyama extends CAModel
         delta2.setDescription(delta1.getDescription());
 
         // add parameters
-        this.setParameter("N", N);
+        this.setParameter("N", Nparam);
         this.setParameter("Delta 1", delta1);
         this.setParameter("Delta 2", delta2);
     }
@@ -75,6 +76,7 @@ public class Nishiyama extends CAModel
     {
         int delta1 = (Integer) this.getParameter("Delta 1").getValue();
         int delta2 = (Integer) this.getParameter("Delta 2").getValue();
+        N = (Integer) this.getParameter("N").getValue();
 
         u = new int[height][width]; // voltage values for each cell
         v = new int[height][width]; // recovery values for each cell
@@ -149,8 +151,6 @@ public class Nishiyama extends CAModel
     {
         // copy voltage values into temporary array
         ArrayUtils.copy2DArray(u, tempu);
-
-        int N = (Integer) this.getParameter("N").getValue();
 
         for (int row = 1; row < cells.length - 1; row++)
         {
