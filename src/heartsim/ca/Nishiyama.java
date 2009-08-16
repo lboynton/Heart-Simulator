@@ -221,4 +221,16 @@ public class Nishiyama extends CAModel
 
         test.printArrays();
     }
+
+    @Override
+    public int getMax()
+    {
+        return (Integer) this.getParameter("N").getValue();
+    }
+
+    @Override
+    public int getMin()
+    {
+        return 0;
+    }
 }

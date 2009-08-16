@@ -72,6 +72,7 @@ public class MainUI2 extends javax.swing.JFrame
                 "sanode",
                 "avnode"
             });
+    private NumberAxis rangeAxis;
 
     /** Creates new form MainUI2 */
     public MainUI2()
@@ -220,8 +221,7 @@ public class MainUI2 extends javax.swing.JFrame
 
         renderer = new CategoryStepRenderer(true);
         final CategoryAxis domainAxis = new CategoryAxis("Time");
-        final ValueAxis rangeAxis = new NumberAxis();
-        rangeAxis.setRange(0, 6);
+        rangeAxis = new NumberAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         final CategoryPlot plot = new CategoryPlot(chartData, domainAxis, rangeAxis, renderer);
         chart = new JFreeChart("Voltage and Recovery", plot);
@@ -691,7 +691,7 @@ public class MainUI2 extends javax.swing.JFrame
         tabbedPane.addTab("Simulation", jPanel3);
 
         pnlChart.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        pnlChart.setPreferredSize(new java.awt.Dimension(252, 200));
+        pnlChart.setPreferredSize(new java.awt.Dimension(228, 173));
 
         javax.swing.GroupLayout pnlChartLayout = new javax.swing.GroupLayout(pnlChart);
         pnlChart.setLayout(pnlChartLayout);
@@ -733,7 +733,7 @@ public class MainUI2 extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(chkBoxRecovery))
                     .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-                    .addComponent(pnlChart, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))
+                    .addComponent(pnlChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scrollPaneDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
                 .addContainerGap())
@@ -755,7 +755,7 @@ public class MainUI2 extends javax.swing.JFrame
                             .addComponent(chkBoxVoltage)
                             .addComponent(chkBoxRecovery))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlChart, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(pnlChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(scrollPaneDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblStatus)
@@ -769,6 +769,7 @@ public class MainUI2 extends javax.swing.JFrame
     {//GEN-HEADEREND:event_cboBoxModelActionPerformed
         loadModelParameters();
         loadHeart();
+        rangeAxis.setRange(CAModel.getMin(), CAModel.getMax());
     }//GEN-LAST:event_cboBoxModelActionPerformed
 
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnOpenActionPerformed

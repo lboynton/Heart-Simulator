@@ -188,4 +188,16 @@ public class Tyson extends CAModel
 
         test.printArrays(names, arrays);
     }
+
+    @Override
+    public int getMax()
+    {
+        return (Integer) this.getParameter("V max").getValue();
+    }
+
+    @Override
+    public int getMin()
+    {
+        return 0;
+    }
 }

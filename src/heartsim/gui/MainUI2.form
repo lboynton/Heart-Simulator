@@ -32,7 +32,7 @@
                       <Component id="chkBoxRecovery" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="tabbedPane" alignment="0" pref="228" max="32767" attributes="1"/>
-                  <Component id="pnlChart" alignment="0" pref="228" max="32767" attributes="1"/>
+                  <Component id="pnlChart" alignment="0" max="32767" attributes="1"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="scrollPaneDisplay" pref="565" max="32767" attributes="0"/>
@@ -59,7 +59,7 @@
                           <Component id="chkBoxRecovery" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="pnlChart" min="-2" pref="173" max="-2" attributes="0"/>
+                      <Component id="pnlChart" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="scrollPaneDisplay" pref="428" max="32767" attributes="0"/>
               </Group>
@@ -519,7 +519,7 @@
           </Border>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[252, 200]"/>
+          <Dimension value="[228, 173]"/>
         </Property>
       </Properties>
       <AuxValues>

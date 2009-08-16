@@ -199,4 +199,16 @@ public abstract class CAModel
             System.out.println();
         }
     }
+
+    /**
+     * Gets the largest value which should be displayed on the chart
+     * @return Max value
+     */
+    public abstract int getMax();
+
+    /**
+     * Gets the minimum value which should be displayed on the chart
+     * @return Min value
+     */
+    public abstract int getMin();
 }
