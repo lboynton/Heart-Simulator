@@ -146,11 +146,14 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             {
                 for (int j = 0; j < u[0].length; j++)
                 {
+                    if (u[i][j] == -1)
+                    {
+                        data[k] = -1;
+                    }
                     // this pixel will be white
                     if (u[i][j] == 0)
                     {
-                        //data[k] = new Color(0,0,0,0).;
-                        //data[k] =
+                        data[k] = 1;
                     }
                     // blue
                     if (u[i][j] == 1)
