@@ -93,6 +93,8 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         cellGenerator.addGeneratorListener(this);
         cellGenerator.addPath("ventricles");
         cellGenerator.addPath("atria");
+        cellGenerator.addPath("sanode");
+        cellGenerator.addPath("avnode");
 
         loadSVG("./geometry_data/heart4.svg");
     }

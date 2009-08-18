@@ -27,8 +27,8 @@ public class CellsViewer extends javax.swing.JFrame
     public CellsViewer(boolean[][] cells)
     {
         initComponents();
-        binaryPlotPanel1.setPreferredSize(new Dimension(cells.length, cells[0].length));
-        binaryPlotPanel1.setSize(cells.length, cells[0].length);
+        binaryPlotPanel1.setPreferredSize(new Dimension(cells[0].length, cells.length));
+        binaryPlotPanel1.setSize(cells[0].length, cells.length);
         binaryPlotPanel1.setSize(binaryPlotPanel1.getSize());
         pack();
         binaryPlotPanel1.setCells(cells);
@@ -51,11 +51,11 @@ public class CellsViewer extends javax.swing.JFrame
         binaryPlotPanel1.setLayout(binaryPlotPanel1Layout);
         binaryPlotPanel1Layout.setHorizontalGroup(
             binaryPlotPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 376, Short.MAX_VALUE)
+            .addGap(0, 463, Short.MAX_VALUE)
         );
         binaryPlotPanel1Layout.setVerticalGroup(
             binaryPlotPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 276, Short.MAX_VALUE)
+            .addGap(0, 351, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

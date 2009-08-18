@@ -128,7 +128,7 @@ public class CellGenerator implements Runnable
 
     private void createDataArray()
     {
-        cells = new boolean[canvas.getPreferredSize().height + 1][canvas.getPreferredSize().width + 1];
+        cells = new boolean[canvas.getPreferredSize().height][canvas.getPreferredSize().width];
 
         for (Element element : elements)
         {
@@ -138,18 +138,18 @@ public class CellGenerator implements Runnable
 
             if (node != null)
             {
-                for (int y = 0; y < canvas.getPreferredSize().height; y++)
+                for (int row = 0; row < canvas.getPreferredSize().height; row++)
                 {
-                    for (int x = 0; x < canvas.getPreferredSize().width; x++)
+                    for (int col = 0; col < canvas.getPreferredSize().width; col++)
                     {
-                        if (node.contains(new Point(x, y)))
+                        if (node.contains(new Point(col, row)))
                         {
-                            cells[y][x] = true;
+                            cells[row][col] = true;
                         }
                     }
 
                     // row completed
-                    progress = (int) (((y + 1) / (double) canvas.getPreferredSize().height) * 100);
+                    progress = (int) (((row + 1) / (double) canvas.getPreferredSize().height) * 100);
                 }
             }
         }

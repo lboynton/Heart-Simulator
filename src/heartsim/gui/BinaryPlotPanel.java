@@ -71,17 +71,19 @@ public class BinaryPlotPanel extends javax.swing.JPanel
     {
         int k = 0;
         
-        for (int i = 0; i < cells[0].length; i++)
+        for (int row = 0; row < cells.length; row++)
         {
-            for (int j = 0; j < cells.length; j++)
+            for (int col = 0; col < cells[0].length; col++)
             {
-                // red
-                if (cells[j][i])
+                // if this cell is in the heart colour it red
+                if (cells[row][col])
                 {
+                    // red
                     buffer[k] = 16711680;
                 }
                 else
                 {
+                    // not in heart, colour it white
                     buffer[k] = -1;
                 }
                 
