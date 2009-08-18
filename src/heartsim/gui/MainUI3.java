@@ -14,6 +14,7 @@ import heartsim.CellGenerator;
 import heartsim.CellGeneratorListener;
 import heartsim.ca.CAModel;
 import heartsim.ca.Nishiyama;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
 import java.util.logging.Level;
@@ -105,7 +106,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         // this ensures an update manager is created
         svgCanvas.setDocumentState(JSVGComponent.ALWAYS_DYNAMIC);
-        
+
         svgCanvas.setURI(uri);
     }
 
@@ -124,6 +125,67 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         lblStatus.setText(text);
     }
 
+    public void runSimulation()
+    {
+        CAModel.setCells(cellGenerator.getCells());
+        CAModel.setSize(new Dimension(cellGenerator.getCells()[0].length, cellGenerator.getCells().length));
+        CAModel.initCells();
+        CAModel.stimulate(400, 250);
+        BinaryPlotPanelOverlay overlay = new BinaryPlotPanelOverlay(cellGenerator.getCells()[0].length, cellGenerator.getCells().length, svgCanvas);
+        svgCanvas.getOverlays().add(overlay);
+
+        int[] data = overlay.getBuffer();
+
+        int[][] u = CAModel.getU();
+
+        for (int t = 0; t < 2000; t++)
+        {
+            int k = 0;
+
+            for (int i = 0; i < u.length; i++)
+            {
+                for (int j = 0; j < u[0].length; j++)
+                {
+                    // this pixel will be white
+                    if (u[i][j] == 0)
+                    {
+                        //data[k] = new Color(0,0,0,0).;
+                        //data[k] =
+                    }
+                    // blue
+                    if (u[i][j] == 1)
+                    {
+                        data[k] = 255;
+                    }
+                    // green
+                    if (u[i][j] == 2)
+                    {
+                        data[k] = 65280;
+                    }
+                    // yellow
+                    if (u[i][j] == 3)
+                    {
+                        data[k] = 16776960;
+                    }
+                    // orange
+                    if (u[i][j] == 4)
+                    {
+                        data[k] = 14251783;
+                    }
+                    // red
+                    if (u[i][j] == 5)
+                    {
+                        data[k] = 16711680;
+                    }
+                    k++;
+                }
+            }
+
+            CAModel.step();
+            svgCanvas.repaint();
+        }
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -138,6 +200,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         lblStatus = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -169,6 +232,17 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             }
         });
         jToolBar1.add(jButton1);
+
+        jButton2.setText("Run simulation");
+        jButton2.setFocusable(false);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -206,6 +280,12 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         new CellsViewer(cellGenerator.getCells()).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+    {//GEN-HEADEREND:event_jButton2ActionPerformed
+        VisualisationSwingWorker worker = new VisualisationSwingWorker();
+        worker.execute();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -221,6 +301,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JProgressBar progressBar;
@@ -252,6 +333,17 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
                 progressBar.setValue(cellGenerator.getProgress());
                 Thread.sleep(1000);
             }
+            return null;
+        }
+    }
+
+    public class VisualisationSwingWorker extends SwingWorker<Object, Void>
+    {
+        @Override
+        public Object doInBackground() throws Exception
+        {
+            runSimulation();
+
             return null;
         }
     }
