@@ -18,6 +18,7 @@ import org.apache.batik.dom.svg.SVGOMPathElement;
 import org.apache.batik.ext.awt.geom.ExtendedGeneralPath;
 import org.apache.batik.parser.AWTPathProducer;
 import org.apache.batik.parser.ParseException;
+import org.apache.batik.util.SVGConstants;
 import org.apache.batik.util.XMLResourceDescriptor;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -266,7 +267,7 @@ public class DataLoader
 
         for (int i = 0; i < pathsInFile.getLength(); i++)
         {
-            pathNames[i] = ((SVGOMPathElement) pathsInFile.item(i)).getAttribute("id");
+            pathNames[i] = ((SVGOMPathElement) pathsInFile.item(i)).getAttribute(SVGConstants.SVG_ID_ATTRIBUTE);
         }
 
         return pathNames;
