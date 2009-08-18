@@ -10,15 +10,18 @@
  */
 package heartsim.gui;
 
+import heartsim.CellGenerator;
+import heartsim.CellGeneratorListener;
+import heartsim.ca.CAModel;
+import heartsim.ca.Nishiyama;
+import java.awt.Dimension;
 import java.io.File;
-import org.apache.batik.gvt.GraphicsNode;
 import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
 import org.apache.batik.swing.svg.GVTTreeBuilderAdapter;
 import org.apache.batik.swing.svg.GVTTreeBuilderEvent;
 import org.apache.batik.swing.svg.SVGDocumentLoaderAdapter;
 import org.apache.batik.swing.svg.SVGDocumentLoaderEvent;
-import org.w3c.dom.Element;
 
 /**
  *
@@ -26,6 +29,9 @@ import org.w3c.dom.Element;
  */
 public class MainUI3 extends javax.swing.JFrame
 {
+    private CellGenerator cellGenerator;
+    private CAModel CAModel = new Nishiyama();
+
     /** Creates new form MainUI3 */
     public MainUI3()
     {
@@ -53,10 +59,10 @@ public class MainUI3 extends javax.swing.JFrame
                 setStatusText("Build started...");
                 incrementProgressBar();
             }
+
             public void gvtBuildCompleted(GVTTreeBuilderEvent e)
             {
                 setStatusText("Build completed");
-                pack();
                 incrementProgressBar();
             }
         });
@@ -73,6 +79,24 @@ public class MainUI3 extends javax.swing.JFrame
             {
                 lblStatus.setText("Rendering completed");
                 incrementProgressBar();
+                cellGenerator.addPath("ventricles");
+                cellGenerator.run();
+            }
+        });
+
+        cellGenerator = new CellGenerator(svgCanvas);
+        cellGenerator.addGeneratorListener(new CellGeneratorListener()
+        {
+            public void cellGenerationStarted()
+            {
+                lblStatus.setText("Cell generation started...");
+                incrementProgressBar();
+            }
+
+            public void cellGenerationCompleted()
+            {
+                lblStatus.setText("Cell generation completed");
+                incrementProgressBar();
             }
         });
 
@@ -85,16 +109,14 @@ public class MainUI3 extends javax.swing.JFrame
         svgCanvas.setURI(uri);
     }
 
-    public void loadData()
-    {
-        Element element = svgCanvas.getSVGDocument().getElementById("ventricles");
-
-        GraphicsNode nodeToPaint = svgCanvas.getUpdateManager().getBridgeContext().getGraphicsNode(element);
-    }
-
     public void incrementProgressBar()
     {
-        jProgressBar1.setValue(jProgressBar1.getValue() + 1);
+        progressBar.setValue(progressBar.getValue() + 1);
+    }
+
+    public void resetProgressBar()
+    {
+        progressBar.setValue(0);
     }
 
     public void setStatusText(String text)
@@ -111,13 +133,14 @@ public class MainUI3 extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jProgressBar1 = new javax.swing.JProgressBar();
+        progressBar = new javax.swing.JProgressBar();
         svgCanvas = new org.apache.batik.swing.JSVGCanvas();
         lblStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jProgressBar1.setMaximum(4);
+        progressBar.setMaximum(7);
+        progressBar.setStringPainted(true);
 
         javax.swing.GroupLayout svgCanvasLayout = new javax.swing.GroupLayout(svgCanvas);
         svgCanvas.setLayout(svgCanvasLayout);
@@ -127,7 +150,7 @@ public class MainUI3 extends javax.swing.JFrame
         );
         svgCanvasLayout.setVerticalGroup(
             svgCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 334, Short.MAX_VALUE)
+            .addGap(0, 392, Short.MAX_VALUE)
         );
 
         lblStatus.setText("Status");
@@ -143,17 +166,17 @@ public class MainUI3 extends javax.swing.JFrame
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblStatus)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(svgCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+                .addComponent(svgCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblStatus))
                 .addContainerGap())
         );
@@ -175,8 +198,8 @@ public class MainUI3 extends javax.swing.JFrame
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JLabel lblStatus;
+    private javax.swing.JProgressBar progressBar;
     private org.apache.batik.swing.JSVGCanvas svgCanvas;
     // End of variables declaration//GEN-END:variables
 }

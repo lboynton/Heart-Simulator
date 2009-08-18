@@ -58,6 +58,12 @@ public class Nishiyama extends CAModel
     {
         try
         {
+            if(!isCell(x, y))
+            {
+                System.out.println("No cell here");
+                return false;
+            }
+
             // only stimulate if the cell is not already excited and is recovered
             if (u[x][y] == 0 && v[x][y] == 0)
             {
