@@ -16,6 +16,7 @@ import heartsim.ca.CAModel;
 import heartsim.ca.Nishiyama;
 import java.awt.Dimension;
 import java.io.File;
+import javax.swing.SwingWorker;
 import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
 import org.apache.batik.swing.svg.GVTTreeBuilderAdapter;
@@ -27,10 +28,11 @@ import org.apache.batik.swing.svg.SVGDocumentLoaderEvent;
  *
  * @author Lee Boynton
  */
-public class MainUI3 extends javax.swing.JFrame
+public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 {
     private CellGenerator cellGenerator;
     private CAModel CAModel = new Nishiyama();
+    private CellGeneratorWorker generatorWorker;
 
     /** Creates new form MainUI3 */
     public MainUI3()
@@ -80,25 +82,13 @@ public class MainUI3 extends javax.swing.JFrame
                 lblStatus.setText("Rendering completed");
                 incrementProgressBar();
                 cellGenerator.addPath("ventricles");
-                cellGenerator.run();
+                generatorWorker = new CellGeneratorWorker();
+                generatorWorker.execute();
             }
         });
 
         cellGenerator = new CellGenerator(svgCanvas);
-        cellGenerator.addGeneratorListener(new CellGeneratorListener()
-        {
-            public void cellGenerationStarted()
-            {
-                lblStatus.setText("Cell generation started...");
-                incrementProgressBar();
-            }
-
-            public void cellGenerationCompleted()
-            {
-                lblStatus.setText("Cell generation completed");
-                incrementProgressBar();
-            }
-        });
+        cellGenerator.addGeneratorListener(this);
 
         loadSVG("./geometry_data/heart3.svg");
     }
@@ -146,11 +136,11 @@ public class MainUI3 extends javax.swing.JFrame
         svgCanvas.setLayout(svgCanvasLayout);
         svgCanvasLayout.setHorizontalGroup(
             svgCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+            .addGap(0, 581, Short.MAX_VALUE)
         );
         svgCanvasLayout.setVerticalGroup(
             svgCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 392, Short.MAX_VALUE)
+            .addGap(0, 394, Short.MAX_VALUE)
         );
 
         lblStatus.setText("Status");
@@ -159,13 +149,13 @@ public class MainUI3 extends javax.swing.JFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(svgCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(svgCanvas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(lblStatus)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 393, Short.MAX_VALUE)
                         .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -173,7 +163,7 @@ public class MainUI3 extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(svgCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
+                .addComponent(svgCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -202,4 +192,38 @@ public class MainUI3 extends javax.swing.JFrame
     private javax.swing.JProgressBar progressBar;
     private org.apache.batik.swing.JSVGCanvas svgCanvas;
     // End of variables declaration//GEN-END:variables
+
+    public void cellGenerationStarted()
+    {
+        setStatusText("Generating cells (this may take a while)...");
+    }
+
+    public void cellGenerationCompleted()
+    {
+        setStatusText("Cells generated");
+    }
+
+    public class CellGeneratorWorker extends SwingWorker
+    {
+        @Override
+        protected Object doInBackground() throws Exception
+        {
+            progressBar.setMaximum(100);
+            resetProgressBar();
+            Thread thread = new Thread(cellGenerator);
+            thread.start();
+            while (!cellGenerator.isCompleted())
+            {
+                progressBar.setValue(cellGenerator.getProgress());
+                Thread.sleep(1000);
+            }
+            return null;
+        }
+
+        @Override
+        protected void done()
+        {
+            progressBar.setValue(cellGenerator.getProgress());
+        }
+    }
 }

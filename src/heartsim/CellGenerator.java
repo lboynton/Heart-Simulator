@@ -23,10 +23,22 @@ public class CellGenerator implements Runnable
     private List<String> paths = new ArrayList<String>();
     private List<Element> elements = new ArrayList<Element>();
     private boolean cells[][];
+    private boolean completed = false;
+    private int progress = 0;
 
     public CellGenerator(JSVGCanvas canvas)
     {
         this.canvas = canvas;
+    }
+
+    public int getProgress()
+    {
+        return progress;
+    }
+
+    public boolean isCompleted()
+    {
+        return completed;
     }
 
     public void addPath(String path)
@@ -88,6 +100,7 @@ public class CellGenerator implements Runnable
 
         loadElements();
         createDataArray();
+        completed = true;
 
         // notify listeners that cell generation has finished
         fireGenerationCompleted();
@@ -125,6 +138,9 @@ public class CellGenerator implements Runnable
                             cells[y][x] = true;
                         }
                     }
+
+                    // row completed
+                    progress = (int) (((y + 1) / (double) canvas.getPreferredSize().height) * 100);
                 }
             }
         }
