@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import org.apache.batik.gvt.GraphicsNode;
 import org.apache.batik.swing.JSVGCanvas;
+import org.apache.batik.util.SVGConstants;
 import org.w3c.dom.Element;
 
 /**
@@ -25,6 +26,7 @@ public class CellGenerator implements Runnable
     private boolean cells[][];
     private boolean completed = false;
     private int progress = 0;
+    private String tissueLoading = "None";
 
     public CellGenerator(JSVGCanvas canvas)
     {
@@ -39,6 +41,11 @@ public class CellGenerator implements Runnable
     public boolean isCompleted()
     {
         return completed;
+    }
+
+    public String getTissueLoading()
+    {
+        return tissueLoading;
     }
 
     public void addPath(String path)
@@ -125,6 +132,8 @@ public class CellGenerator implements Runnable
 
         for (Element element : elements)
         {
+            tissueLoading = element.getAttribute(SVGConstants.SVG_IDENTITY_VALUE);
+
             GraphicsNode node = canvas.getUpdateManager().getBridgeContext().getGraphicsNode(element);
 
             if (node != null)

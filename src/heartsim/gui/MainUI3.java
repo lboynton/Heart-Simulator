@@ -16,11 +16,14 @@ import heartsim.ca.CAModel;
 import heartsim.ca.Nishiyama;
 import java.awt.Dimension;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.SwingWorker;
 import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
 import org.apache.batik.swing.svg.GVTTreeBuilderAdapter;
 import org.apache.batik.swing.svg.GVTTreeBuilderEvent;
+import org.apache.batik.swing.svg.JSVGComponent;
 import org.apache.batik.swing.svg.SVGDocumentLoaderAdapter;
 import org.apache.batik.swing.svg.SVGDocumentLoaderEvent;
 
@@ -81,7 +84,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             {
                 lblStatus.setText("Rendering completed");
                 incrementProgressBar();
-                cellGenerator.addPath("ventricles");
                 generatorWorker = new CellGeneratorWorker();
                 generatorWorker.execute();
             }
@@ -89,13 +91,19 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         cellGenerator = new CellGenerator(svgCanvas);
         cellGenerator.addGeneratorListener(this);
+        cellGenerator.addPath("ventricles");
+        cellGenerator.addPath("atria");
 
-        loadSVG("./geometry_data/heart3.svg");
+        loadSVG("./geometry_data/heart4.svg");
     }
 
     public void loadSVG(String path)
     {
         String uri = new File(path).toURI().toString();
+
+        // this ensures an update manager is created
+        svgCanvas.setDocumentState(JSVGComponent.ALWAYS_DYNAMIC);
+        
         svgCanvas.setURI(uri);
     }
 
@@ -126,6 +134,8 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         progressBar = new javax.swing.JProgressBar();
         svgCanvas = new org.apache.batik.swing.JSVGCanvas();
         lblStatus = new javax.swing.JLabel();
+        jToolBar1 = new javax.swing.JToolBar();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -140,10 +150,23 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         );
         svgCanvasLayout.setVerticalGroup(
             svgCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGap(0, 375, Short.MAX_VALUE)
         );
 
         lblStatus.setText("Status");
+
+        jToolBar1.setRollover(true);
+
+        jButton1.setText("Vew cells");
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -158,12 +181,14 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 393, Short.MAX_VALUE)
                         .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(svgCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(svgCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -173,6 +198,11 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
+    {//GEN-HEADEREND:event_jButton1ActionPerformed
+        new CellsViewer(cellGenerator.getCells()).setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,6 +218,8 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JProgressBar progressBar;
     private org.apache.batik.swing.JSVGCanvas svgCanvas;
@@ -195,11 +227,12 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
     public void cellGenerationStarted()
     {
-        setStatusText("Generating cells (this may take a while)...");
+        setStatusText("Generating cells for (this may take a while)...");
     }
 
     public void cellGenerationCompleted()
     {
+        progressBar.setValue(cellGenerator.getProgress());
         setStatusText("Cells generated");
     }
 
@@ -218,12 +251,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
                 Thread.sleep(1000);
             }
             return null;
-        }
-
-        @Override
-        protected void done()
-        {
-            progressBar.setValue(cellGenerator.getProgress());
         }
     }
 }

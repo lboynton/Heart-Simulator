@@ -39,7 +39,7 @@ public class BinaryPlotPanel extends javax.swing.JPanel
     {
         buffIm = new BufferedImage(x, y, BufferedImage.TYPE_INT_RGB);
         WritableRaster rasta = buffIm.getRaster();
-        DataBufferInt buf =  (DataBufferInt) rasta.getDataBuffer();
+        DataBufferInt buf = (DataBufferInt) rasta.getDataBuffer();
         buffer = buf.getData();
     }
 
@@ -48,7 +48,7 @@ public class BinaryPlotPanel extends javax.swing.JPanel
     {
         buffIm = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_RGB);
         WritableRaster rasta = buffIm.getRaster();
-        DataBufferInt buf =  (DataBufferInt) rasta.getDataBuffer();
+        DataBufferInt buf = (DataBufferInt) rasta.getDataBuffer();
         buffer = buf.getData();
         super.setSize(d);
     }
@@ -65,6 +65,29 @@ public class BinaryPlotPanel extends javax.swing.JPanel
     public int[] getBuffer()
     {
         return buffer;
+    }
+
+    public void setCells(boolean[][] cells)
+    {
+        int k = 0;
+        
+        for (int i = 0; i < cells[0].length; i++)
+        {
+            for (int j = 0; j < cells.length; j++)
+            {
+                // red
+                if (cells[j][i])
+                {
+                    buffer[k] = 16711680;
+                }
+                else
+                {
+                    buffer[k] = -1;
+                }
+                
+                k++;
+            }
+        }
     }
 
     public void setPaths(ExtendedGeneralPath[] paths)
