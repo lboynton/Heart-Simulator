@@ -5,6 +5,8 @@
 package heartsim;
 
 import java.awt.Point;
+import java.awt.Shape;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -138,11 +140,22 @@ public class CellGenerator implements Runnable
 
             if (node != null)
             {
+                AffineTransform elementsAt = node.getGlobalTransform();
+                Shape selectionHighlight = node.getOutline();
+                AffineTransform at = canvas.getRenderingTransform();
+                at.concatenate(elementsAt);
+                Shape s = at.createTransformedShape(selectionHighlight);
+
+                if (s == null)
+                {
+                    break;
+                }
+
                 for (int row = 0; row < canvas.getPreferredSize().height; row++)
                 {
                     for (int col = 0; col < canvas.getPreferredSize().width; col++)
                     {
-                        if (node.contains(new Point(col, row)))
+                        if (s.contains(new Point(col, row)))
                         {
                             cells[row][col] = true;
                         }
