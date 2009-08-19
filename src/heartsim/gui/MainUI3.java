@@ -15,26 +15,25 @@ import heartsim.CellGeneratorListener;
 import heartsim.ca.CAModel;
 import heartsim.ca.Nishiyama;
 import java.awt.Dimension;
-import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.io.File;
 import javax.swing.SwingWorker;
 import org.apache.batik.ext.swing.JAffineTransformChooser;
 import org.apache.batik.ext.swing.JAffineTransformChooser.Dialog;
-import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
-import org.apache.batik.swing.gvt.InteractorAdapter;
-import org.apache.batik.swing.svg.GVTTreeBuilderAdapter;
+import org.apache.batik.swing.gvt.GVTTreeRendererListener;
 import org.apache.batik.swing.svg.GVTTreeBuilderEvent;
+import org.apache.batik.swing.svg.GVTTreeBuilderListener;
 import org.apache.batik.swing.svg.JSVGComponent;
-import org.apache.batik.swing.svg.SVGDocumentLoaderAdapter;
 import org.apache.batik.swing.svg.SVGDocumentLoaderEvent;
+import org.apache.batik.swing.svg.SVGDocumentLoaderListener;
 
 /**
  *
  * @author Lee Boynton
  */
-public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
+public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener,
+        SVGDocumentLoaderListener, GVTTreeBuilderListener, GVTTreeRendererListener
 {
     private CellGenerator cellGenerator;
     private CAModel CAModel = new Nishiyama();
@@ -46,53 +45,11 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     public MainUI3()
     {
         initComponents();
+        
         // Set the JSVGCanvas listeners.
-        svgCanvas.addSVGDocumentLoaderListener(new SVGDocumentLoaderAdapter()
-        {
-            public void documentLoadingStarted(SVGDocumentLoaderEvent e)
-            {
-                setStatusText("Document loading...");
-                incrementProgressBar();
-            }
-
-            public void documentLoadingCompleted(SVGDocumentLoaderEvent e)
-            {
-                setStatusText("Document loaded");
-                incrementProgressBar();
-            }
-        });
-
-        svgCanvas.addGVTTreeBuilderListener(new GVTTreeBuilderAdapter()
-        {
-            public void gvtBuildStarted(GVTTreeBuilderEvent e)
-            {
-                setStatusText("Build started...");
-                incrementProgressBar();
-            }
-
-            public void gvtBuildCompleted(GVTTreeBuilderEvent e)
-            {
-                setStatusText("Build completed");
-                incrementProgressBar();
-            }
-        });
-
-        svgCanvas.addGVTTreeRendererListener(new GVTTreeRendererAdapter()
-        {
-            public void gvtRenderingPrepare(GVTTreeRendererEvent e)
-            {
-                lblStatus.setText("Rendering started...");
-                incrementProgressBar();
-            }
-
-            public void gvtRenderingCompleted(GVTTreeRendererEvent e)
-            {
-                lblStatus.setText("Rendering completed");
-                incrementProgressBar();
-                generatorWorker = new CellGeneratorWorker();
-                generatorWorker.execute();
-            }
-        });
+        svgCanvas.addSVGDocumentLoaderListener(this);
+        svgCanvas.addGVTTreeBuilderListener(this);
+        svgCanvas.addGVTTreeRendererListener(this);
 
         cellGenerator = new CellGenerator(svgCanvas);
         cellGenerator.addGeneratorListener(this);
@@ -370,6 +327,72 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     {
         progressBar.setValue(cellGenerator.getProgress());
         setStatusText("Cells generated");
+    }
+
+    public void documentLoadingStarted(SVGDocumentLoaderEvent e)
+    {
+        setStatusText("Document loading...");
+        incrementProgressBar();
+    }
+
+    public void documentLoadingCompleted(SVGDocumentLoaderEvent e)
+    {
+        setStatusText("Document loaded");
+        incrementProgressBar();
+    }
+
+    public void gvtBuildStarted(GVTTreeBuilderEvent e)
+    {
+        setStatusText("Build started...");
+        incrementProgressBar();
+    }
+
+    public void gvtBuildCompleted(GVTTreeBuilderEvent e)
+    {
+        setStatusText("Build completed");
+        incrementProgressBar();
+    }
+
+    public void gvtRenderingPrepare(GVTTreeRendererEvent e)
+    {
+        lblStatus.setText("Rendering started...");
+        incrementProgressBar();
+    }
+
+    public void gvtRenderingCompleted(GVTTreeRendererEvent e)
+    {
+        lblStatus.setText("Rendering completed");
+        incrementProgressBar();
+        generatorWorker = new CellGeneratorWorker();
+        generatorWorker.execute();
+    }
+
+    public void documentLoadingCancelled(SVGDocumentLoaderEvent arg0)
+    {
+    }
+
+    public void documentLoadingFailed(SVGDocumentLoaderEvent arg0)
+    {
+    }
+
+    public void gvtBuildCancelled(GVTTreeBuilderEvent arg0)
+    {
+    }
+
+    public void gvtBuildFailed(GVTTreeBuilderEvent arg0)
+    {
+    }
+
+    public void gvtRenderingStarted(GVTTreeRendererEvent arg0)
+    {
+    }
+
+    public void gvtRenderingCancelled(GVTTreeRendererEvent arg0)
+    {
+    }
+
+    public void gvtRenderingFailed(GVTTreeRendererEvent arg0)
+    {
     }
 
     public class CellGeneratorWorker extends SwingWorker
