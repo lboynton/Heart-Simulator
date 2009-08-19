@@ -43,6 +43,9 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private CellGeneratorWorker generatorWorker;
     private int stimX = 250;
     private int stimY = 450;
+    private int timeToRun;
+    private int currentTime;
+    private VisualisationSwingWorker visualisationSwingWorker;
 
     /** Creates new form MainUI3 */
     public MainUI3()
@@ -55,7 +58,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         {
             System.err.println("Unable to use system look and feel");
         }
-        
+
         initComponents();
 
         // set the JSVGCanvas listeners.
@@ -75,6 +78,8 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         // initially load an SVG file
         loadSVG("./geometry_data/heart4.svg");
+
+        resetSimulation();
     }
 
     public void loadSVG(String path)
@@ -85,7 +90,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     public void loadSVG(File file)
     {
         String uri = file.toURI().toString();
-        
+
         // this ensures an update manager is created
         svgCanvas.setDocumentState(JSVGComponent.ALWAYS_DYNAMIC);
 
@@ -107,8 +112,15 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         lblStatus.setText(text);
     }
 
+    /**
+     * Runs the simulation forward from either a paused or stopped state and
+     * pauses it when it reaches the end time.
+     */
     public void runSimulation()
     {
+        btnStop.setEnabled(true);
+        btnStart.setEnabled(false);
+        btnStepForward.setEnabled(false);
         CAModel.setCells(cellGenerator.getCells());
         CAModel.setSize(new Dimension(cellGenerator.getCells()[0].length, cellGenerator.getCells().length));
         CAModel.initCells();
@@ -169,6 +181,39 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             CAModel.step();
             svgCanvas.repaint();
         }
+
+        btnStop.setEnabled(false);
+        btnStart.setEnabled(true);
+        btnStepForward.setEnabled(true);
+    }
+
+    /**
+     * Resets the simulation so that it is ready to be run again. The current
+     * time and time to run are both reset to 0;
+     */
+    private void resetSimulation()
+    {
+        timeToRun = 0;
+        currentTime = 0;
+        CAModel.initCells();
+        CAModel.stimulate(stimX, stimY);
+        btnStart.setEnabled(true);
+        btnStepForward.setEnabled(true);
+        btnStop.setEnabled(false);
+        visualisationSwingWorker = new VisualisationSwingWorker();
+    }
+
+    /**
+     * Stops a running simulation. The simulation can be restarted by calling
+     * the run simulation method. The simulation can be reset so that it starts
+     * again from time 0 by calling the reset simulation method before start is
+     * called.
+     * @see resetSimulation()
+     * @see runSimulation()
+     */
+    private void stopSimulation()
+    {
+        timeToRun = 0;
     }
 
     /** This method is called from within the constructor to
@@ -183,8 +228,10 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         toolbar = new javax.swing.JToolBar();
         btnOpen = new javax.swing.JButton();
         btnOpenSeparator = new javax.swing.JToolBar.Separator();
-        btnViewCells = new javax.swing.JButton();
         btnStart = new javax.swing.JButton();
+        btnStop = new javax.swing.JButton();
+        btnStepForward = new javax.swing.JButton();
+        btnViewCells = new javax.swing.JButton();
         btnTransform = new javax.swing.JButton();
         pnlRootContainer = new javax.swing.JPanel();
         progressBar = new javax.swing.JProgressBar();
@@ -209,6 +256,42 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         toolbar.add(btnOpen);
         toolbar.add(btnOpenSeparator);
 
+        btnStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/media-playback-start.png"))); // NOI18N
+        btnStart.setToolTipText("Run the simulation with the specified parameters");
+        btnStart.setFocusable(false);
+        btnStart.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnStart.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStartActionPerformed(evt);
+            }
+        });
+        toolbar.add(btnStart);
+
+        btnStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/media-playback-stop.png"))); // NOI18N
+        btnStop.setToolTipText("Stop simulation");
+        btnStop.setFocusable(false);
+        btnStop.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnStop.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnStop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStopActionPerformed(evt);
+            }
+        });
+        toolbar.add(btnStop);
+
+        btnStepForward.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/media-seek-forward.png"))); // NOI18N
+        btnStepForward.setToolTipText("Step simulation forward");
+        btnStepForward.setFocusable(false);
+        btnStepForward.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnStepForward.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnStepForward.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStepForwardActionPerformed(evt);
+            }
+        });
+        toolbar.add(btnStepForward);
+
         btnViewCells.setText("Vew cells");
         btnViewCells.setFocusable(false);
         btnViewCells.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -219,17 +302,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             }
         });
         toolbar.add(btnViewCells);
-
-        btnStart.setText("Run simulation");
-        btnStart.setFocusable(false);
-        btnStart.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnStart.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnStart.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnStartActionPerformed(evt);
-            }
-        });
-        toolbar.add(btnStart);
 
         btnTransform.setText("Transform");
         btnTransform.setFocusable(false);
@@ -313,12 +385,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         new CellsViewer(cellGenerator.getCells()).setVisible(true);
     }//GEN-LAST:event_btnViewCellsActionPerformed
 
-    private void btnStartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStartActionPerformed
-    {//GEN-HEADEREND:event_btnStartActionPerformed
-        VisualisationSwingWorker worker = new VisualisationSwingWorker();
-        worker.execute();
-    }//GEN-LAST:event_btnStartActionPerformed
-
     private void btnTransformActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnTransformActionPerformed
     {//GEN-HEADEREND:event_btnTransformActionPerformed
         Dialog transformDialog = JAffineTransformChooser.createDialog(this, "Transform");
@@ -358,6 +424,32 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         }
 }//GEN-LAST:event_btnOpenActionPerformed
 
+    private void btnStartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStartActionPerformed
+    {//GEN-HEADEREND:event_btnStartActionPerformed
+        setStatusText("Started simulation at X: " + stimX + " Y: " + stimY);
+        visualisationSwingWorker.execute();
+        btnStop.requestFocus();
+}//GEN-LAST:event_btnStartActionPerformed
+
+    private void btnStopActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStopActionPerformed
+    {//GEN-HEADEREND:event_btnStopActionPerformed
+        stopSimulation();
+        resetSimulation();
+        btnStart.requestFocus();
+}//GEN-LAST:event_btnStopActionPerformed
+
+    private void btnStepForwardActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStepForwardActionPerformed
+    {//GEN-HEADEREND:event_btnStepForwardActionPerformed
+        if (currentTime == 0)
+        {
+            resetSimulation();
+        }
+        setStatusText("Stepped simulation at X: " + stimX + " Y: " + stimY);
+        timeToRun = 1;
+        runSimulation();
+        btnStepForward.requestFocus();
+}//GEN-LAST:event_btnStepForwardActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -375,6 +467,8 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private javax.swing.JButton btnOpen;
     private javax.swing.JToolBar.Separator btnOpenSeparator;
     private javax.swing.JButton btnStart;
+    private javax.swing.JButton btnStepForward;
+    private javax.swing.JButton btnStop;
     private javax.swing.JButton btnTransform;
     private javax.swing.JButton btnViewCells;
     private javax.swing.JLabel lblStatus;
