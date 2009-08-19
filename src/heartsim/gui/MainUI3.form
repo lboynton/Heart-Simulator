@@ -39,6 +39,17 @@
             <Property name="text" type="java.lang.String" value="Debug"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="mnuItmVerboseOutput">
+              <Properties>
+                <Property name="selected" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="Verbose output to terminal"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuItmVerboseOutputActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JSeparator" name="jSeparator2">
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuItmViewCells">
               <Properties>
                 <Property name="text" type="java.lang.String" value="View cells array"/>
@@ -150,6 +161,8 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/heartsim/gui/icon/media-playback-pause.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Pauses the simulation"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -163,7 +176,8 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/heartsim/gui/icon/media-playback-stop.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Stop simulation"/>
+            <Property name="toolTipText" type="java.lang.String" value="Stops the simulation if it is running and resets the simulation"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>

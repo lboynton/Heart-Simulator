@@ -13,6 +13,6 @@ public interface SimulatorListener
     public void simulationStarted();
     public void simulationPaused();
     public void simulationCompleted();
-    public void simulationReset();
+    public void simulationStopped();
     public void simulationUpdated();
 }

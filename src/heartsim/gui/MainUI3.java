@@ -10,6 +10,7 @@
  */
 package heartsim.gui;
 
+import heartsim.ApplicationParameters;
 import heartsim.CellGenerator;
 import heartsim.CellGeneratorListener;
 import heartsim.Simulator;
@@ -120,6 +121,14 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         lblStatus.setText(text);
     }
 
+    private void output(String text)
+    {
+        if (ApplicationParameters.getInstance().isDebugMode())
+        {
+            System.out.println(text);
+        }
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -146,6 +155,8 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         mnuAdvanced = new javax.swing.JMenu();
         mnuItmTransform = new javax.swing.JMenuItem();
         mnuDebug = new javax.swing.JMenu();
+        mnuItmVerboseOutput = new javax.swing.JCheckBoxMenuItem();
+        jSeparator2 = new javax.swing.JSeparator();
         mnuItmViewCells = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JSeparator();
         mnuItmPrintCells = new javax.swing.JMenuItem();
@@ -182,6 +193,8 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         toolbar.add(btnStart);
 
         btnPause.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/media-playback-pause.png"))); // NOI18N
+        btnPause.setToolTipText("Pauses the simulation");
+        btnPause.setEnabled(false);
         btnPause.setFocusable(false);
         btnPause.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPause.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -193,7 +206,8 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         toolbar.add(btnPause);
 
         btnStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/media-playback-stop.png"))); // NOI18N
-        btnStop.setToolTipText("Stop simulation");
+        btnStop.setToolTipText("Stops the simulation if it is running and resets the simulation");
+        btnStop.setEnabled(false);
         btnStop.setFocusable(false);
         btnStop.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnStop.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -290,6 +304,16 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         mnuDebug.setText("Debug");
 
+        mnuItmVerboseOutput.setSelected(true);
+        mnuItmVerboseOutput.setText("Verbose output to terminal");
+        mnuItmVerboseOutput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItmVerboseOutputActionPerformed(evt);
+            }
+        });
+        mnuDebug.add(mnuItmVerboseOutput);
+        mnuDebug.add(jSeparator2);
+
         mnuItmViewCells.setText("View cells array");
         mnuItmViewCells.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -349,7 +373,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             simulation.run();
         }
 
-        if(evt.getButton() == MouseEvent.BUTTON3)
+        if (evt.getButton() == MouseEvent.BUTTON3)
         {
             // pause simulation
             simulation.pause();
@@ -429,6 +453,11 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         }
     }//GEN-LAST:event_mnuItmTransformActionPerformed
 
+    private void mnuItmVerboseOutputActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuItmVerboseOutputActionPerformed
+    {//GEN-HEADEREND:event_mnuItmVerboseOutputActionPerformed
+        ApplicationParameters.getInstance().setDebugMode(mnuItmVerboseOutput.isSelected());
+    }//GEN-LAST:event_mnuItmVerboseOutputActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -451,6 +480,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private javax.swing.JButton btnStop;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JMenu mnuAdvanced;
     private javax.swing.JMenu mnuDebug;
@@ -459,6 +489,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private javax.swing.JMenuItem mnuItmPrintArrays;
     private javax.swing.JMenuItem mnuItmPrintCells;
     private javax.swing.JMenuItem mnuItmTransform;
+    private javax.swing.JCheckBoxMenuItem mnuItmVerboseOutput;
     private javax.swing.JMenuItem mnuItmViewCells;
     private javax.swing.JPanel pnlRootContainer;
     private javax.swing.JProgressBar progressBar;
@@ -547,27 +578,43 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
     public void simulationStarted()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        output("Started");
+        setStatusText("Simulation started");
+        btnStop.setEnabled(true);
+        btnPause.setEnabled(true);
+        btnStart.setEnabled(false);
     }
 
     public void simulationPaused()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void simulationCompleted()
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void simulationReset()
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
+        output("Paused");
+        setStatusText("Simulation paused");
+        btnStop.setEnabled(true);
+        btnPause.setEnabled(false);
+        btnStart.setEnabled(true);
     }
 
     public void simulationUpdated()
     {
         svgCanvas.repaint();
+    }
+
+    public void simulationStopped()
+    {
+        output("Stopped");
+        setStatusText("Simulation stopped");
+        btnStop.setEnabled(false);
+        btnPause.setEnabled(false);
+        btnStart.setEnabled(true);
+    }
+
+    public void simulationCompleted()
+    {
+        output("Completed");
+        setStatusText("Simulation completed");
+        btnStop.setEnabled(false);
+        btnPause.setEnabled(false);
+        btnStart.setEnabled(true);
     }
 
     public class CellGeneratorWorker extends SwingWorker

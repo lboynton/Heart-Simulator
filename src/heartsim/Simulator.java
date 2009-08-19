@@ -70,6 +70,7 @@ public class Simulator
             state = State.STARTED;
             Thread t = new Thread(new SimulatorRunnable());
             t.start();
+            fireSimulationStarted();
         }
     }
 
@@ -77,11 +78,13 @@ public class Simulator
     {
         state = State.STOPPED;
         initialised = false;
+        fireSimulationStopped();
     }
 
     public void pause()
     {
         state = State.STOPPED;
+        fireSimulationPaused();
     }
 
     public void addListener(SimulatorListener listener)
@@ -105,6 +108,38 @@ public class Simulator
         }
     }
 
+    private void fireSimulationStarted()
+    {
+        for (SimulatorListener listener : listeners)
+        {
+            listener.simulationStarted();
+        }
+    }
+
+    private void fireSimulationPaused()
+    {
+        for (SimulatorListener listener : listeners)
+        {
+            listener.simulationPaused();
+        }
+    }
+
+    private void fireSimulationStopped()
+    {
+        for (SimulatorListener listener : listeners)
+        {
+            listener.simulationStopped();
+        }
+    }
+
+    private void fireSimulationCompleted()
+    {
+        for (SimulatorListener listener : listeners)
+        {
+            listener.simulationCompleted();
+        }
+    }
+
     public class SimulatorRunnable implements Runnable
     {
         public void run()
@@ -117,7 +152,7 @@ public class Simulator
             {
                 if(state == State.STOPPED)
                 {
-                    break;
+                    return;
                 }
                 
                 int k = 0;
@@ -169,6 +204,7 @@ public class Simulator
             }
 
             state = State.STOPPED;
+            fireSimulationCompleted();
         }
     }
 }
