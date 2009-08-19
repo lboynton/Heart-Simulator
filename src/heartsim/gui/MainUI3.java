@@ -12,10 +12,11 @@ package heartsim.gui;
 
 import heartsim.CellGenerator;
 import heartsim.CellGeneratorListener;
+import heartsim.Simulator;
+import heartsim.SimulatorListener;
 import heartsim.ca.CAModel;
 import heartsim.ca.Nishiyama;
 import heartsim.gui.util.FileChooserFilter;
-import java.awt.Dimension;
 import java.awt.geom.AffineTransform;
 import java.io.File;
 import javax.swing.JFileChooser;
@@ -36,16 +37,18 @@ import org.apache.batik.swing.svg.SVGDocumentLoaderListener;
  * @author Lee Boynton
  */
 public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener,
-        SVGDocumentLoaderListener, GVTTreeBuilderListener, GVTTreeRendererListener
+        SVGDocumentLoaderListener, GVTTreeBuilderListener, GVTTreeRendererListener,
+        SimulatorListener
 {
     private CellGenerator cellGenerator;
-    private CAModel CAModel = new Nishiyama();
+    private CAModel caModel = new Nishiyama();
     private CellGeneratorWorker generatorWorker;
     private int stimX = 250;
     private int stimY = 450;
-    private int timeToRun;
-    private int currentTime;
-    private VisualisationSwingWorker visualisationSwingWorker;
+    private int timeToRun = 0;
+    private int currentTime = 0;
+    private final BinaryPlotPanelOverlay overlay;
+    private final Simulator simulation;
 
     /** Creates new form MainUI3 */
     public MainUI3()
@@ -76,10 +79,14 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         // add listener so we know when it's finished generating the cells array
         cellGenerator.addGeneratorListener(this);
 
+        overlay = new BinaryPlotPanelOverlay(svgCanvas);
+        svgCanvas.getOverlays().add(overlay);
+
+        simulation = new Simulator(caModel, overlay);
+        simulation.addListener(this);
+
         // initially load an SVG file
         loadSVG("./geometry_data/heart4.svg");
-
-        resetSimulation();
     }
 
     public void loadSVG(String path)
@@ -112,110 +119,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         lblStatus.setText(text);
     }
 
-    /**
-     * Runs the simulation forward from either a paused or stopped state and
-     * pauses it when it reaches the end time.
-     */
-    public void runSimulation()
-    {
-        btnStop.setEnabled(true);
-        btnStart.setEnabled(false);
-        btnStepForward.setEnabled(false);
-        CAModel.setCells(cellGenerator.getCells());
-        CAModel.setSize(new Dimension(cellGenerator.getCells()[0].length, cellGenerator.getCells().length));
-        CAModel.initCells();
-        CAModel.stimulate(stimY, stimX);
-        BinaryPlotPanelOverlay overlay = new BinaryPlotPanelOverlay(cellGenerator.getCells()[0].length, cellGenerator.getCells().length, svgCanvas);
-        svgCanvas.getOverlays().add(overlay);
-
-        int[] data = overlay.getBuffer();
-
-        int[][] u = CAModel.getU();
-
-        for (int t = 0; t < 2000; t++)
-        {
-            int k = 0;
-
-            for (int i = 0; i < u.length; i++)
-            {
-                for (int j = 0; j < u[0].length; j++)
-                {
-                    if (u[i][j] == -1)
-                    {
-                        data[k] = -1;
-                    }
-                    // this pixel will be white
-                    if (u[i][j] == 0)
-                    {
-                        data[k] = 1;
-                    }
-                    // blue
-                    if (u[i][j] == 1)
-                    {
-                        data[k] = 255;
-                    }
-                    // green
-                    if (u[i][j] == 2)
-                    {
-                        data[k] = 65280;
-                    }
-                    // yellow
-                    if (u[i][j] == 3)
-                    {
-                        data[k] = 16776960;
-                    }
-                    // orange
-                    if (u[i][j] == 4)
-                    {
-                        data[k] = 14251783;
-                    }
-                    // red
-                    if (u[i][j] == 5)
-                    {
-                        data[k] = 16711680;
-                    }
-                    k++;
-                }
-            }
-
-            CAModel.step();
-            svgCanvas.repaint();
-        }
-
-        btnStop.setEnabled(false);
-        btnStart.setEnabled(true);
-        btnStepForward.setEnabled(true);
-    }
-
-    /**
-     * Resets the simulation so that it is ready to be run again. The current
-     * time and time to run are both reset to 0;
-     */
-    private void resetSimulation()
-    {
-        timeToRun = 0;
-        currentTime = 0;
-        CAModel.initCells();
-        CAModel.stimulate(stimX, stimY);
-        btnStart.setEnabled(true);
-        btnStepForward.setEnabled(true);
-        btnStop.setEnabled(false);
-        visualisationSwingWorker = new VisualisationSwingWorker();
-    }
-
-    /**
-     * Stops a running simulation. The simulation can be restarted by calling
-     * the run simulation method. The simulation can be reset so that it starts
-     * again from time 0 by calling the reset simulation method before start is
-     * called.
-     * @see resetSimulation()
-     * @see runSimulation()
-     */
-    private void stopSimulation()
-    {
-        timeToRun = 0;
-    }
-
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -233,6 +136,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         btnStepForward = new javax.swing.JButton();
         btnViewCells = new javax.swing.JButton();
         btnTransform = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         pnlRootContainer = new javax.swing.JPanel();
         progressBar = new javax.swing.JProgressBar();
         svgCanvas = new org.apache.batik.swing.JSVGCanvas();
@@ -313,6 +217,17 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             }
         });
         toolbar.add(btnTransform);
+
+        jButton1.setText("Print arrays");
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        toolbar.add(jButton1);
 
         progressBar.setMaximum(7);
         progressBar.setStringPainted(true);
@@ -426,29 +341,24 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStartActionPerformed
     {//GEN-HEADEREND:event_btnStartActionPerformed
-        setStatusText("Started simulation at X: " + stimX + " Y: " + stimY);
-        visualisationSwingWorker.execute();
-        btnStop.requestFocus();
+        simulation.setStimulatedCell(stimY, stimX);
+        simulation.run();
 }//GEN-LAST:event_btnStartActionPerformed
 
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStopActionPerformed
     {//GEN-HEADEREND:event_btnStopActionPerformed
-        stopSimulation();
-        resetSimulation();
-        btnStart.requestFocus();
+        simulation.stop();
 }//GEN-LAST:event_btnStopActionPerformed
 
     private void btnStepForwardActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStepForwardActionPerformed
     {//GEN-HEADEREND:event_btnStepForwardActionPerformed
-        if (currentTime == 0)
-        {
-            resetSimulation();
-        }
-        setStatusText("Stepped simulation at X: " + stimX + " Y: " + stimY);
-        timeToRun = 1;
-        runSimulation();
-        btnStepForward.requestFocus();
+        simulation.run();
 }//GEN-LAST:event_btnStepForwardActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
+    {//GEN-HEADEREND:event_jButton1ActionPerformed
+        ((Nishiyama)caModel).printArrays();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -471,6 +381,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private javax.swing.JButton btnStop;
     private javax.swing.JButton btnTransform;
     private javax.swing.JButton btnViewCells;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JPanel pnlRootContainer;
     private javax.swing.JProgressBar progressBar;
@@ -487,6 +398,8 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     {
         progressBar.setValue(cellGenerator.getProgress());
         setStatusText("Cells generated");
+        caModel.setCells(cellGenerator.getCells());
+        overlay.setSize(cellGenerator.getCells()[0].length, cellGenerator.getCells().length);
     }
 
     public void documentLoadingStarted(SVGDocumentLoaderEvent e)
@@ -555,6 +468,31 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     {
     }
 
+    public void simulationStarted()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void simulationPaused()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void simulationCompleted()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void simulationReset()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void simulationUpdated()
+    {
+        svgCanvas.repaint();
+    }
+
     public class CellGeneratorWorker extends SwingWorker
     {
         @Override
@@ -569,17 +507,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
                 progressBar.setValue(cellGenerator.getProgress());
                 Thread.sleep(1000);
             }
-            return null;
-        }
-    }
-
-    public class VisualisationSwingWorker extends SwingWorker<Object, Void>
-    {
-        @Override
-        public Object doInBackground() throws Exception
-        {
-            runSimulation();
-
             return null;
         }
     }

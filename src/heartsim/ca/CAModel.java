@@ -111,6 +111,7 @@ public abstract class CAModel
     public void setCells(boolean[][] cells)
     {
         this.cells = cells;
+        setSize(new Dimension(cells[0].length, cells.length));
     }
 
     /**

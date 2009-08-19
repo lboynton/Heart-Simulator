@@ -25,9 +25,13 @@ public class BinaryPlotPanelOverlay implements Overlay
     private int[] buffer;
     private JSVGCanvas canvas;
 
-    public BinaryPlotPanelOverlay(int width, int height, JSVGCanvas canvas)
+    public BinaryPlotPanelOverlay(JSVGCanvas canvas)
     {
         this.canvas = canvas;
+    }
+
+    public void setSize(int width, int height)
+    {
         buffIm = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         WritableRaster rasta = buffIm.getRaster();
         DataBufferInt buf =  (DataBufferInt) rasta.getDataBuffer();
