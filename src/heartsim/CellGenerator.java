@@ -8,6 +8,7 @@ import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import org.apache.batik.gvt.GraphicsNode;
@@ -30,9 +31,10 @@ public class CellGenerator implements Runnable
     private int progress = 0;
     private String tissueLoading = "None";
 
-    public CellGenerator(JSVGCanvas canvas)
+    public CellGenerator(JSVGCanvas canvas, String paths[])
     {
         this.canvas = canvas;
+        this.paths.addAll(Arrays.asList(paths));
     }
 
     public int getProgress()

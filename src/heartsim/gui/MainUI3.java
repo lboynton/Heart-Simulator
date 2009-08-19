@@ -45,19 +45,23 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     public MainUI3()
     {
         initComponents();
-        
-        // Set the JSVGCanvas listeners.
+
+        // set the JSVGCanvas listeners.
         svgCanvas.addSVGDocumentLoaderListener(this);
         svgCanvas.addGVTTreeBuilderListener(this);
         svgCanvas.addGVTTreeRendererListener(this);
 
-        cellGenerator = new CellGenerator(svgCanvas);
-        cellGenerator.addGeneratorListener(this);
-        cellGenerator.addPath("ventricles");
-        cellGenerator.addPath("atria");
-        cellGenerator.addPath("sanode");
-        cellGenerator.addPath("avnode");
+        // create the cell generator and initially tell it to try to load some
+        // elements
+        cellGenerator = new CellGenerator(svgCanvas, new String[]
+                {
+                    "ventricles", "atria", "sanode", "avnode"
+                });
 
+        // add listener so we know when it's finished generating the cells array
+        cellGenerator.addGeneratorListener(this);
+
+        // initially load an SVG file
         loadSVG("./geometry_data/heart4.svg");
     }
 
