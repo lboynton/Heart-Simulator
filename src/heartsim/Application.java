@@ -5,26 +5,26 @@
 package heartsim;
 
 /**
- * Singleton class for getting and setting global application parameters
+ * Singleton class application settings and methods
  * @author Lee Boynton
  */
-public class ApplicationParameters
+public class Application
 {
     /** Singleton instance */
-    private static ApplicationParameters parameters;
+    private static Application parameters;
 
     private boolean debugMode = true;
 
-    private ApplicationParameters()
+    private Application()
     {
         // prevents public instantiation
     }
 
-    public static synchronized ApplicationParameters getInstance()
+    public static synchronized Application getInstance()
     {
         if (parameters == null)
         {
-            parameters = new ApplicationParameters();
+            parameters = new Application();
         }
 
         return parameters;
@@ -44,5 +44,13 @@ public class ApplicationParameters
     public void setDebugMode(boolean debugMode)
     {
         this.debugMode = debugMode;
+    }
+
+    public void output(String text)
+    {
+        if (getInstance().isDebugMode())
+        {
+            System.out.println(text);
+        }
     }
 }

@@ -10,7 +10,7 @@
  */
 package heartsim.gui;
 
-import heartsim.ApplicationParameters;
+import heartsim.Application;
 import heartsim.CellGenerator;
 import heartsim.CellGeneratorListener;
 import heartsim.Simulator;
@@ -119,14 +119,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     public void setStatusText(String text)
     {
         lblStatus.setText(text);
-    }
-
-    private void output(String text)
-    {
-        if (ApplicationParameters.getInstance().isDebugMode())
-        {
-            System.out.println(text);
-        }
     }
 
     /** This method is called from within the constructor to
@@ -455,7 +447,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
     private void mnuItmVerboseOutputActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuItmVerboseOutputActionPerformed
     {//GEN-HEADEREND:event_mnuItmVerboseOutputActionPerformed
-        ApplicationParameters.getInstance().setDebugMode(mnuItmVerboseOutput.isSelected());
+        Application.getInstance().setDebugMode(mnuItmVerboseOutput.isSelected());
     }//GEN-LAST:event_mnuItmVerboseOutputActionPerformed
 
     /**
@@ -578,7 +570,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
     public void simulationStarted()
     {
-        output("Started");
+        Application.getInstance().output("Started");
         setStatusText("Simulation started");
         btnStop.setEnabled(true);
         btnPause.setEnabled(true);
@@ -587,7 +579,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
     public void simulationPaused()
     {
-        output("Paused");
+        Application.getInstance().output("Paused");
         setStatusText("Simulation paused");
         btnStop.setEnabled(true);
         btnPause.setEnabled(false);
@@ -601,7 +593,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
     public void simulationStopped()
     {
-        output("Stopped");
+        Application.getInstance().output("Stopped");
         setStatusText("Simulation stopped");
         btnStop.setEnabled(false);
         btnPause.setEnabled(false);
@@ -610,7 +602,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
     public void simulationCompleted()
     {
-        output("Completed");
+        Application.getInstance().output("Completed");
         setStatusText("Simulation completed");
         btnStop.setEnabled(false);
         btnPause.setEnabled(false);

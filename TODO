@@ -10,6 +10,8 @@ TODO
 - Use thread to load heart data
 - More validation of CA model parameters?
 - Add chart as svg overlay?
+- Have a profile drop down box so that different tissues can quickly be set to
+  different profiles (such as avnode profile)
 
 User should be able to:
 - Select different cellular automata models
