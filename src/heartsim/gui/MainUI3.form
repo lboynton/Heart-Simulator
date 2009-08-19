@@ -62,6 +62,11 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="mnuElements">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Elements"/>
+          </Properties>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="mnuDebug">
           <Properties>
             <Property name="text" type="java.lang.String" value="Debug"/>
@@ -608,7 +613,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtTime">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="500"/>
+                    <Property name="text" type="java.lang.String" value="5000"/>
                   </Properties>
                   <Events>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtTimeKeyReleased"/>

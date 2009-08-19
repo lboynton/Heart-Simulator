@@ -34,12 +34,15 @@ import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
+import org.apache.batik.dom.svg.SVGOMPathElement;
+import org.apache.batik.dom.svg.SVGOMSVGElement;
 import org.apache.batik.ext.swing.JAffineTransformChooser;
 import org.apache.batik.ext.swing.JAffineTransformChooser.Dialog;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
@@ -50,6 +53,9 @@ import org.apache.batik.swing.svg.GVTTreeBuilderListener;
 import org.apache.batik.swing.svg.JSVGComponent;
 import org.apache.batik.swing.svg.SVGDocumentLoaderEvent;
 import org.apache.batik.swing.svg.SVGDocumentLoaderListener;
+import org.apache.batik.util.SVGConstants;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 /**
  *
@@ -101,7 +107,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         overlay = new BinaryPlotPanelOverlay(svgCanvas);
         svgCanvas.getOverlays().add(overlay);
-        
+
         simulation = new Simulator(overlay);
         simulation.addListener(this);
 
@@ -259,6 +265,32 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         simulation.setModel(caModel);
     }
 
+    private void setupElementsMenu()
+    {
+        Node documentNode = svgCanvas.getSVGDocument();
+
+        addToElementsMenu(documentNode);
+    }
+
+    private void addToElementsMenu(Node node)
+    {
+        for (Node n = node.getFirstChild(); n != null; n = n.getNextSibling())
+        {
+            if (n.getNodeName().equals(SVGConstants.SVG_PATH_TAG))
+            {
+                if (n instanceof SVGOMPathElement)
+                {
+                    JCheckBoxMenuItem item = new JCheckBoxMenuItem(((SVGOMPathElement) n).getAttribute(SVGConstants.SVG_ID_ATTRIBUTE));
+                    item.setToolTipText(n.getTextContent());
+                    item.setSelected(true);
+                    mnuElements.add(item);
+                }
+            }
+
+            addToElementsMenu(n);
+        }
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -313,6 +345,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         mnuItmZoomOut = new javax.swing.JMenuItem();
         separatorMnuView = new javax.swing.JSeparator();
         mnuItmTransform = new javax.swing.JMenuItem();
+        mnuElements = new javax.swing.JMenu();
         mnuDebug = new javax.swing.JMenu();
         mnuItmVerboseOutput = new javax.swing.JCheckBoxMenuItem();
         jSeparator2 = new javax.swing.JSeparator();
@@ -552,7 +585,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         lblTime.setText("Time");
 
-        txtTime.setText("500");
+        txtTime.setText("5000");
         txtTime.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtTimeKeyReleased(evt);
@@ -674,6 +707,9 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         mnuView.add(mnuItmTransform);
 
         menuBar.add(mnuView);
+
+        mnuElements.setText("Elements");
+        menuBar.add(mnuElements);
 
         mnuDebug.setText("Debug");
 
@@ -859,7 +895,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             runTime = Integer.parseInt(txtTime.getText());
             txtTime.setForeground(null);
         }
-        catch(NumberFormatException ex)
+        catch (NumberFormatException ex)
         {
             txtTime.setForeground(Color.red);
             Application.getInstance().output("Invalid time specified");
@@ -907,6 +943,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private javax.swing.JLabel lblTissue;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu mnuDebug;
+    private javax.swing.JMenu mnuElements;
     private javax.swing.JMenu mnuFile;
     private javax.swing.JMenuItem mnuItmExit;
     private javax.swing.JMenuItem mnuItmPrintArrays;
@@ -960,6 +997,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     {
         setStatusText("Document loaded");
         incrementProgressBar();
+        setupElementsMenu();
     }
 
     public void gvtBuildStarted(GVTTreeBuilderEvent e)
@@ -1057,7 +1095,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
     public void componentTransformChanged(ComponentEvent event)
     {
-        if(event.getID() == JGVTComponentListener.COMPONENT_TRANSFORM_CHANGED)
+        if (event.getID() == JGVTComponentListener.COMPONENT_TRANSFORM_CHANGED)
         {
             generatorWorker = new CellGeneratorWorker();
             generatorWorker.execute();
