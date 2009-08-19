@@ -14,12 +14,12 @@ import heartsim.CellGenerator;
 import heartsim.CellGeneratorListener;
 import heartsim.ca.CAModel;
 import heartsim.ca.Nishiyama;
-import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.geom.AffineTransform;
 import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.SwingWorker;
+import org.apache.batik.ext.swing.JAffineTransformChooser;
+import org.apache.batik.ext.swing.JAffineTransformChooser.Dialog;
 import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
 import org.apache.batik.swing.svg.GVTTreeBuilderAdapter;
@@ -201,9 +201,10 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         progressBar = new javax.swing.JProgressBar();
         svgCanvas = new org.apache.batik.swing.JSVGCanvas();
         lblStatus = new javax.swing.JLabel();
-        jToolBar1 = new javax.swing.JToolBar();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        toolbar = new javax.swing.JToolBar();
+        btnViewCells = new javax.swing.JButton();
+        btnStart = new javax.swing.JButton();
+        btnTransform = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -214,7 +215,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         svgCanvas.setLayout(svgCanvasLayout);
         svgCanvasLayout.setHorizontalGroup(
             svgCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 581, Short.MAX_VALUE)
+            .addGap(0, 585, Short.MAX_VALUE)
         );
         svgCanvasLayout.setVerticalGroup(
             svgCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,29 +224,40 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         lblStatus.setText("Status");
 
-        jToolBar1.setRollover(true);
+        toolbar.setRollover(true);
 
-        jButton1.setText("Vew cells");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnViewCells.setText("Vew cells");
+        btnViewCells.setFocusable(false);
+        btnViewCells.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnViewCells.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnViewCells.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnViewCellsActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton1);
+        toolbar.add(btnViewCells);
 
-        jButton2.setText("Run simulation");
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnStart.setText("Run simulation");
+        btnStart.setFocusable(false);
+        btnStart.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnStart.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnStartActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton2);
+        toolbar.add(btnStart);
+
+        btnTransform.setText("Transform");
+        btnTransform.setFocusable(false);
+        btnTransform.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnTransform.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnTransform.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTransformActionPerformed(evt);
+            }
+        });
+        toolbar.add(btnTransform);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -254,18 +266,18 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(svgCanvas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+                    .addComponent(svgCanvas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(lblStatus)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 393, Short.MAX_VALUE)
                         .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
+            .addComponent(toolbar, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(toolbar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(svgCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -278,16 +290,36 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
+    private void btnViewCellsActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnViewCellsActionPerformed
+    {//GEN-HEADEREND:event_btnViewCellsActionPerformed
         new CellsViewer(cellGenerator.getCells()).setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnViewCellsActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
-    {//GEN-HEADEREND:event_jButton2ActionPerformed
+    private void btnStartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStartActionPerformed
+    {//GEN-HEADEREND:event_btnStartActionPerformed
         VisualisationSwingWorker worker = new VisualisationSwingWorker();
         worker.execute();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnStartActionPerformed
+
+    private void btnTransformActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnTransformActionPerformed
+    {//GEN-HEADEREND:event_btnTransformActionPerformed
+        Dialog transformDialog = JAffineTransformChooser.createDialog(this, "Transform");
+
+        AffineTransform txf = transformDialog.showDialog();
+        if (txf != null)
+        {
+            AffineTransform at = svgCanvas.getRenderingTransform();
+            if (at == null)
+            {
+                at = new AffineTransform();
+            }
+
+            txf.concatenate(at);
+            svgCanvas.setRenderingTransform(txf);
+            generatorWorker = new CellGeneratorWorker();
+            generatorWorker.execute();
+        }
+    }//GEN-LAST:event_btnTransformActionPerformed
 
     /**
      * @param args the command line arguments
@@ -303,12 +335,13 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JButton btnStart;
+    private javax.swing.JButton btnTransform;
+    private javax.swing.JButton btnViewCells;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JProgressBar progressBar;
     private org.apache.batik.swing.JSVGCanvas svgCanvas;
+    private javax.swing.JToolBar toolbar;
     // End of variables declaration//GEN-END:variables
 
     public void cellGenerationStarted()
