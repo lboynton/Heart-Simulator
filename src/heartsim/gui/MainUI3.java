@@ -314,7 +314,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         btnAbout = new javax.swing.JButton();
         pnlRootContainer = new javax.swing.JPanel();
         progressBar = new javax.swing.JProgressBar();
-        svgCanvas = new org.apache.batik.swing.JSVGCanvas();
         lblStatus = new javax.swing.JLabel();
         tabbedPane = new javax.swing.JTabbedPane();
         pnlCA = new javax.swing.JPanel();
@@ -334,7 +333,8 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         txtTime = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        scrollPaneCanvas = new javax.swing.JScrollPane();
+        svgCanvas = new org.apache.batik.swing.JSVGCanvas();
         menuBar = new javax.swing.JMenuBar();
         mnuFile = new javax.swing.JMenu();
         mnuItmReload = new javax.swing.JMenuItem();
@@ -450,23 +450,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         progressBar.setMaximum(7);
         progressBar.setStringPainted(true);
 
-        svgCanvas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                svgCanvasMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout svgCanvasLayout = new javax.swing.GroupLayout(svgCanvas);
-        svgCanvas.setLayout(svgCanvasLayout);
-        svgCanvasLayout.setHorizontalGroup(
-            svgCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 405, Short.MAX_VALUE)
-        );
-        svgCanvasLayout.setVerticalGroup(
-            svgCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 359, Short.MAX_VALUE)
-        );
-
         lblStatus.setText("Status");
 
         lblTissue.setText("Tissue");
@@ -549,7 +532,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             pnlCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCALayout.createSequentialGroup()
                 .addComponent(pnlParameters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(256, Short.MAX_VALUE))
+                .addContainerGap(250, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Model", pnlCA);
@@ -576,7 +559,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(289, Short.MAX_VALUE))
+                .addContainerGap(283, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Pacemaker", jPanel2);
@@ -594,8 +577,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         jLabel1.setText("Speed");
 
-        jLabel2.setText("Paths:");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -611,8 +592,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                            .addComponent(txtTime, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(txtTime, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -626,14 +606,31 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(29, 29, 29)
                 .addComponent(pnlTissue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addContainerGap(221, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Simulation", jPanel3);
+
+        svgCanvas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                svgCanvasMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout svgCanvasLayout = new javax.swing.GroupLayout(svgCanvas);
+        svgCanvas.setLayout(svgCanvasLayout);
+        svgCanvasLayout.setHorizontalGroup(
+            svgCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 409, Short.MAX_VALUE)
+        );
+        svgCanvasLayout.setVerticalGroup(
+            svgCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 357, Short.MAX_VALUE)
+        );
+
+        scrollPaneCanvas.setViewportView(svgCanvas);
 
         javax.swing.GroupLayout pnlRootContainerLayout = new javax.swing.GroupLayout(pnlRootContainer);
         pnlRootContainer.setLayout(pnlRootContainerLayout);
@@ -644,8 +641,8 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
                 .addGroup(pnlRootContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlRootContainerLayout.createSequentialGroup()
                         .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(svgCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(scrollPaneCanvas, javax.swing.GroupLayout.PREFERRED_SIZE, 411, Short.MAX_VALUE))
                     .addGroup(pnlRootContainerLayout.createSequentialGroup()
                         .addComponent(lblStatus)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 457, Short.MAX_VALUE)
@@ -657,8 +654,8 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRootContainerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlRootContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(svgCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
-                    .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE))
+                    .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
+                    .addComponent(scrollPaneCanvas, javax.swing.GroupLayout.PREFERRED_SIZE, 359, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlRootContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -757,7 +754,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnlRootContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(toolbar, javax.swing.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE)
+            .addComponent(toolbar, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -929,7 +926,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private javax.swing.JComboBox cboBoxModel;
     private javax.swing.JComboBox cboBoxTissue;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -960,6 +956,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private javax.swing.JPanel pnlRootContainer;
     private javax.swing.JPanel pnlTissue;
     private javax.swing.JProgressBar progressBar;
+    private javax.swing.JScrollPane scrollPaneCanvas;
     private javax.swing.JToolBar.Separator separatorControls;
     private javax.swing.JToolBar.Separator separatorFileOpen;
     private javax.swing.JSeparator separatorMnuFile;
