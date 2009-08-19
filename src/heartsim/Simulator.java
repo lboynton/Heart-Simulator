@@ -50,6 +50,11 @@ public class Simulator
         this.runTime = runTime;
     }
 
+    public int getRunTime()
+    {
+        return runTime;
+    }
+
     public void setStimulatedCell(int row, int col)
     {
         initialiseCAModel();

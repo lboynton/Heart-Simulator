@@ -1056,6 +1056,8 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         btnStop.setEnabled(true);
         btnPause.setEnabled(true);
         btnStart.setEnabled(false);
+        progressBar.setMaximum(simulation.getRunTime());
+        resetProgressBar();
     }
 
     public void simulationPaused()
@@ -1069,6 +1071,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
     public void simulationUpdated()
     {
+        incrementProgressBar();
         svgCanvas.repaint();
     }
 
@@ -1088,6 +1091,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         btnStop.setEnabled(false);
         btnPause.setEnabled(false);
         btnStart.setEnabled(true);
+        progressBar.setValue(progressBar.getMaximum());
     }
 
     public void componentTransformChanged(ComponentEvent event)
