@@ -133,15 +133,23 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         btnOpen = new javax.swing.JButton();
         btnOpenSeparator = new javax.swing.JToolBar.Separator();
         btnStart = new javax.swing.JButton();
+        btnPause = new javax.swing.JButton();
         btnStop = new javax.swing.JButton();
         btnStepForward = new javax.swing.JButton();
-        btnViewCells = new javax.swing.JButton();
-        btnTransform = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         pnlRootContainer = new javax.swing.JPanel();
         progressBar = new javax.swing.JProgressBar();
         svgCanvas = new org.apache.batik.swing.JSVGCanvas();
         lblStatus = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mnuFile = new javax.swing.JMenu();
+        mnuItmExit = new javax.swing.JMenuItem();
+        mnuAdvanced = new javax.swing.JMenu();
+        mnuItmTransform = new javax.swing.JMenuItem();
+        mnuDebug = new javax.swing.JMenu();
+        mnuItmViewCells = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JSeparator();
+        mnuItmPrintCells = new javax.swing.JMenuItem();
+        mnuItmPrintArrays = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -173,6 +181,17 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         });
         toolbar.add(btnStart);
 
+        btnPause.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/media-playback-pause.png"))); // NOI18N
+        btnPause.setFocusable(false);
+        btnPause.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPause.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPause.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPauseActionPerformed(evt);
+            }
+        });
+        toolbar.add(btnPause);
+
         btnStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/media-playback-stop.png"))); // NOI18N
         btnStop.setToolTipText("Stop simulation");
         btnStop.setFocusable(false);
@@ -197,39 +216,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         });
         toolbar.add(btnStepForward);
 
-        btnViewCells.setText("Vew cells");
-        btnViewCells.setFocusable(false);
-        btnViewCells.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnViewCells.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnViewCells.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewCellsActionPerformed(evt);
-            }
-        });
-        toolbar.add(btnViewCells);
-
-        btnTransform.setText("Transform");
-        btnTransform.setFocusable(false);
-        btnTransform.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnTransform.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnTransform.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTransformActionPerformed(evt);
-            }
-        });
-        toolbar.add(btnTransform);
-
-        jButton1.setText("Print arrays");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        toolbar.add(jButton1);
-
         progressBar.setMaximum(7);
         progressBar.setStringPainted(true);
 
@@ -247,7 +233,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         );
         svgCanvasLayout.setVerticalGroup(
             svgCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 384, Short.MAX_VALUE)
+            .addGap(0, 359, Short.MAX_VALUE)
         );
 
         lblStatus.setText("Status");
@@ -262,7 +248,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
                     .addComponent(svgCanvas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlRootContainerLayout.createSequentialGroup()
                         .addComponent(lblStatus)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 419, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 423, Short.MAX_VALUE)
                         .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -270,13 +256,68 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             pnlRootContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlRootContainerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(svgCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
+                .addComponent(svgCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlRootContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblStatus))
                 .addContainerGap())
         );
+
+        mnuFile.setText("File");
+
+        mnuItmExit.setText("Exit");
+        mnuItmExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItmExitActionPerformed(evt);
+            }
+        });
+        mnuFile.add(mnuItmExit);
+
+        jMenuBar1.add(mnuFile);
+
+        mnuAdvanced.setText("Advanced");
+
+        mnuItmTransform.setText("Transform");
+        mnuItmTransform.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItmTransformActionPerformed(evt);
+            }
+        });
+        mnuAdvanced.add(mnuItmTransform);
+
+        jMenuBar1.add(mnuAdvanced);
+
+        mnuDebug.setText("Debug");
+
+        mnuItmViewCells.setText("View cells array");
+        mnuItmViewCells.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItmViewCellsActionPerformed(evt);
+            }
+        });
+        mnuDebug.add(mnuItmViewCells);
+        mnuDebug.add(jSeparator1);
+
+        mnuItmPrintCells.setText("Print cells to terminal");
+        mnuItmPrintCells.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItmPrintCellsActionPerformed(evt);
+            }
+        });
+        mnuDebug.add(mnuItmPrintCells);
+
+        mnuItmPrintArrays.setText("Print arrays to terminal");
+        mnuItmPrintArrays.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItmPrintArraysActionPerformed(evt);
+            }
+        });
+        mnuDebug.add(mnuItmPrintArrays);
+
+        jMenuBar1.add(mnuDebug);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -295,31 +336,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnViewCellsActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnViewCellsActionPerformed
-    {//GEN-HEADEREND:event_btnViewCellsActionPerformed
-        new CellsViewer(cellGenerator.getCells()).setVisible(true);
-    }//GEN-LAST:event_btnViewCellsActionPerformed
-
-    private void btnTransformActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnTransformActionPerformed
-    {//GEN-HEADEREND:event_btnTransformActionPerformed
-        Dialog transformDialog = JAffineTransformChooser.createDialog(this, "Transform");
-
-        AffineTransform txf = transformDialog.showDialog();
-        if (txf != null)
-        {
-            AffineTransform at = svgCanvas.getRenderingTransform();
-            if (at == null)
-            {
-                at = new AffineTransform();
-            }
-
-            txf.concatenate(at);
-            svgCanvas.setRenderingTransform(txf);
-            generatorWorker = new CellGeneratorWorker();
-            generatorWorker.execute();
-        }
-    }//GEN-LAST:event_btnTransformActionPerformed
 
     private void svgCanvasMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_svgCanvasMouseClicked
     {//GEN-HEADEREND:event_svgCanvasMouseClicked
@@ -368,10 +384,50 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         simulation.run();
 }//GEN-LAST:event_btnStepForwardActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
+    private void btnPauseActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnPauseActionPerformed
+    {//GEN-HEADEREND:event_btnPauseActionPerformed
+        simulation.pause();
+    }//GEN-LAST:event_btnPauseActionPerformed
+
+    private void mnuItmPrintArraysActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuItmPrintArraysActionPerformed
+    {//GEN-HEADEREND:event_mnuItmPrintArraysActionPerformed
         ((Nishiyama) caModel).printArrays();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_mnuItmPrintArraysActionPerformed
+
+    private void mnuItmPrintCellsActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuItmPrintCellsActionPerformed
+    {//GEN-HEADEREND:event_mnuItmPrintCellsActionPerformed
+        caModel.printCells();
+    }//GEN-LAST:event_mnuItmPrintCellsActionPerformed
+
+    private void mnuItmExitActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuItmExitActionPerformed
+    {//GEN-HEADEREND:event_mnuItmExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_mnuItmExitActionPerformed
+
+    private void mnuItmViewCellsActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuItmViewCellsActionPerformed
+    {//GEN-HEADEREND:event_mnuItmViewCellsActionPerformed
+        new CellsViewer(cellGenerator.getCells()).setVisible(true);
+    }//GEN-LAST:event_mnuItmViewCellsActionPerformed
+
+    private void mnuItmTransformActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuItmTransformActionPerformed
+    {//GEN-HEADEREND:event_mnuItmTransformActionPerformed
+        Dialog transformDialog = JAffineTransformChooser.createDialog(this, "Transform");
+
+        AffineTransform txf = transformDialog.showDialog();
+        if (txf != null)
+        {
+            AffineTransform at = svgCanvas.getRenderingTransform();
+            if (at == null)
+            {
+                at = new AffineTransform();
+            }
+
+            txf.concatenate(at);
+            svgCanvas.setRenderingTransform(txf);
+            generatorWorker = new CellGeneratorWorker();
+            generatorWorker.execute();
+        }
+    }//GEN-LAST:event_mnuItmTransformActionPerformed
 
     /**
      * @param args the command line arguments
@@ -389,13 +445,21 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOpen;
     private javax.swing.JToolBar.Separator btnOpenSeparator;
+    private javax.swing.JButton btnPause;
     private javax.swing.JButton btnStart;
     private javax.swing.JButton btnStepForward;
     private javax.swing.JButton btnStop;
-    private javax.swing.JButton btnTransform;
-    private javax.swing.JButton btnViewCells;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblStatus;
+    private javax.swing.JMenu mnuAdvanced;
+    private javax.swing.JMenu mnuDebug;
+    private javax.swing.JMenu mnuFile;
+    private javax.swing.JMenuItem mnuItmExit;
+    private javax.swing.JMenuItem mnuItmPrintArrays;
+    private javax.swing.JMenuItem mnuItmPrintCells;
+    private javax.swing.JMenuItem mnuItmTransform;
+    private javax.swing.JMenuItem mnuItmViewCells;
     private javax.swing.JPanel pnlRootContainer;
     private javax.swing.JProgressBar progressBar;
     private org.apache.batik.swing.JSVGCanvas svgCanvas;
