@@ -18,6 +18,8 @@ import heartsim.SimulatorListener;
 import heartsim.ca.CAModel;
 import heartsim.ca.Nishiyama;
 import heartsim.gui.util.FileChooserFilter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.io.File;
@@ -26,8 +28,12 @@ import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import org.apache.batik.ext.swing.JAffineTransformChooser;
 import org.apache.batik.ext.swing.JAffineTransformChooser.Dialog;
+import org.apache.batik.swing.JSVGCanvas;
+import org.apache.batik.swing.JSVGCanvas.ZoomInAction;
+import org.apache.batik.swing.gvt.AbstractZoomInteractor;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
 import org.apache.batik.swing.gvt.GVTTreeRendererListener;
+import org.apache.batik.swing.gvt.JGVTComponentListener;
 import org.apache.batik.swing.svg.GVTTreeBuilderEvent;
 import org.apache.batik.swing.svg.GVTTreeBuilderListener;
 import org.apache.batik.swing.svg.JSVGComponent;
@@ -40,7 +46,7 @@ import org.apache.batik.swing.svg.SVGDocumentLoaderListener;
  */
 public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener,
         SVGDocumentLoaderListener, GVTTreeBuilderListener, GVTTreeRendererListener,
-        SimulatorListener
+        SimulatorListener, JGVTComponentListener
 {
     private CellGenerator cellGenerator;
     private CAModel caModel = new Nishiyama();
@@ -69,6 +75,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         svgCanvas.addSVGDocumentLoaderListener(this);
         svgCanvas.addGVTTreeBuilderListener(this);
         svgCanvas.addGVTTreeRendererListener(this);
+        svgCanvas.addJGVTComponentListener(this);
 
         // create the cell generator and initially tell it to try to load some
         // elements
@@ -82,7 +89,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         overlay = new BinaryPlotPanelOverlay(svgCanvas);
         svgCanvas.getOverlays().add(overlay);
-
+        
         simulation = new Simulator(caModel, overlay);
         simulation.addListener(this);
 
@@ -142,19 +149,24 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         toolbar = new javax.swing.JToolBar();
         btnOpen = new javax.swing.JButton();
-        btnOpenSeparator = new javax.swing.JToolBar.Separator();
+        separatorFileOpen = new javax.swing.JToolBar.Separator();
         btnStart = new javax.swing.JButton();
         btnPause = new javax.swing.JButton();
         btnStop = new javax.swing.JButton();
         btnStepForward = new javax.swing.JButton();
+        separatorControls = new javax.swing.JToolBar.Separator();
+        btnZoomOut = new javax.swing.JButton();
+        btnZoomIn = new javax.swing.JButton();
+        separatorZoom = new javax.swing.JToolBar.Separator();
+        btnAbout = new javax.swing.JButton();
         pnlRootContainer = new javax.swing.JPanel();
         progressBar = new javax.swing.JProgressBar();
         svgCanvas = new org.apache.batik.swing.JSVGCanvas();
         lblStatus = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        menuBar = new javax.swing.JMenuBar();
         mnuFile = new javax.swing.JMenu();
         mnuItmReload = new javax.swing.JMenuItem();
-        jSeparator3 = new javax.swing.JSeparator();
+        separatorMnuFile = new javax.swing.JSeparator();
         mnuItmExit = new javax.swing.JMenuItem();
         mnuAdvanced = new javax.swing.JMenu();
         mnuItmTransform = new javax.swing.JMenuItem();
@@ -182,7 +194,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             }
         });
         toolbar.add(btnOpen);
-        toolbar.add(btnOpenSeparator);
+        toolbar.add(separatorFileOpen);
 
         btnStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/media-playback-start.png"))); // NOI18N
         btnStart.setToolTipText("Run the simulation with the specified parameters");
@@ -233,6 +245,41 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             }
         });
         toolbar.add(btnStepForward);
+        toolbar.add(separatorControls);
+
+        btnZoomOut.setAction(svgCanvas.new ZoomAction(0.5));
+        btnZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/zoom-out.png"))); // NOI18N
+        btnZoomOut.setToolTipText("Zoom out");
+        btnZoomOut.setFocusable(false);
+        btnZoomOut.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnZoomOut.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnZoomOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnZoomOutActionPerformed(evt);
+            }
+        });
+        toolbar.add(btnZoomOut);
+
+        btnZoomIn.setAction(svgCanvas.new ZoomAction(2));
+        btnZoomIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/zoom-in.png"))); // NOI18N
+        btnZoomIn.setToolTipText("Zoom in");
+        btnZoomIn.setFocusable(false);
+        btnZoomIn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnZoomIn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnZoomIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnZoomInActionPerformed(evt);
+            }
+        });
+        toolbar.add(btnZoomIn);
+        toolbar.add(separatorZoom);
+
+        btnAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/help-browser.png"))); // NOI18N
+        btnAbout.setToolTipText("About");
+        btnAbout.setFocusable(false);
+        btnAbout.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAbout.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolbar.add(btnAbout);
 
         progressBar.setMaximum(7);
         progressBar.setStringPainted(true);
@@ -291,7 +338,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             }
         });
         mnuFile.add(mnuItmReload);
-        mnuFile.add(jSeparator3);
+        mnuFile.add(separatorMnuFile);
 
         mnuItmExit.setText("Exit");
         mnuItmExit.addActionListener(new java.awt.event.ActionListener() {
@@ -301,7 +348,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         });
         mnuFile.add(mnuItmExit);
 
-        jMenuBar1.add(mnuFile);
+        menuBar.add(mnuFile);
 
         mnuAdvanced.setText("Advanced");
 
@@ -313,7 +360,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         });
         mnuAdvanced.add(mnuItmTransform);
 
-        jMenuBar1.add(mnuAdvanced);
+        menuBar.add(mnuAdvanced);
 
         mnuDebug.setText("Debug");
 
@@ -352,9 +399,9 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         });
         mnuDebug.add(mnuItmPrintArrays);
 
-        jMenuBar1.add(mnuDebug);
+        menuBar.add(mnuDebug);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -403,23 +450,23 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         {
             loadSVG(chooser.getSelectedFile());
         }
-}//GEN-LAST:event_btnOpenActionPerformed
+    }//GEN-LAST:event_btnOpenActionPerformed
 
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStartActionPerformed
     {//GEN-HEADEREND:event_btnStartActionPerformed
         simulation.setStimulatedCell(stimRow, stimCol);
         simulation.run();
-}//GEN-LAST:event_btnStartActionPerformed
+    }//GEN-LAST:event_btnStartActionPerformed
 
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStopActionPerformed
     {//GEN-HEADEREND:event_btnStopActionPerformed
         simulation.stop();
-}//GEN-LAST:event_btnStopActionPerformed
+    }//GEN-LAST:event_btnStopActionPerformed
 
     private void btnStepForwardActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStepForwardActionPerformed
     {//GEN-HEADEREND:event_btnStepForwardActionPerformed
         simulation.run();
-}//GEN-LAST:event_btnStepForwardActionPerformed
+    }//GEN-LAST:event_btnStepForwardActionPerformed
 
     private void btnPauseActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnPauseActionPerformed
     {//GEN-HEADEREND:event_btnPauseActionPerformed
@@ -476,6 +523,16 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         loadSVG();
     }//GEN-LAST:event_mnuItmReloadActionPerformed
 
+    private void btnZoomInActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnZoomInActionPerformed
+    {//GEN-HEADEREND:event_btnZoomInActionPerformed
+        
+    }//GEN-LAST:event_btnZoomInActionPerformed
+
+    private void btnZoomOutActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnZoomOutActionPerformed
+    {//GEN-HEADEREND:event_btnZoomOutActionPerformed
+        
+    }//GEN-LAST:event_btnZoomOutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -490,17 +547,18 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAbout;
     private javax.swing.JButton btnOpen;
-    private javax.swing.JToolBar.Separator btnOpenSeparator;
     private javax.swing.JButton btnPause;
     private javax.swing.JButton btnStart;
     private javax.swing.JButton btnStepForward;
     private javax.swing.JButton btnStop;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JButton btnZoomIn;
+    private javax.swing.JButton btnZoomOut;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel lblStatus;
+    private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu mnuAdvanced;
     private javax.swing.JMenu mnuDebug;
     private javax.swing.JMenu mnuFile;
@@ -513,6 +571,10 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private javax.swing.JMenuItem mnuItmViewCells;
     private javax.swing.JPanel pnlRootContainer;
     private javax.swing.JProgressBar progressBar;
+    private javax.swing.JToolBar.Separator separatorControls;
+    private javax.swing.JToolBar.Separator separatorFileOpen;
+    private javax.swing.JSeparator separatorMnuFile;
+    private javax.swing.JToolBar.Separator separatorZoom;
     private org.apache.batik.swing.JSVGCanvas svgCanvas;
     private javax.swing.JToolBar toolbar;
     // End of variables declaration//GEN-END:variables
@@ -520,7 +582,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     /**
      * Interface events
      */
-
     public void cellGenerationStarted()
     {
         setStatusText("Generating cells for (this may take a while)...");
@@ -568,8 +629,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     {
         lblStatus.setText("Rendering completed");
         incrementProgressBar();
-        generatorWorker = new CellGeneratorWorker();
-        generatorWorker.execute();
     }
 
     public void documentLoadingCancelled(SVGDocumentLoaderEvent arg0)
@@ -639,6 +698,15 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         btnStop.setEnabled(false);
         btnPause.setEnabled(false);
         btnStart.setEnabled(true);
+    }
+
+    public void componentTransformChanged(ComponentEvent event)
+    {
+        if(event.getID() == JGVTComponentListener.COMPONENT_TRANSFORM_CHANGED)
+        {
+            generatorWorker = new CellGeneratorWorker();
+            generatorWorker.execute();
+        }
     }
 
     public class CellGeneratorWorker extends SwingWorker
