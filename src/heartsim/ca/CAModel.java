@@ -73,11 +73,11 @@ public abstract class CAModel
         return parameters.get(name);
     }
 
-    public boolean isCell(int x, int y)
+    public boolean isCell(int row, int col)
     {
         try
         {
-            return cells[x][y];
+            return cells[row][col];
         }
         catch(IndexOutOfBoundsException ex)
         {
@@ -101,7 +101,7 @@ public abstract class CAModel
      * @param y
      * @return True if cell was stimulated, false if not
      */
-    public abstract boolean stimulate(int x, int y);
+    public abstract boolean stimulate(int row, int col);
 
     /**
      * Sets the cell geometry

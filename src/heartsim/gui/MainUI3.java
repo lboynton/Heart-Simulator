@@ -17,6 +17,7 @@ import heartsim.SimulatorListener;
 import heartsim.ca.CAModel;
 import heartsim.ca.Nishiyama;
 import heartsim.gui.util.FileChooserFilter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.io.File;
 import javax.swing.JFileChooser;
@@ -43,8 +44,8 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private CellGenerator cellGenerator;
     private CAModel caModel = new Nishiyama();
     private CellGeneratorWorker generatorWorker;
-    private int stimX = 250;
-    private int stimY = 450;
+    private int stimRow = 250;
+    private int stimCol = 450;
     private int timeToRun = 0;
     private int currentTime = 0;
     private final BinaryPlotPanelOverlay overlay;
@@ -322,9 +323,21 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
     private void svgCanvasMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_svgCanvasMouseClicked
     {//GEN-HEADEREND:event_svgCanvasMouseClicked
-        stimX = evt.getX();
-        stimY = evt.getY();
-        btnStartActionPerformed(null);
+        // left click
+        if (evt.getButton() == MouseEvent.BUTTON1)
+        {
+            // run simulation
+            stimCol = evt.getX();
+            stimRow = evt.getY();
+            simulation.setStimulatedCell(stimRow, stimCol);
+            simulation.run();
+        }
+
+        if(evt.getButton() == MouseEvent.BUTTON3)
+        {
+            // pause simulation
+            simulation.pause();
+        }
     }//GEN-LAST:event_svgCanvasMouseClicked
 
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnOpenActionPerformed
@@ -341,7 +354,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStartActionPerformed
     {//GEN-HEADEREND:event_btnStartActionPerformed
-        simulation.setStimulatedCell(stimY, stimX);
+        simulation.setStimulatedCell(stimRow, stimCol);
         simulation.run();
 }//GEN-LAST:event_btnStartActionPerformed
 
@@ -357,7 +370,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-        ((Nishiyama)caModel).printArrays();
+        ((Nishiyama) caModel).printArrays();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

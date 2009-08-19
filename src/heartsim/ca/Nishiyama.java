@@ -54,20 +54,20 @@ public class Nishiyama extends CAModel
         this.setParameter("Delta 2", delta2);
     }
 
-    public boolean stimulate(int x, int y)
+    public boolean stimulate(int row, int col)
     {
         try
         {
-            if (!isCell(x, y))
+            if (!isCell(row, col))
             {
-                System.out.println("No cell here");
+                System.out.println("No cell at row: " + row + " col: " + col);
                 return false;
             }
 
             // only stimulate if the cell is not already excited and is recovered
-            if (u[x][y] == 0 && v[x][y] == 0)
+            if (u[row][col] == 0 && v[row][col] == 0)
             {
-                u[x][y] = 1;
+                u[row][col] = 1;
             }
         }
         catch (java.lang.ArrayIndexOutOfBoundsException ex)
