@@ -29,11 +29,29 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="mnuAdvanced">
+        <Menu class="javax.swing.JMenu" name="mnuView">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Advanced"/>
+            <Property name="text" type="java.lang.String" value="View"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuItmnZoomIn">
+              <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="svgCanvas.new ZoomAction(2)" type="code"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Zoom in"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuItmZoomOut">
+              <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="svgCanvas.new ZoomAction(0.5)" type="code"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Zoom out"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JSeparator" name="separatorMnuView">
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuItmTransform">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Transform"/>
@@ -220,7 +238,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/heartsim/gui/icon/zoom-out.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Zoom out"/>
+            <Property name="toolTipText" type="java.lang.String" value="Zoom out and regenerate the cells"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -237,7 +255,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/heartsim/gui/icon/zoom-in.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Zoom in"/>
+            <Property name="toolTipText" type="java.lang.String" value="Zoom in and regenerate the cells"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>

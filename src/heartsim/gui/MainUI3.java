@@ -19,7 +19,6 @@ import heartsim.ca.CAModel;
 import heartsim.ca.Nishiyama;
 import heartsim.gui.util.FileChooserFilter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.io.File;
@@ -28,9 +27,6 @@ import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import org.apache.batik.ext.swing.JAffineTransformChooser;
 import org.apache.batik.ext.swing.JAffineTransformChooser.Dialog;
-import org.apache.batik.swing.JSVGCanvas;
-import org.apache.batik.swing.JSVGCanvas.ZoomInAction;
-import org.apache.batik.swing.gvt.AbstractZoomInteractor;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
 import org.apache.batik.swing.gvt.GVTTreeRendererListener;
 import org.apache.batik.swing.gvt.JGVTComponentListener;
@@ -168,7 +164,10 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         mnuItmReload = new javax.swing.JMenuItem();
         separatorMnuFile = new javax.swing.JSeparator();
         mnuItmExit = new javax.swing.JMenuItem();
-        mnuAdvanced = new javax.swing.JMenu();
+        mnuView = new javax.swing.JMenu();
+        mnuItmnZoomIn = new javax.swing.JMenuItem();
+        mnuItmZoomOut = new javax.swing.JMenuItem();
+        separatorMnuView = new javax.swing.JSeparator();
         mnuItmTransform = new javax.swing.JMenuItem();
         mnuDebug = new javax.swing.JMenu();
         mnuItmVerboseOutput = new javax.swing.JCheckBoxMenuItem();
@@ -249,7 +248,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         btnZoomOut.setAction(svgCanvas.new ZoomAction(0.5));
         btnZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/zoom-out.png"))); // NOI18N
-        btnZoomOut.setToolTipText("Zoom out");
+        btnZoomOut.setToolTipText("Zoom out and regenerate the cells");
         btnZoomOut.setFocusable(false);
         btnZoomOut.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnZoomOut.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -262,7 +261,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         btnZoomIn.setAction(svgCanvas.new ZoomAction(2));
         btnZoomIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/zoom-in.png"))); // NOI18N
-        btnZoomIn.setToolTipText("Zoom in");
+        btnZoomIn.setToolTipText("Zoom in and regenerate the cells");
         btnZoomIn.setFocusable(false);
         btnZoomIn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnZoomIn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -350,7 +349,16 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         menuBar.add(mnuFile);
 
-        mnuAdvanced.setText("Advanced");
+        mnuView.setText("View");
+
+        mnuItmnZoomIn.setAction(svgCanvas.new ZoomAction(2));
+        mnuItmnZoomIn.setText("Zoom in");
+        mnuView.add(mnuItmnZoomIn);
+
+        mnuItmZoomOut.setAction(svgCanvas.new ZoomAction(0.5));
+        mnuItmZoomOut.setText("Zoom out");
+        mnuView.add(mnuItmZoomOut);
+        mnuView.add(separatorMnuView);
 
         mnuItmTransform.setText("Transform");
         mnuItmTransform.addActionListener(new java.awt.event.ActionListener() {
@@ -358,9 +366,9 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
                 mnuItmTransformActionPerformed(evt);
             }
         });
-        mnuAdvanced.add(mnuItmTransform);
+        mnuView.add(mnuItmTransform);
 
-        menuBar.add(mnuAdvanced);
+        menuBar.add(mnuView);
 
         mnuDebug.setText("Debug");
 
@@ -559,7 +567,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenu mnuAdvanced;
     private javax.swing.JMenu mnuDebug;
     private javax.swing.JMenu mnuFile;
     private javax.swing.JMenuItem mnuItmExit;
@@ -569,11 +576,15 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private javax.swing.JMenuItem mnuItmTransform;
     private javax.swing.JCheckBoxMenuItem mnuItmVerboseOutput;
     private javax.swing.JMenuItem mnuItmViewCells;
+    private javax.swing.JMenuItem mnuItmZoomOut;
+    private javax.swing.JMenuItem mnuItmnZoomIn;
+    private javax.swing.JMenu mnuView;
     private javax.swing.JPanel pnlRootContainer;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JToolBar.Separator separatorControls;
     private javax.swing.JToolBar.Separator separatorFileOpen;
     private javax.swing.JSeparator separatorMnuFile;
+    private javax.swing.JSeparator separatorMnuView;
     private javax.swing.JToolBar.Separator separatorZoom;
     private org.apache.batik.swing.JSVGCanvas svgCanvas;
     private javax.swing.JToolBar toolbar;
