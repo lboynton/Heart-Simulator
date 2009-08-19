@@ -63,6 +63,9 @@
       </Properties>
     </Component>
     <Container class="org.apache.batik.swing.JSVGCanvas" name="svgCanvas">
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="svgCanvasMouseClicked"/>
+      </Events>
 
       <Layout>
         <DimensionLayout dim="0">

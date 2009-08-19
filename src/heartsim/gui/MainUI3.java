@@ -15,6 +15,7 @@ import heartsim.CellGeneratorListener;
 import heartsim.ca.CAModel;
 import heartsim.ca.Nishiyama;
 import java.awt.Dimension;
+import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.io.File;
 import javax.swing.SwingWorker;
@@ -22,6 +23,7 @@ import org.apache.batik.ext.swing.JAffineTransformChooser;
 import org.apache.batik.ext.swing.JAffineTransformChooser.Dialog;
 import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
+import org.apache.batik.swing.gvt.InteractorAdapter;
 import org.apache.batik.swing.svg.GVTTreeBuilderAdapter;
 import org.apache.batik.swing.svg.GVTTreeBuilderEvent;
 import org.apache.batik.swing.svg.JSVGComponent;
@@ -37,6 +39,8 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private CellGenerator cellGenerator;
     private CAModel CAModel = new Nishiyama();
     private CellGeneratorWorker generatorWorker;
+    private int stimX = 250;
+    private int stimY = 450;
 
     /** Creates new form MainUI3 */
     public MainUI3()
@@ -130,7 +134,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         CAModel.setCells(cellGenerator.getCells());
         CAModel.setSize(new Dimension(cellGenerator.getCells()[0].length, cellGenerator.getCells().length));
         CAModel.initCells();
-        CAModel.stimulate(400, 250);
+        CAModel.stimulate(stimY, stimX);
         BinaryPlotPanelOverlay overlay = new BinaryPlotPanelOverlay(cellGenerator.getCells()[0].length, cellGenerator.getCells().length, svgCanvas);
         svgCanvas.getOverlays().add(overlay);
 
@@ -210,6 +214,12 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         progressBar.setMaximum(7);
         progressBar.setStringPainted(true);
+
+        svgCanvas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                svgCanvasMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout svgCanvasLayout = new javax.swing.GroupLayout(svgCanvas);
         svgCanvas.setLayout(svgCanvasLayout);
@@ -320,6 +330,13 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             generatorWorker.execute();
         }
     }//GEN-LAST:event_btnTransformActionPerformed
+
+    private void svgCanvasMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_svgCanvasMouseClicked
+    {//GEN-HEADEREND:event_svgCanvasMouseClicked
+        stimX = evt.getX();
+        stimY = evt.getY();
+        btnStartActionPerformed(null);
+    }//GEN-LAST:event_svgCanvasMouseClicked
 
     /**
      * @param args the command line arguments
