@@ -17,12 +17,27 @@ import heartsim.Simulator;
 import heartsim.SimulatorListener;
 import heartsim.ca.CAModel;
 import heartsim.ca.Nishiyama;
+import heartsim.ca.Tyson;
+import heartsim.ca.parameter.CAModelParameter;
+import heartsim.gui.layout.SpringUtilities;
 import heartsim.gui.util.FileChooserFilter;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.io.File;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import org.apache.batik.ext.swing.JAffineTransformChooser;
@@ -45,13 +60,14 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         SimulatorListener, JGVTComponentListener
 {
     private CellGenerator cellGenerator;
-    private CAModel caModel = new Nishiyama();
+    private CAModel caModel;
     private CellGeneratorWorker generatorWorker;
     private int stimRow = 250;
     private int stimCol = 450;
     private final BinaryPlotPanelOverlay overlay;
     private final Simulator simulation;
     private String openFile;
+    private int runTime = 500;
 
     /** Creates new form MainUI3 */
     public MainUI3()
@@ -86,11 +102,14 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         overlay = new BinaryPlotPanelOverlay(svgCanvas);
         svgCanvas.getOverlays().add(overlay);
         
-        simulation = new Simulator(caModel, overlay);
+        simulation = new Simulator(overlay);
         simulation.addListener(this);
 
         // centre jframe on screen
         setLocationRelativeTo(null);
+
+        // load initially selected CA model
+        cboBoxModel.setSelectedIndex(0);
 
         // initially load an SVG file
         loadSVG("./geometry_data/heart4.svg");
@@ -134,6 +153,112 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         lblStatus.setText(text);
     }
 
+    /**
+     * Loads the available CA models into the combo box in the GUI. New CA models
+     * should be added in here
+     * @return Combo box model containing all the CA models
+     */
+    private ComboBoxModel loadCAModels()
+    {
+        DefaultComboBoxModel CAModels = new DefaultComboBoxModel();
+
+        // add CA models to combo box model
+        CAModels.addElement(new Nishiyama());
+        CAModels.addElement(new Tyson());
+
+        return CAModels;
+    }
+
+    /**
+     * Called when the CA model changes. Loads the CA model parameters into the
+     * GUI.
+     */
+    private void loadModelParameters()
+    {
+        Application.getInstance().output("Loading model parameters");
+
+        // skip loading parameters if model hasn't changed
+        if (caModel != null && caModel.equals(cboBoxModel.getSelectedItem()))
+        {
+            Application.getInstance().output("Same model selected, skipping.");
+            return;
+        }
+
+        // get the CA model that was selected
+        caModel = (CAModel) cboBoxModel.getSelectedItem();
+
+        Application.getInstance().output("Model selected is " + caModel.getName());
+
+        // clear any existing parameters in the GUI
+        pnlParameters.removeAll();
+
+        // use spring layout for this panel
+        pnlParameters.setLayout(new SpringLayout());
+
+        // add the tissue combo box selector first
+        pnlParameters.add(lblTissue);
+        pnlParameters.add(cboBoxTissue);
+        pnlParameters.add(btnTissueHelp);
+
+        // add the CA model combo box selector
+        pnlParameters.add(lblModel);
+        pnlParameters.add(cboBoxModel);
+        pnlParameters.add(btnModelHelp);
+
+        // loop through the parameters in the CA model and put them on the GUI
+        for (final CAModelParameter p : caModel.getParameters().values())
+        {
+            Application.getInstance().output("Found parameter: " + p.getName());
+
+            JLabel lbl = new JLabel(p.getName());
+            final JTextField txt = new JTextField();
+            txt.setText(p.getValue().toString());
+            txt.addKeyListener(new KeyAdapter()
+            {
+                @Override
+                public void keyReleased(KeyEvent evt)
+                {
+                    if (!p.setValue(txt.getText()))
+                    {
+                        Application.getInstance().output("Invalid parameter: " + txt.getText());
+                        txt.setForeground(Color.red);
+                    }
+                    else
+                    {
+                        txt.setForeground(null);
+                    }
+                    caModel.setParameter(p.getName(), p);
+                }
+            });
+
+            JButton btn = new JButton(new ImageIcon(getClass().getResource("/heartsim/gui/icon/help-browser.png")));
+            btn.setBorder(null);
+            btn.setBorderPainted(false);
+            btn.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    new HelpDialog(MainUI3.this, p.getName(), false, p.getDescription()).setVisible(true);
+                }
+            });
+
+            pnlParameters.add(lbl);
+            pnlParameters.add(txt);
+            pnlParameters.add(btn);
+        }
+
+        // place components in grid
+        SpringUtilities.makeCompactGrid(pnlParameters,
+                caModel.getParameters().size() + 2, 3, //rows, cols
+                10, 12, //initX, initY
+                12, 6);       //xPad, yPad
+
+        pnlParameters.revalidate();
+        pack();
+
+        simulation.setModel(caModel);
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -159,6 +284,25 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         progressBar = new javax.swing.JProgressBar();
         svgCanvas = new org.apache.batik.swing.JSVGCanvas();
         lblStatus = new javax.swing.JLabel();
+        tabbedPane = new javax.swing.JTabbedPane();
+        pnlCA = new javax.swing.JPanel();
+        pnlParameters = new javax.swing.JPanel();
+        lblTissue = new javax.swing.JLabel();
+        lblModel = new javax.swing.JLabel();
+        cboBoxTissue = new javax.swing.JComboBox();
+        cboBoxModel = new javax.swing.JComboBox();
+        btnModelHelp = new javax.swing.JButton();
+        btnTissueHelp = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        pnlTissue = new javax.swing.JPanel();
+        lblTime = new javax.swing.JLabel();
+        txtTime = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         mnuFile = new javax.swing.JMenu();
         mnuItmReload = new javax.swing.JMenuItem();
@@ -252,11 +396,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         btnZoomOut.setFocusable(false);
         btnZoomOut.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnZoomOut.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnZoomOut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnZoomOutActionPerformed(evt);
-            }
-        });
         toolbar.add(btnZoomOut);
 
         btnZoomIn.setAction(svgCanvas.new ZoomAction(2));
@@ -265,11 +404,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         btnZoomIn.setFocusable(false);
         btnZoomIn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnZoomIn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnZoomIn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnZoomInActionPerformed(evt);
-            }
-        });
         toolbar.add(btnZoomIn);
         toolbar.add(separatorZoom);
 
@@ -293,7 +427,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         svgCanvas.setLayout(svgCanvasLayout);
         svgCanvasLayout.setHorizontalGroup(
             svgCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 611, Short.MAX_VALUE)
+            .addGap(0, 405, Short.MAX_VALUE)
         );
         svgCanvasLayout.setVerticalGroup(
             svgCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,25 +436,196 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         lblStatus.setText("Status");
 
+        lblTissue.setText("Tissue");
+
+        lblModel.setText("Model");
+
+        cboBoxTissue.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ventricles" }));
+
+        cboBoxModel.setModel(loadCAModels());
+        cboBoxModel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboBoxModelActionPerformed(evt);
+            }
+        });
+
+        btnModelHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/help-browser.png"))); // NOI18N
+        btnModelHelp.setBorder(null);
+        btnModelHelp.setBorderPainted(false);
+        btnModelHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModelHelpActionPerformed(evt);
+            }
+        });
+
+        btnTissueHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/help-browser.png"))); // NOI18N
+        btnTissueHelp.setBorder(null);
+        btnTissueHelp.setBorderPainted(false);
+        btnTissueHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTissueHelpActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlParametersLayout = new javax.swing.GroupLayout(pnlParameters);
+        pnlParameters.setLayout(pnlParametersLayout);
+        pnlParametersLayout.setHorizontalGroup(
+            pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlParametersLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTissue)
+                    .addComponent(lblModel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cboBoxTissue, 0, 0, Short.MAX_VALUE)
+                    .addComponent(cboBoxModel, 0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnModelHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTissueHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        pnlParametersLayout.setVerticalGroup(
+            pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlParametersLayout.createSequentialGroup()
+                .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlParametersLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblTissue)
+                            .addComponent(cboBoxTissue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(pnlParametersLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnTissueHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblModel)
+                    .addComponent(cboBoxModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnModelHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        javax.swing.GroupLayout pnlCALayout = new javax.swing.GroupLayout(pnlCA);
+        pnlCA.setLayout(pnlCALayout);
+        pnlCALayout.setHorizontalGroup(
+            pnlCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlParameters, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        pnlCALayout.setVerticalGroup(
+            pnlCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCALayout.createSequentialGroup()
+                .addComponent(pnlParameters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(256, Short.MAX_VALUE))
+        );
+
+        tabbedPane.addTab("Model", pnlCA);
+
+        jLabel4.setText("Heart rate");
+
+        jTextField2.setText("70");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(289, Short.MAX_VALUE))
+        );
+
+        tabbedPane.addTab("Pacemaker", jPanel2);
+
+        pnlTissue.setLayout(new java.awt.GridLayout(1, 1));
+
+        lblTime.setText("Time");
+
+        txtTime.setText("500");
+        txtTime.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimeKeyReleased(evt);
+            }
+        });
+
+        jLabel1.setText("Speed");
+
+        jLabel2.setText("Paths:");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pnlTissue, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTime)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                            .addComponent(txtTime, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTime)
+                    .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlTissue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(227, Short.MAX_VALUE))
+        );
+
+        tabbedPane.addTab("Simulation", jPanel3);
+
         javax.swing.GroupLayout pnlRootContainerLayout = new javax.swing.GroupLayout(pnlRootContainer);
         pnlRootContainer.setLayout(pnlRootContainerLayout);
         pnlRootContainerLayout.setHorizontalGroup(
             pnlRootContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlRootContainerLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRootContainerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlRootContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(svgCanvas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlRootContainerLayout.createSequentialGroup()
+                        .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(svgCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE))
+                    .addGroup(pnlRootContainerLayout.createSequentialGroup()
                         .addComponent(lblStatus)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 423, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 457, Short.MAX_VALUE)
                         .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         pnlRootContainerLayout.setVerticalGroup(
             pnlRootContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlRootContainerLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRootContainerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(svgCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
+                .addGroup(pnlRootContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(svgCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
+                    .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlRootContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -416,7 +721,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnlRootContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(toolbar, javax.swing.GroupLayout.DEFAULT_SIZE, 635, Short.MAX_VALUE)
+            .addComponent(toolbar, javax.swing.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -438,7 +743,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             stimCol = evt.getX();
             stimRow = evt.getY();
             simulation.setStimulatedCell(stimRow, stimCol);
-            simulation.run();
+            simulation.run(runTime);
         }
 
         if (evt.getButton() == MouseEvent.BUTTON3)
@@ -463,7 +768,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStartActionPerformed
     {//GEN-HEADEREND:event_btnStartActionPerformed
         simulation.setStimulatedCell(stimRow, stimCol);
-        simulation.run();
+        simulation.run(runTime);
     }//GEN-LAST:event_btnStartActionPerformed
 
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStopActionPerformed
@@ -473,7 +778,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
     private void btnStepForwardActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStepForwardActionPerformed
     {//GEN-HEADEREND:event_btnStepForwardActionPerformed
-        simulation.run();
+        simulation.run(1);
     }//GEN-LAST:event_btnStepForwardActionPerformed
 
     private void btnPauseActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnPauseActionPerformed
@@ -531,15 +836,35 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         loadSVG();
     }//GEN-LAST:event_mnuItmReloadActionPerformed
 
-    private void btnZoomInActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnZoomInActionPerformed
-    {//GEN-HEADEREND:event_btnZoomInActionPerformed
-        
-    }//GEN-LAST:event_btnZoomInActionPerformed
+    private void cboBoxModelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cboBoxModelActionPerformed
+    {//GEN-HEADEREND:event_cboBoxModelActionPerformed
+        loadModelParameters();
+        //rangeAxis.setRange(caModel.getMin(), caModel.getMax());
+    }//GEN-LAST:event_cboBoxModelActionPerformed
 
-    private void btnZoomOutActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnZoomOutActionPerformed
-    {//GEN-HEADEREND:event_btnZoomOutActionPerformed
-        
-    }//GEN-LAST:event_btnZoomOutActionPerformed
+    private void btnModelHelpActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnModelHelpActionPerformed
+    {//GEN-HEADEREND:event_btnModelHelpActionPerformed
+        new HelpDialog(this, caModel.getName(), false, caModel.getDescription()).setVisible(true);
+    }//GEN-LAST:event_btnModelHelpActionPerformed
+
+    private void btnTissueHelpActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnTissueHelpActionPerformed
+    {//GEN-HEADEREND:event_btnTissueHelpActionPerformed
+        new HelpDialog(this, "Heart tissue", false, "You can select which heart tissue to alter the parameters of. The tissues listed here were found in the SVG file.").setVisible(true);
+    }//GEN-LAST:event_btnTissueHelpActionPerformed
+
+    private void txtTimeKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_txtTimeKeyReleased
+    {//GEN-HEADEREND:event_txtTimeKeyReleased
+        try
+        {
+            runTime = Integer.parseInt(txtTime.getText());
+            txtTime.setForeground(null);
+        }
+        catch(NumberFormatException ex)
+        {
+            txtTime.setForeground(Color.red);
+            Application.getInstance().output("Invalid time specified");
+        }
+    }//GEN-LAST:event_txtTimeKeyReleased
 
     /**
      * @param args the command line arguments
@@ -556,16 +881,30 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAbout;
+    private javax.swing.JButton btnModelHelp;
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnPause;
     private javax.swing.JButton btnStart;
     private javax.swing.JButton btnStepForward;
     private javax.swing.JButton btnStop;
+    private javax.swing.JButton btnTissueHelp;
     private javax.swing.JButton btnZoomIn;
     private javax.swing.JButton btnZoomOut;
+    private javax.swing.JComboBox cboBoxModel;
+    private javax.swing.JComboBox cboBoxTissue;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel lblModel;
     private javax.swing.JLabel lblStatus;
+    private javax.swing.JLabel lblTime;
+    private javax.swing.JLabel lblTissue;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu mnuDebug;
     private javax.swing.JMenu mnuFile;
@@ -579,7 +918,10 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private javax.swing.JMenuItem mnuItmZoomOut;
     private javax.swing.JMenuItem mnuItmnZoomIn;
     private javax.swing.JMenu mnuView;
+    private javax.swing.JPanel pnlCA;
+    private javax.swing.JPanel pnlParameters;
     private javax.swing.JPanel pnlRootContainer;
+    private javax.swing.JPanel pnlTissue;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JToolBar.Separator separatorControls;
     private javax.swing.JToolBar.Separator separatorFileOpen;
@@ -587,7 +929,9 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private javax.swing.JSeparator separatorMnuView;
     private javax.swing.JToolBar.Separator separatorZoom;
     private org.apache.batik.swing.JSVGCanvas svgCanvas;
+    private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JToolBar toolbar;
+    private javax.swing.JTextField txtTime;
     // End of variables declaration//GEN-END:variables
 
     /**

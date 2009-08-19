@@ -29,6 +29,11 @@ public class Simulator
 
     private State state = State.STOPPED;
 
+    public Simulator(BinaryPlotPanelOverlay overlay)
+    {
+        this.overlay = overlay;
+    }
+
     public Simulator(CAModel caModel, BinaryPlotPanelOverlay overlay)
     {
         this.caModel = caModel;
@@ -59,6 +64,12 @@ public class Simulator
         }
 
         initialised = true;
+    }
+
+    public void run(int runTime)
+    {
+        setRunTime(runTime);
+        run();
     }
 
     public void run()
