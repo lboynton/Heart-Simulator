@@ -47,10 +47,9 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private CellGeneratorWorker generatorWorker;
     private int stimRow = 250;
     private int stimCol = 450;
-    private int timeToRun = 0;
-    private int currentTime = 0;
     private final BinaryPlotPanelOverlay overlay;
     private final Simulator simulation;
+    private String openFile;
 
     /** Creates new form MainUI3 */
     public MainUI3()
@@ -75,7 +74,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         // elements
         cellGenerator = new CellGenerator(svgCanvas, new String[]
                 {
-                    "ventricles", "atria", "sanode", "avnode"
+                    "ventricles", "atria", "sanode", "avnode", "internodal_fibres"
                 });
 
         // add listener so we know when it's finished generating the cells array
@@ -87,18 +86,29 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         simulation = new Simulator(caModel, overlay);
         simulation.addListener(this);
 
+        // centre jframe on screen
+        setLocationRelativeTo(null);
+
         // initially load an SVG file
         loadSVG("./geometry_data/heart4.svg");
+    }
+
+    public void loadSVG()
+    {
+        loadSVG(openFile);
     }
 
     public void loadSVG(String path)
     {
         loadSVG(new File(path));
+        openFile = path;
     }
 
     public void loadSVG(File file)
     {
         String uri = file.toURI().toString();
+
+        openFile = file.getPath();
 
         // this ensures an update manager is created
         svgCanvas.setDocumentState(JSVGComponent.ALWAYS_DYNAMIC);
@@ -143,6 +153,8 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         lblStatus = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuFile = new javax.swing.JMenu();
+        mnuItmReload = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JSeparator();
         mnuItmExit = new javax.swing.JMenuItem();
         mnuAdvanced = new javax.swing.JMenu();
         mnuItmTransform = new javax.swing.JMenuItem();
@@ -271,6 +283,15 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         );
 
         mnuFile.setText("File");
+
+        mnuItmReload.setText("Reload file");
+        mnuItmReload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItmReloadActionPerformed(evt);
+            }
+        });
+        mnuFile.add(mnuItmReload);
+        mnuFile.add(jSeparator3);
 
         mnuItmExit.setText("Exit");
         mnuItmExit.addActionListener(new java.awt.event.ActionListener() {
@@ -450,6 +471,11 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         Application.getInstance().setDebugMode(mnuItmVerboseOutput.isSelected());
     }//GEN-LAST:event_mnuItmVerboseOutputActionPerformed
 
+    private void mnuItmReloadActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuItmReloadActionPerformed
+    {//GEN-HEADEREND:event_mnuItmReloadActionPerformed
+        loadSVG();
+    }//GEN-LAST:event_mnuItmReloadActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -473,6 +499,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JMenu mnuAdvanced;
     private javax.swing.JMenu mnuDebug;
@@ -480,6 +507,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private javax.swing.JMenuItem mnuItmExit;
     private javax.swing.JMenuItem mnuItmPrintArrays;
     private javax.swing.JMenuItem mnuItmPrintCells;
+    private javax.swing.JMenuItem mnuItmReload;
     private javax.swing.JMenuItem mnuItmTransform;
     private javax.swing.JCheckBoxMenuItem mnuItmVerboseOutput;
     private javax.swing.JMenuItem mnuItmViewCells;
@@ -488,6 +516,10 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private org.apache.batik.swing.JSVGCanvas svgCanvas;
     private javax.swing.JToolBar toolbar;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * Interface events
+     */
 
     public void cellGenerationStarted()
     {
