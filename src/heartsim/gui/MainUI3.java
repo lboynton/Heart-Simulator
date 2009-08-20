@@ -42,7 +42,6 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import org.apache.batik.dom.svg.SVGOMPathElement;
-import org.apache.batik.dom.svg.SVGOMSVGElement;
 import org.apache.batik.ext.swing.JAffineTransformChooser;
 import org.apache.batik.ext.swing.JAffineTransformChooser.Dialog;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
@@ -54,7 +53,6 @@ import org.apache.batik.swing.svg.JSVGComponent;
 import org.apache.batik.swing.svg.SVGDocumentLoaderEvent;
 import org.apache.batik.swing.svg.SVGDocumentLoaderListener;
 import org.apache.batik.util.SVGConstants;
-import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 /**
