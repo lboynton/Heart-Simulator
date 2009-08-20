@@ -7,6 +7,8 @@ package heartsim;
 import heartsim.ca.CAModel;
 import heartsim.util.ArrayUtils;
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -14,13 +16,13 @@ import java.awt.Dimension;
  */
 public class CellularAutomaton
 {
-    protected int height; // height of the grid
-    protected int width; // width of the grid
-    protected int u[][] = new int[height][width]; // voltage values for each cell
-    protected int v[][] = new int[height][width]; // recovery values for each cell
-    protected int tempu[][] = new int[height][width]; // voltage values for each cell
-    protected boolean cells[][] = new boolean[height][width]; // true/false if there is a cell
-    protected CAModel model;
+    private int height; // height of the grid
+    private int width; // width of the grid
+    private int u[][] = new int[height][width]; // voltage values for each cell
+    private int v[][] = new int[height][width]; // recovery values for each cell
+    private int tempu[][] = new int[height][width]; // voltage values for each cell
+    private boolean cells[][] = new boolean[height][width]; // true/false if there is a cell
+    private List<HeartTissue> tissues = new ArrayList<HeartTissue>();
 
     public boolean isCell(int row, int col)
     {
@@ -34,14 +36,9 @@ public class CellularAutomaton
         }
     }
 
-    public void setModel(CAModel caModel)
+    public void setTissues(List<HeartTissue> tissues)
     {
-        this.model = caModel;
-    }
-
-    public CAModel getModel()
-    {
-        return model;
+        this.tissues = tissues;
     }
 
     /**
@@ -61,7 +58,13 @@ public class CellularAutomaton
                     continue;
                 }
 
-                model.processCell(row, col, u, v, tempu);
+                for (HeartTissue tissue : tissues)
+                {
+                    if (tissue.containsCell(row, col))
+                    {
+                        tissue.getModel().processCell(row, col, u, v, tempu);
+                    }
+                }
             }
         }
     }
@@ -91,8 +94,11 @@ public class CellularAutomaton
             }
         }
 
-        model.setSize(height, width);
-        model.initCells();
+        for (HeartTissue tissue : tissues)
+        {
+            tissue.getModel().setSize(height, width);
+            tissue.getModel().initCells();
+        }
     }
 
     /**
@@ -174,9 +180,17 @@ public class CellularAutomaton
                 return false;
             }
 
-            if(model.isCellRecovered(u[row][col], v[row][col]))
+            for (HeartTissue tissue : tissues)
             {
-                u[row][col] = model.getCellExcitationValue();
+                if (tissue.containsCell(row, col))
+                {
+                    tissue.getModel().processCell(row, col, u, v, tempu);
+
+                    if (tissue.getModel().isCellRecovered(u[row][col], v[row][col]))
+                    {
+                        u[row][col] = tissue.getModel().getCellExcitationValue();
+                    }
+                }
             }
         }
         catch (java.lang.ArrayIndexOutOfBoundsException ex)

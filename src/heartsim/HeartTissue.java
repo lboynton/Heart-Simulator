@@ -5,6 +5,8 @@
 package heartsim;
 
 import heartsim.ca.CAModel;
+import java.awt.Shape;
+import org.w3c.dom.Element;
 
 /**
  * A class for different heart tissue
@@ -15,6 +17,8 @@ public class HeartTissue
     protected CAModel model;
     protected String name;
     protected String description;
+    protected Shape shape;
+    protected Element element;
 
     public HeartTissue(String name)
     {
@@ -55,5 +59,25 @@ public class HeartTissue
     public void setName(String name)
     {
         this.name = name;
+    }
+
+    public Element getElement()
+    {
+        return element;
+    }
+
+    public void setElement(Element element)
+    {
+        this.element = element;
+    }
+
+    public void setShape(Shape shape)
+    {
+        this.shape = shape;
+    }
+
+    public boolean containsCell(int row, int col)
+    {
+        return shape.contains(col, row);
     }
 }

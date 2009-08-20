@@ -119,7 +119,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         // load initially selected CA model
         cboBoxModel.setSelectedIndex(0);
 
-        ca.setModel(caModel);
         simulation.setAutomaton(ca);
 
         // initially load an SVG file
@@ -984,6 +983,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         progressBar.setValue(cellGenerator.getProgress());
         setStatusText("Cells generated");
         ca.setCells(cellGenerator.getCells());
+        ca.setTissues(cellGenerator.getTissues());
         overlay.setSize(cellGenerator.getCells()[0].length, cellGenerator.getCells().length);
     }
 

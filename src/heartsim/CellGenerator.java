@@ -4,6 +4,7 @@
  */
 package heartsim;
 
+import heartsim.ca.Nishiyama;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
@@ -26,6 +27,7 @@ public class CellGenerator implements Runnable
     private JSVGCanvas canvas;
     private List<String> paths = new ArrayList<String>();
     private List<Element> elements = new ArrayList<Element>();
+    private List<HeartTissue> tissues = new ArrayList<HeartTissue>();
     private boolean cells[][];
     private boolean completed = false;
     private int progress = 0;
@@ -109,12 +111,35 @@ public class CellGenerator implements Runnable
         // notify listeners that cell generation has started
         fireGenerationStarted();
 
-        loadElements();
-        createDataArray();
+        //loadElements();
+        loadTissues();
+        //createDataArray();
+        createDataArray2();
         completed = true;
 
         // notify listeners that cell generation has finished
         fireGenerationCompleted();
+    }
+
+    private void loadTissues()
+    {
+        for (String path : paths)
+        {
+            Element element = (Element) canvas.getSVGDocument().getElementById(path);
+
+            if (element != null)
+            {
+                HeartTissue tissue = new HeartTissue(path);
+                tissue.setElement(element);
+                tissue.setModel(new Nishiyama());
+                tissues.add(tissue);
+            }
+        }
+    }
+
+    public List<HeartTissue> getTissues()
+    {
+        return tissues;
     }
 
     private void loadElements()
@@ -126,6 +151,48 @@ public class CellGenerator implements Runnable
             if (element != null)
             {
                 elements.add(element);
+            }
+        }
+    }
+
+    private void createDataArray2()
+    {
+        cells = new boolean[canvas.getPreferredSize().height][canvas.getPreferredSize().width];
+
+        for (HeartTissue tissue : tissues)
+        {
+            tissueLoading = tissue.getName();
+
+            GraphicsNode node = canvas.getUpdateManager().getBridgeContext().getGraphicsNode(tissue.getElement());
+
+            if (node != null)
+            {
+                AffineTransform elementsAt = node.getGlobalTransform();
+                Shape selectionHighlight = node.getOutline();
+                AffineTransform at = canvas.getRenderingTransform();
+                at.concatenate(elementsAt);
+                Shape s = at.createTransformedShape(selectionHighlight);
+
+                if (s == null)
+                {
+                    break;
+                }
+
+                tissue.setShape(s);
+
+                for (int row = 0; row < canvas.getPreferredSize().height; row++)
+                {
+                    for (int col = 0; col < canvas.getPreferredSize().width; col++)
+                    {
+                        if (s.contains(new Point(col, row)))
+                        {
+                            cells[row][col] = true;
+                        }
+                    }
+
+                    // row completed
+                    progress = (int) (((row + 1) / (double) canvas.getPreferredSize().height) * 100);
+                }
             }
         }
     }
