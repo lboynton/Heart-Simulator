@@ -17,7 +17,7 @@ import java.util.List;
 public class Simulator
 {
     private List<SimulatorListener> listeners = Collections.synchronizedList(new ArrayList<SimulatorListener>());
-    private CAModel caModel;
+    private CellularAutomaton ca;
     private BinaryPlotPanelOverlay overlay;
     private boolean initialised = false;
     private int runTime = 500;
@@ -34,15 +34,15 @@ public class Simulator
         this.overlay = overlay;
     }
 
-    public Simulator(CAModel caModel, BinaryPlotPanelOverlay overlay)
+    public Simulator(CellularAutomaton ca, BinaryPlotPanelOverlay overlay)
     {
-        this.caModel = caModel;
+        this.ca = ca;
         this.overlay = overlay;
     }
 
-    public void setModel(CAModel model)
+    public void setAutomaton(CellularAutomaton ca)
     {
-        this.caModel = model;
+        this.ca = ca;
     }
 
     public void setRunTime(int runTime)
@@ -58,14 +58,14 @@ public class Simulator
     public void setStimulatedCell(int row, int col)
     {
         initialiseCAModel();
-        caModel.stimulate(row, col);
+        ca.stimulate(row, col);
     }
 
     private void initialiseCAModel()
     {
         if (!initialised)
         {
-            caModel.initCells();
+            ca.initCells();
         }
 
         initialised = true;
@@ -162,7 +162,7 @@ public class Simulator
         {
             int[] data = overlay.getBuffer();
 
-            int[][] u = caModel.getU();
+            int[][] u = ca.getU();
 
             for (int t = 0; t < runTime; t++)
             {
@@ -215,7 +215,7 @@ public class Simulator
                     }
                 }
 
-                caModel.step();
+                ca.step();
                 fireSimulationUpdated();
             }
 

@@ -5,9 +5,7 @@
 package heartsim.ca;
 
 import heartsim.ca.parameter.CAModelIntParameter;
-import heartsim.util.ArrayUtils;
 import heartsim.util.StringUtils;
-import java.awt.Dimension;
 import java.util.Random;
 
 /**
@@ -18,10 +16,10 @@ import java.util.Random;
  */
 public class Nishiyama extends CAModel
 {
-    private int delta[][] = new int[height][width]; // delta values for each cell
-    private int tempu[][] = new int[height][width]; // temporary storage of cell values
+    private int delta[][]; // delta values for each cell
     private Random generator = new Random();
     private int N;
+    private final int excitationValue = 1;
 
     public Nishiyama()
     {
@@ -54,58 +52,17 @@ public class Nishiyama extends CAModel
         this.setParameter("Delta 2", delta2);
     }
 
-    public boolean stimulate(int row, int col)
-    {
-        try
-        {
-            if (!isCell(row, col))
-            {
-                System.out.println("No cell at row: " + row + " col: " + col);
-                return false;
-            }
-
-            // only stimulate if the cell is not already excited and is recovered
-            if (u[row][col] == 0 && v[row][col] == 0)
-            {
-                u[row][col] = 1;
-            }
-        }
-        catch (java.lang.ArrayIndexOutOfBoundsException ex)
-        {
-            return false;
-        }
-
-        return true;
-    }
-
     public void initCells()
     {
         int delta1 = (Integer) this.getParameter("Delta 1").getValue();
         int delta2 = (Integer) this.getParameter("Delta 2").getValue();
-        N = (Integer) this.getParameter("N").getValue();
 
-        u = new int[height][width]; // voltage values for each cell
-        v = new int[height][width]; // recovery values for each cell
         delta = new int[height][width]; // delta values for each cell
-        tempu = new int[height][width]; // temporary storage of cell values
 
         for (int row = 0; row < height; row++)
         {
             for (int col = 0; col < width; col++)
             {
-                // initialise voltage values
-                if (isCell(row, col))
-                {
-                    u[row][col] = 0;
-                }
-                else
-                {
-                    u[row][col] = -1;
-                }
-
-                // initialise recovery values
-                v[row][col] = 0;
-
                 // initialise delta values
                 int randomDelta = generator.nextInt(2);
 
@@ -125,12 +82,12 @@ public class Nishiyama extends CAModel
     {
         int values[][][] =
         {
-            u, tempu, v, delta
+            delta
         };
 
         String names[] =
         {
-            "Voltage", "Temp", "Recovery", "Delta"
+            "Delta"
         };
 
         for (int i = 0; i < names.length; i++)
@@ -160,36 +117,6 @@ public class Nishiyama extends CAModel
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args)
-    {
-        Nishiyama test = new Nishiyama();
-        boolean[][] cells = new boolean[10][10];
-        for (int i = 0; i < cells.length; i++)
-        {
-            for (int j = 0; j < cells[i].length; j++)
-            {
-                cells[i][j] = true;
-            }
-        }
-        test.setCells(cells);
-        test.setSize(new Dimension(10, 10));
-        test.initCells();
-        test.stimulate(1, 1);
-        test.printCells();
-        int time = 20;
-
-        for (int t = 0; t < time; t++)
-        {
-            test.printArrays();
-            test.step();
-        }
-
-        test.printArrays();
-    }
-
     @Override
     public int getMax()
     {
@@ -203,8 +130,22 @@ public class Nishiyama extends CAModel
     }
 
     @Override
-    public void processCell(int row, int col)
+    public boolean isCellRecovered(int u, int v)
     {
+        return u == 0 && v == 0;
+    }
+
+    @Override
+    public int getCellExcitationValue()
+    {
+        return excitationValue;
+    }
+
+    @Override
+    public int processCell(int row, int col, int[][] u, int[][] v, int[][] tempu)
+    {
+        N = (Integer) this.getParameter("N").getValue();
+
         if (u[row][col] == 0)
         {
             if (v[row][col] == 0)
@@ -236,12 +177,7 @@ public class Nishiyama extends CAModel
         {
             u[row][col]++;  // upstroke
         }
-    }
 
-    @Override
-    public void preStep()
-    {
-        // copy voltage values into temporary array
-        ArrayUtils.copy2DArray(u, tempu);
+        return v[row][col];
     }
 }

@@ -13,6 +13,7 @@ package heartsim.gui;
 import heartsim.Application;
 import heartsim.CellGenerator;
 import heartsim.CellGeneratorListener;
+import heartsim.CellularAutomaton;
 import heartsim.Simulator;
 import heartsim.SimulatorListener;
 import heartsim.ca.CAModel;
@@ -66,6 +67,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         SimulatorListener, JGVTComponentListener
 {
     private CellGenerator cellGenerator;
+    private CellularAutomaton ca = new CellularAutomaton();
     private CAModel caModel;
     private CellGeneratorWorker generatorWorker;
     private int stimRow = 250;
@@ -116,6 +118,9 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         // load initially selected CA model
         cboBoxModel.setSelectedIndex(0);
+
+        ca.setModel(caModel);
+        simulation.setAutomaton(ca);
 
         // initially load an SVG file
         loadSVG("./geometry_data/heart4.svg");
@@ -261,8 +266,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         pnlParameters.revalidate();
         pack();
-
-        simulation.setModel(caModel);
     }
 
     private void setupElementsMenu()
@@ -826,7 +829,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
     private void mnuItmPrintCellsActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuItmPrintCellsActionPerformed
     {//GEN-HEADEREND:event_mnuItmPrintCellsActionPerformed
-        caModel.printCells();
+        ca.printCells();
     }//GEN-LAST:event_mnuItmPrintCellsActionPerformed
 
     private void mnuItmExitActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuItmExitActionPerformed
@@ -980,7 +983,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     {
         progressBar.setValue(cellGenerator.getProgress());
         setStatusText("Cells generated");
-        caModel.setCells(cellGenerator.getCells());
+        ca.setCells(cellGenerator.getCells());
         overlay.setSize(cellGenerator.getCells()[0].length, cellGenerator.getCells().length);
     }
 

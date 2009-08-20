@@ -5,7 +5,6 @@
 package heartsim;
 
 import heartsim.ca.CAModel;
-import org.apache.batik.ext.awt.geom.ExtendedGeneralPath;
 
 /**
  * A class for different heart tissue
@@ -14,19 +13,16 @@ import org.apache.batik.ext.awt.geom.ExtendedGeneralPath;
 public class HeartTissue
 {
     protected CAModel model;
-    protected ExtendedGeneralPath outline;
     protected String name;
     protected String description;
 
-    public HeartTissue(ExtendedGeneralPath outline, String name)
+    public HeartTissue(String name)
     {
-        this.outline = outline;
         this.name = name;
     }
 
-    public HeartTissue(ExtendedGeneralPath outline, String name, String description)
+    public HeartTissue(String name, String description)
     {
-        this.outline = outline;
         this.name = name;
         this.description = description;
     }
@@ -59,15 +55,5 @@ public class HeartTissue
     public void setName(String name)
     {
         this.name = name;
-    }
-
-    public ExtendedGeneralPath getOutline()
-    {
-        return outline;
-    }
-
-    public void setOutline(ExtendedGeneralPath outline)
-    {
-        this.outline = outline;
     }
 }

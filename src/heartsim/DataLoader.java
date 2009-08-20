@@ -157,7 +157,7 @@ public class DataLoader
 
                 if (shape != null)
                 {
-                    tissue.add(new HeartTissue(shape, StringUtils.firstToUpper(path)));
+                    tissue.add(new HeartTissue(StringUtils.firstToUpper(path)));
                 }
             }
             catch (IOException ex)
