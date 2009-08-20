@@ -160,55 +160,6 @@ public class Nishiyama extends CAModel
         }
     }
 
-    public void step()
-    {
-        // copy voltage values into temporary array
-        ArrayUtils.copy2DArray(u, tempu);
-
-        for (int row = 1; row < cells.length - 1; row++)
-        {
-            for (int col = 1; col < cells[row].length - 1; col++)
-            {
-                if (!cells[row][col])
-                {
-                    continue;
-                }
-
-                if (u[row][col] == 0)
-                {
-                    if (v[row][col] == 0)
-                    {
-                        // check for stimulation
-                        // inefficient count of neighbours
-                        if (tempu[row - 1][col - 1] + tempu[row][col - 1] +
-                                tempu[row + 1][col - 1] + tempu[row - 1][col] +
-                                tempu[row + 1][col] + tempu[row - 1][col + 1] +
-                                tempu[row][col + 1] + tempu[row + 1][col + 1] >= delta[row][col])
-                        {
-                            u[row][col] = 1;  // stimulated
-                        }
-                    }
-                    else
-                    {
-                        v[row][col]--;  // refractory
-                    }
-                }
-                else if (v[row][col] == N - 1)
-                {
-                    u[row][col]--;  // downstoke
-                }
-                else if (u[row][col] == N - 1)
-                {
-                    v[row][col]++;  // plateau
-                }
-                else
-                {
-                    u[row][col]++;  // upstroke
-                }
-            }
-        }
-    }
-
     /**
      * @param args the command line arguments
      */
@@ -249,5 +200,48 @@ public class Nishiyama extends CAModel
     public int getMin()
     {
         return 0;
+    }
+
+    @Override
+    public void processCell(int row, int col)
+    {
+        if (u[row][col] == 0)
+        {
+            if (v[row][col] == 0)
+            {
+                // check for stimulation
+                // inefficient count of neighbours
+                if (tempu[row - 1][col - 1] + tempu[row][col - 1] +
+                        tempu[row + 1][col - 1] + tempu[row - 1][col] +
+                        tempu[row + 1][col] + tempu[row - 1][col + 1] +
+                        tempu[row][col + 1] + tempu[row + 1][col + 1] >= delta[row][col])
+                {
+                    u[row][col] = 1;  // stimulated
+                }
+            }
+            else
+            {
+                v[row][col]--;  // refractory
+            }
+        }
+        else if (v[row][col] == N - 1)
+        {
+            u[row][col]--;  // downstoke
+        }
+        else if (u[row][col] == N - 1)
+        {
+            v[row][col]++;  // plateau
+        }
+        else
+        {
+            u[row][col]++;  // upstroke
+        }
+    }
+
+    @Override
+    public void preStep()
+    {
+        // copy voltage values into temporary array
+        ArrayUtils.copy2DArray(u, tempu);
     }
 }

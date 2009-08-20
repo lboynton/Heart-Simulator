@@ -88,7 +88,23 @@ public abstract class CAModel
     /**
      * Steps the simulation
      */
-    public abstract void step();
+    public void step()
+    {
+        preStep();
+        
+        for (int row = 1; row < cells.length - 1; row++)
+        {
+            for (int col = 1; col < cells[row].length - 1; col++)
+            {
+                if (!cells[row][col])
+                {
+                    continue;
+                }
+
+                processCell(row, col);
+            }
+        }
+    }
 
     /**
      * Initialises the cells
@@ -212,4 +228,8 @@ public abstract class CAModel
      * @return Min value
      */
     public abstract int getMin();
+
+    public abstract void preStep();
+
+    public abstract void processCell(int row, int col);
 }
