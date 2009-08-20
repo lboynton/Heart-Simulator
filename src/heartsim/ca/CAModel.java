@@ -172,7 +172,9 @@ public abstract class CAModel
         }
     }
 
-    public void printArrays(String names[], int values[][][])
+    public abstract void printArrays();
+
+    protected void printArrays(String names[], int values[][][])
     {
         for (int i = 0; i < names.length; i++)
         {

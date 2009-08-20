@@ -61,9 +61,9 @@ public class Tyson extends CAModel
     @Override
     public void step()
     {
-        int gUp = ((CAModelIntParameter)this.getParameter("g up")).getValueAsInt();
-        int vMax = ((CAModelIntParameter)this.getParameter("V max")).getValueAsInt();
-        int gDown = ((CAModelIntParameter)this.getParameter("g down")).getValueAsInt();
+        int gUp = ((CAModelIntParameter) this.getParameter("g up")).getValueAsInt();
+        int vMax = ((CAModelIntParameter) this.getParameter("V max")).getValueAsInt();
+        int gDown = ((CAModelIntParameter) this.getParameter("g down")).getValueAsInt();
 
         // copy voltage values into temporary array
         ArrayUtils.copy2DArray(u, tempu);
@@ -73,27 +73,27 @@ public class Tyson extends CAModel
         {
             for (int col = 1; col < cells[row].length - 1; col++)
             {
-                if(tempu[row][col] == 1)
+                if (tempu[row][col] == 1)
                 {
                     // cell is in an excited state
                     v[row][col] = Math.min(tempv[row][col] + gUp, vMax);
                 }
-                if(tempu[row][col] == 0)
+                if (tempu[row][col] == 0)
                 {
                     // cell is in a recovery state
                     v[row][col] = Math.max(tempv[row][col] - gDown, 0);
                 }
-                if(tempu[row][col] == 0)
+                if (tempu[row][col] == 0)
                 {
                     // cell is recovered
                     u[row][col] = 0;
                 }
-                if(tempu[row][col] == 1 && tempv[row][col] != vMax)
+                if (tempu[row][col] == 1 && tempv[row][col] != vMax)
                 {
                     // cell is becoming excited
                     u[row][col] = 1;
                 }
-                if(tempu[row][col] == 1 && tempv[row][col] == vMax)
+                if (tempu[row][col] == 1 && tempv[row][col] == vMax)
                 {
                     // cell has finished being excited
                     u[row][col] = 0;
@@ -104,7 +104,7 @@ public class Tyson extends CAModel
 
     private int getExcitedCellsInNeighbourhood(int x, int y)
     {
-        int r = ((CAModelIntParameter)this.getParameter("r")).getValueAsInt();
+        int r = ((CAModelIntParameter) this.getParameter("r")).getValueAsInt();
 
         return 0;
     }
@@ -113,7 +113,7 @@ public class Tyson extends CAModel
     public void initCells()
     {
         System.out.println("Init cells");
-        
+
         u = new int[height][width]; // voltage values for each cell
         v = new int[height][width]; // recovery values for each cell
         tempu = new int[height][width]; // temporary storage of cell values
@@ -138,16 +138,16 @@ public class Tyson extends CAModel
         try
         {
             u[x][y] = 1;
-            u[x-1][y] = 1;
-            u[x+1][y] = 1;
-            u[x][y-1] = 1;
-            u[x][y+1] = 1;
-            u[x-1][y-1] = 1;
-            u[x+1][y+1] = 1;
-            u[x-1][y+1] = 1;
-            u[x+1][y-1] = 1;
+            u[x - 1][y] = 1;
+            u[x + 1][y] = 1;
+            u[x][y - 1] = 1;
+            u[x][y + 1] = 1;
+            u[x - 1][y - 1] = 1;
+            u[x + 1][y + 1] = 1;
+            u[x - 1][y + 1] = 1;
+            u[x + 1][y - 1] = 1;
         }
-        catch(ArrayIndexOutOfBoundsException e)
+        catch (ArrayIndexOutOfBoundsException e)
         {
             //e.printStackTrace();
             return false;
@@ -174,7 +174,10 @@ public class Tyson extends CAModel
         test.printCells();
         int time = 20;
 
-        String[] names = {"Voltage", "Recovery"};
+        String[] names =
+        {
+            "Voltage", "Recovery"
+        };
         int[][][] arrays = new int[2][][];
 
         for (int t = 0; t < time; t++)
@@ -199,5 +202,21 @@ public class Tyson extends CAModel
     public int getMin()
     {
         return 0;
+    }
+
+    @Override
+    public void printArrays()
+    {
+        String[] names =
+        {
+            "Voltage", "Recovery"
+        };
+        
+        int[][][] arrays = new int[2][][];
+
+        arrays[0] = tempu;
+        arrays[1] = tempv;
+
+        printArrays(names, arrays);
     }
 }
