@@ -200,4 +200,32 @@ public class Tyson extends CAModel
     {
         return 0;
     }
+
+    @Override
+    public void printArrays()
+    {
+        String[] names =
+        {
+            "Voltage", "Recovery"
+        };
+        
+        int[][][] arrays = new int[2][][];
+
+        arrays[0] = tempu;
+        arrays[1] = tempv;
+
+        printArrays(names, arrays);
+    }
+
+    @Override
+    public void processCell(int row, int col)
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void preStep()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
