@@ -5,7 +5,10 @@
 package heartsim;
 
 import heartsim.ca.CAModel;
+import heartsim.util.StringUtils;
 import java.awt.Shape;
+import java.util.ArrayList;
+import java.util.List;
 import org.w3c.dom.Element;
 
 /**
@@ -14,21 +17,39 @@ import org.w3c.dom.Element;
  */
 public class HeartTissue
 {
-    protected CAModel model;
+    protected CAModel currentModel;
     protected String name;
     protected String description;
     protected Shape shape;
     protected Element element;
+    protected List<CAModel> availableModels = new ArrayList<CAModel>();
 
     public HeartTissue(String name)
     {
-        this.name = name;
+        this.name = StringUtils.prettify(name);
+        availableModels.addAll(Application.getInstance().getCAModels());
+
+        if (availableModels.size() > 0)
+        {
+            currentModel = availableModels.get(0);
+        }
     }
 
     public HeartTissue(String name, String description)
     {
-        this.name = name;
+        this.name = StringUtils.prettify(name);
         this.description = description;
+        availableModels.addAll(Application.getInstance().getCAModels());
+
+        if (availableModels.size() > 0)
+        {
+            currentModel = availableModels.get(0);
+        }
+    }
+
+    public List<CAModel> getAvailableModels()
+    {
+        return availableModels;
     }
 
     public String getDescription()
@@ -43,12 +64,12 @@ public class HeartTissue
 
     public CAModel getModel()
     {
-        return model;
+        return currentModel;
     }
 
     public void setModel(CAModel model)
     {
-        this.model = model;
+        this.currentModel = model;
     }
 
     public String getName()
@@ -58,7 +79,7 @@ public class HeartTissue
 
     public void setName(String name)
     {
-        this.name = name;
+        this.name = StringUtils.prettify(name);
     }
 
     public Element getElement()
@@ -79,5 +100,11 @@ public class HeartTissue
     public boolean containsCell(int row, int col)
     {
         return shape.contains(col, row);
+    }
+
+    @Override
+    public String toString()
+    {
+        return name;
     }
 }

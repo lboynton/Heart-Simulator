@@ -133,7 +133,6 @@ public class CellGenerator implements Runnable
             {
                 HeartTissue tissue = new HeartTissue(path);
                 tissue.setElement(element);
-                tissue.setModel(new Nishiyama());
                 tissues.add(tissue);
             }
         }

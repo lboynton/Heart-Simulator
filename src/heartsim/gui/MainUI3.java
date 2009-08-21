@@ -116,9 +116,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         // centre jframe on screen
         setLocationRelativeTo(null);
 
-        // load initially selected CA model
-        cboBoxModel.setSelectedIndex(0);
-
         simulation.setAutomaton(ca);
 
         // initially load an SVG file
@@ -168,15 +165,18 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
      * should be added in here
      * @return Combo box model containing all the CA models
      */
-    private ComboBoxModel loadCAModels()
+    private void loadCAModels()
     {
+        HeartTissue tissue = (HeartTissue) cboBoxTissue.getSelectedItem();
+        
         DefaultComboBoxModel CAModels = new DefaultComboBoxModel();
 
-        // add CA models to combo box model
-        CAModels.addElement(new Nishiyama());
-        CAModels.addElement(new Tyson());
+        for(CAModel model:tissue.getAvailableModels())
+        {
+            CAModels.addElement(model);
+        }
 
-        return CAModels;
+        cboBoxModel.setModel(CAModels);
     }
 
     /**
@@ -267,30 +267,25 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         pack();
     }
 
-    private void setupElementsMenu()
+    private void loadHeartTissues()
     {
-        Node documentNode = svgCanvas.getSVGDocument();
+        // set up combo box
+        DefaultComboBoxModel tissueModels = new DefaultComboBoxModel();
 
-        addToElementsMenu(documentNode);
-    }
+        // set up menu
+        mnuElements.removeAll();
 
-    private void addToElementsMenu(Node node)
-    {
-        for (Node n = node.getFirstChild(); n != null; n = n.getNextSibling())
+        for (HeartTissue tissue : cellGenerator.getTissues())
         {
-            if (n.getNodeName().equals(SVGConstants.SVG_PATH_TAG))
-            {
-                if (n instanceof SVGOMPathElement)
-                {
-                    JCheckBoxMenuItem item = new JCheckBoxMenuItem(((SVGOMPathElement) n).getAttribute(SVGConstants.SVG_ID_ATTRIBUTE));
-                    item.setToolTipText(n.getTextContent());
-                    item.setSelected(true);
-                    mnuElements.add(item);
-                }
-            }
+            tissueModels.addElement(tissue);
 
-            addToElementsMenu(n);
+            JCheckBoxMenuItem item = new JCheckBoxMenuItem(tissue.getName());
+            item.setToolTipText(tissue.getDescription());
+            item.setSelected(true);
+            mnuElements.add(item);
         }
+
+        cboBoxTissue.setModel(tissueModels);
     }
 
     /** This method is called from within the constructor to
@@ -459,8 +454,12 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         lblModel.setText("Model");
 
         cboBoxTissue.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ventricles" }));
+        cboBoxTissue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboBoxTissueActionPerformed(evt);
+            }
+        });
 
-        cboBoxModel.setModel(loadCAModels());
         cboBoxModel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboBoxModelActionPerformed(evt);
@@ -534,7 +533,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             pnlCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCALayout.createSequentialGroup()
                 .addComponent(pnlParameters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(250, Short.MAX_VALUE))
+                .addContainerGap(256, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Model", pnlCA);
@@ -561,7 +560,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(283, Short.MAX_VALUE))
+                .addContainerGap(289, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Pacemaker", jPanel2);
@@ -610,7 +609,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(pnlTissue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addContainerGap(227, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Simulation", jPanel3);
@@ -625,7 +624,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         svgCanvas.setLayout(svgCanvasLayout);
         svgCanvasLayout.setHorizontalGroup(
             svgCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 409, Short.MAX_VALUE)
+            .addGap(0, 413, Short.MAX_VALUE)
         );
         svgCanvasLayout.setVerticalGroup(
             svgCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -644,10 +643,10 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlRootContainerLayout.createSequentialGroup()
                         .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scrollPaneCanvas, javax.swing.GroupLayout.PREFERRED_SIZE, 411, Short.MAX_VALUE))
+                        .addComponent(scrollPaneCanvas, javax.swing.GroupLayout.PREFERRED_SIZE, 415, Short.MAX_VALUE))
                     .addGroup(pnlRootContainerLayout.createSequentialGroup()
                         .addComponent(lblStatus)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 457, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 461, Short.MAX_VALUE)
                         .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -901,6 +900,12 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         }
     }//GEN-LAST:event_txtTimeKeyReleased
 
+    private void cboBoxTissueActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cboBoxTissueActionPerformed
+    {//GEN-HEADEREND:event_cboBoxTissueActionPerformed
+        Application.getInstance().output("Tissue changed");
+        loadCAModels();
+    }//GEN-LAST:event_cboBoxTissueActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -986,9 +991,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         ca.setTissues(cellGenerator.getTissues());
         ca.setTissueNames(cellGenerator.getTissueNames());
         overlay.setSize(cellGenerator.getCells()[0].length, cellGenerator.getCells().length);
-
-        List<HeartTissue> tissues = ca.getTissues();
-        tissues.get(0).getModel().getParameter("N").setValue("10");
+        loadHeartTissues();
     }
 
     public void documentLoadingStarted(SVGDocumentLoaderEvent e)
@@ -1001,7 +1004,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     {
         setStatusText("Document loaded");
         incrementProgressBar();
-        setupElementsMenu();
     }
 
     public void gvtBuildStarted(GVTTreeBuilderEvent e)

@@ -4,6 +4,12 @@
  */
 package heartsim;
 
+import heartsim.ca.CAModel;
+import heartsim.ca.Nishiyama;
+import heartsim.ca.Tyson;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Singleton class application settings and methods
  * @author Lee Boynton
@@ -52,5 +58,20 @@ public class Application
         {
             System.out.println(text);
         }
+    }
+
+    /**
+     * Gets all the CA models in use by the program. New models should be added
+     * here
+     * @return
+     */
+    public List<CAModel> getCAModels()
+    {
+        List<CAModel> models = new ArrayList<CAModel>();
+
+        models.add(new Nishiyama());
+        models.add(new Tyson());
+
+        return models;
     }
 }

@@ -19,4 +19,14 @@ public class StringUtils
     {
         return s.substring(0,1).toUpperCase() + s.substring(1);
     }
+
+    public static String prettify(String s)
+    {
+        // make first letter uppercase
+        s = firstToUpper(s);
+
+        // convert underscores to space
+
+        return s;
+    }
 }
