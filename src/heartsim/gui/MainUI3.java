@@ -14,6 +14,7 @@ import heartsim.Application;
 import heartsim.CellGenerator;
 import heartsim.CellGeneratorListener;
 import heartsim.CellularAutomaton;
+import heartsim.HeartTissue;
 import heartsim.Simulator;
 import heartsim.SimulatorListener;
 import heartsim.ca.CAModel;
@@ -31,6 +32,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.io.File;
+import java.util.List;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -43,7 +45,6 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import org.apache.batik.dom.svg.SVGOMPathElement;
-import org.apache.batik.dom.svg.SVGOMSVGElement;
 import org.apache.batik.ext.swing.JAffineTransformChooser;
 import org.apache.batik.ext.swing.JAffineTransformChooser.Dialog;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
@@ -55,7 +56,6 @@ import org.apache.batik.swing.svg.JSVGComponent;
 import org.apache.batik.swing.svg.SVGDocumentLoaderEvent;
 import org.apache.batik.swing.svg.SVGDocumentLoaderListener;
 import org.apache.batik.util.SVGConstants;
-import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 /**
@@ -984,7 +984,11 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         setStatusText("Cells generated");
         ca.setCells(cellGenerator.getCells());
         ca.setTissues(cellGenerator.getTissues());
+        ca.setTissueNames(cellGenerator.getTissueNames());
         overlay.setSize(cellGenerator.getCells()[0].length, cellGenerator.getCells().length);
+
+        List<HeartTissue> tissues = ca.getTissues();
+        tissues.get(0).getModel().getParameter("N").setValue("10");
     }
 
     public void documentLoadingStarted(SVGDocumentLoaderEvent e)

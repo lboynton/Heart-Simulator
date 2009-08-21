@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.apache.batik.dom.svg.SVGOMPathElement;
 import org.apache.batik.gvt.GraphicsNode;
 import org.apache.batik.swing.JSVGCanvas;
 import org.apache.batik.util.SVGConstants;
@@ -28,6 +29,7 @@ public class CellGenerator implements Runnable
     private List<String> paths = new ArrayList<String>();
     private List<Element> elements = new ArrayList<Element>();
     private List<HeartTissue> tissues = new ArrayList<HeartTissue>();
+    private String tissues2[][];
     private boolean cells[][];
     private boolean completed = false;
     private int progress = 0;
@@ -142,6 +144,11 @@ public class CellGenerator implements Runnable
         return tissues;
     }
 
+    public String[][] getTissueNames()
+    {
+        return tissues2;
+    }
+
     private void loadElements()
     {
         for (String path : paths)
@@ -158,10 +165,14 @@ public class CellGenerator implements Runnable
     private void createDataArray2()
     {
         cells = new boolean[canvas.getPreferredSize().height][canvas.getPreferredSize().width];
+        tissues2 = new String[canvas.getPreferredSize().height][canvas.getPreferredSize().width];
 
         for (HeartTissue tissue : tissues)
         {
             tissueLoading = tissue.getName();
+
+            Application.getInstance().output("Generating cells for " + tissueLoading);
+
 
             GraphicsNode node = canvas.getUpdateManager().getBridgeContext().getGraphicsNode(tissue.getElement());
 
@@ -187,6 +198,7 @@ public class CellGenerator implements Runnable
                         if (s.contains(new Point(col, row)))
                         {
                             cells[row][col] = true;
+                            tissues2[row][col] = tissueLoading;
                         }
                     }
 
@@ -200,10 +212,13 @@ public class CellGenerator implements Runnable
     private void createDataArray()
     {
         cells = new boolean[canvas.getPreferredSize().height][canvas.getPreferredSize().width];
+        tissues2 = new String[canvas.getPreferredSize().height][canvas.getPreferredSize().width];
 
         for (Element element : elements)
         {
-            tissueLoading = element.getAttribute(SVGConstants.SVG_IDENTITY_VALUE);
+            tissueLoading = ((SVGOMPathElement) element).getAttribute(SVGConstants.SVG_ID_ATTRIBUTE);
+
+            Application.getInstance().output("Generating cells for " + tissueLoading);
 
             GraphicsNode node = canvas.getUpdateManager().getBridgeContext().getGraphicsNode(element);
 
@@ -227,6 +242,7 @@ public class CellGenerator implements Runnable
                         if (s.contains(new Point(col, row)))
                         {
                             cells[row][col] = true;
+                            tissues2[row][col] = tissueLoading;
                         }
                     }
 
