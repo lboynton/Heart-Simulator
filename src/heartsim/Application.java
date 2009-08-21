@@ -62,7 +62,7 @@ public class Application
 
     /**
      * Gets all the CA models in use by the program. New models should be added
-     * here
+     * here.
      * @return
      */
     public List<CAModel> getCAModels()
@@ -73,5 +73,22 @@ public class Application
         models.add(new Tyson());
 
         return models;
+    }
+
+    /**
+     * Returns a list of profiles for different types of heart tissues. The
+     * profiles have different parameter values for different cellular automata
+     * models to match the type of heart tissue. New profiles should be added
+     * here.
+     * @return
+     */
+    public List<Profile> getTissueProfiles()
+    {
+        List<Profile> profiles = new ArrayList<Profile>();
+
+        profiles.add(new Ventricles());
+        profiles.add(new Atria());
+
+        return profiles;
     }
 }
