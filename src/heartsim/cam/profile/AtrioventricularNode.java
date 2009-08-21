@@ -2,9 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package heartsim.cam.profle;
+package heartsim.cam.profile;
 
-import heartsim.cam.profle.Profile;
 import heartsim.cam.CellularAutomataModel;
 import heartsim.cam.Nishiyama;
 
@@ -12,19 +11,19 @@ import heartsim.cam.Nishiyama;
  *
  * @author Lee Boynton
  */
-public class Ventricles extends Profile
+public class AtrioventricularNode extends Profile
 {
-    public Ventricles()
+    public AtrioventricularNode()
     {
-        super("Ventricles");
+        super("Atrioventricular node");
     }
 
     @Override
     public CellularAutomataModel loadParameters(CellularAutomataModel model)
     {
-        if (model instanceof Nishiyama)
+        if(model instanceof Nishiyama)
         {
-            model.getParameter("N").setValue("4");
+            model.getParameter("delta2").setValue("8");
         }
 
         return model;

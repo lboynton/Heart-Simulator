@@ -4,12 +4,14 @@
  */
 package heartsim;
 
-import heartsim.cam.profle.Ventricles;
-import heartsim.cam.profle.Atria;
-import heartsim.cam.profle.Profile;
+import heartsim.cam.profile.Ventricles;
+import heartsim.cam.profile.Atria;
+import heartsim.cam.profile.Profile;
 import heartsim.cam.CellularAutomataModel;
 import heartsim.cam.Nishiyama;
 import heartsim.cam.Tyson;
+import heartsim.cam.profile.AtrioventricularNode;
+import heartsim.cam.profile.SinoatrialNode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,6 +93,8 @@ public class Application
 
         profiles.add(new Ventricles());
         profiles.add(new Atria());
+        profiles.add(new SinoatrialNode());
+        profiles.add(new AtrioventricularNode());
 
         return profiles;
     }

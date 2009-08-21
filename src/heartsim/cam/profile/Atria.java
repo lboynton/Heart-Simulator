@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package heartsim.cam.profle;
+package heartsim.cam.profile;
 
-import heartsim.cam.profle.Profile;
+import heartsim.cam.profile.Profile;
 import heartsim.cam.CellularAutomataModel;
 import heartsim.cam.Nishiyama;
 
