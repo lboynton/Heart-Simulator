@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package heartsim.ca;
+package heartsim.cam;
 
 import heartsim.CellularAutomaton;
-import heartsim.ca.parameter.CAModelParameter;
+import heartsim.cam.parameter.CAModelParameter;
 import heartsim.util.StringUtils;
 import java.util.Map;
 import java.util.TreeMap;
@@ -14,7 +14,7 @@ import java.util.TreeMap;
  * Base class for cellular automata models
  * @author Lee Boynton
  */
-public abstract class CAModel
+public abstract class CellularAutomataModel
 {
     protected int height; // height of the grid
     protected int width; // width of the grid
@@ -22,7 +22,7 @@ public abstract class CAModel
     protected String description; // description of the CA model
     protected Map<String, CAModelParameter> parameters = new TreeMap<String, CAModelParameter>();
 
-    protected CAModel(String name)
+    protected CellularAutomataModel(String name)
     {
         this.name = name;
     }

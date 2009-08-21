@@ -4,7 +4,7 @@
  */
 package heartsim;
 
-import heartsim.ca.CAModel;
+import heartsim.cam.CellularAutomataModel;
 import heartsim.util.ArrayUtils;
 import java.awt.Dimension;
 import java.util.ArrayList;

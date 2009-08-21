@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package heartsim.ca.parameter;
+package heartsim.cam.parameter;
 
 /**
  * A base wrapper class for individual parameters for cellular automata model

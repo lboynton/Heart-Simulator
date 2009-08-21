@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package heartsim.ca;
+package heartsim.cam;
 
-import heartsim.ca.parameter.CAModelIntParameter;
+import heartsim.cam.parameter.CAModelIntParameter;
 import heartsim.util.StringUtils;
 import java.util.Random;
 
@@ -14,7 +14,7 @@ import java.util.Random;
  * media"
  * @author Lee Boynton
  */
-public class Nishiyama extends CAModel
+public class Nishiyama extends CellularAutomataModel
 {
     private int delta[][]; // delta values for each cell
     private Random generator = new Random();

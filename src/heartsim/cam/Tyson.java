@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package heartsim.ca;
+package heartsim.cam;
 
-import heartsim.ca.parameter.CAModelIntParameter;
+import heartsim.cam.parameter.CAModelIntParameter;
 import heartsim.util.ArrayUtils;
 import java.awt.Dimension;
 
@@ -12,7 +12,7 @@ import java.awt.Dimension;
  *
  * @author Lee Boynton
  */
-public class Tyson extends CAModel
+public class Tyson extends CellularAutomataModel
 {
     private int tempu[][] = new int[height][width]; // temporary storage of cell values
     private int tempv[][] = new int[height][width]; // temporary storage of cell values

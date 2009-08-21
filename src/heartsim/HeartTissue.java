@@ -4,7 +4,7 @@
  */
 package heartsim;
 
-import heartsim.ca.CAModel;
+import heartsim.cam.CellularAutomataModel;
 import heartsim.util.StringUtils;
 import java.awt.Shape;
 import java.util.ArrayList;
@@ -17,12 +17,12 @@ import org.w3c.dom.Element;
  */
 public class HeartTissue
 {
-    protected CAModel currentModel;
+    protected CellularAutomataModel currentModel;
     protected String name;
     protected String description;
     protected Shape shape;
     protected Element element;
-    protected List<CAModel> availableModels = new ArrayList<CAModel>();
+    protected List<CellularAutomataModel> availableModels = new ArrayList<CellularAutomataModel>();
 
     public HeartTissue(String name)
     {
@@ -47,7 +47,7 @@ public class HeartTissue
         }
     }
 
-    public List<CAModel> getAvailableModels()
+    public List<CellularAutomataModel> getAvailableModels()
     {
         return availableModels;
     }
@@ -62,12 +62,12 @@ public class HeartTissue
         this.description = description;
     }
 
-    public CAModel getModel()
+    public CellularAutomataModel getModel()
     {
         return currentModel;
     }
 
-    public void setModel(CAModel model)
+    public void setModel(CellularAutomataModel model)
     {
         this.currentModel = model;
     }

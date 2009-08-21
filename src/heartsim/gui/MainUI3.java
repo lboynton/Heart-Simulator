@@ -15,13 +15,13 @@ import heartsim.CellGenerator;
 import heartsim.CellGeneratorListener;
 import heartsim.CellularAutomaton;
 import heartsim.HeartTissue;
-import heartsim.Profile;
+import heartsim.cam.profle.Profile;
 import heartsim.Simulator;
 import heartsim.SimulatorListener;
-import heartsim.ca.CAModel;
-import heartsim.ca.Nishiyama;
-import heartsim.ca.Tyson;
-import heartsim.ca.parameter.CAModelParameter;
+import heartsim.cam.CellularAutomataModel;
+import heartsim.cam.Nishiyama;
+import heartsim.cam.Tyson;
+import heartsim.cam.parameter.CAModelParameter;
 import heartsim.gui.layout.SpringUtilities;
 import heartsim.gui.util.FileChooserFilter;
 import java.awt.Color;
@@ -69,7 +69,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 {
     private CellGenerator cellGenerator;
     private CellularAutomaton ca = new CellularAutomaton();
-    private CAModel caModel;
+    private CellularAutomataModel caModel;
     private CellGeneratorWorker generatorWorker;
     private int stimRow = 250;
     private int stimCol = 450;
@@ -172,7 +172,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         DefaultComboBoxModel CAModels = new DefaultComboBoxModel();
 
-        for (CAModel model : tissue.getAvailableModels())
+        for (CellularAutomataModel model : tissue.getAvailableModels())
         {
             CAModels.addElement(model);
         }
@@ -201,7 +201,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         }
 
         // get the CA model that was selected
-        caModel = (CAModel) cboBoxModel.getSelectedItem();
+        caModel = (CellularAutomataModel) cboBoxModel.getSelectedItem();
 
         Application.getInstance().output("Model selected is " + caModel.getName());
 

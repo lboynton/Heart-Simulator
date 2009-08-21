@@ -2,10 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package heartsim;
+package heartsim.cam.profle;
 
-import heartsim.ca.CAModel;
-import heartsim.ca.Nishiyama;
+import heartsim.cam.profle.Profile;
+import heartsim.cam.CellularAutomataModel;
+import heartsim.cam.Nishiyama;
 
 /**
  *
@@ -19,7 +20,7 @@ public class Ventricles extends Profile
     }
 
     @Override
-    public CAModel loadParameters(CAModel model)
+    public CellularAutomataModel loadParameters(CellularAutomataModel model)
     {
         if (model instanceof Nishiyama)
         {

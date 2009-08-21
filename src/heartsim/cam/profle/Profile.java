@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package heartsim;
+package heartsim.cam.profle;
 
-import heartsim.ca.CAModel;
+import heartsim.*;
+import heartsim.cam.CellularAutomataModel;
 import java.util.List;
 
 /**
@@ -14,13 +15,13 @@ import java.util.List;
 public abstract class Profile
 {
     protected String name;
-    protected List<CAModel> models = Application.getInstance().getCAModels();
+    protected List<CellularAutomataModel> models = Application.getInstance().getCAModels();
 
     public Profile(String name)
     {
         this.name = name;
         
-        for(CAModel model:Application.getInstance().getCAModels())
+        for(CellularAutomataModel model:Application.getInstance().getCAModels())
         {
             loadParameters(model);
         }
@@ -36,7 +37,7 @@ public abstract class Profile
         this.name = name;
     }
 
-    public abstract CAModel loadParameters(CAModel model);
+    public abstract CellularAutomataModel loadParameters(CellularAutomataModel model);
 
     @Override
     public String toString()

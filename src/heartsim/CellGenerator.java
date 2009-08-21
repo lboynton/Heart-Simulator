@@ -4,7 +4,7 @@
  */
 package heartsim;
 
-import heartsim.ca.Nishiyama;
+import heartsim.cam.Nishiyama;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;

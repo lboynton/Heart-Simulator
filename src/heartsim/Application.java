@@ -4,9 +4,12 @@
  */
 package heartsim;
 
-import heartsim.ca.CAModel;
-import heartsim.ca.Nishiyama;
-import heartsim.ca.Tyson;
+import heartsim.cam.profle.Ventricles;
+import heartsim.cam.profle.Atria;
+import heartsim.cam.profle.Profile;
+import heartsim.cam.CellularAutomataModel;
+import heartsim.cam.Nishiyama;
+import heartsim.cam.Tyson;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,9 +68,9 @@ public class Application
      * here.
      * @return
      */
-    public List<CAModel> getCAModels()
+    public List<CellularAutomataModel> getCAModels()
     {
-        List<CAModel> models = new ArrayList<CAModel>();
+        List<CellularAutomataModel> models = new ArrayList<CellularAutomataModel>();
 
         models.add(new Nishiyama());
         models.add(new Tyson());

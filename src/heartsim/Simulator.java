@@ -4,7 +4,7 @@
  */
 package heartsim;
 
-import heartsim.ca.CAModel;
+import heartsim.cam.CellularAutomataModel;
 import heartsim.gui.BinaryPlotPanelOverlay;
 import java.util.ArrayList;
 import java.util.Collections;
