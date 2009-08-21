@@ -4,7 +4,7 @@
  */
 package heartsim.cam.profile;
 
-import heartsim.*;
+import heartsim.Application;
 import heartsim.cam.CellularAutomataModel;
 import java.util.List;
 

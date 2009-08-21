@@ -4,7 +4,6 @@
  */
 package heartsim.cam.profile;
 
-import heartsim.cam.profile.Profile;
 import heartsim.cam.CellularAutomataModel;
 import heartsim.cam.Nishiyama;
 
