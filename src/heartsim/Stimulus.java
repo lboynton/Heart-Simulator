@@ -18,6 +18,8 @@ public class Stimulus
     private int stimCol;
     private CellularAutomaton ca;
     private int waitTime = 2000;
+    private int additionalDelayTime = 0;
+    private Thread stimulusThread;
 
     public Stimulus(CellularAutomaton ca)
     {
@@ -37,13 +39,18 @@ public class Stimulus
 
     public void run()
     {
-        Thread t = new Thread(new StimulusRunnable());
-        t.start();
+        stimulusThread = new Thread(new StimulusRunnable());
+        stimulusThread.start();
     }
 
     public void stop()
     {
         started = false;
+    }
+
+    public void addDelay(int milliseconds)
+    {
+        additionalDelayTime += milliseconds;
     }
 
     public void setWaitTime(int waitTime)
@@ -62,13 +69,15 @@ public class Stimulus
                 
                 try
                 {
-                    // stimulate every 3 seconds
                     Thread.sleep(waitTime);
+                    Thread.sleep(additionalDelayTime);
                 }
                 catch (InterruptedException ex)
                 {
                     Logger.getLogger(Stimulus.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
+                additionalDelayTime = 0;
             }
         }
     }

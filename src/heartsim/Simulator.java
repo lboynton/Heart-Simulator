@@ -249,6 +249,7 @@ public class Simulator
                 
                 try
                 {
+                    stimulus.addDelay(speed.getDelay());
                     Thread.sleep(speed.getDelay());
                 }
                 catch (InterruptedException ex)
