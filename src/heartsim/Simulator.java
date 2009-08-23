@@ -79,6 +79,16 @@ public class Simulator
         initialised = true;
     }
 
+    public void setHeartRate(int heartRate)
+    {
+        // say that the wait time between each stimulus should be the heart rate
+        // divided by 1 minute
+
+        double time = 60.0 / heartRate;
+
+        stimulus.setWaitTime((int) (time * 1000));
+    }
+
     public void run(int runTime)
     {
         setRunTime(runTime);

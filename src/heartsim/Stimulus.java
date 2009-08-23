@@ -17,6 +17,7 @@ public class Stimulus
     private int stimRow;
     private int stimCol;
     private CellularAutomaton ca;
+    private int waitTime = 2000;
 
     public Stimulus(CellularAutomaton ca)
     {
@@ -45,6 +46,12 @@ public class Stimulus
         started = false;
     }
 
+    public void setWaitTime(int waitTime)
+    {
+        Application.getInstance().output("Wait time set to " + waitTime);
+        this.waitTime = waitTime;
+    }
+
     public class StimulusRunnable implements Runnable
     {
         public void run()
@@ -56,7 +63,7 @@ public class Stimulus
                 try
                 {
                     // stimulate every 3 seconds
-                    Thread.sleep(3000);
+                    Thread.sleep(waitTime);
                 }
                 catch (InterruptedException ex)
                 {

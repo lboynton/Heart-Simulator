@@ -106,6 +106,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         simulation = new Simulator(overlay);
         simulation.addListener(this);
+        simulation.setHeartRate(30);
 
         // centre jframe on screen
         setLocationRelativeTo(null);
@@ -346,8 +347,8 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         cboBoxProfile = new javax.swing.JComboBox();
         btnTissueHelp = new javax.swing.JButton();
         pnlSimulationSettings = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        lblHeart = new javax.swing.JLabel();
+        txtHeartRate = new javax.swing.JTextField();
         lblTime = new javax.swing.JLabel();
         txtTime = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -605,9 +606,14 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         tabbedPane.addTab("Model", pnlCA);
 
-        jLabel4.setText("Heart rate");
+        lblHeart.setText("Heart rate");
 
-        jTextField2.setText("70");
+        txtHeartRate.setText("30");
+        txtHeartRate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtHeartRateActionPerformed(evt);
+            }
+        });
 
         lblTime.setText("Time");
 
@@ -627,14 +633,14 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             .addGroup(pnlSimulationSettingsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlSimulationSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
+                    .addComponent(lblHeart)
                     .addComponent(lblTime)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlSimulationSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
+                    .addComponent(txtHeartRate, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlSimulationSettingsLayout.setVerticalGroup(
@@ -650,8 +656,8 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlSimulationSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(txtHeartRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblHeart))
                 .addContainerGap(347, Short.MAX_VALUE))
         );
 
@@ -994,6 +1000,11 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         svgCanvas.getOverlays().remove(overlay);
     }//GEN-LAST:event_btnZoomInActionPerformed
 
+    private void txtHeartRateActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtHeartRateActionPerformed
+    {//GEN-HEADEREND:event_txtHeartRateActionPerformed
+        simulation.setHeartRate(Integer.parseInt(txtHeartRate.getText()));
+    }//GEN-LAST:event_txtHeartRateActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1023,11 +1034,10 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private javax.swing.JComboBox cboBoxProfile;
     private javax.swing.JComboBox cboBoxTissue;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel lblHeart;
     private javax.swing.JLabel lblHeartRate;
     private javax.swing.JLabel lblHeartRateText;
     private javax.swing.JLabel lblModel;
@@ -1064,6 +1074,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private org.apache.batik.swing.JSVGCanvas svgCanvas;
     private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JToolBar toolbar;
+    private javax.swing.JTextField txtHeartRate;
     private javax.swing.JTextField txtTime;
     // End of variables declaration//GEN-END:variables
 
