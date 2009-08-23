@@ -23,7 +23,7 @@ public class SinoatrialNode extends Profile
     {
         if(model instanceof Nishiyama)
         {
-            model.getParameter("delta1").setValue("4");
+            model.getParameter("Delta 1").setValue("4");
         }
 
         return model;

@@ -4,6 +4,7 @@
  */
 package heartsim.cam;
 
+import heartsim.Application;
 import heartsim.CellularAutomaton;
 import heartsim.cam.parameter.CAModelParameter;
 import heartsim.util.StringUtils;
@@ -71,8 +72,17 @@ public abstract class CellularAutomataModel
         parameters.put(name, initialValue);
     }
 
+    /**
+     *
+     * @param name
+     * @return The parameter object, or null if no parameter with the given name
+     */
     public CAModelParameter getParameter(String name)
     {
+        if(!parameters.containsKey(name))
+        {
+            Application.getInstance().output("Could not find parameter named " + name);
+        }
         return parameters.get(name);
     }
 
