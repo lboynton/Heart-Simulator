@@ -4,6 +4,7 @@
  */
 package heartsim.ca;
 
+import heartsim.Application;
 import heartsim.ca.parameter.CAModelIntParameter;
 import heartsim.util.ArrayUtils;
 import heartsim.util.StringUtils;
@@ -80,6 +81,7 @@ public class Nishiyama extends CAModel
 
     public void initCells()
     {
+        Application.getInstance().output("Initialising CA model");
         int delta1 = (Integer) this.getParameter("Delta 1").getValue();
         int delta2 = (Integer) this.getParameter("Delta 2").getValue();
         N = (Integer) this.getParameter("N").getValue();
@@ -119,6 +121,7 @@ public class Nishiyama extends CAModel
                 }
             }
         }
+        Application.getInstance().output("Finished initialising CA model cells");
     }
 
     public void printArrays()

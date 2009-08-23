@@ -230,8 +230,9 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
                     else
                     {
                         txt.setForeground(null);
+                        caModel.setParameter(p.getName(), p);
+                        caModel.initCells();
                     }
-                    caModel.setParameter(p.getName(), p);
                 }
             });
 
