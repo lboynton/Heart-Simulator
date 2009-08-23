@@ -4,6 +4,7 @@
  */
 package heartsim.cam;
 
+import heartsim.Application;
 import heartsim.cam.parameter.CAModelIntParameter;
 import heartsim.util.StringUtils;
 import java.util.Random;
@@ -80,6 +81,12 @@ public class Nishiyama extends CellularAutomataModel
 
     public void printArrays()
     {
+        if(height >= 0 || width >= 0)
+        {
+            Application.getInstance().output("Arrays not initialised yet");
+            return;
+        }
+        
         int values[][][] =
         {
             delta

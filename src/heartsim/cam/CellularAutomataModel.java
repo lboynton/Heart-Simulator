@@ -5,7 +5,6 @@
 package heartsim.cam;
 
 import heartsim.Application;
-import heartsim.CellularAutomaton;
 import heartsim.cam.parameter.CAModelParameter;
 import heartsim.util.StringUtils;
 import java.util.Map;
@@ -17,8 +16,8 @@ import java.util.TreeMap;
  */
 public abstract class CellularAutomataModel
 {
-    protected int height; // height of the grid
-    protected int width; // width of the grid
+    protected int height = 0; // height of the grid
+    protected int width = 0; // width of the grid
     protected String name; // name of the CA model
     protected String description; // description of the CA model
     protected Map<String, CAModelParameter> parameters = new TreeMap<String, CAModelParameter>();
