@@ -144,7 +144,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="toolbar" alignment="0" pref="825" max="32767" attributes="0"/>
+          <Component id="toolbar" alignment="0" pref="917" max="32767" attributes="0"/>
           <Component id="pnlRootContainer" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
@@ -152,7 +152,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="toolbar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
               <Component id="pnlRootContainer" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -295,13 +295,17 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="tabbedPane" min="-2" max="-2" attributes="1"/>
+                          <Component id="tabbedPane" min="-2" pref="295" max="-2" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="scrollPaneCanvas" pref="567" max="32767" attributes="0"/>
+                          <Component id="scrollPaneCanvas" pref="592" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblStatus" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="613" max="32767" attributes="0"/>
+                          <EmptySpace pref="513" max="32767" attributes="0"/>
+                          <Component id="lblHeartRateText" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblHeartRate" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="progressBar" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -314,13 +318,15 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="scrollPaneCanvas" pref="477" max="32767" attributes="1"/>
-                      <Component id="tabbedPane" alignment="0" pref="477" max="32767" attributes="1"/>
+                      <Component id="tabbedPane" pref="483" max="32767" attributes="1"/>
+                      <Component id="scrollPaneCanvas" alignment="0" pref="483" max="32767" attributes="1"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="progressBar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblHeartRate" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblHeartRateText" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -364,7 +370,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="pnlParameters" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="341" max="32767" attributes="0"/>
+                          <EmptySpace pref="347" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -379,27 +385,31 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="lblTissue" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblModel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblTissue" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="cboBoxTissue" pref="187" max="32767" attributes="1"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="btnProfileHelp" min="-2" pref="22" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="lblProfile" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="cboBoxProfile" pref="188" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="lblModel" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="cboBoxModel" pref="189" max="32767" attributes="1"/>
+                                          </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="cboBoxTissue" alignment="0" pref="0" max="32767" attributes="1"/>
-                                          <Component id="cboBoxModel" alignment="0" pref="0" max="32767" attributes="1"/>
+                                          <Component id="btnTissueHelp" min="-2" pref="22" max="-2" attributes="0"/>
+                                          <Component id="btnModelHelp" alignment="0" min="-2" pref="22" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="lblProfile" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="cboBoxProfile" pref="121" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="btnModelHelp" alignment="1" min="-2" pref="22" max="-2" attributes="0"/>
-                                  <Component id="btnTissueHelp" alignment="1" min="-2" pref="22" max="-2" attributes="0"/>
-                                  <Component id="btnProfileHelp" alignment="1" min="-2" pref="22" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -407,34 +417,32 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="lblTissue" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="cboBoxTissue" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="cboBoxModel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblModel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="lblProfile" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="cboBoxProfile" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
+                                      <Component id="btnProfileHelp" min="-2" pref="27" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="btnModelHelp" min="-2" pref="27" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                       <Component id="btnTissueHelp" min="-2" pref="27" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
                                   </Group>
-                              </Group>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblModel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cboBoxModel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnModelHelp" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                                      <Component id="lblProfile" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cboBoxProfile" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="btnProfileHelp" min="-2" pref="27" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -463,6 +471,20 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboBoxTissueActionPerformed"/>
                       </Events>
                     </Component>
+                    <Component class="javax.swing.JButton" name="btnProfileHelp">
+                      <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/heartsim/gui/icon/help-browser.png"/>
+                        </Property>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="null"/>
+                        </Property>
+                        <Property name="borderPainted" type="boolean" value="false"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProfileHelpActionPerformed"/>
+                      </Events>
+                    </Component>
                     <Component class="javax.swing.JComboBox" name="cboBoxModel">
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboBoxModelActionPerformed"/>
@@ -482,6 +504,16 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModelHelpActionPerformed"/>
                       </Events>
                     </Component>
+                    <Component class="javax.swing.JLabel" name="lblProfile">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Profile"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JComboBox" name="cboBoxProfile">
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboBoxProfileActionPerformed"/>
+                      </Events>
+                    </Component>
                     <Component class="javax.swing.JButton" name="btnTissueHelp">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -496,82 +528,11 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTissueHelpActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="lblProfile">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Profile"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JComboBox" name="cboBoxProfile">
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboBoxProfileActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="btnProfileHelp">
-                      <Properties>
-                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/heartsim/gui/icon/help-browser.png"/>
-                        </Property>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="null"/>
-                        </Property>
-                        <Property name="borderPainted" type="boolean" value="false"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProfileHelpActionPerformed"/>
-                      </Events>
-                    </Component>
                   </SubComponents>
                 </Container>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="jPanel2">
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Pacemaker">
-                    <Property name="tabTitle" type="java.lang.String" value="Pacemaker"/>
-                  </JTabbedPaneConstraints>
-                </Constraint>
-              </Constraints>
-
-              <Layout>
-                <DimensionLayout dim="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextField2" pref="122" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                </DimensionLayout>
-                <DimensionLayout dim="1">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="407" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                </DimensionLayout>
-              </Layout>
-              <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabel4">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Heart rate"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="jTextField2">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="70"/>
-                  </Properties>
-                </Component>
-              </SubComponents>
-            </Container>
-            <Container class="javax.swing.JPanel" name="jPanel3">
+            <Container class="javax.swing.JPanel" name="pnlSimulationSettings">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                   <JTabbedPaneConstraints tabName="Simulation">
@@ -583,21 +544,18 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="pnlTissue" alignment="0" pref="200" max="32767" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lblTime" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jTextField1" alignment="0" pref="147" max="32767" attributes="0"/>
-                                      <Component id="txtTime" alignment="0" pref="147" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblTime" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="txtTime" alignment="1" pref="189" max="32767" attributes="0"/>
+                              <Component id="jTextField1" alignment="1" pref="189" max="32767" attributes="0"/>
+                              <Component id="jTextField2" alignment="0" pref="189" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -613,26 +571,30 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                          <Component id="pnlTissue" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="345" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="347" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Container class="javax.swing.JPanel" name="pnlTissue">
-
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
-                    <Property name="columns" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="1" type="code"/>
-                    </Property>
-                    <Property name="rows" type="int" value="1"/>
-                  </Layout>
-                </Container>
+                <Component class="javax.swing.JLabel" name="jLabel4">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Heart rate"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="jTextField2">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="70"/>
+                  </Properties>
+                </Component>
                 <Component class="javax.swing.JLabel" name="lblTime">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Time"/>
@@ -669,18 +631,28 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="565" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="590" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="475" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="481" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
             </Container>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JLabel" name="lblHeartRateText">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Estimated heart rate:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblHeartRate">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0bpm"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

@@ -15,7 +15,7 @@ public class Default extends Profile
 {
     public Default()
     {
-        super("Default");
+        super("None");
     }
 
     @Override
