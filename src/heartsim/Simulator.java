@@ -4,7 +4,6 @@
  */
 package heartsim;
 
-import heartsim.cam.CellularAutomataModel;
 import heartsim.gui.BinaryPlotPanelOverlay;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,7 +19,7 @@ public class Simulator
     private CellularAutomaton ca;
     private BinaryPlotPanelOverlay overlay;
     private boolean initialised = false;
-    private int runTime = 500;
+    private int runTime = 5000;
 
     private enum State
     {
