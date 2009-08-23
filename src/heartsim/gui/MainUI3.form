@@ -144,7 +144,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="toolbar" alignment="0" pref="917" max="32767" attributes="0"/>
+          <Component id="toolbar" alignment="0" pref="921" max="32767" attributes="0"/>
           <Component id="pnlRootContainer" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
@@ -303,7 +303,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="tabbedPane" min="-2" pref="295" max="-2" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="scrollPaneCanvas" pref="592" max="32767" attributes="0"/>
+                          <Component id="scrollPaneCanvas" pref="596" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblStatus" min="-2" max="-2" attributes="0"/>
@@ -376,7 +376,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="pnlParameters" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="347" max="32767" attributes="0"/>
+                          <EmptySpace pref="341" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -393,7 +393,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="lblTissue" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="cboBoxTissue" pref="187" max="32767" attributes="1"/>
+                                      <Component id="cboBoxTissue" pref="183" max="32767" attributes="1"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="btnProfileHelp" min="-2" pref="22" max="-2" attributes="0"/>
                                   </Group>
@@ -402,12 +402,12 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="lblProfile" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="cboBoxProfile" pref="188" max="32767" attributes="0"/>
+                                              <Component id="cboBoxProfile" pref="184" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="1" attributes="0">
                                               <Component id="lblModel" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="cboBoxModel" pref="189" max="32767" attributes="1"/>
+                                              <Component id="cboBoxModel" pref="185" max="32767" attributes="1"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -559,9 +559,9 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtHeartRate" pref="185" max="32767" attributes="0"/>
-                              <Component id="txtTime" alignment="1" pref="185" max="32767" attributes="0"/>
-                              <Component id="cboBoxSpeed" alignment="0" pref="185" max="32767" attributes="0"/>
+                              <Component id="txtHeartRate" pref="181" max="32767" attributes="0"/>
+                              <Component id="txtTime" alignment="1" pref="181" max="32767" attributes="0"/>
+                              <Component id="cboBoxSpeed" alignment="0" pref="181" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -585,7 +585,7 @@
                               <Component id="txtHeartRate" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblHeart" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="347" max="32767" attributes="0"/>
+                          <EmptySpace pref="341" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -626,12 +626,13 @@
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cboBoxSpeed">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="1">
-                        <StringItem index="0" value="Maximum"/>
-                      </StringArray>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="loadSpeeds()" type="code"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboBoxSpeedActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -649,7 +650,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="590" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="594" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">

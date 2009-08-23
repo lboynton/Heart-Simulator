@@ -8,10 +8,10 @@ package heartsim.cam.speed;
  *
  * @author Lee Boynton
  */
-public class Medium extends Speed
+public class Fast extends Speed
 {
-    public Medium()
+    public Fast()
     {
-        super(25, "Medium");
+        super(10, "Fast");
     }
 }
