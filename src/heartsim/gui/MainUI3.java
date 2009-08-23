@@ -451,6 +451,11 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         btnZoomOut.setFocusable(false);
         btnZoomOut.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnZoomOut.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnZoomOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnZoomOutActionPerformed(evt);
+            }
+        });
         toolbar.add(btnZoomOut);
 
         btnZoomIn.setAction(svgCanvas.new ZoomAction(1.5));
@@ -459,6 +464,11 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         btnZoomIn.setFocusable(false);
         btnZoomIn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnZoomIn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnZoomIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnZoomInActionPerformed(evt);
+            }
+        });
         toolbar.add(btnZoomIn);
         toolbar.add(separatorZoom);
 
@@ -974,6 +984,16 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         loadProfiles();
 }//GEN-LAST:event_cboBoxTissueActionPerformed
 
+    private void btnZoomOutActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnZoomOutActionPerformed
+    {//GEN-HEADEREND:event_btnZoomOutActionPerformed
+        svgCanvas.getOverlays().remove(overlay);
+    }//GEN-LAST:event_btnZoomOutActionPerformed
+
+    private void btnZoomInActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnZoomInActionPerformed
+    {//GEN-HEADEREND:event_btnZoomInActionPerformed
+        svgCanvas.getOverlays().remove(overlay);
+    }//GEN-LAST:event_btnZoomInActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1064,6 +1084,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         ca.setTissueNames(cellGenerator.getTissueNames());
         overlay.setSize(cellGenerator.getCells()[0].length, cellGenerator.getCells().length);
         loadHeartTissues();
+        simulation.setInitialised(false);
     }
 
     public void documentLoadingStarted(SVGDocumentLoaderEvent e)

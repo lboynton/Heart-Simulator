@@ -61,6 +61,11 @@ public class Simulator
         ca.stimulate(row, col);
     }
 
+    public void setInitialised(boolean initialised)
+    {
+        this.initialised = initialised;
+    }
+
     private void initialiseCAModel()
     {
         if (!initialised)
