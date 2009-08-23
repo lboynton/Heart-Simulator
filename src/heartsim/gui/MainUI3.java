@@ -445,7 +445,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         toolbar.add(btnStepForward);
         toolbar.add(separatorControls);
 
-        btnZoomOut.setAction(svgCanvas.new ZoomAction(0.5));
+        btnZoomOut.setAction(svgCanvas.new ZoomAction(0.75));
         btnZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/zoom-out.png"))); // NOI18N
         btnZoomOut.setToolTipText("Zoom out and regenerate the cells");
         btnZoomOut.setFocusable(false);
@@ -453,7 +453,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         btnZoomOut.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         toolbar.add(btnZoomOut);
 
-        btnZoomIn.setAction(svgCanvas.new ZoomAction(2));
+        btnZoomIn.setAction(svgCanvas.new ZoomAction(1.5));
         btnZoomIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/zoom-in.png"))); // NOI18N
         btnZoomIn.setToolTipText("Zoom in and regenerate the cells");
         btnZoomIn.setFocusable(false);

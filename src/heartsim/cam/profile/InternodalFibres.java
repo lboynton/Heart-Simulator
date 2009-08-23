@@ -23,9 +23,9 @@ public class InternodalFibres extends Profile
     {
         if(model instanceof Nishiyama)
         {
-            model.getParameter("N").setValue("6");
-            model.getParameter("Delta 1").setValue("3");
-            model.getParameter("Delta 2").setValue("6");
+            model.getParameter("N").setValue("5");
+            model.getParameter("Delta 1").setValue("1");
+            model.getParameter("Delta 2").setValue("2");
         }
 
         return model;
