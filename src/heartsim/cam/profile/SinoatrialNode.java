@@ -15,7 +15,11 @@ public class SinoatrialNode extends Profile
 {
     public SinoatrialNode()
     {
+        // set name of the profile
         super("Sinoatrial node");
+
+        // set the aliases of the heart tissue
+        this.addAlias("sanode");
     }
 
     @Override
@@ -23,7 +27,9 @@ public class SinoatrialNode extends Profile
     {
         if(model instanceof Nishiyama)
         {
-            model.getParameter("Delta 1").setValue("4");
+            model.getParameter("Delta 1").setValue("3");
+            model.getParameter("Delta 2").setValue("7");
+            model.getParameter("N").setValue("6");
         }
 
         return model;

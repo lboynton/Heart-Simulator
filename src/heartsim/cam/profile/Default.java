@@ -11,13 +11,11 @@ import heartsim.cam.Nishiyama;
  *
  * @author Lee Boynton
  */
-public class AtrioventricularNode extends Profile
+public class Default extends Profile
 {
-    public AtrioventricularNode()
+    public Default()
     {
-        super("Atrioventricular node");
-
-        this.addAlias("avnode");
+        super("Default");
     }
 
     @Override
@@ -25,9 +23,9 @@ public class AtrioventricularNode extends Profile
     {
         if(model instanceof Nishiyama)
         {
+            model.getParameter("N").setValue("5");
             model.getParameter("Delta 1").setValue("3");
             model.getParameter("Delta 2").setValue("7");
-            model.getParameter("N").setValue("6");
         }
 
         return model;

@@ -20,12 +20,10 @@ import heartsim.Simulator;
 import heartsim.SimulatorListener;
 import heartsim.cam.CellularAutomataModel;
 import heartsim.cam.Nishiyama;
-import heartsim.cam.Tyson;
 import heartsim.cam.parameter.CAModelParameter;
 import heartsim.gui.layout.SpringUtilities;
 import heartsim.gui.util.FileChooserFilter;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
@@ -34,8 +32,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.io.File;
-import java.util.List;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -46,7 +42,6 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
-import org.apache.batik.dom.svg.SVGOMPathElement;
 import org.apache.batik.ext.swing.JAffineTransformChooser;
 import org.apache.batik.ext.swing.JAffineTransformChooser.Dialog;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
@@ -57,8 +52,6 @@ import org.apache.batik.swing.svg.GVTTreeBuilderListener;
 import org.apache.batik.swing.svg.JSVGComponent;
 import org.apache.batik.swing.svg.SVGDocumentLoaderEvent;
 import org.apache.batik.swing.svg.SVGDocumentLoaderListener;
-import org.apache.batik.util.SVGConstants;
-import org.w3c.dom.Node;
 
 /**
  *
@@ -103,7 +96,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         // elements
         cellGenerator = new CellGenerator(svgCanvas, new String[]
                 {
-                    "ventricles", "atria", "sanode", "avnode", "internodal_fibres"
+                    "ventricles", "atria", "sinoatrial_node", "atrioventricular_node", "internodal_fibres"
                 });
 
         // add listener so we know when it's finished generating the cells array
@@ -375,6 +368,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         separatorMnuView = new javax.swing.JSeparator();
         mnuItmTransform = new javax.swing.JMenuItem();
         mnuElements = new javax.swing.JMenu();
+        mnuItmNotLoaded = new javax.swing.JMenuItem();
         mnuDebug = new javax.swing.JMenu();
         mnuItmVerboseOutput = new javax.swing.JCheckBoxMenuItem();
         jSeparator2 = new javax.swing.JSeparator();
@@ -769,6 +763,11 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         menuBar.add(mnuView);
 
         mnuElements.setText("Elements");
+
+        mnuItmNotLoaded.setText("Not yet loaded");
+        mnuItmNotLoaded.setEnabled(false);
+        mnuElements.add(mnuItmNotLoaded);
+
         menuBar.add(mnuElements);
 
         mnuDebug.setText("Debug");
@@ -1030,6 +1029,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private javax.swing.JMenu mnuElements;
     private javax.swing.JMenu mnuFile;
     private javax.swing.JMenuItem mnuItmExit;
+    private javax.swing.JMenuItem mnuItmNotLoaded;
     private javax.swing.JMenuItem mnuItmPrintArrays;
     private javax.swing.JMenuItem mnuItmPrintCells;
     private javax.swing.JMenuItem mnuItmReload;

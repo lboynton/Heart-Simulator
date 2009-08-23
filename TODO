@@ -12,6 +12,7 @@ TODO
 - Add chart as svg overlay?
 - Have a profile drop down box so that different tissues can quickly be set to
   different profiles (such as avnode profile)
+- Autodetect profile to use
 
 User should be able to:
 - Select different cellular automata models

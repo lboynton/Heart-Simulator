@@ -6,6 +6,7 @@ package heartsim.cam.profile;
 
 import heartsim.Application;
 import heartsim.cam.CellularAutomataModel;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,6 +17,7 @@ public abstract class Profile
 {
     protected String name;
     protected List<CellularAutomataModel> models = Application.getInstance().getCAModels();
+    protected List<String> aliases = new ArrayList<String>();
 
     public Profile(String name)
     {
@@ -43,5 +45,15 @@ public abstract class Profile
     public String toString()
     {
         return name;
+    }
+
+    public List<String> getAliases()
+    {
+        return aliases;
+    }
+
+    public void addAlias(String alias)
+    {
+        aliases.add(name);
     }
 }
