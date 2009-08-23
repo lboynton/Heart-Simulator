@@ -20,6 +20,7 @@ public class Simulator
     private BinaryPlotPanelOverlay overlay;
     private boolean initialised = false;
     private int runTime = 5000;
+    private Stimulus stimulus;
 
     private enum State
     {
@@ -31,17 +32,20 @@ public class Simulator
     public Simulator(BinaryPlotPanelOverlay overlay)
     {
         this.overlay = overlay;
+        stimulus = new Stimulus(ca);
     }
 
     public Simulator(CellularAutomaton ca, BinaryPlotPanelOverlay overlay)
     {
         this.ca = ca;
         this.overlay = overlay;
+        stimulus = new Stimulus(ca);
     }
 
     public void setAutomaton(CellularAutomaton ca)
     {
         this.ca = ca;
+        stimulus.setCa(ca);
     }
 
     public void setRunTime(int runTime)
@@ -58,6 +62,8 @@ public class Simulator
     {
         initialiseCAModel();
         ca.stimulate(row, col);
+
+        stimulus.setStimulatedCell(row, col);
     }
 
     public void setInitialised(boolean initialised)
@@ -90,6 +96,7 @@ public class Simulator
             state = State.STARTED;
             Thread t = new Thread(new SimulatorRunnable());
             t.start();
+            stimulus.run();
             fireSimulationStarted();
         }
     }
