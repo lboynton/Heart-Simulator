@@ -44,6 +44,13 @@
        inkscape:vp_y="0 : 1000 : 0"
        inkscape:vp_x="0 : 0.5 : 1"
        sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective2829"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
   </defs>
   <sodipodi:namedview
      pagecolor="#ffffff"
@@ -58,9 +65,9 @@
      inkscape:window-height="1005"
      id="namedview2878"
      showgrid="false"
-     inkscape:zoom="3.5082039"
-     inkscape:cx="91.669989"
-     inkscape:cy="598.78828"
+     inkscape:zoom="4.9613495"
+     inkscape:cx="98.96759"
+     inkscape:cy="634.01303"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1"
@@ -102,8 +109,9 @@
        id="desc3740">The sinoatrial node</desc>
   </path>
   <path
-     style="fill:#860000;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
-     d="m 57.864367,154.77631 7.126153,-4.27569 152.49969,100.0512 -2.85046,4.27569 -156.775383,-100.0512 z"
+     style="fill:#860000;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="m 50.453167,162.7576 12.15646,-5.08138 148.586753,95.84887 0.85742,-1.87139 -147.281367,-95.51155 10.623704,-8.19167 c 45.011003,-23.78861 134.718643,29.21501 141.462503,99.4335 0.0254,0.265 2.72977,0.73917 2.66091,-0.21096 -5.08942,-70.21846 -99.35234,-125.613 -142.302587,-102.11157 -0.670021,0.36662 -1.106153,2.37447 -1.8695,2.90004 -6.260183,4.31026 -16.211289,11.69488 -22.801162,14.17709 -13.612138,109.1012 69.321899,102.20981 157.532709,95.53937 l 0.57009,2.56542 C 118.35297,269.13963 34.167639,268.43373 50.453167,162.7576 z"
      id="internodal_fibres"
-     inkscape:label="#path3608" />
+     inkscape:label="#path3608"
+     sodipodi:nodetypes="ccccccsssscccc" />
 </svg>
