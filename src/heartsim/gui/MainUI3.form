@@ -62,9 +62,9 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="mnuElements">
+        <Menu class="javax.swing.JMenu" name="mnuHeartTissue">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Elements"/>
+            <Property name="text" type="java.lang.String" value="Heart tissue"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mnuItmNotLoaded">

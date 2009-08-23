@@ -103,7 +103,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         cellGenerator.addGeneratorListener(this);
 
         overlay = new BinaryPlotPanelOverlay(svgCanvas);
-        svgCanvas.getOverlays().add(overlay);
 
         simulation = new Simulator(overlay);
         simulation.addListener(this);
@@ -278,7 +277,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         DefaultComboBoxModel tissueModels = new DefaultComboBoxModel();
 
         // set up menu
-        mnuElements.removeAll();
+        mnuHeartTissue.removeAll();
 
         for (HeartTissue tissue : cellGenerator.getTissues())
         {
@@ -287,7 +286,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             JCheckBoxMenuItem item = new JCheckBoxMenuItem(tissue.getName());
             item.setToolTipText(tissue.getDescription());
             item.setSelected(true);
-            mnuElements.add(item);
+            mnuHeartTissue.add(item);
         }
 
         cboBoxTissue.setModel(tissueModels);
@@ -367,7 +366,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         mnuItmZoomOut = new javax.swing.JMenuItem();
         separatorMnuView = new javax.swing.JSeparator();
         mnuItmTransform = new javax.swing.JMenuItem();
-        mnuElements = new javax.swing.JMenu();
+        mnuHeartTissue = new javax.swing.JMenu();
         mnuItmNotLoaded = new javax.swing.JMenuItem();
         mnuDebug = new javax.swing.JMenu();
         mnuItmVerboseOutput = new javax.swing.JCheckBoxMenuItem();
@@ -750,13 +749,13 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         menuBar.add(mnuView);
 
-        mnuElements.setText("Elements");
+        mnuHeartTissue.setText("Heart tissue");
 
         mnuItmNotLoaded.setText("Not yet loaded");
         mnuItmNotLoaded.setEnabled(false);
-        mnuElements.add(mnuItmNotLoaded);
+        mnuHeartTissue.add(mnuItmNotLoaded);
 
-        menuBar.add(mnuElements);
+        menuBar.add(mnuHeartTissue);
 
         mnuDebug.setText("Debug");
 
@@ -823,6 +822,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         if (evt.getButton() == MouseEvent.BUTTON1)
         {
             // run simulation
+            svgCanvas.getOverlays().add(overlay);
             stimCol = evt.getX();
             stimRow = evt.getY();
             simulation.setStimulatedCell(stimRow, stimCol);
@@ -850,6 +850,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStartActionPerformed
     {//GEN-HEADEREND:event_btnStartActionPerformed
+        svgCanvas.getOverlays().add(overlay);
         simulation.setStimulatedCell(stimRow, stimCol);
         simulation.run(runTime);
     }//GEN-LAST:event_btnStartActionPerformed
@@ -857,6 +858,8 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStopActionPerformed
     {//GEN-HEADEREND:event_btnStopActionPerformed
         simulation.stop();
+        svgCanvas.getOverlays().remove(overlay);
+        svgCanvas.repaint();
     }//GEN-LAST:event_btnStopActionPerformed
 
     private void btnStepForwardActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStepForwardActionPerformed
@@ -1014,8 +1017,8 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private javax.swing.JLabel lblTissue;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu mnuDebug;
-    private javax.swing.JMenu mnuElements;
     private javax.swing.JMenu mnuFile;
+    private javax.swing.JMenu mnuHeartTissue;
     private javax.swing.JMenuItem mnuItmExit;
     private javax.swing.JMenuItem mnuItmNotLoaded;
     private javax.swing.JMenuItem mnuItmPrintArrays;
