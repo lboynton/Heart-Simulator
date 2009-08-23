@@ -31,6 +31,8 @@ public class HelpDialog extends javax.swing.JDialog
         }
         initComponents();
         this.setLocationRelativeTo(owner);
+
+        btnClose.requestFocus();
     }
 
     public String getText()
