@@ -26,6 +26,7 @@ public class StringUtils
         s = firstToUpper(s);
 
         // convert underscores to space
+        s = s.replaceAll("_", " ");
 
         return s;
     }
