@@ -17,6 +17,7 @@ TODO
 - Add tags to svg elements to apply different settings. For example a path could
   be tagged insulator to indicate that it should not be able to pass an electrical
   wave
+- Have a run forever option
 
 User should be able to:
 - Select different cellular automata models

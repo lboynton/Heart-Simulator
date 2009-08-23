@@ -70,7 +70,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private final BinaryPlotPanelOverlay overlay;
     private final Simulator simulation;
     private String openFile;
-    private int runTime = 500;
+    private int runTime = 5000;
 
     /** Creates new form MainUI3 */
     public MainUI3()

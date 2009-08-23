@@ -19,7 +19,7 @@ public class Simulator
     private CellularAutomaton ca;
     private BinaryPlotPanelOverlay overlay;
     private boolean initialised = false;
-    private int runTime = 5000;
+    private int runTime;
     private Stimulus stimulus;
 
     private enum State
@@ -61,8 +61,6 @@ public class Simulator
     public void setStimulatedCell(int row, int col)
     {
         initialiseCAModel();
-        ca.stimulate(row, col);
-
         stimulus.setStimulatedCell(row, col);
     }
 
