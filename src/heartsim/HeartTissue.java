@@ -4,8 +4,12 @@
  */
 package heartsim;
 
-import heartsim.ca.CAModel;
-import org.apache.batik.ext.awt.geom.ExtendedGeneralPath;
+import heartsim.cam.CellularAutomataModel;
+import heartsim.util.StringUtils;
+import java.awt.Shape;
+import java.util.ArrayList;
+import java.util.List;
+import org.w3c.dom.Element;
 
 /**
  * A class for different heart tissue
@@ -13,22 +17,39 @@ import org.apache.batik.ext.awt.geom.ExtendedGeneralPath;
  */
 public class HeartTissue
 {
-    protected CAModel model;
-    protected ExtendedGeneralPath outline;
+    protected CellularAutomataModel currentModel;
     protected String name;
     protected String description;
+    protected Shape shape;
+    protected Element element;
+    protected List<CellularAutomataModel> availableModels = new ArrayList<CellularAutomataModel>();
 
-    public HeartTissue(ExtendedGeneralPath outline, String name)
+    public HeartTissue(String name)
     {
-        this.outline = outline;
-        this.name = name;
+        this.name = StringUtils.prettify(name);
+        availableModels.addAll(Application.getInstance().getCAModels());
+
+        if (availableModels.size() > 0)
+        {
+            currentModel = availableModels.get(0);
+        }
     }
 
-    public HeartTissue(ExtendedGeneralPath outline, String name, String description)
+    public HeartTissue(String name, String description)
     {
-        this.outline = outline;
-        this.name = name;
+        this.name = StringUtils.prettify(name);
         this.description = description;
+        availableModels.addAll(Application.getInstance().getCAModels());
+
+        if (availableModels.size() > 0)
+        {
+            currentModel = availableModels.get(0);
+        }
+    }
+
+    public List<CellularAutomataModel> getAvailableModels()
+    {
+        return availableModels;
     }
 
     public String getDescription()
@@ -41,14 +62,14 @@ public class HeartTissue
         this.description = description;
     }
 
-    public CAModel getModel()
+    public CellularAutomataModel getModel()
     {
-        return model;
+        return currentModel;
     }
 
-    public void setModel(CAModel model)
+    public void setModel(CellularAutomataModel model)
     {
-        this.model = model;
+        this.currentModel = model;
     }
 
     public String getName()
@@ -58,16 +79,32 @@ public class HeartTissue
 
     public void setName(String name)
     {
-        this.name = name;
+        this.name = StringUtils.prettify(name);
     }
 
-    public ExtendedGeneralPath getOutline()
+    public Element getElement()
     {
-        return outline;
+        return element;
     }
 
-    public void setOutline(ExtendedGeneralPath outline)
+    public void setElement(Element element)
     {
-        this.outline = outline;
+        this.element = element;
+    }
+
+    public void setShape(Shape shape)
+    {
+        this.shape = shape;
+    }
+
+    public boolean containsCell(int row, int col)
+    {
+        return shape.contains(col, row);
+    }
+
+    @Override
+    public String toString()
+    {
+        return name;
     }
 }
