@@ -4,10 +4,14 @@
  */
 package heartsim;
 
+import heartsim.cam.speed.Maximum;
+import heartsim.cam.speed.Speed;
 import heartsim.gui.BinaryPlotPanelOverlay;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,6 +25,7 @@ public class Simulator
     private boolean initialised = false;
     private int runTime;
     private Stimulus stimulus;
+    private Speed speed = new Maximum(); // run simulation at maximum speed by default
 
     private enum State
     {
@@ -28,6 +33,11 @@ public class Simulator
     };
 
     private State state = State.STOPPED;
+
+    public void setSpeed(Speed speed)
+    {
+        this.speed = speed;
+    }
 
     public Simulator(BinaryPlotPanelOverlay overlay)
     {
@@ -236,6 +246,15 @@ public class Simulator
 
                 ca.step();
                 fireSimulationUpdated();
+                
+                try
+                {
+                    Thread.sleep(speed.getDelay());
+                }
+                catch (InterruptedException ex)
+                {
+                    Logger.getLogger(Simulator.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
             state = State.STOPPED;
