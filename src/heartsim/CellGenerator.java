@@ -4,7 +4,6 @@
  */
 package heartsim;
 
-import heartsim.cam.Nishiyama;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
@@ -125,6 +124,8 @@ public class CellGenerator implements Runnable
 
     private void loadTissues()
     {
+        tissues.clear();
+        
         for (String path : paths)
         {
             Element element = (Element) canvas.getSVGDocument().getElementById(path);
@@ -171,7 +172,6 @@ public class CellGenerator implements Runnable
             tissueLoading = tissue.getName();
 
             Application.getInstance().output("Generating cells for " + tissueLoading);
-
 
             GraphicsNode node = canvas.getUpdateManager().getBridgeContext().getGraphicsNode(tissue.getElement());
 
