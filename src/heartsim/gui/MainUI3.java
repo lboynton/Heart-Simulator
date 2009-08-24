@@ -25,7 +25,6 @@ import heartsim.cam.speed.Fast;
 import heartsim.cam.speed.Maximum;
 import heartsim.cam.speed.Medium;
 import heartsim.cam.speed.Slow;
-import heartsim.cam.speed.Slow;
 import heartsim.cam.speed.Speed;
 import heartsim.gui.layout.SpringUtilities;
 import heartsim.gui.util.FileChooserFilter;
@@ -103,7 +102,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         // elements
         cellGenerator = new CellGenerator(svgCanvas, new String[]
                 {
-                    "ventricles", "atria", "sinoatrial_node", "atrioventricular_node", "internodal_fibres"
+                    "ventricles", "atria", "sinoatrial_node", "atrioventricular_node", "internodal_fibres", "bundle_of_his", "bundle_branches", "insulator1", "insulator2"
                 });
 
         // add listener so we know when it's finished generating the cells array
@@ -180,7 +179,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         cboBoxModel.setModel(CAModels);
 
-        if(cboBoxModel.getItemCount() > 0)
+        if (cboBoxModel.getItemCount() > 0)
         {
             cboBoxModel.setSelectedIndex(0);
         }
@@ -287,13 +286,30 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         // set up menu
         mnuHeartTissue.removeAll();
 
-        for (HeartTissue tissue : cellGenerator.getTissues())
+        for (final HeartTissue tissue : cellGenerator.getTissues())
         {
             tissueModels.addElement(tissue);
 
-            JCheckBoxMenuItem item = new JCheckBoxMenuItem(tissue.getName());
+            final JCheckBoxMenuItem item = new JCheckBoxMenuItem(tissue.getName());
             item.setToolTipText(tissue.getDescription());
             item.setSelected(true);
+            item.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    if (item.isSelected())
+                    {
+                        System.out.println("Adding tissue");
+                        cellGenerator.addTissue(tissue);
+                    }
+                    else
+                    {
+                        System.out.println("Removing tissue");
+                        cellGenerator.removeTissue(tissue);
+                    }
+                    cellGenerator.run();
+                }
+            });
             mnuHeartTissue.add(item);
         }
 
@@ -1257,6 +1273,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             progressBar.setMaximum(100);
             resetProgressBar();
             Thread thread = new Thread(cellGenerator);
+            thread.setName("Cell generator");
             thread.start();
             while (!cellGenerator.isCompleted())
             {

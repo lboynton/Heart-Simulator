@@ -12,6 +12,7 @@ import heartsim.cam.Nishiyama;
 import heartsim.cam.Tyson;
 import heartsim.cam.profile.AtrioventricularNode;
 import heartsim.cam.profile.Default;
+import heartsim.cam.profile.Insulator;
 import heartsim.cam.profile.InternodalFibres;
 import heartsim.cam.profile.SinoatrialNode;
 import java.util.ArrayList;
@@ -99,6 +100,7 @@ public class Application
         profiles.add(new SinoatrialNode());
         profiles.add(new AtrioventricularNode());
         profiles.add(new InternodalFibres());
+        profiles.add(new Insulator());
 
         return profiles;
     }

@@ -251,4 +251,18 @@ public class CellGenerator implements Runnable
             }
         }
     }
+
+    public void removeTissue(HeartTissue tissue)
+    {
+        String path = tissue.getElement().getAttribute(SVGConstants.SVG_ID_ATTRIBUTE);
+
+        removePath(path);
+    }
+
+    public void addTissue(HeartTissue tissue)
+    {
+        String path = tissue.getElement().getAttribute(SVGConstants.SVG_ID_ATTRIBUTE);
+
+        addPath(path);
+    }
 }
