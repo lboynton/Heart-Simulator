@@ -16,6 +16,7 @@ import java.util.List;
 public abstract class Profile
 {
     protected String name;
+    protected String description;
     protected List<CellularAutomataModel> models = Application.getInstance().getCAModels();
     protected List<String> aliases = new ArrayList<String>();
 
@@ -37,6 +38,16 @@ public abstract class Profile
     public void setName(String name)
     {
         this.name = name;
+    }
+
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public void setDescription(String description)
+    {
+        this.description = description;
     }
 
     public abstract CellularAutomataModel loadParameters(CellularAutomataModel model);
