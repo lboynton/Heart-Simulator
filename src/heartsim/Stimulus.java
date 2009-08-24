@@ -40,6 +40,7 @@ public class Stimulus
     public void run()
     {
         stimulusThread = new Thread(new StimulusRunnable());
+        stimulusThread.setName("Stimulus");
         stimulusThread.start();
     }
 

@@ -113,6 +113,7 @@ public class Simulator
         {
             state = State.STARTED;
             Thread t = new Thread(new SimulatorRunnable());
+            t.setName("Simulator");
             t.start();
             stimulus.run();
             fireSimulationStarted();
