@@ -15,13 +15,15 @@ import java.util.List;
 import java.util.Map;
 import org.apache.batik.gvt.GraphicsNode;
 import org.apache.batik.swing.JSVGCanvas;
+import org.apache.batik.swing.svg.SVGDocumentLoaderEvent;
+import org.apache.batik.swing.svg.SVGDocumentLoaderListener;
 import org.w3c.dom.Element;
 
 /**
  *
  * @author Lee Boynton
  */
-public class CellGenerator implements Runnable
+public class CellGenerator implements SVGDocumentLoaderListener
 {
     private List<CellGeneratorListener> listeners = Collections.synchronizedList(new ArrayList<CellGeneratorListener>());
     private JSVGCanvas canvas;
@@ -30,6 +32,7 @@ public class CellGenerator implements Runnable
     private String tissueNames[][];
     private boolean cells[][];
     private boolean completed = false;
+    private boolean initialised = false;
     private int progress = 0;
     private String tissueLoading = "None";
 
@@ -37,6 +40,7 @@ public class CellGenerator implements Runnable
     {
         this.canvas = canvas;
         this.paths.addAll(Arrays.asList(paths));
+        canvas.addSVGDocumentLoaderListener(this);
     }
 
     public int getProgress()
@@ -106,35 +110,17 @@ public class CellGenerator implements Runnable
         return cells;
     }
 
-    // TODO: Create thread and run it from this method
     public void run()
     {
         // notify listeners that cell generation has started
         fireGenerationStarted();
 
-        loadTissues();
-        createDataArray();
-        completed = true;
+        Thread thread = new Thread(new CellGeneratorRunnable());
+        thread.setName("Cell generator");
+        thread.start();
 
         // notify listeners that cell generation has finished
         fireGenerationCompleted();
-    }
-
-    private void loadTissues()
-    {
-        tissues.clear();
-        
-        for (String path : paths)
-        {
-            Element element = (Element) canvas.getSVGDocument().getElementById(path);
-
-            if (element != null)
-            {
-                HeartTissue tissue = new HeartTissue(path);
-                tissue.setElement(element);
-                tissues.put(tissue, true);
-            }
-        }
     }
 
     public List<HeartTissue> getTissues()
@@ -152,72 +138,122 @@ public class CellGenerator implements Runnable
         return tissueNames;
     }
 
-    // TODO: Split up
-    private void createDataArray()
-    {
-        fireGenerationStarted();
-        
-        cells = new boolean[canvas.getPreferredSize().height][canvas.getPreferredSize().width];
-        tissueNames = new String[canvas.getPreferredSize().height][canvas.getPreferredSize().width];
-
-        for (HeartTissue tissue : tissues.keySet())
-        {
-            if(!tissues.get(tissue))
-            {
-                Application.getInstance().output(tissue.getName() + " is disabled, skipping");
-                continue;
-            }
-            
-            tissueLoading = tissue.getName();
-
-            Application.getInstance().output("Generating cells for " + tissueLoading);
-
-            GraphicsNode node = canvas.getUpdateManager().getBridgeContext().getGraphicsNode(tissue.getElement());
-
-            if (node != null)
-            {
-                AffineTransform elementsAt = node.getGlobalTransform();
-                Shape selectionHighlight = node.getOutline();
-                AffineTransform at = canvas.getRenderingTransform();
-                at.concatenate(elementsAt);
-                Shape s = at.createTransformedShape(selectionHighlight);
-
-                if (s == null)
-                {
-                    break;
-                }
-
-                tissue.setShape(s);
-
-                for (int row = 0; row < canvas.getPreferredSize().height; row++)
-                {
-                    for (int col = 0; col < canvas.getPreferredSize().width; col++)
-                    {
-                        if (s.contains(new Point(col, row)))
-                        {
-                            cells[row][col] = true;
-                            tissueNames[row][col] = tissueLoading;
-                        }
-                    }
-
-                    // row completed
-                    progress = (int) (((row + 1) / (double) canvas.getPreferredSize().height) * 100);
-                }
-            }
-        }
-
-        fireGenerationCompleted();
-    }
-
     public void disableTissue(HeartTissue tissue)
     {
         tissues.put(tissue, false);
-        createDataArray();
+        run();
     }
 
     public void enableTissue(HeartTissue tissue)
     {
         tissues.put(tissue, true);
-        createDataArray();
+        run();
+    }
+
+    public void documentLoadingStarted(SVGDocumentLoaderEvent arg0)
+    {
+    }
+
+    public void documentLoadingCompleted(SVGDocumentLoaderEvent arg0)
+    {
+        // new svg loaded so we are not initialised
+        initialised = false;
+    }
+
+    public void documentLoadingCancelled(SVGDocumentLoaderEvent arg0)
+    {
+    }
+
+    public void documentLoadingFailed(SVGDocumentLoaderEvent arg0)
+    {
+    }
+
+    public class CellGeneratorRunnable implements Runnable
+    {
+        public void run()
+        {
+            if (!initialised)
+            {
+                loadTissues();
+                initialised = true;
+            }
+
+            createDataArray();
+            completed = true;
+        }
+
+        private void loadTissues()
+        {
+            tissues.clear();
+
+            for (String path : paths)
+            {
+                Element element = (Element) canvas.getSVGDocument().getElementById(path);
+
+                if (element != null)
+                {
+                    HeartTissue tissue = new HeartTissue(path);
+                    tissue.setElement(element);
+                    tissues.put(tissue, true);
+                }
+            }
+        }
+
+        // TODO: Split up
+        private void createDataArray()
+        {
+            fireGenerationStarted();
+
+            cells = new boolean[canvas.getPreferredSize().height][canvas.getPreferredSize().width];
+            tissueNames = new String[canvas.getPreferredSize().height][canvas.getPreferredSize().width];
+
+            for (HeartTissue tissue : tissues.keySet())
+            {
+                if (!tissues.get(tissue))
+                {
+                    Application.getInstance().output(tissue.getName() + " is disabled, skipping");
+                    continue;
+                }
+
+                tissueLoading = tissue.getName();
+
+                Application.getInstance().output("Generating cells for " + tissueLoading);
+
+                GraphicsNode node = canvas.getUpdateManager().getBridgeContext().getGraphicsNode(tissue.getElement());
+
+                if (node != null)
+                {
+                    AffineTransform elementsAt = node.getGlobalTransform();
+                    Shape selectionHighlight = node.getOutline();
+                    AffineTransform at = canvas.getRenderingTransform();
+                    at.concatenate(elementsAt);
+                    Shape s = at.createTransformedShape(selectionHighlight);
+
+                    if (s == null)
+                    {
+                        break;
+                    }
+
+                    tissue.setShape(s);
+
+                    for (int row = 0; row < canvas.getPreferredSize().height; row++)
+                    {
+                        for (int col = 0; col < canvas.getPreferredSize().width; col++)
+                        {
+                            if (s.contains(new Point(col, row)))
+                            {
+                                cells[row][col] = true;
+                                tissueNames[row][col] = tissueLoading;
+                            }
+                        }
+
+                        // row completed
+                        progress = (int) (((row + 1) / (double) canvas.getPreferredSize().height) * 100);
+                    }
+                }
+            }
+
+            fireGenerationCompleted();
+        }
     }
 }

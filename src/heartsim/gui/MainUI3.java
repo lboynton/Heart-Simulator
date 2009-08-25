@@ -1275,9 +1275,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         {
             progressBar.setMaximum(100);
             resetProgressBar();
-            Thread thread = new Thread(cellGenerator);
-            thread.setName("Cell generator");
-            thread.start();
+            cellGenerator.run();
             while (!cellGenerator.isCompleted())
             {
                 progressBar.setValue(cellGenerator.getProgress());
