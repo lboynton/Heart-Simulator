@@ -1,23 +1,35 @@
 TODO
-- Draw outline of heart, maybe by overlaying SVG?
-- Allow update interval to be specified. Put in pacemaker panel.
-- Make visualisation more efficient
-- Code tidy up/refactor
-- GUI tidy up
-- Don't reset simulation each time start is pressed, treat it as being paused
+
+High priority items
+- Autodetect profile to use
+- Add chart
 - Add in different heart tissue, SA node, AV node, bundle of His, purkinje fibres
   left and right bundle branches, atria, ventricles
-- Use thread to load heart data
+
+Medium priority items
+- Make visualisation more efficient
+- Step forward and pause buttons don't really work
+- Work out how to integrate bundle of his into visualisation. It currently cuts
+  off part of the right atrium
+- Lock GUI whilst things are loading
+
+Low priority items
+- Add help buttons to simulation panel
+- Title the JFrame
+- Remove or do something with the estimated heart rate
+- Implement Tyson CA model
+- Hide elements from canvas when they are disabled
+
+Wishlist items
+- Implement other CA models
+- Code tidy up/refactor
+- GUI tidy up
 - More validation of CA model parameters?
-- Add chart as svg overlay?
-- Have a profile drop down box so that different tissues can quickly be set to
-  different profiles (such as avnode profile)
-- Autodetect profile to use
-- Insulating regions, such as for around the bundle of His
 - Add tags to svg elements to apply different settings. For example a path could
   be tagged insulator to indicate that it should not be able to pass an electrical
   wave
 - Have a run forever option
+- Sort items in combo boxes and the heart tissue menu
 
 User should be able to:
 - Select different cellular automata models
