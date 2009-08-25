@@ -19,7 +19,8 @@ public class SinoatrialNode extends Profile
         super("Sinoatrial node");
 
         // set the aliases of the heart tissue
-        this.addAlias("sanode");
+        this.addAlias("SA node");
+        this.addAlias("Sinus node");
     }
 
     @Override
