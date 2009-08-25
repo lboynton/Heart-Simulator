@@ -288,11 +288,14 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         for (final HeartTissue tissue : cellGenerator.getTissues())
         {
-            tissueModels.addElement(tissue);
+            if(cellGenerator.isEnabled(tissue))
+            {
+                tissueModels.addElement(tissue);
+            }
 
             final JCheckBoxMenuItem item = new JCheckBoxMenuItem(tissue.getName());
             item.setToolTipText(tissue.getDescription());
-            item.setSelected(true);
+            item.setSelected(cellGenerator.isEnabled(tissue));
             item.addActionListener(new ActionListener()
             {
                 public void actionPerformed(ActionEvent e)
@@ -300,16 +303,16 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
                     if (item.isSelected())
                     {
                         System.out.println("Adding tissue");
-                        cellGenerator.addTissue(tissue);
+                        cellGenerator.enableTissue(tissue);
                     }
                     else
                     {
                         System.out.println("Removing tissue");
-                        cellGenerator.removeTissue(tissue);
+                        cellGenerator.disableTissue(tissue);
                     }
-                    cellGenerator.run();
                 }
             });
+
             mnuHeartTissue.add(item);
         }
 
