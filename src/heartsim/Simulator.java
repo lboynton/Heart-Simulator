@@ -124,6 +124,7 @@ public class Simulator
     {
         state = State.STOPPED;
         initialised = false;
+        stimulus.stop();
         fireSimulationStopped();
     }
 
