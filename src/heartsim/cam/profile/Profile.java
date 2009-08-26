@@ -22,7 +22,7 @@ public abstract class Profile
 
     public Profile(String name)
     {
-        this.name = name;
+        setName(name);
         
         for(CellularAutomataModel model:Application.getInstance().getCAModels())
         {
@@ -38,6 +38,7 @@ public abstract class Profile
     public void setName(String name)
     {
         this.name = name;
+        aliases.add(name);
     }
 
     public String getDescription()

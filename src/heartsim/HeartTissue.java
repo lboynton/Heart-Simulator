@@ -5,6 +5,7 @@
 package heartsim;
 
 import heartsim.cam.CellularAutomataModel;
+import heartsim.cam.profile.Profile;
 import heartsim.util.StringUtils;
 import java.awt.Shape;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class HeartTissue
     protected Shape shape;
     protected Element element;
     protected List<CellularAutomataModel> availableModels = new ArrayList<CellularAutomataModel>();
+    protected Profile profile;
 
     public HeartTissue(String name)
     {
@@ -33,6 +35,8 @@ public class HeartTissue
         {
             currentModel = availableModels.get(0);
         }
+
+        detectProfile();
     }
 
     public HeartTissue(String name, String description)
@@ -45,6 +49,27 @@ public class HeartTissue
         {
             currentModel = availableModels.get(0);
         }
+
+        detectProfile();
+    }
+
+    private void detectProfile()
+    {
+        for (Profile p : Application.getInstance().getTissueProfiles())
+        {
+            for (String alias : p.getAliases())
+            {
+                if(alias.equals(name))
+                {
+                    Application.getInstance().output("Selecting " + p.getName() + " profile for element " + name);
+                    profile = p;
+                    p.loadParameters(currentModel);
+                    return;
+                }
+            }
+        }
+
+        Application.getInstance().output("Could not detect profile for " + name + ", using default profile instead");
     }
 
     public List<CellularAutomataModel> getAvailableModels()
