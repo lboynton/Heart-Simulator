@@ -172,7 +172,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         DefaultComboBoxModel CAModels = new DefaultComboBoxModel();
 
-        for (CellularAutomataModel model : tissue.getAvailableModels())
+        for (CellularAutomataModel model : Application.getInstance().getCAModels())
         {
             CAModels.addElement(model);
         }

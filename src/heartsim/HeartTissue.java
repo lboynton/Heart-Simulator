@@ -5,11 +5,10 @@
 package heartsim;
 
 import heartsim.cam.CellularAutomataModel;
+import heartsim.cam.profile.Default;
 import heartsim.cam.profile.Profile;
 import heartsim.util.StringUtils;
 import java.awt.Shape;
-import java.util.ArrayList;
-import java.util.List;
 import org.w3c.dom.Element;
 
 /**
@@ -23,31 +22,21 @@ public class HeartTissue
     protected String description;
     protected Shape shape;
     protected Element element;
-    protected List<CellularAutomataModel> availableModels = new ArrayList<CellularAutomataModel>();
     protected Profile profile;
 
     public HeartTissue(String name)
     {
-        this.name = StringUtils.prettify(name);
-        availableModels.addAll(Application.getInstance().getCAModels());
-
-        if (availableModels.size() > 0)
-        {
-            currentModel = availableModels.get(0);
-        }
-
-        detectProfile();
+        this(name, "");
     }
 
     public HeartTissue(String name, String description)
     {
-        this.name = StringUtils.prettify(name);
         this.description = description;
-        availableModels.addAll(Application.getInstance().getCAModels());
+        setName(name);
 
-        if (availableModels.size() > 0)
+        if (Application.getInstance().getCAModels().size() > 0)
         {
-            currentModel = availableModels.get(0);
+            currentModel = Application.getInstance().getCAModels().get(0);
         }
 
         detectProfile();
@@ -69,12 +58,9 @@ public class HeartTissue
             }
         }
 
-        Application.getInstance().output("Could not detect profile for " + name + ", using default profile instead");
-    }
+        profile = new Default();
 
-    public List<CellularAutomataModel> getAvailableModels()
-    {
-        return availableModels;
+        Application.getInstance().output("Could not detect profile for " + name + ", using default profile instead");
     }
 
     public String getDescription()
