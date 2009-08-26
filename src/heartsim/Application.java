@@ -11,6 +11,8 @@ import heartsim.cam.CellularAutomataModel;
 import heartsim.cam.Nishiyama;
 import heartsim.cam.Tyson;
 import heartsim.cam.profile.AtrioventricularNode;
+import heartsim.cam.profile.BundleBranches;
+import heartsim.cam.profile.BundleOfHis;
 import heartsim.cam.profile.Default;
 import heartsim.cam.profile.Insulator;
 import heartsim.cam.profile.InternodalFibres;
@@ -94,13 +96,15 @@ public class Application
     {
         List<Profile> profiles = new ArrayList<Profile>();
 
-        profiles.add(new Default());
-        profiles.add(new Ventricles());
         profiles.add(new Atria());
-        profiles.add(new SinoatrialNode());
         profiles.add(new AtrioventricularNode());
+        profiles.add(new BundleBranches());
+        profiles.add(new BundleOfHis());
+        profiles.add(new Default());
         profiles.add(new InternodalFibres());
         profiles.add(new Insulator());
+        profiles.add(new SinoatrialNode());
+        profiles.add(new Ventricles());
 
         return profiles;
     }

@@ -8,7 +8,6 @@ import heartsim.cam.CellularAutomataModel;
 import heartsim.cam.profile.Default;
 import heartsim.cam.profile.Profile;
 import heartsim.util.StringUtils;
-import java.awt.Shape;
 import org.w3c.dom.Element;
 
 /**

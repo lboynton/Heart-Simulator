@@ -16,6 +16,8 @@ public class Ventricles extends Profile
     public Ventricles()
     {
         super("Ventricles");
+
+        this.setDescription("Ventricles have moderate conduction velocity");
     }
 
     @Override
@@ -23,9 +25,9 @@ public class Ventricles extends Profile
     {
         if (model instanceof Nishiyama)
         {
-            model.getParameter("Delta 1").setValue("8");
-            model.getParameter("Delta 2").setValue("12");
-            model.getParameter("N").setValue("11");
+            model.getParameter("N").setValue("6");
+            model.getParameter("Delta 1").setValue("10");
+            model.getParameter("Delta 2").setValue("8");
         }
 
         return model;
