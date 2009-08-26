@@ -96,11 +96,13 @@ public class Application
     {
         List<Profile> profiles = new ArrayList<Profile>();
 
+        // add default profile first so it is top of the list
+        profiles.add(new Default());
+
         profiles.add(new Atria());
         profiles.add(new AtrioventricularNode());
         profiles.add(new BundleBranches());
         profiles.add(new BundleOfHis());
-        profiles.add(new Default());
         profiles.add(new InternodalFibres());
         profiles.add(new Insulator());
         profiles.add(new SinoatrialNode());
