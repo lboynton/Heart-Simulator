@@ -57,6 +57,7 @@ public class Nishiyama extends CellularAutomataModel
     {
         int delta1 = (Integer) this.getParameter("Delta 1").getValue();
         int delta2 = (Integer) this.getParameter("Delta 2").getValue();
+        N = (Integer) this.getParameter("N").getValue();
 
         delta = new int[height][width]; // delta values for each cell
 
@@ -151,8 +152,6 @@ public class Nishiyama extends CellularAutomataModel
     @Override
     public int processCell(int row, int col, int[][] u, int[][] v, int[][] tempu)
     {
-        N = (Integer) this.getParameter("N").getValue();
-
         if (u[row][col] == 0)
         {
             if (v[row][col] == 0)
