@@ -234,8 +234,6 @@ public class CellGenerator implements SVGDocumentLoaderListener
                         break;
                     }
 
-                    tissue.setShape(s);
-
                     for (int row = 0; row < canvas.getPreferredSize().height; row++)
                     {
                         for (int col = 0; col < canvas.getPreferredSize().width; col++)

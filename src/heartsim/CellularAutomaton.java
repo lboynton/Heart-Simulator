@@ -23,7 +23,7 @@ public class CellularAutomaton
     private int tempu[][] = new int[height][width]; // voltage values for each cell
     private boolean cells[][] = new boolean[height][width]; // true/false if there is a cell
     private List<HeartTissue> tissues = new ArrayList<HeartTissue>();
-    private String tissueNames[][];
+    private String tissueLocations[][];
 
     public boolean isCell(int row, int col)
     {
@@ -42,9 +42,9 @@ public class CellularAutomaton
         this.tissues = tissues;
     }
 
-    public void setTissueNames(String[][] tissueNames)
+    public void setTissueLocations(String[][] tissueNames)
     {
-        this.tissueNames = tissueNames;
+        this.tissueLocations = tissueNames;
     }
 
     public List<HeartTissue> getTissues()
@@ -71,7 +71,7 @@ public class CellularAutomaton
 
                 for (HeartTissue tissue : tissues)
                 {
-                    if(tissue.getName().equals(tissueNames[row][col]))
+                    if(tissue.getName().equals(tissueLocations[row][col]))
                     {
                         tissue.getModel().processCell(row, col, u, v, tempu);
                     }
@@ -193,7 +193,7 @@ public class CellularAutomaton
 
             for (HeartTissue tissue : tissues)
             {
-                if (tissue.containsCell(row, col))
+                if(tissue.getName().equals(tissueLocations[row][col]))
                 {
                     tissue.getModel().processCell(row, col, u, v, tempu);
 

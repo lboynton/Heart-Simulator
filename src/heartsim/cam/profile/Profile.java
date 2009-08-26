@@ -15,7 +15,6 @@ import java.util.List;
  */
 public abstract class Profile
 {
-    protected String name;
     protected String description;
     protected List<CellularAutomataModel> models = Application.getInstance().getCAModels();
     protected List<String> aliases = new ArrayList<String>();
@@ -23,8 +22,8 @@ public abstract class Profile
     public Profile(String name)
     {
         setName(name);
-        
-        for(CellularAutomataModel model:Application.getInstance().getCAModels())
+
+        for (CellularAutomataModel model : Application.getInstance().getCAModels())
         {
             loadParameters(model);
         }
@@ -32,13 +31,20 @@ public abstract class Profile
 
     public String getName()
     {
-        return name;
+        // get element at start of list as this is designated as the name
+        return aliases.get(0);
     }
 
     public void setName(String name)
     {
-        this.name = name;
-        aliases.add(name);
+        // remove the first element if it exists as this is the old name
+        if (aliases.size() > 0)
+        {
+            aliases.remove(0);
+        }
+
+        // add new name to start of list
+        aliases.add(0, name);
     }
 
     public String getDescription()
@@ -56,7 +62,7 @@ public abstract class Profile
     @Override
     public String toString()
     {
-        return name;
+        return aliases.get(0);
     }
 
     public List<String> getAliases()
@@ -64,8 +70,13 @@ public abstract class Profile
         return aliases;
     }
 
+    /**
+     * Adds an alias for this tissue. Note that the name of the tisse is by
+     * default included in the aliases. Case in insensitive.
+     * @param alias Alternative name for this tissue
+     */
     public void addAlias(String alias)
     {
-        aliases.add(name);
+        aliases.add(alias);
     }
 }

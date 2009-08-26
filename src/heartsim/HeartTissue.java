@@ -20,7 +20,6 @@ public class HeartTissue
     protected CellularAutomataModel currentModel;
     protected String name;
     protected String description;
-    protected Shape shape;
     protected Element element;
     protected Profile profile;
 
@@ -48,7 +47,7 @@ public class HeartTissue
         {
             for (String alias : p.getAliases())
             {
-                if(alias.equals(name))
+                if(alias.equalsIgnoreCase(name))
                 {
                     Application.getInstance().output("Selecting " + p.getName() + " profile for element " + name);
                     profile = p;
@@ -101,16 +100,6 @@ public class HeartTissue
     public void setElement(Element element)
     {
         this.element = element;
-    }
-
-    public void setShape(Shape shape)
-    {
-        this.shape = shape;
-    }
-
-    public boolean containsCell(int row, int col)
-    {
-        return shape.contains(col, row);
     }
 
     @Override

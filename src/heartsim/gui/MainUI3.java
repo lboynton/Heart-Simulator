@@ -168,8 +168,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
      */
     private void loadCAModels()
     {
-        HeartTissue tissue = (HeartTissue) cboBoxTissue.getSelectedItem();
-
         DefaultComboBoxModel CAModels = new DefaultComboBoxModel();
 
         for (CellularAutomataModel model : Application.getInstance().getCAModels())
@@ -1173,7 +1171,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         setStatusText("Cells generated");
         ca.setCells(cellGenerator.getCells());
         ca.setTissues(cellGenerator.getTissues());
-        ca.setTissueNames(cellGenerator.getTissueNames());
+        ca.setTissueLocations(cellGenerator.getTissueNames());
         overlay.setSize(cellGenerator.getCells()[0].length, cellGenerator.getCells().length);
         loadHeartTissues();
         simulation.setInitialised(false);
