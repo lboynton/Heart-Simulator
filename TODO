@@ -1,8 +1,7 @@
 TODO
 
 High priority items
-- Autodetect profile to use
-- Add chart
+- Add voltage/recovery chart
 - Add in different heart tissue, SA node, AV node, bundle of His, purkinje fibres
   left and right bundle branches, atria, ventricles
 - Make sure things like the bundle branches are on top of the ventricles. Might
@@ -14,6 +13,7 @@ Medium priority items
 - Work out how to integrate bundle of his into visualisation. It currently cuts
   off part of the right atrium
 - Lock GUI whilst things are loading
+- Devise a better way of applying parameters to different CA models in the profiles
 
 Low priority items
 - Add help buttons to simulation panel
