@@ -148,5 +148,5 @@ public abstract class CellularAutomataModel
 
     public abstract int getCellExcitationValue();
 
-    public abstract int processCell(int row, int col, int[][] u, int[][] v, int[][] tempu);
+    public abstract void processCell(int row, int col, int[][] u, int[][] v, int[][] tempu);
 }

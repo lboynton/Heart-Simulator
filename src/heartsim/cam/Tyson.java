@@ -5,8 +5,6 @@
 package heartsim.cam;
 
 import heartsim.cam.parameter.CAModelIntParameter;
-import heartsim.util.ArrayUtils;
-import java.awt.Dimension;
 
 /**
  *
@@ -190,7 +188,7 @@ public class Tyson extends CellularAutomataModel
     }
 
     @Override
-    public int processCell(int row, int col, int[][] u, int[][] v, int[][] tempu)
+    public void processCell(int row, int col, int[][] u, int[][] v, int[][] tempu)
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }

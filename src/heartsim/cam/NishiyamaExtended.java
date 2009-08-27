@@ -24,6 +24,11 @@ public class NishiyamaExtended extends Nishiyama
         CAModelIntParameter uUpParam = new CAModelIntParameter(1);
         CAModelIntParameter uDownParam = new CAModelIntParameter(1);
 
+        uUpParam.setDescription("Determines how steep the upstroke of the action" +
+                "potential is");
+        uDownParam.setDescription("Determines how steep the downstroke of the" +
+                "action potential is");
+
         this.setParameter("uUp", uUpParam);
         this.setParameter("uDown", uDownParam);
     }
@@ -38,7 +43,7 @@ public class NishiyamaExtended extends Nishiyama
     }
 
     @Override
-    public int processCell(int row, int col, int[][] u, int[][] v, int[][] tempu)
+    public void processCell(int row, int col, int[][] u, int[][] v, int[][] tempu)
     {
         if (u[row][col] == 0)
         {
@@ -87,7 +92,5 @@ public class NishiyamaExtended extends Nishiyama
                 u[row][col] += uUp;
             }
         }
-
-        return v[row][col];
     }
 }

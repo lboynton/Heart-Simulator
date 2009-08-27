@@ -150,7 +150,7 @@ public class Nishiyama extends CellularAutomataModel
     }
 
     @Override
-    public int processCell(int row, int col, int[][] u, int[][] v, int[][] tempu)
+    public void processCell(int row, int col, int[][] u, int[][] v, int[][] tempu)
     {
         if (u[row][col] == 0)
         {
@@ -183,7 +183,5 @@ public class Nishiyama extends CellularAutomataModel
         {
             u[row][col]++;  // upstroke
         }
-
-        return v[row][col];
     }
 }
