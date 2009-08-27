@@ -34,6 +34,16 @@
             <Property name="text" type="java.lang.String" value="View"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuItmChart">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Action potential chart"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuItmChartActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JSeparator" name="jSeparator3">
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuItmnZoomIn">
               <Properties>
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -301,10 +311,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="tabbedPane" pref="272" max="32767" attributes="1"/>
-                              <Component id="actionPotentialChart" alignment="1" pref="272" max="32767" attributes="1"/>
-                          </Group>
+                          <Component id="tabbedPane" pref="272" max="32767" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="scrollPaneCanvas" pref="572" max="32767" attributes="0"/>
                       </Group>
@@ -327,12 +334,8 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="tabbedPane" pref="304" max="32767" attributes="2"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="actionPotentialChart" min="-2" pref="201" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="scrollPaneCanvas" pref="517" max="32767" attributes="1"/>
+                      <Component id="tabbedPane" pref="517" max="32767" attributes="2"/>
+                      <Component id="scrollPaneCanvas" alignment="0" pref="517" max="32767" attributes="1"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -347,30 +350,6 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="heartsim.gui.ActionPotentialChart" name="actionPotentialChart">
-          <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder roundedCorners="true">
-                  <Color PropertyName="color" blue="98" green="a5" id="Table.dropLineColor" palette="3" red="b1" type="palette"/>
-                </LineBorder>
-              </Border>
-            </Property>
-          </Properties>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="270" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="199" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-        </Container>
         <Component class="javax.swing.JProgressBar" name="progressBar">
           <Properties>
             <Property name="maximum" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -407,7 +386,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="pnlParameters" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="168" max="32767" attributes="0"/>
+                          <EmptySpace pref="381" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -616,7 +595,7 @@
                               <Component id="txtHeartRate" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblHeart" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="168" max="32767" attributes="0"/>
+                          <EmptySpace pref="381" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
