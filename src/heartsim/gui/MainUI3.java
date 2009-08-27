@@ -10,6 +10,7 @@
  */
 package heartsim.gui;
 
+import heartsim.gui.component.BinaryPlotPanelOverlay;
 import heartsim.Application;
 import heartsim.CellGenerator;
 import heartsim.CellGeneratorListener;

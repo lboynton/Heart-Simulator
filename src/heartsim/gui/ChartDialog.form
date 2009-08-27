@@ -40,7 +40,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="heartsim.gui.ActionPotentialChart" name="chart">
+    <Container class="heartsim.gui.component.ActionPotentialChart" name="chart">
 
       <Layout>
         <DimensionLayout dim="0">

@@ -27,11 +27,11 @@ public class CellsViewer extends javax.swing.JFrame
     public CellsViewer(boolean[][] cells)
     {
         initComponents();
-        binaryPlotPanel1.setPreferredSize(new Dimension(cells[0].length, cells.length));
-        binaryPlotPanel1.setSize(cells[0].length, cells.length);
-        binaryPlotPanel1.setSize(binaryPlotPanel1.getSize());
+        binaryPlotPanel.setPreferredSize(new Dimension(cells[0].length, cells.length));
+        binaryPlotPanel.setSize(cells[0].length, cells.length);
+        binaryPlotPanel.setSize(binaryPlotPanel.getSize());
         pack();
-        binaryPlotPanel1.setCells(cells);
+        binaryPlotPanel.setCells(cells);
     }
 
     /** This method is called from within the constructor to
@@ -43,19 +43,19 @@ public class CellsViewer extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        binaryPlotPanel1 = new heartsim.gui.BinaryPlotPanel();
+        binaryPlotPanel = new heartsim.gui.component.BinaryPlotPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        javax.swing.GroupLayout binaryPlotPanel1Layout = new javax.swing.GroupLayout(binaryPlotPanel1);
-        binaryPlotPanel1.setLayout(binaryPlotPanel1Layout);
-        binaryPlotPanel1Layout.setHorizontalGroup(
-            binaryPlotPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 463, Short.MAX_VALUE)
+        javax.swing.GroupLayout binaryPlotPanelLayout = new javax.swing.GroupLayout(binaryPlotPanel);
+        binaryPlotPanel.setLayout(binaryPlotPanelLayout);
+        binaryPlotPanelLayout.setHorizontalGroup(
+            binaryPlotPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 465, Short.MAX_VALUE)
         );
-        binaryPlotPanel1Layout.setVerticalGroup(
-            binaryPlotPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 351, Short.MAX_VALUE)
+        binaryPlotPanelLayout.setVerticalGroup(
+            binaryPlotPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 353, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -64,14 +64,14 @@ public class CellsViewer extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(binaryPlotPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(binaryPlotPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(binaryPlotPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(binaryPlotPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -92,6 +92,6 @@ public class CellsViewer extends javax.swing.JFrame
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private heartsim.gui.BinaryPlotPanel binaryPlotPanel1;
+    private heartsim.gui.component.BinaryPlotPanel binaryPlotPanel;
     // End of variables declaration//GEN-END:variables
 }

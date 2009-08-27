@@ -10,6 +10,8 @@
  */
 package heartsim.gui;
 
+import heartsim.gui.component.ActionPotentialChart;
+
 /**
  *
  * @author Lee Boynton
@@ -37,7 +39,7 @@ public class ChartDialog extends javax.swing.JDialog
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        chart = new heartsim.gui.ActionPotentialChart();
+        chart = new heartsim.gui.component.ActionPotentialChart();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -94,6 +96,6 @@ public class ChartDialog extends javax.swing.JDialog
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private heartsim.gui.ActionPotentialChart chart;
+    private heartsim.gui.component.ActionPotentialChart chart;
     // End of variables declaration//GEN-END:variables
 }

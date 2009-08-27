@@ -6,7 +6,7 @@ package heartsim;
 
 import heartsim.cam.speed.Maximum;
 import heartsim.cam.speed.Speed;
-import heartsim.gui.BinaryPlotPanelOverlay;
+import heartsim.gui.component.BinaryPlotPanelOverlay;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

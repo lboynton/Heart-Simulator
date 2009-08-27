@@ -8,7 +8,7 @@
  *
  * Created on 15-Jun-2009, 13:44:00
  */
-package heartsim.gui;
+package heartsim.gui.component;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
