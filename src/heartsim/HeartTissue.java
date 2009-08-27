@@ -78,6 +78,7 @@ public class HeartTissue
 
     public void setModel(CellularAutomataModel model)
     {
+        Application.getInstance().output("Setting " + name + " to use " + model.getName() + " model");
         this.currentModel = model;
     }
 

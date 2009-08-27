@@ -1048,6 +1048,8 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private void cboBoxModelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cboBoxModelActionPerformed
     {//GEN-HEADEREND:event_cboBoxModelActionPerformed
         loadModelParameters();
+        HeartTissue tissue = (HeartTissue) cboBoxTissue.getSelectedItem();
+        tissue.setModel(caModel);
         //rangeAxis.setRange(caModel.getMin(), caModel.getMax());
 }//GEN-LAST:event_cboBoxModelActionPerformed
 
