@@ -11,6 +11,8 @@
 package heartsim.gui;
 
 import heartsim.gui.component.ActionPotentialChart;
+import java.awt.Frame;
+import javax.swing.UIManager;
 
 /**
  *
@@ -18,11 +20,34 @@ import heartsim.gui.component.ActionPotentialChart;
  */
 public class ChartDialog extends javax.swing.JDialog
 {
+    private ChartDialogEvent listener;
+
     /** Creates new form ChartDialog */
-    public ChartDialog(java.awt.Frame parent, boolean modal)
+    private ChartDialog(java.awt.Frame parent, boolean modal)
     {
-        super(parent, modal);
+        this(parent, modal, null);
+    }
+
+    public ChartDialog(Frame owner, boolean modal, ChartDialogEvent listener)
+    {
+        super(owner, modal);
+        this.listener = listener;
+
+        try
+        {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        }
+        catch (Exception ex)
+        {
+            System.err.println("Unable to use system look and feel");
+        }
+
         initComponents();
+    }
+
+    public void setListener(ChartDialogEvent listener)
+    {
+        this.listener = listener;
     }
 
     public ActionPotentialChart getChart()
@@ -40,6 +65,7 @@ public class ChartDialog extends javax.swing.JDialog
     private void initComponents() {
 
         chart = new heartsim.gui.component.ActionPotentialChart();
+        toggleBtnChooseCell = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -47,12 +73,19 @@ public class ChartDialog extends javax.swing.JDialog
         chart.setLayout(chartLayout);
         chartLayout.setHorizontalGroup(
             chartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 680, Short.MAX_VALUE)
+            .addGap(0, 652, Short.MAX_VALUE)
         );
         chartLayout.setVerticalGroup(
             chartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
+            .addGap(0, 360, Short.MAX_VALUE)
         );
+
+        toggleBtnChooseCell.setText("Choose cell");
+        toggleBtnChooseCell.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toggleBtnChooseCellActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -60,19 +93,41 @@ public class ChartDialog extends javax.swing.JDialog
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(chart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)
+                    .addComponent(toggleBtnChooseCell, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(chart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                .addGap(12, 12, 12)
+                .addComponent(toggleBtnChooseCell)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void toggleBtnChooseCellActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_toggleBtnChooseCellActionPerformed
+    {//GEN-HEADEREND:event_toggleBtnChooseCellActionPerformed
+        if(listener == null)
+        {
+            System.err.println("No listeners are attached to the chart dialog. Can not set the cell.");
+            return;
+        }
+
+        if(toggleBtnChooseCell.isSelected())
+        {
+            listener.setCellSelectionMode();
+        }
+        else
+        {
+            listener.cancelCellSelectionMode();
+        }
+    }//GEN-LAST:event_toggleBtnChooseCellActionPerformed
 
     /**
      * @param args the command line arguments
@@ -97,5 +152,6 @@ public class ChartDialog extends javax.swing.JDialog
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private heartsim.gui.component.ActionPotentialChart chart;
+    private javax.swing.JToggleButton toggleBtnChooseCell;
     // End of variables declaration//GEN-END:variables
 }

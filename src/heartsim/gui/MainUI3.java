@@ -30,6 +30,7 @@ import heartsim.cam.speed.Speed;
 import heartsim.gui.layout.SpringUtilities;
 import heartsim.gui.util.FileChooserFilter;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
@@ -66,7 +67,7 @@ import org.apache.batik.swing.svg.SVGDocumentLoaderListener;
  */
 public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener,
         SVGDocumentLoaderListener, GVTTreeBuilderListener, GVTTreeRendererListener,
-        SimulatorListener, JGVTComponentListener
+        SimulatorListener, JGVTComponentListener, ChartDialogEvent
 {
     private CellGenerator cellGenerator;
     private CellularAutomaton ca = new CellularAutomaton();
@@ -78,7 +79,16 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private final Simulator simulation;
     private String openFile;
     private int runTime = 5000;
-    private ChartDialog chartDialog = new ChartDialog(this, false);
+    private ChartDialog chartDialog = new ChartDialog(this, false, this);
+    private MouseClickAction mouseClickAction = MouseClickAction.None;
+    private int chartCol = 0;
+    private int chartRow = 0;
+    private Cursor crossHairCursor = new Cursor(Cursor.CROSSHAIR_CURSOR);
+
+    public static enum MouseClickAction
+    {
+        SetStimulateCell, SetChartCell, None
+    };
 
     /** Creates new form MainUI3 */
     public MainUI3()
@@ -353,10 +363,21 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         int x = (scrollPaneCanvas.getWidth() / 2) - (svgCanvas.getPreferredSize().width / 2);
         int y = (scrollPaneCanvas.getHeight() / 2) - (svgCanvas.getPreferredSize().height / 2);
 
-        if(x < 0) x = 0;
-        if(y < 0) y = 0;
+        if (x < 0)
+        {
+            x = 0;
+        }
+        if (y < 0)
+        {
+            y = 0;
+        }
 
         pnlCanvasContainer.add(svgCanvas, new org.netbeans.lib.awtextra.AbsoluteConstraints(x, y, -1, -1));
+    }
+
+    public void setMouseClickAction(MouseClickAction mouseClickAction)
+    {
+        this.mouseClickAction = mouseClickAction;
     }
 
     /** This method is called from within the constructor to
@@ -409,6 +430,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         lblHeartRate = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         mnuFile = new javax.swing.JMenu();
+        mnuItmStimulationLocation = new javax.swing.JMenuItem();
         mnuItmReload = new javax.swing.JMenuItem();
         separatorMnuFile = new javax.swing.JSeparator();
         mnuItmExit = new javax.swing.JMenuItem();
@@ -797,6 +819,14 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         mnuFile.setText("File");
 
+        mnuItmStimulationLocation.setText("Set stimulation location");
+        mnuItmStimulationLocation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItmStimulationLocationActionPerformed(evt);
+            }
+        });
+        mnuFile.add(mnuItmStimulationLocation);
+
         mnuItmReload.setText("Reload file");
         mnuItmReload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -915,21 +945,31 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
     private void svgCanvasMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_svgCanvasMouseClicked
     {//GEN-HEADEREND:event_svgCanvasMouseClicked
-        // left click
-        if (evt.getButton() == MouseEvent.BUTTON1)
-        {
-            // run simulation
-            svgCanvas.getOverlays().add(overlay);
-            stimCol = evt.getX();
-            stimRow = evt.getY();
-            simulation.setStimulatedCell(stimRow, stimCol);
-            simulation.run(runTime);
-        }
-
+        // right click
         if (evt.getButton() == MouseEvent.BUTTON3)
         {
             // pause simulation
             simulation.pause();
+        }
+
+        // left click
+        if (evt.getButton() == MouseEvent.BUTTON1)
+        {
+            if (mouseClickAction == MouseClickAction.SetStimulateCell)
+            {
+                // set stimulation location
+                stimCol = evt.getX();
+                stimRow = evt.getY();
+
+                mouseClickAction = MouseClickAction.None;
+            }
+
+            if (mouseClickAction == MouseClickAction.SetChartCell)
+            {
+                // set chart cell location
+                chartCol = evt.getX();
+                chartRow = evt.getY();
+            }
         }
     }//GEN-LAST:event_svgCanvasMouseClicked
 
@@ -1103,6 +1143,11 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         chartDialog.setVisible(true);
     }//GEN-LAST:event_mnuItmChartActionPerformed
 
+    private void mnuItmStimulationLocationActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuItmStimulationLocationActionPerformed
+    {//GEN-HEADEREND:event_mnuItmStimulationLocationActionPerformed
+        mouseClickAction = MouseClickAction.SetStimulateCell;
+    }//GEN-LAST:event_mnuItmStimulationLocationActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1154,6 +1199,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private javax.swing.JMenuItem mnuItmPrintArrays;
     private javax.swing.JMenuItem mnuItmPrintCells;
     private javax.swing.JMenuItem mnuItmReload;
+    private javax.swing.JMenuItem mnuItmStimulationLocation;
     private javax.swing.JMenuItem mnuItmTransform;
     private javax.swing.JCheckBoxMenuItem mnuItmVerboseOutput;
     private javax.swing.JMenuItem mnuItmViewCells;
@@ -1286,7 +1332,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     public void simulationUpdated(int time)
     {
         incrementProgressBar();
-        chartDialog.getChart().nextVoltageValue(time, ca.getV(stimRow, stimCol));
+        chartDialog.getChart().nextVoltageValue(time, ca.getV(chartRow, chartCol));
         svgCanvas.repaint();
     }
 
@@ -1316,6 +1362,19 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             generatorWorker = new CellGeneratorWorker();
             generatorWorker.execute();
         }
+    }
+
+    public void setCellSelectionMode()
+    {
+        mouseClickAction = MouseClickAction.SetChartCell;
+        requestFocus();
+        svgCanvas.setCursor(crossHairCursor);
+    }
+
+    public void cancelCellSelectionMode()
+    {
+        mouseClickAction = MouseClickAction.None;
+        svgCanvas.setCursor(null);
     }
 
     public class CellGeneratorWorker extends SwingWorker
