@@ -31,8 +31,8 @@ public class ActionPotentialChart extends ChartPanel
 
         chartData = new DefaultCategoryDataset();
         renderer = new LineRenderer3D();
-        domainAxis = new CategoryAxis();
-        rangeAxis = new NumberAxis();
+        domainAxis = new CategoryAxis("Time");
+        rangeAxis = new NumberAxis("Voltage");
         rangeAxis.setRange(0, 25);
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         final CategoryPlot plot = new CategoryPlot(chartData, domainAxis, rangeAxis, renderer);
@@ -50,7 +50,7 @@ public class ActionPotentialChart extends ChartPanel
 
     public void nextVoltageValue(int time, int value)
     {
-        if (chartData.getColumnCount() > 6)
+        if (chartData.getColumnCount() > 20)
         {
             chartData.removeColumn(0);
         }

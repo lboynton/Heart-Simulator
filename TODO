@@ -1,7 +1,7 @@
 TODO
 
 High priority items
-- Add voltage/recovery chart
+- Add cell selector for action potential chart
 - Add in different heart tissue, SA node, AV node, bundle of His, purkinje fibres
   left and right bundle branches, atria, ventricles
 - Make sure things like the bundle branches are on top of the ventricles. Might
