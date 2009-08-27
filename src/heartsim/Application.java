@@ -9,6 +9,7 @@ import heartsim.cam.profile.Atria;
 import heartsim.cam.profile.Profile;
 import heartsim.cam.CellularAutomataModel;
 import heartsim.cam.Nishiyama;
+import heartsim.cam.NishiyamaExtended;
 import heartsim.cam.Tyson;
 import heartsim.cam.profile.AtrioventricularNode;
 import heartsim.cam.profile.BundleBranches;
@@ -80,6 +81,7 @@ public class Application
         List<CellularAutomataModel> models = new ArrayList<CellularAutomataModel>();
 
         models.add(new Nishiyama());
+        models.add(new NishiyamaExtended());
         models.add(new Tyson());
 
         return models;

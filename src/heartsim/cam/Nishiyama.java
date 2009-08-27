@@ -17,10 +17,10 @@ import java.util.Random;
  */
 public class Nishiyama extends CellularAutomataModel
 {
-    private int delta[][]; // delta values for each cell
-    private Random generator = new Random();
-    private int N;
-    private final int excitationValue = 1;
+    protected int delta[][]; // delta values for each cell
+    protected Random generator = new Random();
+    protected int N;
+    protected final int excitationValue = 1;
 
     public Nishiyama()
     {

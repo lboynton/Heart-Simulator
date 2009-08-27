@@ -42,6 +42,11 @@ public abstract class CellularAutomataModel
         return name;
     }
 
+    protected void setName(String name)
+    {
+        this.name = name;
+    }
+
     /**
      * Gets the description of the cellular automata model
      * @return
