@@ -39,7 +39,7 @@ public class SinoatrialNode extends Profile
             model.getParameter("Delta 1").setValue("18");
             model.getParameter("Delta 2").setValue("22");
             model.getParameter("N").setValue("20");
-            model.getParameter("uUp").setValue("3");
+            model.getParameter("uUp").setValue("10");
             model.getParameter("uDown").setValue("1");
         }
 
