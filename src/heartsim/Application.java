@@ -80,8 +80,9 @@ public class Application
     {
         List<CellularAutomataModel> models = new ArrayList<CellularAutomataModel>();
 
-        models.add(new Nishiyama());
+        // the first model added is the default model applied to heart tissue
         models.add(new NishiyamaExtended());
+        models.add(new Nishiyama());
         models.add(new Tyson());
 
         return models;
