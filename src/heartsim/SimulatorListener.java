@@ -14,5 +14,5 @@ public interface SimulatorListener
     public void simulationPaused();
     public void simulationCompleted();
     public void simulationStopped();
-    public void simulationUpdated();
+    public void simulationUpdated(int time);
 }

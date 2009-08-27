@@ -144,7 +144,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="toolbar" alignment="0" pref="921" max="32767" attributes="0"/>
+          <Component id="toolbar" alignment="0" pref="874" max="32767" attributes="0"/>
           <Component id="pnlRootContainer" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
@@ -301,13 +301,16 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="tabbedPane" min="-2" pref="295" max="-2" attributes="1"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="tabbedPane" pref="272" max="32767" attributes="1"/>
+                              <Component id="actionPotentialChart" alignment="1" pref="272" max="32767" attributes="1"/>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="scrollPaneCanvas" pref="596" max="32767" attributes="0"/>
+                          <Component id="scrollPaneCanvas" pref="572" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblStatus" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="517" max="32767" attributes="0"/>
+                          <EmptySpace pref="470" max="32767" attributes="0"/>
                           <Component id="lblHeartRateText" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblHeartRate" min="-2" max="-2" attributes="0"/>
@@ -322,24 +325,52 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="tabbedPane" pref="483" max="32767" attributes="1"/>
-                      <Component id="scrollPaneCanvas" alignment="0" pref="483" max="32767" attributes="1"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="tabbedPane" pref="304" max="32767" attributes="2"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="actionPotentialChart" min="-2" pref="201" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="scrollPaneCanvas" pref="517" max="32767" attributes="1"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="progressBar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblHeartRate" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblHeartRateText" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
+        <Container class="heartsim.gui.ActionPotentialChart" name="actionPotentialChart">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder roundedCorners="true">
+                  <Color PropertyName="color" blue="98" green="a5" id="Table.dropLineColor" palette="3" red="b1" type="palette"/>
+                </LineBorder>
+              </Border>
+            </Property>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="0" pref="270" max="32767" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="0" pref="199" max="32767" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+        </Container>
         <Component class="javax.swing.JProgressBar" name="progressBar">
           <Properties>
             <Property name="maximum" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -376,7 +407,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="pnlParameters" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="347" max="32767" attributes="0"/>
+                          <EmptySpace pref="168" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -393,7 +424,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="lblTissue" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="cboBoxTissue" pref="187" max="32767" attributes="1"/>
+                                      <Component id="cboBoxTissue" pref="164" max="32767" attributes="1"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="btnProfileHelp" min="-2" pref="22" max="-2" attributes="0"/>
                                   </Group>
@@ -402,12 +433,12 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="lblProfile" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="cboBoxProfile" pref="188" max="32767" attributes="0"/>
+                                              <Component id="cboBoxProfile" pref="165" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="1" attributes="0">
                                               <Component id="lblModel" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="cboBoxModel" pref="189" max="32767" attributes="1"/>
+                                              <Component id="cboBoxModel" pref="166" max="32767" attributes="1"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -559,9 +590,9 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtHeartRate" pref="185" max="32767" attributes="0"/>
-                              <Component id="txtTime" alignment="1" pref="185" max="32767" attributes="0"/>
-                              <Component id="cboBoxSpeed" alignment="0" pref="185" max="32767" attributes="0"/>
+                              <Component id="txtHeartRate" pref="162" max="32767" attributes="0"/>
+                              <Component id="txtTime" alignment="1" pref="162" max="32767" attributes="0"/>
+                              <Component id="cboBoxSpeed" alignment="0" pref="162" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -585,7 +616,7 @@
                               <Component id="txtHeartRate" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblHeart" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="347" max="32767" attributes="0"/>
+                          <EmptySpace pref="168" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

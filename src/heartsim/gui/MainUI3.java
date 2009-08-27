@@ -379,6 +379,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         separatorZoom = new javax.swing.JToolBar.Separator();
         btnAbout = new javax.swing.JButton();
         pnlRootContainer = new javax.swing.JPanel();
+        actionPotentialChart = new heartsim.gui.ActionPotentialChart();
         progressBar = new javax.swing.JProgressBar();
         lblStatus = new javax.swing.JLabel();
         tabbedPane = new javax.swing.JTabbedPane();
@@ -528,6 +529,19 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         btnAbout.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         toolbar.add(btnAbout);
 
+        actionPotentialChart.setBorder(new javax.swing.border.LineBorder(javax.swing.UIManager.getDefaults().getColor("Table.dropLineColor"), 1, true));
+
+        javax.swing.GroupLayout actionPotentialChartLayout = new javax.swing.GroupLayout(actionPotentialChart);
+        actionPotentialChart.setLayout(actionPotentialChartLayout);
+        actionPotentialChartLayout.setHorizontalGroup(
+            actionPotentialChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 270, Short.MAX_VALUE)
+        );
+        actionPotentialChartLayout.setVerticalGroup(
+            actionPotentialChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 199, Short.MAX_VALUE)
+        );
+
         progressBar.setMaximum(7);
         progressBar.setStringPainted(true);
 
@@ -595,7 +609,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
                     .addGroup(pnlParametersLayout.createSequentialGroup()
                         .addComponent(lblTissue)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cboBoxTissue, 0, 187, Short.MAX_VALUE)
+                        .addComponent(cboBoxTissue, 0, 164, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnProfileHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlParametersLayout.createSequentialGroup()
@@ -603,11 +617,11 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlParametersLayout.createSequentialGroup()
                                 .addComponent(lblProfile)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cboBoxProfile, 0, 188, Short.MAX_VALUE))
+                                .addComponent(cboBoxProfile, 0, 165, Short.MAX_VALUE))
                             .addGroup(pnlParametersLayout.createSequentialGroup()
                                 .addComponent(lblModel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cboBoxModel, 0, 189, Short.MAX_VALUE)))
+                                .addComponent(cboBoxModel, 0, 166, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnTissueHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -649,7 +663,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             pnlCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCALayout.createSequentialGroup()
                 .addComponent(pnlParameters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(347, Short.MAX_VALUE))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Model", pnlCA);
@@ -695,9 +709,9 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
                     .addComponent(lblSpeed))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlSimulationSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtHeartRate, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                    .addComponent(txtTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                    .addComponent(cboBoxSpeed, 0, 185, Short.MAX_VALUE))
+                    .addComponent(txtHeartRate, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                    .addComponent(txtTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                    .addComponent(cboBoxSpeed, 0, 162, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlSimulationSettingsLayout.setVerticalGroup(
@@ -715,7 +729,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
                 .addGroup(pnlSimulationSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtHeartRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblHeart))
-                .addContainerGap(347, Short.MAX_VALUE))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Simulation", pnlSimulationSettings);
@@ -762,12 +776,14 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
                 .addContainerGap()
                 .addGroup(pnlRootContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlRootContainerLayout.createSequentialGroup()
-                        .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pnlRootContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                            .addComponent(actionPotentialChart, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scrollPaneCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE))
+                        .addComponent(scrollPaneCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlRootContainerLayout.createSequentialGroup()
                         .addComponent(lblStatus)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 517, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 470, Short.MAX_VALUE)
                         .addComponent(lblHeartRateText)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblHeartRate)
@@ -780,8 +796,11 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRootContainerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlRootContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
-                    .addComponent(scrollPaneCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRootContainerLayout.createSequentialGroup()
+                        .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(actionPotentialChart, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scrollPaneCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlRootContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblStatus)
@@ -886,7 +905,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(toolbar, javax.swing.GroupLayout.DEFAULT_SIZE, 921, Short.MAX_VALUE)
+            .addComponent(toolbar, javax.swing.GroupLayout.DEFAULT_SIZE, 874, Short.MAX_VALUE)
             .addComponent(pnlRootContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -1099,6 +1118,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private heartsim.gui.ActionPotentialChart actionPotentialChart;
     private javax.swing.JButton btnAbout;
     private javax.swing.JButton btnModelHelp;
     private javax.swing.JButton btnOpen;
@@ -1263,9 +1283,10 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         btnStart.setEnabled(true);
     }
 
-    public void simulationUpdated()
+    public void simulationUpdated(int time)
     {
         incrementProgressBar();
+        actionPotentialChart.nextVoltageValue(time, ca.getV(stimRow, stimCol));
         svgCanvas.repaint();
     }
 

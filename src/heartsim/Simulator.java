@@ -23,7 +23,8 @@ public class Simulator
     private CellularAutomaton ca;
     private BinaryPlotPanelOverlay overlay;
     private boolean initialised = false;
-    private int runTime;
+    private int runTime = 0;
+    private int currentTime = 0;
     private Stimulus stimulus;
     private Speed speed = new Maximum(); // run simulation at maximum speed by default
 
@@ -151,7 +152,7 @@ public class Simulator
     {
         for (SimulatorListener listener : listeners)
         {
-            listener.simulationUpdated();
+            listener.simulationUpdated(currentTime);
         }
     }
 
@@ -195,7 +196,7 @@ public class Simulator
 
             int[][] u = ca.getU();
 
-            for (int t = 0; t < runTime; t++)
+            for (currentTime = 0; currentTime < runTime; currentTime++)
             {
                 if(state == State.STOPPED)
                 {
