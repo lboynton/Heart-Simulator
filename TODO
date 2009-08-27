@@ -1,7 +1,6 @@
 TODO
 
 High priority items
-- Add cell selector for action potential chart
 - Add in different heart tissue, SA node, AV node, bundle of His, purkinje fibres
   left and right bundle branches, atria, ventricles
 - Make sure things like the bundle branches are on top of the ventricles. Might
@@ -24,6 +23,7 @@ Low priority items
 - Fix the location of the stimulus in the centre of the SA node
 - Determine the optimum size of the stimulus in terms of the number of cells to
   stimulate
+- Work out why crosshair cursor doesn't show over JSVGCanvas
 
 Wishlist items
 - Implement other CA models
