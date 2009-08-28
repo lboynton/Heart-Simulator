@@ -4,13 +4,12 @@
  */
 package heartsim;
 
-import heartsim.util.StringUtils;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.batik.gvt.GraphicsNode;
@@ -29,7 +28,7 @@ public class CellGenerator implements SVGDocumentLoaderListener
 {
     private List<CellGeneratorListener> listeners = Collections.synchronizedList(new ArrayList<CellGeneratorListener>());
     private JSVGCanvas canvas;
-    private Map<HeartTissue, Boolean> tissues = new HashMap<HeartTissue, Boolean>();
+    private Map<HeartTissue, Boolean> tissues = new LinkedHashMap<HeartTissue, Boolean>();
     private String tissueNames[][];
     private boolean cells[][];
     private boolean completed = false;
@@ -173,7 +172,9 @@ public class CellGenerator implements SVGDocumentLoaderListener
             int i = 0;
             while (nodes.item(i) != null)
             {
+
                 Element element = (Element) nodes.item(i);
+
                 NodeList titles = element.getElementsByTagName(SVGConstants.SVG_TITLE_TAG);
 
                 // get the first title
