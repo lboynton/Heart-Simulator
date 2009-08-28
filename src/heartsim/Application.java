@@ -17,6 +17,7 @@ import heartsim.cam.profile.BundleOfHis;
 import heartsim.cam.profile.Default;
 import heartsim.cam.profile.Insulator;
 import heartsim.cam.profile.InternodalFibres;
+import heartsim.cam.profile.PurkinjeFibres;
 import heartsim.cam.profile.SinoatrialNode;
 import java.util.ArrayList;
 import java.util.List;
@@ -108,6 +109,7 @@ public class Application
         profiles.add(new BundleOfHis());
         profiles.add(new InternodalFibres());
         profiles.add(new Insulator());
+        profiles.add(new PurkinjeFibres());
         profiles.add(new SinoatrialNode());
         profiles.add(new Ventricles());
 
