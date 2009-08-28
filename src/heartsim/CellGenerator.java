@@ -4,11 +4,11 @@
  */
 package heartsim;
 
+import heartsim.util.StringUtils;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +17,9 @@ import org.apache.batik.gvt.GraphicsNode;
 import org.apache.batik.swing.JSVGCanvas;
 import org.apache.batik.swing.svg.SVGDocumentLoaderEvent;
 import org.apache.batik.swing.svg.SVGDocumentLoaderListener;
+import org.apache.batik.util.SVGConstants;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 /**
  *
@@ -27,7 +29,6 @@ public class CellGenerator implements SVGDocumentLoaderListener
 {
     private List<CellGeneratorListener> listeners = Collections.synchronizedList(new ArrayList<CellGeneratorListener>());
     private JSVGCanvas canvas;
-    private List<String> paths = new ArrayList<String>();
     private Map<HeartTissue, Boolean> tissues = new HashMap<HeartTissue, Boolean>();
     private String tissueNames[][];
     private boolean cells[][];
@@ -36,10 +37,9 @@ public class CellGenerator implements SVGDocumentLoaderListener
     private int progress = 0;
     private String tissueLoading = "None";
 
-    public CellGenerator(JSVGCanvas canvas, String paths[])
+    public CellGenerator(JSVGCanvas canvas)
     {
         this.canvas = canvas;
-        this.paths.addAll(Arrays.asList(paths));
         canvas.addSVGDocumentLoaderListener(this);
     }
 
@@ -56,24 +56,6 @@ public class CellGenerator implements SVGDocumentLoaderListener
     public String getTissueLoading()
     {
         return tissueLoading;
-    }
-
-    public void addPath(String path)
-    {
-        paths.add(path);
-    }
-
-    public void removePath(String path)
-    {
-        if (paths.contains(path))
-        {
-            paths.remove(path);
-        }
-    }
-
-    public String[] getPaths()
-    {
-        return (String[]) paths.toArray();
     }
 
     public void addGeneratorListener(CellGeneratorListener listener)
@@ -186,16 +168,40 @@ public class CellGenerator implements SVGDocumentLoaderListener
         {
             tissues.clear();
 
-            for (String path : paths)
-            {
-                Element element = (Element) canvas.getSVGDocument().getElementById(path);
+            NodeList nodes = canvas.getSVGDocument().getElementsByTagName(SVGConstants.SVG_PATH_TAG);
 
-                if (element != null)
+            int i = 0;
+            while (nodes.item(i) != null)
+            {
+                Element element = (Element) nodes.item(i);
+                NodeList titles = element.getElementsByTagName(SVGConstants.SVG_TITLE_TAG);
+
+                // get the first title
+                if (titles.item(0) != null)
                 {
-                    HeartTissue tissue = new HeartTissue(path);
-                    tissue.setElement(element);
-                    tissues.put(tissue, true);
+                    String title = titles.item(0).getTextContent();
+
+                    boolean exists = false;
+
+                    for(HeartTissue t:tissues.keySet())
+                    {
+                        if(t.getName().equals(StringUtils.prettify(title)))
+                        {
+                            t.getElements().add(element);
+                            exists = true;
+                            break;
+                        }
+                    }
+
+                    if(!exists)
+                    {
+                        HeartTissue tissue = new HeartTissue(title);
+                        tissue.getElements().add(element);
+                        tissues.put(tissue, true);
+                    }
                 }
+
+                i++;
             }
         }
 
@@ -219,34 +225,37 @@ public class CellGenerator implements SVGDocumentLoaderListener
 
                 Application.getInstance().output("Generating cells for " + tissueLoading);
 
-                GraphicsNode node = canvas.getUpdateManager().getBridgeContext().getGraphicsNode(tissue.getElement());
-
-                if (node != null)
+                for (Element element : tissue.getElements())
                 {
-                    AffineTransform elementsAt = node.getGlobalTransform();
-                    Shape selectionHighlight = node.getOutline();
-                    AffineTransform at = canvas.getRenderingTransform();
-                    at.concatenate(elementsAt);
-                    Shape s = at.createTransformedShape(selectionHighlight);
+                    GraphicsNode node = canvas.getUpdateManager().getBridgeContext().getGraphicsNode(element);
 
-                    if (s == null)
+                    if (node != null)
                     {
-                        break;
-                    }
+                        AffineTransform elementsAt = node.getGlobalTransform();
+                        Shape selectionHighlight = node.getOutline();
+                        AffineTransform at = canvas.getRenderingTransform();
+                        at.concatenate(elementsAt);
+                        Shape s = at.createTransformedShape(selectionHighlight);
 
-                    for (int row = 0; row < canvas.getPreferredSize().height; row++)
-                    {
-                        for (int col = 0; col < canvas.getPreferredSize().width; col++)
+                        if (s == null)
                         {
-                            if (s.contains(new Point(col, row)))
-                            {
-                                cells[row][col] = true;
-                                tissueNames[row][col] = tissueLoading;
-                            }
+                            break;
                         }
 
-                        // row completed
-                        progress = (int) (((row + 1) / (double) canvas.getPreferredSize().height) * 100);
+                        for (int row = 0; row < canvas.getPreferredSize().height; row++)
+                        {
+                            for (int col = 0; col < canvas.getPreferredSize().width; col++)
+                            {
+                                if (s.contains(new Point(col, row)))
+                                {
+                                    cells[row][col] = true;
+                                    tissueNames[row][col] = tissueLoading;
+                                }
+                            }
+
+                            // row completed
+                            progress = (int) (((row + 1) / (double) canvas.getPreferredSize().height) * 100);
+                        }
                     }
                 }
             }

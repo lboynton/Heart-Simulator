@@ -8,6 +8,8 @@ import heartsim.cam.CellularAutomataModel;
 import heartsim.cam.profile.Default;
 import heartsim.cam.profile.Profile;
 import heartsim.util.StringUtils;
+import java.util.ArrayList;
+import java.util.List;
 import org.w3c.dom.Element;
 
 /**
@@ -19,7 +21,7 @@ public class HeartTissue
     protected CellularAutomataModel currentModel;
     protected String name;
     protected String description;
-    protected Element element;
+    protected List<Element> elements = new ArrayList<Element>();
     protected Profile profile;
 
     public HeartTissue(String name)
@@ -92,14 +94,14 @@ public class HeartTissue
         this.name = StringUtils.prettify(name);
     }
 
-    public Element getElement()
+    public List<Element> getElements()
     {
-        return element;
+        return elements;
     }
 
-    public void setElement(Element element)
+    public void setElements(List<Element> elements)
     {
-        this.element = element;
+        this.elements = elements;
     }
 
     @Override
@@ -117,5 +119,11 @@ public class HeartTissue
     {
         this.profile = profile;
         this.setModel(profile.loadParameters(this.getModel()));
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        return ((HeartTissue)obj).getName().equals(this.getName());
     }
 }
