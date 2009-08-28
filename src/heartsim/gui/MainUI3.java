@@ -81,8 +81,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     private int runTime = 5000;
     private ChartDialog chartDialog = new ChartDialog(this, false, this);
     private MouseClickAction mouseClickAction = MouseClickAction.None;
-    private int chartCol = 0;
-    private int chartRow = 0;
     private Cursor crossHairCursor = new Cursor(Cursor.CROSSHAIR_CURSOR);
 
     public static enum MouseClickAction
@@ -968,8 +966,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             if (mouseClickAction == MouseClickAction.SetChartCell)
             {
                 // set chart cell location
-                chartCol = evt.getX();
-                chartRow = evt.getY();
+                chartDialog.getChart().setCell(evt.getY(), evt.getX());
             }
         }
     }//GEN-LAST:event_svgCanvasMouseClicked
@@ -1334,7 +1331,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     public void simulationUpdated(int time)
     {
         incrementProgressBar();
-        chartDialog.getChart().nextVoltageValue(time, ca.getV(chartRow, chartCol));
+        chartDialog.getChart().nextVoltageValue(time, ca.getV(chartDialog.getChart().getCellRow(), chartDialog.getChart().getChartColumn()));
         svgCanvas.repaint();
     }
 

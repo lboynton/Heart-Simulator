@@ -23,6 +23,8 @@ public class ActionPotentialChart extends ChartPanel
     private final CategoryAxis domainAxis;
     private final NumberAxis rangeAxis;
     private final LineRenderer3D renderer;
+    private int col = 0;
+    private int row = 0;
 
     public ActionPotentialChart()
     {
@@ -36,7 +38,7 @@ public class ActionPotentialChart extends ChartPanel
         rangeAxis.setRange(0, 25);
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         final CategoryPlot plot = new CategoryPlot(chartData, domainAxis, rangeAxis, renderer);
-        chart = new JFreeChart(null, plot);
+        chart = new JFreeChart("Action Potential for " + col + ", " + row, plot);
         chart.removeLegend();
         chart.setBackgroundPaint(null);
 
@@ -56,5 +58,22 @@ public class ActionPotentialChart extends ChartPanel
         }
 
         chartData.addValue(value, "Voltage", String.valueOf(time));
+    }
+
+    public void setCell(int row, int col)
+    {
+        this.row = row;
+        this.col = col;
+        chart.setTitle("Action Potential for " + col + ", " + row);
+    }
+
+    public int getChartColumn()
+    {
+        return col;
+    }
+
+    public int getCellRow()
+    {
+        return row;
     }
 }
