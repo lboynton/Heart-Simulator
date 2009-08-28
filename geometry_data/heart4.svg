@@ -93,9 +93,9 @@
      inkscape:window-height="1005"
      id="namedview2878"
      showgrid="false"
-     inkscape:zoom="14.032815"
-     inkscape:cx="248.83852"
-     inkscape:cy="505.36672"
+     inkscape:zoom="1.2403373"
+     inkscape:cx="606.19705"
+     inkscape:cy="519.2187"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1"
@@ -106,7 +106,7 @@
      id="ventricles"
      sodipodi:nodetypes="csssscsssscsssssssssssssssssssssssssssssssssssssssssssssscsssssssssssssssssssscccsscssssssssssssscssssssssssssssscsssssssssssc">
     <title
-       id="title2878">ventricles</title>
+       id="title2878">Ventricles</title>
     <desc
        id="desc2919">The heart ventricles</desc>
   </path>
@@ -121,7 +121,7 @@
      d="m 337.20956,294.66476 a 9.4065228,9.4065228 0 1 1 -18.81304,0 9.4065228,9.4065228 0 1 1 18.81304,0 z"
      transform="translate(-107.93163,-38.268396)">
     <title
-       id="title2874">atrioventricular_node</title>
+       id="title2874">Atrioventricular node</title>
     <desc
        id="desc3697">The atrioventricular node</desc>
   </path>
@@ -132,7 +132,7 @@
      sodipodi:nodetypes="ccsssssc"
      inkscape:label="#atria">
     <title
-       id="title2852">atria</title>
+       id="title2852">Atria</title>
   </path>
   <path
      style="fill:#860000;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -140,14 +140,14 @@
      id="atria"
      sodipodi:nodetypes="cssscsssssssssssssccssssssssssssssssssssscc">
     <title
-       id="title2854">atria</title>
+       id="title2854">Atria</title>
   </path>
   <path
      style="fill:#860000;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
      d="m 41.441889,131.93416 c 0,0 21.86905,-17.23322 30.13293,-2.21714 8.26388,15.01607 8.46544,15.51997 -4.93817,24.59008 -13.40361,9.07011 -17.33399,13.0005 -27.81501,0.30234 -10.48102,-12.69816 -2.11636,-16.72932 2.62025,-22.67528 z"
      id="sinoatrial_node">
     <title
-       id="title2856">sinoatrial_node</title>
+       id="title2856">Sinoatrial node</title>
     <desc
        id="desc3740">The sinoatrial node</desc>
   </path>
@@ -158,7 +158,7 @@
      inkscape:label="#path3608"
      sodipodi:nodetypes="ccccccsssscccc">
     <title
-       id="title2858">internodal_fibres</title>
+       id="title2858">Internodal fibres</title>
   </path>
   <path
      style="fill:#860000;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -167,7 +167,7 @@
      sodipodi:nodetypes="ccccc"
      inkscape:label="#path2836">
     <title
-       id="title2876">bundle_of_his</title>
+       id="title2876">Bundle of His</title>
   </path>
   <path
      style="fill:#860000;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
@@ -176,6 +176,6 @@
      sodipodi:nodetypes="ccccccccccscsssscccssssssccssssssssscc"
      inkscape:label="#path3612">
     <title
-       id="title2841">bundle_branches</title>
+       id="title2841">Bundle branches</title>
   </path>
 </svg>

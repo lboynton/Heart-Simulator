@@ -91,7 +91,7 @@ public class HeartTissue
 
     public void setName(String name)
     {
-        this.name = StringUtils.prettify(name);
+        this.name = name;
     }
 
     public List<Element> getElements()

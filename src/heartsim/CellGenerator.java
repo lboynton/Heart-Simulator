@@ -185,7 +185,7 @@ public class CellGenerator implements SVGDocumentLoaderListener
 
                     for(HeartTissue t:tissues.keySet())
                     {
-                        if(t.getName().equals(StringUtils.prettify(title)))
+                        if(t.getName().equals(title))
                         {
                             t.getElements().add(element);
                             exists = true;
