@@ -30,4 +30,14 @@ public class StringUtils
 
         return s;
     }
+
+    public static String removeNewLines(String s)
+    {
+        return s.replaceAll("\n", "");
+    }
+
+    public static String removeTabs(String s)
+    {
+        return s.replaceAll("\t", "");
+    }
 }

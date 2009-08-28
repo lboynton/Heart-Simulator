@@ -50,7 +50,7 @@ public class HeartTissue
             {
                 if(alias.equalsIgnoreCase(name))
                 {
-                    Application.getInstance().output("Selecting " + p.getName() + " profile for element " + name);
+                    Application.getInstance().output("Selecting " + p.getName() + " profile for tissue " + name);
                     profile = p;
                     p.loadParameters(currentModel);
                     return;
@@ -91,6 +91,10 @@ public class HeartTissue
 
     public void setName(String name)
     {
+        name = StringUtils.removeNewLines(name);
+        name = StringUtils.removeTabs(name);
+        name = name.trim();
+        
         this.name = name;
     }
 
