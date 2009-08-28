@@ -149,4 +149,10 @@ public abstract class CellularAutomataModel
     public abstract int getCellExcitationValue();
 
     public abstract void processCell(int row, int col, int[][] u, int[][] v, int[][] tempu);
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        return ((CellularAutomataModel)obj).getName().equals(this.getName());
+    }
 }

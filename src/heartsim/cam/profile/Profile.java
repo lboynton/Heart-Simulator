@@ -79,4 +79,10 @@ public abstract class Profile
     {
         aliases.add(alias);
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        return ((Profile)obj).getName().equals(this.getName());
+    }
 }

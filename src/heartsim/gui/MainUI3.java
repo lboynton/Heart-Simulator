@@ -174,13 +174,14 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     }
 
     /**
-     * Loads the available CA models into the combo box in the GUI. New CA models
-     * should be added in here
+     * Loads the available CA models into the combo box in the GUI
      * @return Combo box model containing all the CA models
      */
     private void loadCAModels()
     {
         DefaultComboBoxModel CAModels = new DefaultComboBoxModel();
+
+        HeartTissue tissue = (HeartTissue) cboBoxTissue.getSelectedItem();
 
         for (CellularAutomataModel model : Application.getInstance().getCAModels())
         {
@@ -189,10 +190,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         cboBoxModel.setModel(CAModels);
 
-        if (cboBoxModel.getItemCount() > 0)
-        {
-            cboBoxModel.setSelectedIndex(0);
-        }
+        cboBoxModel.setSelectedItem(tissue.getModel());
     }
 
     /**
@@ -338,12 +336,15 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     {
         DefaultComboBoxModel profileModels = new DefaultComboBoxModel();
 
+        HeartTissue tissue = (HeartTissue) cboBoxTissue.getSelectedItem();
+
         for (Profile profile : Application.getInstance().getTissueProfiles())
         {
             profileModels.addElement(profile);
         }
 
         cboBoxProfile.setModel(profileModels);
+        cboBoxProfile.setSelectedItem(tissue.getProfile());
     }
 
     private ComboBoxModel loadSpeeds()
@@ -1084,7 +1085,8 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         HeartTissue tissue = (HeartTissue) cboBoxTissue.getSelectedItem();
         Profile profile = (Profile) cboBoxProfile.getSelectedItem();
 
-        tissue.setModel(profile.loadParameters(tissue.getModel()));
+        tissue.setProfile(profile);
+        
         loadModelParameters();
 }//GEN-LAST:event_cboBoxProfileActionPerformed
 
