@@ -1,8 +1,6 @@
 TODO
 
 High priority items
-- Add in different heart tissue, SA node, AV node, bundle of His, purkinje fibres
-  left and right bundle branches, atria, ventricles
 - Make sure things like the bundle branches are on top of the ventricles. Might
   need to devise some sort of priority system
 
