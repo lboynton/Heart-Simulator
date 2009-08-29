@@ -620,7 +620,7 @@
                     <Property name="toolTipText" type="java.lang.String" value="Set the heart rate in beats per minute. The simulator will attempt to conform to this, however the maximum heart rate is limited by processing power."/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtHeartRateActionPerformed"/>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtHeartRateKeyReleased"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblTime">

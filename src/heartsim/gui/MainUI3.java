@@ -680,9 +680,9 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
 
         txtHeartRate.setText("30");
         txtHeartRate.setToolTipText("Set the heart rate in beats per minute. The simulator will attempt to conform to this, however the maximum heart rate is limited by processing power.");
-        txtHeartRate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtHeartRateActionPerformed(evt);
+        txtHeartRate.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtHeartRateKeyReleased(evt);
             }
         });
 
@@ -1119,11 +1119,6 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         svgCanvas.getOverlays().remove(overlay);
     }//GEN-LAST:event_btnZoomInActionPerformed
 
-    private void txtHeartRateActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtHeartRateActionPerformed
-    {//GEN-HEADEREND:event_txtHeartRateActionPerformed
-        simulation.setHeartRate(Integer.parseInt(txtHeartRate.getText()));
-    }//GEN-LAST:event_txtHeartRateActionPerformed
-
     private void cboBoxSpeedActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cboBoxSpeedActionPerformed
     {//GEN-HEADEREND:event_cboBoxSpeedActionPerformed
         simulation.setSpeed((Speed) cboBoxSpeed.getSelectedItem());
@@ -1143,6 +1138,21 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     {//GEN-HEADEREND:event_mnuItmStimulationLocationActionPerformed
         mouseClickAction = MouseClickAction.SetStimulateCell;
     }//GEN-LAST:event_mnuItmStimulationLocationActionPerformed
+
+    private void txtHeartRateKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_txtHeartRateKeyReleased
+    {//GEN-HEADEREND:event_txtHeartRateKeyReleased
+        try
+        {
+            int rate = Integer.parseInt(txtHeartRate.getText());
+            simulation.setHeartRate(rate);
+            txtHeartRate.setForeground(null);
+        }
+        catch(NumberFormatException e)
+        {
+            Application.getInstance().output("Invalid heart rate");
+            txtHeartRate.setForeground(Color.red);
+        }
+    }//GEN-LAST:event_txtHeartRateKeyReleased
 
     /**
      * @param args the command line arguments
