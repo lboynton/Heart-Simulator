@@ -448,6 +448,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         mnuItmPrintArrays = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Heart Simulator");
 
         toolbar.setFloatable(false);
         toolbar.setRollover(true);
