@@ -65,7 +65,7 @@ import org.apache.batik.swing.svg.SVGDocumentLoaderListener;
  *
  * @author Lee Boynton
  */
-public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener,
+public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         SVGDocumentLoaderListener, GVTTreeBuilderListener, GVTTreeRendererListener,
         SimulatorListener, JGVTComponentListener, ChartDialogEvent
 {
@@ -89,7 +89,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
     };
 
     /** Creates new form MainUI3 */
-    public MainUI3()
+    public MainUI()
     {
         try
         {
@@ -262,7 +262,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
             {
                 public void actionPerformed(ActionEvent e)
                 {
-                    new HelpDialog(MainUI3.this, p.getName(), false, p.getDescription()).setVisible(true);
+                    new HelpDialog(MainUI.this, p.getName(), false, p.getDescription()).setVisible(true);
                 }
             });
 
@@ -1163,7 +1163,7 @@ public class MainUI3 extends javax.swing.JFrame implements CellGeneratorListener
         {
             public void run()
             {
-                new MainUI3().setVisible(true);
+                new MainUI().setVisible(true);
             }
         });
     }
