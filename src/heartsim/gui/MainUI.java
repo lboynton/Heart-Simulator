@@ -1081,7 +1081,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         Profile profile = (Profile) cboBoxProfile.getSelectedItem();
 
         tissue.setProfile(profile);
-        
+
         loadModelParameters();
 }//GEN-LAST:event_cboBoxProfileActionPerformed
 
@@ -1148,7 +1148,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
             simulation.setHeartRate(rate);
             txtHeartRate.setForeground(null);
         }
-        catch(NumberFormatException e)
+        catch (NumberFormatException e)
         {
             Application.getInstance().output("Invalid heart rate");
             txtHeartRate.setForeground(Color.red);
@@ -1250,6 +1250,17 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         overlay.setSize(cellGenerator.getCells()[0].length, cellGenerator.getCells().length);
         loadHeartTissues();
         simulation.setInitialised(false);
+
+        if (cellGenerator.isStimulusLocationSet())
+        {
+            stimCol = cellGenerator.getStimulusColumn();
+            stimRow = cellGenerator.getStimulusRow();
+        }
+        else
+        {
+            setStatusText("Sinoatrial node not found. Please manually set " +
+                    "stimulation location");
+        }
     }
 
     public void documentLoadingStarted(SVGDocumentLoaderEvent e)

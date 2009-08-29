@@ -35,6 +35,9 @@ public class CellGenerator implements SVGDocumentLoaderListener
     private boolean initialised = false;
     private int progress = 0;
     private String tissueLoading = "None";
+    private int stimulusRow = 0;
+    private int stimulusCol = 0;
+    private boolean stimulusLocationSet;
 
     public CellGenerator(JSVGCanvas canvas)
     {
@@ -131,6 +134,21 @@ public class CellGenerator implements SVGDocumentLoaderListener
         run();
     }
 
+    public int getStimulusColumn()
+    {
+        return stimulusCol;
+    }
+
+    public int getStimulusRow()
+    {
+        return stimulusRow;
+    }
+
+    public boolean isStimulusLocationSet()
+    {
+        return stimulusLocationSet;
+    }
+
     public void documentLoadingStarted(SVGDocumentLoaderEvent arg0)
     {
     }
@@ -139,6 +157,7 @@ public class CellGenerator implements SVGDocumentLoaderListener
     {
         // new svg loaded so we are not initialised
         initialised = false;
+        stimulusLocationSet = false;
     }
 
     public void documentLoadingCancelled(SVGDocumentLoaderEvent arg0)
@@ -184,9 +203,9 @@ public class CellGenerator implements SVGDocumentLoaderListener
 
                     boolean exists = false;
 
-                    for(HeartTissue t:tissues.keySet())
+                    for (HeartTissue t : tissues.keySet())
                     {
-                        if(t.getName().equals(title))
+                        if (t.getName().equals(title))
                         {
                             t.getElements().add(element);
                             exists = true;
@@ -194,7 +213,7 @@ public class CellGenerator implements SVGDocumentLoaderListener
                         }
                     }
 
-                    if(!exists)
+                    if (!exists)
                     {
                         HeartTissue tissue = new HeartTissue(title);
                         tissue.getElements().add(element);
@@ -243,6 +262,11 @@ public class CellGenerator implements SVGDocumentLoaderListener
                             break;
                         }
 
+                        if (tissue.getProfile().getName().equals("Sinoatrial node"))
+                        {
+                            determineStimulusCell(s);
+                        }
+
                         for (int row = 0; row < canvas.getPreferredSize().height; row++)
                         {
                             for (int col = 0; col < canvas.getPreferredSize().width; col++)
@@ -262,6 +286,20 @@ public class CellGenerator implements SVGDocumentLoaderListener
             }
 
             fireGenerationCompleted();
+        }
+
+        private void determineStimulusCell(Shape s)
+        {
+            stimulusLocationSet = true;
+
+            stimulusRow = (int) (((s.getBounds().getMaxY() - 
+                    s.getBounds().getMinY()) / 2) + s.getBounds().getMinY()) + 2;
+            
+            stimulusCol = (int) (((s.getBounds().getMaxX() -
+                    s.getBounds().getMinX()) / 2) + s.getBounds().getMinX()) + 2;
+
+            Application.getInstance().output("Set stimulus location to row " +
+                    stimulusRow + " column " + stimulusCol);
         }
     }
 }

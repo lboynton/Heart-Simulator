@@ -16,7 +16,6 @@ Low priority items
 - Remove or do something with the estimated heart rate
 - Implement Tyson CA model
 - Hide elements from canvas when they are disabled
-- Fix the location of the stimulus in the centre of the SA node
 - Determine the optimum size of the stimulus in terms of the number of cells to
   stimulate
 - Work out why crosshair cursor doesn't show over JSVGCanvas
