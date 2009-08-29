@@ -239,7 +239,7 @@ public class Simulator
                             data[k] = 14251783;
                         }
                         // red
-                        if (u[i][j] == 5)
+                        if (u[i][j] >= 5)
                         {
                             data[k] = 16711680;
                         }
