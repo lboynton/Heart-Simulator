@@ -18,6 +18,7 @@ Low priority items
 - Determine the optimum size of the stimulus in terms of the number of cells to
   stimulate
 - Work out why crosshair cursor doesn't show over JSVGCanvas
+- Use mulitple threads/CPU cores to speed up simulation?
 
 Wishlist items
 - Implement other CA models
