@@ -381,7 +381,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
 
     private void lockGUI(boolean lock)
     {
-        this.setEnabled(!lock);
+        //this.setEnabled(!lock);
     }
 
     /** This method is called from within the constructor to
@@ -1245,7 +1245,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
      */
     public void cellGenerationStarted()
     {
-        setStatusText("Generating cells (this may take a while)...");
+        Application.getInstance().output("Generating cells...");
     }
 
     public void cellGenerationCompleted()
@@ -1415,8 +1415,9 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
             cellGenerator.run();
             while (!cellGenerator.isCompleted())
             {
+                setStatusText("Generating cells for " + cellGenerator.getTissueLoading() + " (this may take a while)...");
                 progressBar.setValue(cellGenerator.getProgress());
-                Thread.sleep(1000);
+                Thread.sleep(500); // update UI with progress every half second
             }
             return null;
         }

@@ -96,15 +96,9 @@ public class CellGenerator implements SVGDocumentLoaderListener
 
     public void run()
     {
-        // notify listeners that cell generation has started
-        fireGenerationStarted();
-
         Thread thread = new Thread(new CellGeneratorRunnable());
         thread.setName("Cell generator");
         thread.start();
-
-        // notify listeners that cell generation has finished
-        fireGenerationCompleted();
     }
 
     public List<HeartTissue> getTissues()
@@ -172,6 +166,9 @@ public class CellGenerator implements SVGDocumentLoaderListener
     {
         public void run()
         {
+            // notify listeners that cell generation has started
+            fireGenerationStarted();
+
             if (!initialised)
             {
                 loadTissues();
@@ -180,6 +177,9 @@ public class CellGenerator implements SVGDocumentLoaderListener
 
             createDataArray();
             completed = true;
+
+            // notify listeners that cell generation has finished
+            fireGenerationCompleted();
         }
 
         private void loadTissues()
@@ -292,9 +292,9 @@ public class CellGenerator implements SVGDocumentLoaderListener
         {
             stimulusLocationSet = true;
 
-            stimulusRow = (int) (((s.getBounds().getMaxY() - 
+            stimulusRow = (int) (((s.getBounds().getMaxY() -
                     s.getBounds().getMinY()) / 2) + s.getBounds().getMinY()) + 2;
-            
+
             stimulusCol = (int) (((s.getBounds().getMaxX() -
                     s.getBounds().getMinX()) / 2) + s.getBounds().getMinX()) + 2;
 
