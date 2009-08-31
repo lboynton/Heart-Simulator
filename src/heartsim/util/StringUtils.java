@@ -12,6 +12,7 @@ public class StringUtils
 {
     public static String padRight(String s, int n)
     {
+        if(n <= 0) return s;
         return String.format("%1$-" + n + "s", s);
     }
 

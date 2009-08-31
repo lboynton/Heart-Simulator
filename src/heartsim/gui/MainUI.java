@@ -1004,7 +1004,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
 
     private void mnuItmPrintArraysActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuItmPrintArraysActionPerformed
     {//GEN-HEADEREND:event_mnuItmPrintArraysActionPerformed
-        ((Nishiyama) caModel).printArrays();
+        caModel.printArrays();
     }//GEN-LAST:event_mnuItmPrintArraysActionPerformed
 
     private void mnuItmPrintCellsActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuItmPrintCellsActionPerformed
