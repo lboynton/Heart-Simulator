@@ -4,7 +4,6 @@ High priority items
 - Zoom in not working properly
 
 Medium priority items
-- Work out why UI doesn't update with cell generator progress when file is reloaded
 - Make visualisation more efficient
 - Step forward and pause buttons don't really work
 - Work out how to integrate bundle of his into visualisation. It currently cuts

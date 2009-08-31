@@ -30,7 +30,6 @@ import heartsim.cam.speed.Speed;
 import heartsim.gui.layout.SpringUtilities;
 import heartsim.gui.util.FileChooserFilter;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,8 +39,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -381,7 +378,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
 
     private void lockGUI(boolean lock)
     {
-        //this.setEnabled(!lock);
+        this.setEnabled(!lock);
     }
 
     /** This method is called from within the constructor to
@@ -1048,8 +1045,6 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
 
             txf.concatenate(at);
             svgCanvas.setRenderingTransform(txf);
-            generatorWorker = new CellGeneratorWorker();
-            generatorWorker.execute();
         }
     }//GEN-LAST:event_mnuItmTransformActionPerformed
 
@@ -1386,11 +1381,8 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
 
     public void componentTransformChanged(ComponentEvent event)
     {
-        if (event.getID() == JGVTComponentListener.COMPONENT_TRANSFORM_CHANGED)
-        {
-            generatorWorker = new CellGeneratorWorker();
-            generatorWorker.execute();
-        }
+        generatorWorker = new CellGeneratorWorker();
+        generatorWorker.execute();
     }
 
     public void setCellSelectionMode()

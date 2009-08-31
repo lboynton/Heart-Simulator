@@ -152,6 +152,7 @@ public class CellGenerator implements SVGDocumentLoaderListener
         // new svg loaded so we are not initialised
         initialised = false;
         stimulusLocationSet = false;
+        completed = false;
     }
 
     public void documentLoadingCancelled(SVGDocumentLoaderEvent arg0)
