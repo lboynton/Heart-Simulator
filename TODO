@@ -1,7 +1,7 @@
 TODO
 
 High priority items
-- None! Hooray!
+- Zoom in not working properly
 
 Medium priority items
 - Make visualisation more efficient
@@ -10,6 +10,7 @@ Medium priority items
   off part of the right atrium
 - Lock GUI whilst things are loading
 - Devise a better way of applying parameters to different CA models in the profiles
+- Zoom action potential chart
 
 Low priority items
 - Add help buttons to simulation panel
