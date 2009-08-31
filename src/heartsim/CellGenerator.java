@@ -228,8 +228,6 @@ public class CellGenerator implements SVGDocumentLoaderListener
         // TODO: Split up
         private void createDataArray()
         {
-            fireGenerationStarted();
-
             cells = new boolean[canvas.getPreferredSize().height][canvas.getPreferredSize().width];
             tissueNames = new String[canvas.getPreferredSize().height][canvas.getPreferredSize().width];
 
