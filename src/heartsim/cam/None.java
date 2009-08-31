@@ -14,8 +14,8 @@ public class None extends CellularAutomataModel
     {
         super("None");
 
-        this.setDescription("The selected heart tissue will not use any cellular" +
-                "automata model. This effectively stops the tissue from conducting" +
+        this.setDescription("The selected heart tissue will not use any cellular " +
+                "automata model. This effectively stops the tissue from conducting " +
                 "a wave.");
     }
 
