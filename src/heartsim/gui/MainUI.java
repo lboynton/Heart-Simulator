@@ -29,7 +29,9 @@ import heartsim.cam.speed.Slow;
 import heartsim.cam.speed.Speed;
 import heartsim.gui.layout.SpringUtilities;
 import heartsim.gui.util.FileChooserFilter;
+import heartsim.util.GUIUtils;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -378,7 +380,9 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
 
     private void lockGUI(boolean lock)
     {
-        this.setEnabled(!lock);
+        if(lock) this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        else this.setCursor(null);
+        GUIUtils.lock(rootPane, true, lock);
     }
 
     /** This method is called from within the constructor to
