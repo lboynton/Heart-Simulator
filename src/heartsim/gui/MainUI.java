@@ -30,6 +30,7 @@ import heartsim.cam.speed.Speed;
 import heartsim.gui.layout.SpringUtilities;
 import heartsim.gui.util.FileChooserFilter;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,6 +40,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -374,6 +377,11 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
     public void setMouseClickAction(MouseClickAction mouseClickAction)
     {
         this.mouseClickAction = mouseClickAction;
+    }
+
+    private void lockGUI(boolean lock)
+    {
+        this.setEnabled(!lock);
     }
 
     /** This method is called from within the constructor to
@@ -1237,7 +1245,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
      */
     public void cellGenerationStarted()
     {
-        setStatusText("Generating cells for (this may take a while)...");
+        setStatusText("Generating cells (this may take a while)...");
     }
 
     public void cellGenerationCompleted()
@@ -1261,10 +1269,12 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
             setStatusText("Sinoatrial node not found. Please manually set " +
                     "stimulation location");
         }
+        lockGUI(false);
     }
 
     public void documentLoadingStarted(SVGDocumentLoaderEvent e)
     {
+        lockGUI(true);
         setStatusText("Document loading...");
         incrementProgressBar();
     }
