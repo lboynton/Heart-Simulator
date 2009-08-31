@@ -198,7 +198,7 @@ public class CellularAutomaton
 
                     if (tissue.getModel().isCellRecovered(u[row][col], v[row][col]))
                     {
-                        u[row][col] = tissue.getModel().getCellExcitationValue();
+                        u[row][col] = tissue.getModel().getCellThreshold();
                     }
                 }
             }

@@ -182,7 +182,7 @@ public class Tyson extends CellularAutomataModel
     }
 
     @Override
-    public int getCellExcitationValue()
+    public int getCellThreshold()
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }

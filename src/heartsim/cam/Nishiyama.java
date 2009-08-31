@@ -144,7 +144,7 @@ public class Nishiyama extends CellularAutomataModel
     }
 
     @Override
-    public int getCellExcitationValue()
+    public int getCellThreshold()
     {
         return excitationValue;
     }

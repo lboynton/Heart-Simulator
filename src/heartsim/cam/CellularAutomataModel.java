@@ -146,7 +146,7 @@ public abstract class CellularAutomataModel
 
     public abstract boolean isCellRecovered(int u, int v);
 
-    public abstract int getCellExcitationValue();
+    public abstract int getCellThreshold();
 
     public abstract void processCell(int row, int col, int[][] u, int[][] v, int[][] tempu);
 
