@@ -13,6 +13,10 @@ public class None extends CellularAutomataModel
     public None()
     {
         super("None");
+
+        this.setDescription("The selected heart tissue will not use any cellular" +
+                "automata model. This effectively stops the tissue from conducting" +
+                "a wave.");
     }
 
     @Override
