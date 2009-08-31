@@ -1060,6 +1060,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
 
     private void mnuItmReloadActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuItmReloadActionPerformed
     {//GEN-HEADEREND:event_mnuItmReloadActionPerformed
+        Application.getInstance().output("Reloading file...");
         loadSVG();
     }//GEN-LAST:event_mnuItmReloadActionPerformed
 
