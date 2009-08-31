@@ -8,6 +8,8 @@ import heartsim.util.ArrayUtils;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,6 +25,9 @@ public class CellularAutomaton
     private boolean cells[][] = new boolean[height][width]; // true/false if there is a cell
     private List<HeartTissue> tissues = new ArrayList<HeartTissue>();
     private String tissueLocations[][];
+    private int threads = 1;
+    private CellularAutomatonProcessor thread1;
+    private CellularAutomatonProcessor thread2;
 
     public boolean isCell(int row, int col)
     {
@@ -59,24 +64,16 @@ public class CellularAutomaton
         // copy voltage values into temporary array
         ArrayUtils.copy2DArray(u, tempu);
 
-        for (int row = 1; row < cells.length - 1; row++)
+        if (thread1 == null || thread2 == null)
         {
-            for (int col = 1; col < cells[row].length - 1; col++)
-            {
-                if (!cells[row][col])
-                {
-                    continue;
-                }
-
-                for (HeartTissue tissue : tissues)
-                {
-                    if(tissue.getName().equals(tissueLocations[row][col]))
-                    {
-                        tissue.getModel().processCell(row, col, u, v, tempu);
-                    }
-                }
-            }
+            thread1 = new CellularAutomatonProcessor(1, height / 2);
+            thread2 = new CellularAutomatonProcessor((height / 2)+1, height - 1);
+            thread1.start();
+            thread2.start();
         }
+
+        thread1.setStep(true);
+        thread2.setStep(true);
     }
 
     public void initCells()
@@ -192,7 +189,7 @@ public class CellularAutomaton
 
             for (HeartTissue tissue : tissues)
             {
-                if(tissue.getName().equals(tissueLocations[row][col]))
+                if (tissue.getName().equals(tissueLocations[row][col]))
                 {
                     tissue.getModel().processCell(row, col, u, v, tempu);
 
@@ -209,5 +206,69 @@ public class CellularAutomaton
         }
 
         return true;
+    }
+
+    public class CellularAutomatonProcessor extends Thread
+    {
+        private int startRow;
+        private int endRow;
+        private boolean running = true;
+        private boolean step = false;
+
+        public CellularAutomatonProcessor(int startRow, int endRow)
+        {
+            this.startRow = startRow;
+            this.endRow = endRow;
+            System.err.println(startRow + " " + endRow);
+        }
+
+        public void setRunning(boolean running)
+        {
+            this.running = running;
+        }
+
+        public void setStep(boolean step)
+        {
+            this.step = step;
+        }
+
+        public void run()
+        {
+            while (running)
+            {
+                if (!step)
+                {
+                    try
+                    {
+                        Thread.sleep(1);
+                    }
+                    catch (InterruptedException ex)
+                    {
+                        Logger.getLogger(CellularAutomaton.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+
+                for (int row = startRow; row < endRow; row++)
+                {
+                    for (int col = 1; col < cells[row].length - 1; col++)
+                    {
+                        if (!cells[row][col])
+                        {
+                            continue;
+                        }
+
+                        for (HeartTissue tissue : tissues)
+                        {
+                            if (tissue.getName().equals(tissueLocations[row][col]))
+                            {
+                                tissue.getModel().processCell(row, col, u, v, tempu);
+                            }
+                        }
+                    }
+                }
+
+                step = false;
+            }
+        }
     }
 }
