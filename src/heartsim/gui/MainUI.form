@@ -326,11 +326,7 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblStatus" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="523" max="32767" attributes="0"/>
-                          <Component id="lblHeartRateText" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblHeartRate" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace pref="715" max="32767" attributes="0"/>
                           <Component id="progressBar" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -350,8 +346,6 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="progressBar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblHeartRate" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblHeartRateText" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
@@ -572,7 +566,7 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblHeart" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblHeartRate" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lblTime" min="-2" max="-2" attributes="0"/>
                               <Component id="lblSpeed" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -602,7 +596,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="txtHeartRate" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblHeart" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblHeartRate" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="381" max="32767" attributes="0"/>
                       </Group>
@@ -610,7 +604,7 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="lblHeart">
+                <Component class="javax.swing.JLabel" name="lblHeartRate">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Heart rate"/>
                   </Properties>
@@ -702,16 +696,6 @@
             </Container>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="lblHeartRateText">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Estimated heart rate:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblHeartRate">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="0bpm"/>
-          </Properties>
-        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

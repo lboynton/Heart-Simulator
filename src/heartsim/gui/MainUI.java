@@ -422,7 +422,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         cboBoxProfile = new javax.swing.JComboBox();
         btnTissueHelp = new javax.swing.JButton();
         pnlSimulationSettings = new javax.swing.JPanel();
-        lblHeart = new javax.swing.JLabel();
+        lblHeartRate = new javax.swing.JLabel();
         txtHeartRate = new javax.swing.JTextField();
         lblTime = new javax.swing.JLabel();
         txtTime = new javax.swing.JTextField();
@@ -431,8 +431,6 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         scrollPaneCanvas = new javax.swing.JScrollPane();
         pnlCanvasContainer = new javax.swing.JPanel();
         svgCanvas = new org.apache.batik.swing.JSVGCanvas();
-        lblHeartRateText = new javax.swing.JLabel();
-        lblHeartRate = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         mnuFile = new javax.swing.JMenu();
         mnuItmStimulationLocation = new javax.swing.JMenuItem();
@@ -686,7 +684,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
 
         tabbedPane.addTab("Model", pnlCA);
 
-        lblHeart.setText("Heart rate");
+        lblHeartRate.setText("Heart rate");
 
         txtHeartRate.setText("30");
         txtHeartRate.setToolTipText("Set the heart rate in beats per minute. The simulator will attempt to conform to this, however the maximum heart rate is limited by processing power.");
@@ -722,7 +720,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
             .addGroup(pnlSimulationSettingsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlSimulationSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblHeart)
+                    .addComponent(lblHeartRate)
                     .addComponent(lblTime)
                     .addComponent(lblSpeed))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -746,7 +744,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlSimulationSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtHeartRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblHeart))
+                    .addComponent(lblHeartRate))
                 .addContainerGap(381, Short.MAX_VALUE))
         );
 
@@ -782,10 +780,6 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
 
         scrollPaneCanvas.setViewportView(pnlCanvasContainer);
 
-        lblHeartRateText.setText("Estimated heart rate:");
-
-        lblHeartRate.setText("0bpm");
-
         javax.swing.GroupLayout pnlRootContainerLayout = new javax.swing.GroupLayout(pnlRootContainer);
         pnlRootContainer.setLayout(pnlRootContainerLayout);
         pnlRootContainerLayout.setHorizontalGroup(
@@ -799,11 +793,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
                         .addComponent(scrollPaneCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlRootContainerLayout.createSequentialGroup()
                         .addComponent(lblStatus)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 523, Short.MAX_VALUE)
-                        .addComponent(lblHeartRateText)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblHeartRate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 715, Short.MAX_VALUE)
                         .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -817,9 +807,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlRootContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblStatus)
-                    .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblHeartRate)
-                    .addComponent(lblHeartRateText))
+                    .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -1195,9 +1183,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JLabel lblHeart;
     private javax.swing.JLabel lblHeartRate;
-    private javax.swing.JLabel lblHeartRateText;
     private javax.swing.JLabel lblModel;
     private javax.swing.JLabel lblProfile;
     private javax.swing.JLabel lblSpeed;

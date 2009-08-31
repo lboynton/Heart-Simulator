@@ -13,7 +13,6 @@ Medium priority items
 
 Low priority items
 - Add help buttons to simulation panel
-- Remove or do something with the estimated heart rate
 - Implement Tyson CA model
 - Hide elements from canvas when they are disabled
 - Determine the optimum size of the stimulus in terms of the number of cells to
