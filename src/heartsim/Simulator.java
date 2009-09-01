@@ -97,7 +97,7 @@ public class Simulator
 
         double time = 60.0 / heartRate;
 
-        stimulus.setWaitTime((int) (time * 1000));
+        stimulus.setWaitTime((int) (time * 100000));
     }
 
     public void run(int runTime)

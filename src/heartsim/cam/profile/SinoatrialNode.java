@@ -29,15 +29,15 @@ public class SinoatrialNode extends Profile
     {
         if(model instanceof Nishiyama)
         {
-            model.getParameter("Delta 1").setValue("18");
-            model.getParameter("Delta 2").setValue("22");
-            model.getParameter("N").setValue("20");
+            model.getParameter("Delta 1").setValue("180");
+            model.getParameter("Delta 2").setValue("220");
+            model.getParameter("N").setValue("200");
         }
 
         if(model instanceof NishiyamaExtended)
         {
-            model.getParameter("uUp").setValue("10");
-            model.getParameter("uDown").setValue("1");
+            model.getParameter("uUp").setValue("100");
+            model.getParameter("uDown").setValue("10");
         }
 
         return model;
