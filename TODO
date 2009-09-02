@@ -6,6 +6,7 @@ High priority items
 - Find out if valves are excitable and update SVG accordingly
 - Correct profiles
 - Correct the duration of the stimulus timer
+- Simulate the initial repolarisation phase
 
 Medium priority items
 - Order tissues in combo box so that the SA node is first and the ventricles last
