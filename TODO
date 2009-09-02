@@ -2,14 +2,19 @@ TODO
 
 High priority items
 - Zoom in not working properly
+- Find out if bundle branches are insulated and update SVG accordingly
+- Find out if valves are excitable and update SVG accordingly
+- Correct profiles
+- Correct the duration of the stimulus timer
 
 Medium priority items
-- Make visualisation more efficient
+- Order tissues in combo box so that the SA node is first and the ventricles last
+  in order of the conduction system
 - Step forward and pause buttons don't really work
-- Work out how to integrate bundle of his into visualisation. It currently cuts
-  off part of the right atrium
-- Devise a better way of applying parameters to different CA models in the profiles
 - Zoom action potential chart. (Use correct type of chart)
+- Allow for small arbitrary region of cells to be selected and to have their
+  parameters changed (so that cells can be killed)
+- Allow for a one of stimulation to simulate arrhythmia
 
 Low priority items
 - Add help buttons to simulation panel
@@ -21,12 +26,18 @@ Low priority items
 - Use mulitple threads/CPU cores to speed up simulation?
 
 Wishlist items
+- Incorporate the prepotential in the SA and AV node in the CA model which
+  causes the autorhythmicity characterstic of the pacemaker cells
+- Incorporate the relative refractory period into the CA model
+- Make visualisation more efficient
 - Implement other CA models
 - Code tidy up/refactor
 - GUI tidy up
 - More validation of CA model parameters?
 - Have a run forever option
 - Sort items in combo boxes and the heart tissue menu
+- Probability of assigning delta 1 or delta 2 in Nishiyama model
+- Devise a better way of applying parameters to different CA models in the profiles
 
 User should be able to:
 - Select different cellular automata models
