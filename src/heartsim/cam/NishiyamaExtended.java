@@ -14,6 +14,8 @@ public class NishiyamaExtended extends Nishiyama
 {
     protected int uUp;
     protected int uDown;
+    protected int vUp;
+    protected int vDown;
 
     public NishiyamaExtended()
     {
@@ -23,14 +25,27 @@ public class NishiyamaExtended extends Nishiyama
 
         CAModelIntParameter uUpParam = new CAModelIntParameter(1);
         CAModelIntParameter uDownParam = new CAModelIntParameter(1);
+        CAModelIntParameter vUpParam = new CAModelIntParameter(1);
+        CAModelIntParameter vDownParam = new CAModelIntParameter(1);
 
         uUpParam.setDescription("Determines how steep the upstroke of the action" +
                 "potential is");
         uDownParam.setDescription("Determines how steep the downstroke of the" +
                 "action potential is");
+        vUpParam.setDescription("The vUp parameter determines how fast the cell " +
+                "reaches its maximum recovery value. Having a large value for " +
+                "this will result in a cell that does not stay excited for long. " +
+                "Conversely, a low value will result in the cell having a long " +
+                "plateau period in which it is excited for a long time.");
+        vDownParam.setDescription("The vDown parameter stipulates how fast a cell " +
+                "reaches its recovered state. Having a large value will result " +
+                "in the cell recovering verly quickly, and being able to be " +
+                "stimulated again much sooner than a small value.");
 
         this.setParameter("uUp", uUpParam);
         this.setParameter("uDown", uDownParam);
+        this.setParameter("vUp", vUpParam);
+        this.setParameter("vDown", vDownParam);
     }
 
     @Override
@@ -38,6 +53,8 @@ public class NishiyamaExtended extends Nishiyama
     {
         uUp = (Integer) this.getParameter("uUp").getValue();
         uDown = (Integer) this.getParameter("uDown").getValue();
+        vUp  = (Integer) this.getParameter("vUp").getValue();
+        vDown = (Integer) this.getParameter("uDown").getValue();
 
         super.initCells();
     }
