@@ -64,7 +64,7 @@ public class NishiyamaExtended extends Nishiyama
     {
         if (u[row][col] == 0)
         {
-            if (v[row][col] == 0)
+            if (v[row][col] <= 0)
             {
                 // check for stimulation
                 // inefficient count of neighbours
@@ -84,7 +84,7 @@ public class NishiyamaExtended extends Nishiyama
                 }
                 else
                 {
-                    v[row][col]--;  // refractory
+                    v[row][col] -= vDown;  // refractory
                 }
             }
         }
