@@ -53,7 +53,7 @@ public class NishiyamaExtended extends Nishiyama
     {
         uUp = (Integer) this.getParameter("uUp").getValue();
         uDown = (Integer) this.getParameter("uDown").getValue();
-        vUp  = (Integer) this.getParameter("vUp").getValue();
+        vUp = (Integer) this.getParameter("vUp").getValue();
         vDown = (Integer) this.getParameter("uDown").getValue();
 
         super.initCells();
@@ -78,13 +78,20 @@ public class NishiyamaExtended extends Nishiyama
             }
             else
             {
-                v[row][col]--;  // refractory
+                if (v[row][col] - vDown < 0)
+                {
+                    v[row][col] = 0;
+                }
+                else
+                {
+                    v[row][col]--;  // refractory
+                }
             }
         }
         else if (v[row][col] == N - 1)
         {
             // downstoke
-            if(u[row][col] - uDown < 0)
+            if (u[row][col] - uDown < 0)
             {
                 u[row][col] = 0;
             }
@@ -95,12 +102,19 @@ public class NishiyamaExtended extends Nishiyama
         }
         else if (u[row][col] == N - 1)
         {
-            v[row][col]++;  // plateau
+            if (v[row][col] + vUp > N - 1)
+            {
+                v[row][col] = N - 1;
+            }
+            else
+            {
+                v[row][col] += vUp;
+            }
         }
         else
         {
             // upstroke
-            if(u[row][col] + uUp > N - 1)
+            if (u[row][col] + uUp > N - 1)
             {
                 u[row][col] = N - 1;
             }
