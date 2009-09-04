@@ -37,4 +37,10 @@ public class Atria extends Profile
 
         return model;
     }
+
+    @Override
+    public int getOrder()
+    {
+        return 2;
+    }
 }

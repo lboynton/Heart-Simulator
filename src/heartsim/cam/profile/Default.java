@@ -30,4 +30,10 @@ public class Default extends Profile
 
         return model;
     }
+
+    @Override
+    public int getOrder()
+    {
+        return 99;
+    }
 }

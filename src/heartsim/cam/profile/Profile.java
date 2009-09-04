@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Lee Boynton
  */
-public abstract class Profile
+public abstract class Profile implements Comparable
 {
     protected String description;
     protected List<CellularAutomataModel> models = Application.getInstance().getCAModels();
@@ -84,5 +84,15 @@ public abstract class Profile
     public boolean equals(Object obj)
     {
         return ((Profile)obj).getName().equals(this.getName());
+    }
+
+    public abstract int getOrder();
+
+    public int compareTo(Object o)
+    {
+        // can't compare if not a Profile object
+        if(!(o instanceof Profile)) return 0;
+
+        return this.getOrder() - ((Profile)o).getOrder();
     }
 }

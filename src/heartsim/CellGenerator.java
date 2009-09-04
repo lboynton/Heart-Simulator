@@ -103,7 +103,11 @@ public class CellGenerator implements SVGDocumentLoaderListener
 
     public List<HeartTissue> getTissues()
     {
-        return new ArrayList<HeartTissue>(tissues.keySet());
+        List<HeartTissue> ts = new ArrayList<HeartTissue>(tissues.keySet());
+
+        Collections.sort(ts);
+
+        return ts;
     }
 
     public boolean isEnabled(HeartTissue tissue)

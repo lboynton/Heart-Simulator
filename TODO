@@ -9,13 +9,11 @@ High priority items
 - Simulate the initial repolarisation phase
 
 Medium priority items
-- Order tissues in combo box so that the SA node is first and the ventricles last
-  in order of the conduction system
 - Step forward and pause buttons don't really work
 - Zoom action potential chart. (Use correct type of chart)
 - Allow for small arbitrary region of cells to be selected and to have their
   parameters changed (so that cells can be killed)
-- Allow for a one of stimulation to simulate arrhythmia
+- Allow for a one off stimulation to simulate arrhythmia
 
 Low priority items
 - Add help buttons to simulation panel

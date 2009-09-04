@@ -16,7 +16,7 @@ import org.w3c.dom.Element;
  * A class for different heart tissue
  * @author Lee Boynton
  */
-public class HeartTissue
+public class HeartTissue implements Comparable
 {
     protected CellularAutomataModel currentModel;
     protected String name;
@@ -39,10 +39,10 @@ public class HeartTissue
             currentModel = Application.getInstance().getCAModels().get(0);
         }
 
-        detectProfile();
+        profile = getDetectedProfile();
     }
 
-    private void detectProfile()
+    private Profile getDetectedProfile()
     {
         for (Profile p : Application.getInstance().getTissueProfiles())
         {
@@ -51,16 +51,18 @@ public class HeartTissue
                 if(alias.equalsIgnoreCase(name))
                 {
                     Application.getInstance().output("Selecting " + p.getName() + " profile for tissue " + name);
-                    profile = p;
                     p.loadParameters(currentModel);
-                    return;
+                    return p;
                 }
             }
         }
 
-        profile = new Default();
+        // could not detect profile so use generic default
+        Profile p = new Default();
 
         Application.getInstance().output("Could not detect profile for " + name + ", using default profile instead");
+
+        return p;
     }
 
     public String getDescription()
@@ -129,5 +131,10 @@ public class HeartTissue
     public boolean equals(Object obj)
     {
         return ((HeartTissue)obj).getName().equals(this.getName());
+    }
+
+    public int compareTo(Object o)
+    {
+        return this.getDetectedProfile().getOrder() - ((HeartTissue)o).getProfile().getOrder();
     }
 }

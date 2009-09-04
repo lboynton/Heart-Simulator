@@ -33,4 +33,10 @@ public class Insulator extends Profile
 
         return model;
     }
+
+    @Override
+    public int getOrder()
+    {
+        return 98;
+    }
 }

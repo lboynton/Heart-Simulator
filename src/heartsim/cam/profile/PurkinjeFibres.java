@@ -36,4 +36,10 @@ public class PurkinjeFibres extends Profile
 
         return model;
     }
+
+    @Override
+    public int getOrder()
+    {
+        return 7;
+    }
 }

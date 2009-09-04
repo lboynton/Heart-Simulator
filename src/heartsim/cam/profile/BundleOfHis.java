@@ -33,4 +33,10 @@ public class BundleOfHis extends Profile
 
         return model;
     }
+
+    @Override
+    public int getOrder()
+    {
+        return 5;
+    }
 }

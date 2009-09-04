@@ -21,6 +21,7 @@ import heartsim.cam.profile.InternodalFibres;
 import heartsim.cam.profile.PurkinjeFibres;
 import heartsim.cam.profile.SinoatrialNode;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -114,6 +115,8 @@ public class Application
         profiles.add(new PurkinjeFibres());
         profiles.add(new SinoatrialNode());
         profiles.add(new Ventricles());
+
+        Collections.sort(profiles);
 
         return profiles;
     }
