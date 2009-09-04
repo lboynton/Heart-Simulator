@@ -7,6 +7,10 @@ High priority items
 - Correct profiles
 - Correct the duration of the stimulus timer
 - Simulate the initial repolarisation phase
+- Add images to the parameters to illustrate how they change the action potential
+  appearance
+- Dynamically display a sample of the action potential shape of the selected
+  tissue and its parameters
 
 Medium priority items
 - Step forward and pause buttons don't really work

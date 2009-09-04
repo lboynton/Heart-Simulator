@@ -72,4 +72,6 @@ public abstract class CAModelParameter
      * @return Value of the parameter
      */
     public abstract Object getValue();
+
+    //public abstract Image getImage();
 }
