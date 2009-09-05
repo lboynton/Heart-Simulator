@@ -92,7 +92,7 @@ public class HelpDialog extends javax.swing.JDialog
         lblTitle.setText(getTitle());
 
         imagePanel1.setBackground(java.awt.Color.white);
-        imagePanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        imagePanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         imagePanel1.setImage(getImage());
         imagePanel1.setLayout(null);
 
