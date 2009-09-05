@@ -39,8 +39,8 @@ public class NishiyamaExtended extends Nishiyama
                 "plateau period in which it is excited for a long time.");
         vDownParam.setDescription("The vDown parameter stipulates how fast a cell " +
                 "reaches its recovered state. Having a large value will result " +
-                "in the cell recovering verly quickly, and being able to be " +
-                "stimulated again much sooner than a small value.");
+                "in the cell recovering very quickly, and being able to be " +
+                "stimulated again much sooner than with a small value.");
 
         this.setParameter("uUp", uUpParam);
         this.setParameter("uDown", uDownParam);
