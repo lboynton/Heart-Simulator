@@ -378,9 +378,19 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
 
     private void lockGUI(boolean lock)
     {
-        if(lock) this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        else this.setCursor(null);
+        if (lock)
+        {
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        }
+        
         GUIUtils.lock(rootPane, true, lock);
+
+        if(!lock)
+        {
+            this.setCursor(null);
+            btnPause.setEnabled(false);
+            btnStop.setEnabled(false);
+        }
     }
 
     /** This method is called from within the constructor to
