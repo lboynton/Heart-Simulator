@@ -69,7 +69,7 @@ public class HelpDialog extends javax.swing.JDialog
         txtAreaText = new javax.swing.JTextArea();
         btnClose = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
-        imagePanel1 = new heartsim.gui.component.ImagePanel();
+        imagePanel = new heartsim.gui.component.ImagePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -91,10 +91,10 @@ public class HelpDialog extends javax.swing.JDialog
         lblTitle.setFont(lblTitle.getFont().deriveFont(lblTitle.getFont().getSize()+5f));
         lblTitle.setText(getTitle());
 
-        imagePanel1.setBackground(java.awt.Color.white);
-        imagePanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        imagePanel1.setImage(getImage());
-        imagePanel1.setLayout(null);
+        imagePanel.setBackground(java.awt.Color.white);
+        imagePanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        imagePanel.setImage(getImage());
+        imagePanel.setLayout(null);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,7 +103,7 @@ public class HelpDialog extends javax.swing.JDialog
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(imagePanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+                    .addComponent(imagePanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
                     .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
                     .addComponent(lblTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
                     .addComponent(btnClose))
@@ -117,7 +117,7 @@ public class HelpDialog extends javax.swing.JDialog
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(imagePanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                .addComponent(imagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnClose)
                 .addContainerGap())
@@ -157,7 +157,7 @@ public class HelpDialog extends javax.swing.JDialog
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
-    private heartsim.gui.component.ImagePanel imagePanel1;
+    private heartsim.gui.component.ImagePanel imagePanel;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JTextArea txtAreaText;
