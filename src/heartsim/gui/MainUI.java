@@ -1345,7 +1345,8 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
     public void simulationUpdated(int time)
     {
         incrementProgressBar();
-        chartDialog.getChart().nextVoltageValue(time, ca.getV(chartDialog.getChart().getCellRow(), chartDialog.getChart().getChartColumn()));
+        chartDialog.getChart().setVoltageValue(time, ca.getU(chartDialog.getChart().getCellRow(), chartDialog.getChart().getCellColumn()));
+        chartDialog.getChart().setRecoveryValue(time, ca.getV(chartDialog.getChart().getCellRow(), chartDialog.getChart().getCellColumn()));
         svgCanvas.repaint();
     }
 

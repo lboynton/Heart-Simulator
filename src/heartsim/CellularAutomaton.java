@@ -147,9 +147,14 @@ public class CellularAutomaton
      * @param y Y-axis value of the cell location
      * @return Recovery value of the cell
      */
-    public int getV(int x, int y)
+    public int getV(int row, int col)
     {
-        return v[x][y];
+        return v[row][col];
+    }
+
+    public int getU(int row, int col)
+    {
+        return u[row][col];
     }
 
     public void printCells()

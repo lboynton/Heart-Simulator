@@ -51,7 +51,7 @@ public class ActionPotentialChart extends ChartPanel
         rangeAxis.setRange(min, max);
     }
 
-    public void nextVoltageValue(int time, int value)
+    public void setVoltageValue(int time, int value)
     {
         if (chartData.getColumnCount() > 500)
         {
@@ -59,6 +59,16 @@ public class ActionPotentialChart extends ChartPanel
         }
 
         chartData.addValue(value, "Voltage", String.valueOf(time));
+    }
+
+    public void setRecoveryValue(int time, int value)
+    {
+        if (chartData.getColumnCount() > 500)
+        {
+            chartData.removeColumn(0);
+        }
+
+        chartData.addValue(value, "Recovery", String.valueOf(time));
     }
 
     public void setCell(int row, int col)
@@ -83,7 +93,7 @@ public class ActionPotentialChart extends ChartPanel
         chart.setTitle("Action Potential for " + tissue + " at " + col + ", " + row);
     }
 
-    public int getChartColumn()
+    public int getCellColumn()
     {
         return col;
     }
