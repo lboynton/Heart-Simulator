@@ -120,6 +120,11 @@ public class CellGenerator implements SVGDocumentLoaderListener
         return tissueNames;
     }
 
+    public String getTissueAt(int row, int col)
+    {
+        return tissueNames[row][col];
+    }
+
     public void disableTissue(HeartTissue tissue)
     {
         tissues.put(tissue, false);

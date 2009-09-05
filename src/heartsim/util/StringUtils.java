@@ -12,13 +12,16 @@ public class StringUtils
 {
     public static String padRight(String s, int n)
     {
-        if(n <= 0) return s;
+        if (n <= 0)
+        {
+            return s;
+        }
         return String.format("%1$-" + n + "s", s);
     }
 
     public static String firstToUpper(String s)
     {
-        return s.substring(0,1).toUpperCase() + s.substring(1);
+        return s.substring(0, 1).toUpperCase() + s.substring(1);
     }
 
     public static String prettify(String s)

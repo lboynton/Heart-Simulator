@@ -25,6 +25,7 @@ public class ActionPotentialChart extends ChartPanel
     private final LineRenderer3D renderer;
     private int col = 0;
     private int row = 0;
+    private String tissue;
 
     public ActionPotentialChart()
     {
@@ -65,6 +66,21 @@ public class ActionPotentialChart extends ChartPanel
         this.row = row;
         this.col = col;
         chart.setTitle("Action Potential for " + col + ", " + row);
+    }
+
+    public void setCell(int row, int col, String nameOfTissue)
+    {
+        if (nameOfTissue == null)
+        {
+            this.tissue = "Empty Cell";
+        }
+        else
+        {
+            this.tissue = nameOfTissue;
+        }
+        this.row = row;
+        this.col = col;
+        chart.setTitle("Action Potential for " + tissue + " at " + col + ", " + row);
     }
 
     public int getChartColumn()
