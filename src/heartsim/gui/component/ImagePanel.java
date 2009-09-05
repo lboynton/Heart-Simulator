@@ -26,6 +26,7 @@ public class ImagePanel extends JPanel
         {
             image = ImageIO.read(new File(path));
             this.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
+            this.setMinimumSize(new Dimension(image.getWidth(), image.getHeight()));
         }
         catch (Exception ex)
         {
