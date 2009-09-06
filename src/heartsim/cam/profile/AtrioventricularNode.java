@@ -27,14 +27,14 @@ public class AtrioventricularNode extends Profile
         if(model instanceof Nishiyama)
         {
             model.getParameter("Delta 1").setValue("400");
-            model.getParameter("Delta 2").setValue("450");
-            model.getParameter("N").setValue("150");
+            model.getParameter("Delta 2").setValue("410");
+            model.getParameter("N").setValue("140");
         }
 
         if(model instanceof NishiyamaExtended)
         {
             model.getParameter("uUp").setValue("10");
-            model.getParameter("uDown").setValue("10");
+            model.getParameter("uDown").setValue("5");
         }
 
         return model;

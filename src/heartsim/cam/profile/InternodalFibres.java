@@ -24,15 +24,18 @@ public class InternodalFibres extends Profile
     {
         if(model instanceof Nishiyama)
         {
+            // has to be made slower to take into account the fibres go around
+            // the atrial walls, despite them really being marginally faster
+            // than the atrial cells
+            model.getParameter("Delta 1").setValue("180");
+            model.getParameter("Delta 2").setValue("140");
             model.getParameter("N").setValue("120");
-            model.getParameter("Delta 1").setValue("80");
-            model.getParameter("Delta 2").setValue("60");
         }
 
         if(model instanceof NishiyamaExtended)
         {
-            model.getParameter("uUp").setValue("10");
-            model.getParameter("uDown").setValue("10");
+            model.getParameter("uUp").setValue("20");
+            model.getParameter("uDown").setValue("1");
         }
 
         return model;

@@ -26,13 +26,13 @@ public class Atria extends Profile
         {
             model.getParameter("Delta 1").setValue("80");
             model.getParameter("Delta 2").setValue("120");
-            model.getParameter("N").setValue("150");
+            model.getParameter("N").setValue("260");
         }
 
         if(model instanceof NishiyamaExtended)
         {
-            model.getParameter("uUp").setValue("10");
-            model.getParameter("uDown").setValue("10");
+            model.getParameter("uUp").setValue("75");
+            model.getParameter("uDown").setValue("5");
         }
 
         return model;
