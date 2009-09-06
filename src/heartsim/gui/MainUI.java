@@ -411,6 +411,8 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         btnStop = new javax.swing.JButton();
         btnStepForward = new javax.swing.JButton();
         separatorControls = new javax.swing.JToolBar.Separator();
+        btnChart = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JToolBar.Separator();
         btnZoomOut = new javax.swing.JButton();
         btnZoomIn = new javax.swing.JButton();
         separatorZoom = new javax.swing.JToolBar.Separator();
@@ -532,6 +534,19 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         });
         toolbar.add(btnStepForward);
         toolbar.add(separatorControls);
+
+        btnChart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/Line-chart.png"))); // NOI18N
+        btnChart.setToolTipText("View action potential chart of a single cell");
+        btnChart.setFocusable(false);
+        btnChart.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnChart.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnChart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChartActionPerformed(evt);
+            }
+        });
+        toolbar.add(btnChart);
+        toolbar.add(jSeparator4);
 
         btnZoomOut.setAction(svgCanvas.new ZoomAction(0.75));
         btnZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/zoom-out.png"))); // NOI18N
@@ -674,7 +689,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
                         .addComponent(btnProfileHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnModelHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                         .addComponent(btnTissueHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
@@ -688,7 +703,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
             pnlCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCALayout.createSequentialGroup()
                 .addComponent(pnlParameters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(381, Short.MAX_VALUE))
+                .addContainerGap(375, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Model", pnlCA);
@@ -799,10 +814,10 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlRootContainerLayout.createSequentialGroup()
                         .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(scrollPaneCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE))
+                        .addComponent(scrollPaneCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlRootContainerLayout.createSequentialGroup()
                         .addComponent(lblStatus)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 715, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 717, Short.MAX_VALUE)
                         .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -932,7 +947,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(toolbar, javax.swing.GroupLayout.DEFAULT_SIZE, 927, Short.MAX_VALUE)
+            .addComponent(toolbar, javax.swing.GroupLayout.DEFAULT_SIZE, 929, Short.MAX_VALUE)
             .addComponent(pnlRootContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -1160,6 +1175,11 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         }
     }//GEN-LAST:event_txtHeartRateKeyReleased
 
+    private void btnChartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnChartActionPerformed
+    {//GEN-HEADEREND:event_btnChartActionPerformed
+        chartDialog.setVisible(true);
+    }//GEN-LAST:event_btnChartActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1175,6 +1195,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAbout;
+    private javax.swing.JButton btnChart;
     private javax.swing.JButton btnModelHelp;
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnPause;
@@ -1192,6 +1213,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JLabel lblHeartRate;
     private javax.swing.JLabel lblModel;
     private javax.swing.JLabel lblProfile;

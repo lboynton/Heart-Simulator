@@ -262,6 +262,22 @@
         </Component>
         <Component class="javax.swing.JToolBar$Separator" name="separatorControls">
         </Component>
+        <Component class="javax.swing.JButton" name="btnChart">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/heartsim/gui/icon/Line-chart.png"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="View action potential chart of a single cell"/>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnChartActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JToolBar$Separator" name="jSeparator4">
+        </Component>
         <Component class="javax.swing.JButton" name="btnZoomOut">
           <Properties>
             <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
