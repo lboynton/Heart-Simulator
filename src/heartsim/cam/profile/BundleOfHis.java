@@ -25,14 +25,14 @@ public class BundleOfHis extends Profile
     @Override
     public CellularAutomataModel loadParameters(CellularAutomataModel model)
     {
-        if(model instanceof Nishiyama)
+        if (model instanceof Nishiyama)
         {
             model.getParameter("Delta 1").setValue("30");
             model.getParameter("Delta 2").setValue("40");
             model.getParameter("N").setValue("200");
         }
 
-        if(model instanceof NishiyamaExtended)
+        if (model instanceof NishiyamaExtended)
         {
             model.getParameter("uUp").setValue("105");
             model.getParameter("uDown").setValue("30");
