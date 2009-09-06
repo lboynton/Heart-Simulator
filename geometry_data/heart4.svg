@@ -100,9 +100,9 @@
      inkscape:window-height="1006"
      id="namedview2878"
      showgrid="false"
-     inkscape:zoom="1.2403373"
-     inkscape:cx="355.26963"
-     inkscape:cy="409.32872"
+     inkscape:zoom="9.9226984"
+     inkscape:cx="231.57314"
+     inkscape:cy="562.42624"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1"
@@ -118,7 +118,7 @@
      sodipodi:rx="9.4065228"
      sodipodi:ry="9.4065228"
      d="m 337.20956,294.66476 a 9.4065228,9.4065228 0 1 1 -18.81304,0 9.4065228,9.4065228 0 1 1 18.81304,0 z"
-     transform="translate(-107.93163,-38.268396)">
+     transform="matrix(0.81660559,-0.41608132,0.66657402,1.3082251,-242.92015,11.382768)">
     <title
        id="title2874">Atrioventricular node</title>
     <desc
@@ -154,9 +154,9 @@
   </path>
   <path
      style="fill:#ff5555;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     d="m 221.66497,265.11793 c -6.0133,50.9139 18.97205,63.97625 18.47418,69.55989 l 6.5047,-1.56565 c -1.2939,0.45078 -28.0995,-37.0593 -19.08479,-70.61449 l -5.89409,2.62025 z"
+     d="m 229.52572,271.467 c -0.21827,0.26113 1.1231,0.43842 0.66168,1.33813 -0.67058,1.30755 -2.78063,2.76448 -3.48227,3.37403 -1.34795,1.17103 -3.47391,0.75177 -3.53528,2.53889 -1.64264,47.83444 17.45411,50.52246 16.96929,55.95977 l 6.5047,-1.56565 c -1.21812,0.42438 -23.93844,-19.79509 -19.20388,-51.68573 0.10713,-0.72161 7.04615,-6.19359 7.52243,-7.82955 0.83324,-2.86207 -3.80892,-5.61596 -3.47296,-6.86649 l -1.96371,4.7366 z"
      id="bundle_of_his"
-     sodipodi:nodetypes="ccccc"
+     sodipodi:nodetypes="csssccsscc"
      inkscape:label="#path2836">
     <title
        id="title2876">Bundle of His</title>
