@@ -80,7 +80,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
     private final BinaryPlotPanelOverlay overlay;
     private final Simulator simulation;
     private String openFile;
-    private int runTime = 5000;
+    private int runTime = 50000;
     private ChartDialog chartDialog = new ChartDialog(this, false, this);
     private MouseClickAction mouseClickAction = MouseClickAction.None;
     private Cursor crossHairCursor = new Cursor(Cursor.CROSSHAIR_CURSOR);
@@ -121,7 +121,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
 
         simulation = new Simulator(overlay);
         simulation.addListener(this);
-        simulation.setHeartRate(30);
+        simulation.setHeartRate(70);
 
         // centre jframe on screen
         setLocationRelativeTo(null);
@@ -714,7 +714,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
 
         lblHeartRate.setText("Heart rate");
 
-        txtHeartRate.setText("30");
+        txtHeartRate.setText("70");
         txtHeartRate.setToolTipText("Set the heart rate in beats per minute. The simulator will attempt to conform to this, however the maximum heart rate is limited by processing power.");
         txtHeartRate.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -724,7 +724,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
 
         lblTime.setText("Time steps");
 
-        txtTime.setText("5000");
+        txtTime.setText("50000");
         txtTime.setToolTipText("Number of time steps in the simulation");
         txtTime.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {

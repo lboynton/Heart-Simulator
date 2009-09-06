@@ -636,7 +636,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtHeartRate">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="30"/>
+                    <Property name="text" type="java.lang.String" value="70"/>
                     <Property name="toolTipText" type="java.lang.String" value="Set the heart rate in beats per minute. The simulator will attempt to conform to this, however the maximum heart rate is limited by processing power."/>
                   </Properties>
                   <Events>
@@ -650,7 +650,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtTime">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="5000"/>
+                    <Property name="text" type="java.lang.String" value="50000"/>
                     <Property name="toolTipText" type="java.lang.String" value="Number of time steps in the simulation"/>
                   </Properties>
                   <Events>
