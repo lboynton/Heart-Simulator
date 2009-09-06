@@ -177,4 +177,9 @@ public class Nishiyama extends CellularAutomataModel
             u[row][col]++;  // upstroke
         }
     }
+
+    public int[][] getDelta()
+    {
+        return delta;
+    }
 }

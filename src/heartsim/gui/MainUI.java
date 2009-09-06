@@ -20,6 +20,8 @@ import heartsim.cam.profile.Profile;
 import heartsim.Simulator;
 import heartsim.SimulatorListener;
 import heartsim.cam.CellularAutomataModel;
+import heartsim.cam.Nishiyama;
+import heartsim.cam.NishiyamaExtended;
 import heartsim.cam.parameter.CAModelParameter;
 import heartsim.cam.speed.Fast;
 import heartsim.cam.speed.Maximum;
@@ -461,6 +463,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         mnuItmVerboseOutput = new javax.swing.JCheckBoxMenuItem();
         jSeparator2 = new javax.swing.JSeparator();
         mnuItmViewCells = new javax.swing.JMenuItem();
+        mnuItmDeltaArray = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JSeparator();
         mnuItmPrintCells = new javax.swing.JMenuItem();
         mnuItmPrintArrays = new javax.swing.JMenuItem();
@@ -922,6 +925,14 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
             }
         });
         mnuDebug.add(mnuItmViewCells);
+
+        mnuItmDeltaArray.setText("View delta array");
+        mnuItmDeltaArray.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItmDeltaArrayActionPerformed(evt);
+            }
+        });
+        mnuDebug.add(mnuItmDeltaArray);
         mnuDebug.add(jSeparator1);
 
         mnuItmPrintCells.setText("Print cells to terminal");
@@ -1182,6 +1193,13 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         chartDialog.setVisible(true);
     }//GEN-LAST:event_btnChartActionPerformed
 
+    private void mnuItmDeltaArrayActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuItmDeltaArrayActionPerformed
+    {//GEN-HEADEREND:event_mnuItmDeltaArrayActionPerformed
+        HeartTissue tissue = (HeartTissue) cboBoxTissue.getSelectedItem();
+
+        new ArrayViewer(this, false, ((NishiyamaExtended)tissue.getModel()).getDelta()).setVisible(true);
+    }//GEN-LAST:event_mnuItmDeltaArrayActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1228,6 +1246,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
     private javax.swing.JMenu mnuFile;
     private javax.swing.JMenu mnuHeartTissue;
     private javax.swing.JMenuItem mnuItmChart;
+    private javax.swing.JMenuItem mnuItmDeltaArray;
     private javax.swing.JMenuItem mnuItmExit;
     private javax.swing.JMenuItem mnuItmNotLoaded;
     private javax.swing.JMenuItem mnuItmPrintArrays;
