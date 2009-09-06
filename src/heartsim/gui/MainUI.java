@@ -127,7 +127,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         simulation.setAutomaton(ca);
 
         // initially load an SVG file
-        loadSVG("./geometry_data/heart4.svg");
+        loadSVG("./geometry_data/heart5.svg");
     }
 
     public void loadSVG()
