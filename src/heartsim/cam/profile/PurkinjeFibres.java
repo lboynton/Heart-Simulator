@@ -29,15 +29,15 @@ public class PurkinjeFibres extends Profile
     {
         if (model instanceof Nishiyama)
         {
-            model.getParameter("Delta 1").setValue("20");
-            model.getParameter("Delta 2").setValue("30");
-            model.getParameter("N").setValue("400");
+            model.getParameter("Delta 1").setValue("1");
+            model.getParameter("Delta 2").setValue("5");
+            model.getParameter("N").setValue("200");
         }
 
         if (model instanceof NishiyamaExtended)
         {
-            model.getParameter("uUp").setValue("205");
-            model.getParameter("uDown").setValue("60");
+            model.getParameter("uUp").setValue("51");
+            model.getParameter("uDown").setValue("30");
         }
 
         return model;

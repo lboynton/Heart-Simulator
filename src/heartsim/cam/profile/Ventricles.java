@@ -28,13 +28,13 @@ public class Ventricles extends Profile
         {
             model.getParameter("Delta 1").setValue("90");
             model.getParameter("Delta 2").setValue("130");
-            model.getParameter("N").setValue("400");
+            model.getParameter("N").setValue("200");
         }
 
         if (model instanceof NishiyamaExtended)
         {
-            model.getParameter("uUp").setValue("205");
-            model.getParameter("uDown").setValue("60");
+            model.getParameter("uUp").setValue("51");
+            model.getParameter("uDown").setValue("30");
         }
 
         return model;

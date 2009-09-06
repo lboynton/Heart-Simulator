@@ -30,14 +30,14 @@ public class BundleBranches extends Profile
     {
         if (model instanceof Nishiyama)
         {
-            model.getParameter("Delta 1").setValue("30");
-            model.getParameter("Delta 2").setValue("40");
+            model.getParameter("Delta 1").setValue("10");
+            model.getParameter("Delta 2").setValue("20");
             model.getParameter("N").setValue("200");
         }
 
         if (model instanceof NishiyamaExtended)
         {
-            model.getParameter("uUp").setValue("105");
+            model.getParameter("uUp").setValue("50");
             model.getParameter("uDown").setValue("30");
         }
 

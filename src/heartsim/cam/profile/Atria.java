@@ -36,7 +36,7 @@ public class Atria extends Profile
 
         if(model instanceof NishiyamaExtended)
         {
-            model.getParameter("uUp").setValue("75");
+            model.getParameter("uUp").setValue("51");
             model.getParameter("uDown").setValue("5");
         }
 
