@@ -258,6 +258,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
             JButton btn = new JButton(new ImageIcon(getClass().getResource("/heartsim/gui/icon/help-browser.png")));
             btn.setBorder(null);
             btn.setBorderPainted(false);
+            btn.setFocusable(false);
             btn.addActionListener(new ActionListener()
             {
                 public void actionPerformed(ActionEvent e)
