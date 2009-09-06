@@ -10,6 +10,7 @@ High priority items
   appearance
 - Dynamically display a sample of the action potential shape of the selected
   tissue and its parameters?
+- Switching between tissues loses custom parameter settings in GUI
 
 Medium priority items
 - Step forward and pause buttons don't really work
