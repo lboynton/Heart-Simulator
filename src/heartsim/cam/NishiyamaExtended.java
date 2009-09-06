@@ -16,6 +16,7 @@ public class NishiyamaExtended extends Nishiyama
     protected int uDown;
     protected int vUp;
     protected int vDown;
+    protected int initialUDown;
 
     public NishiyamaExtended()
     {
@@ -27,6 +28,7 @@ public class NishiyamaExtended extends Nishiyama
         CAModelIntParameter uDownParam = new CAModelIntParameter(1);
         CAModelIntParameter vUpParam = new CAModelIntParameter(1);
         CAModelIntParameter vDownParam = new CAModelIntParameter(1);
+        CAModelIntParameter initialUDownParam = new CAModelIntParameter(1);
 
         uUpParam.setDescription("Determines how steep the upstroke of the action " +
                 "potential is");
@@ -41,16 +43,21 @@ public class NishiyamaExtended extends Nishiyama
                 "reaches its recovered state. Having a large value will result " +
                 "in the cell recovering very quickly, and being able to be " +
                 "stimulated again much sooner than with a small value.");
+        initialUDownParam.setDescription("Determines the slope of the initial " +
+                "repolarisation of the cell. The value set for uUp must not be " +
+                "a divisor of N for this to take effect.");
 
         uUpParam.setImage("./help_pictures/parameters.png");
         uDownParam.setImage("./help_pictures/parameters.png");
         vUpParam.setImage("./help_pictures/parameters.png");
         vDownParam.setImage("./help_pictures/parameters.png");
+        initialUDownParam.setImage("./help_pictures/parameters.png");
 
         this.setParameter("uUp", uUpParam);
         this.setParameter("uDown", uDownParam);
         this.setParameter("vUp", vUpParam);
         this.setParameter("vDown", vDownParam);
+        this.setParameter("iUDown", initialUDownParam);
     }
 
     @Override
@@ -60,6 +67,7 @@ public class NishiyamaExtended extends Nishiyama
         uDown = (Integer) this.getParameter("uDown").getValue();
         vUp = (Integer) this.getParameter("vUp").getValue();
         vDown = (Integer) this.getParameter("uDown").getValue();
+        initialUDown = (Integer) this.getParameter("iUDown").getValue();
 
         super.initCells();
     }
@@ -69,7 +77,7 @@ public class NishiyamaExtended extends Nishiyama
     {
         if (u[row][col] == 0)
         {
-            if (v[row][col] <= 0)
+            if (v[row][col] == 0)
             {
                 // check for stimulation
                 // inefficient count of neighbours
@@ -105,8 +113,14 @@ public class NishiyamaExtended extends Nishiyama
                 u[row][col] -= uDown;
             }
         }
-        else if (u[row][col] == N - 1)
+        else if (u[row][col] >= N - 1)
         {
+            // initial repolarisation
+            if (u[row][col] > N - 1)
+            {
+                u[row][col] -= initialUDown;
+            }
+            
             if (v[row][col] + vUp > N - 1)
             {
                 v[row][col] = N - 1;
@@ -119,14 +133,7 @@ public class NishiyamaExtended extends Nishiyama
         else
         {
             // upstroke
-            if (u[row][col] + uUp > N - 1)
-            {
-                u[row][col] = N - 1;
-            }
-            else
-            {
-                u[row][col] += uUp;
-            }
+            u[row][col] += uUp;
         }
     }
 }
