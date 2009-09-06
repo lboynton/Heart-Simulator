@@ -22,6 +22,8 @@ public abstract class CAModelParameter
      */
     protected String description;
 
+    protected String image;
+
     /**
      * Gets the name of the CA model parameter
      * @return Name
@@ -73,5 +75,13 @@ public abstract class CAModelParameter
      */
     public abstract Object getValue();
 
-    //public abstract Image getImage();
+    public String getImage()
+    {
+        return image;
+    }
+
+    public void setImage(String image)
+    {
+        this.image = image;
+    }
 }

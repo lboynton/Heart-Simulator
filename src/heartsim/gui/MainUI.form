@@ -163,7 +163,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="toolbar" alignment="0" pref="927" max="32767" attributes="0"/>
+          <Component id="toolbar" alignment="0" pref="929" max="32767" attributes="0"/>
           <Component id="pnlRootContainer" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
@@ -322,7 +322,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="tabbedPane" min="-2" pref="296" max="-2" attributes="1"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="scrollPaneCanvas" pref="595" max="32767" attributes="0"/>
+                          <Component id="scrollPaneCanvas" pref="597" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblStatus" min="-2" max="-2" attributes="0"/>
@@ -389,7 +389,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="pnlParameters" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="381" max="32767" attributes="0"/>
+                          <EmptySpace pref="363" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -406,7 +406,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="lblTissue" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="cboBoxTissue" pref="188" max="32767" attributes="1"/>
+                                      <Component id="cboBoxTissue" pref="176" max="32767" attributes="1"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="btnProfileHelp" min="-2" pref="22" max="-2" attributes="0"/>
                                   </Group>
@@ -415,12 +415,12 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="lblProfile" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="cboBoxProfile" pref="189" max="32767" attributes="0"/>
+                                              <Component id="cboBoxProfile" pref="177" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="1" attributes="0">
                                               <Component id="lblModel" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="cboBoxModel" pref="190" max="32767" attributes="1"/>
+                                              <Component id="cboBoxModel" pref="178" max="32767" attributes="1"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -459,7 +459,7 @@
                                       <Component id="btnProfileHelp" min="-2" pref="27" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="btnModelHelp" min="-2" pref="27" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace pref="12" max="32767" attributes="0"/>
                                       <Component id="btnTissueHelp" min="-2" pref="27" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -572,9 +572,9 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtHeartRate" pref="186" max="32767" attributes="0"/>
-                              <Component id="txtTime" alignment="1" pref="186" max="32767" attributes="0"/>
-                              <Component id="cboBoxSpeed" alignment="0" pref="186" max="32767" attributes="0"/>
+                              <Component id="txtHeartRate" pref="174" max="32767" attributes="0"/>
+                              <Component id="txtTime" alignment="1" pref="174" max="32767" attributes="0"/>
+                              <Component id="cboBoxSpeed" alignment="0" pref="174" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -598,7 +598,7 @@
                               <Component id="txtHeartRate" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblHeartRate" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="381" max="32767" attributes="0"/>
+                          <EmptySpace pref="363" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

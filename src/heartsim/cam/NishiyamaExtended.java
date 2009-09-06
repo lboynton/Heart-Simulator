@@ -28,9 +28,9 @@ public class NishiyamaExtended extends Nishiyama
         CAModelIntParameter vUpParam = new CAModelIntParameter(1);
         CAModelIntParameter vDownParam = new CAModelIntParameter(1);
 
-        uUpParam.setDescription("Determines how steep the upstroke of the action" +
+        uUpParam.setDescription("Determines how steep the upstroke of the action " +
                 "potential is");
-        uDownParam.setDescription("Determines how steep the downstroke of the" +
+        uDownParam.setDescription("Determines how steep the downstroke of the " +
                 "action potential is");
         vUpParam.setDescription("The vUp parameter determines how fast the cell " +
                 "reaches its maximum recovery value. Having a large value for " +
@@ -41,6 +41,11 @@ public class NishiyamaExtended extends Nishiyama
                 "reaches its recovered state. Having a large value will result " +
                 "in the cell recovering very quickly, and being able to be " +
                 "stimulated again much sooner than with a small value.");
+
+        uUpParam.setImage("./help_pictures/parameters.png");
+        uDownParam.setImage("./help_pictures/parameters.png");
+        vUpParam.setImage("./help_pictures/parameters.png");
+        vDownParam.setImage("./help_pictures/parameters.png");
 
         this.setParameter("uUp", uUpParam);
         this.setParameter("uDown", uDownParam);

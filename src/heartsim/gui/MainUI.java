@@ -262,7 +262,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
             {
                 public void actionPerformed(ActionEvent e)
                 {
-                    new HelpDialog(MainUI.this, p.getName(), false, p.getDescription()).setVisible(true);
+                    new HelpDialog(MainUI.this, p.getName(), false, p.getDescription(), p.getImage()).setVisible(true);
                 }
             });
 
