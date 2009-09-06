@@ -426,12 +426,12 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         lblTissue = new javax.swing.JLabel();
         lblModel = new javax.swing.JLabel();
         cboBoxTissue = new javax.swing.JComboBox();
-        btnProfileHelp = new javax.swing.JButton();
         cboBoxModel = new javax.swing.JComboBox();
         btnModelHelp = new javax.swing.JButton();
         lblProfile = new javax.swing.JLabel();
         cboBoxProfile = new javax.swing.JComboBox();
         btnTissueHelp = new javax.swing.JButton();
+        btnProfileHelp = new javax.swing.JButton();
         pnlSimulationSettings = new javax.swing.JPanel();
         lblHeartRate = new javax.swing.JLabel();
         txtHeartRate = new javax.swing.JTextField();
@@ -598,15 +598,6 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
             }
         });
 
-        btnProfileHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/help-browser.png"))); // NOI18N
-        btnProfileHelp.setBorder(null);
-        btnProfileHelp.setBorderPainted(false);
-        btnProfileHelp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProfileHelpActionPerformed(evt);
-            }
-        });
-
         cboBoxModel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboBoxModelActionPerformed(evt);
@@ -639,6 +630,15 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
             }
         });
 
+        btnProfileHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/help-browser.png"))); // NOI18N
+        btnProfileHelp.setBorder(null);
+        btnProfileHelp.setBorderPainted(false);
+        btnProfileHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProfileHelpActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlParametersLayout = new javax.swing.GroupLayout(pnlParameters);
         pnlParameters.setLayout(pnlParametersLayout);
         pnlParametersLayout.setHorizontalGroup(
@@ -651,7 +651,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cboBoxTissue, 0, 188, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnProfileHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnTissueHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlParametersLayout.createSequentialGroup()
                         .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlParametersLayout.createSequentialGroup()
@@ -663,9 +663,9 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cboBoxModel, 0, 190, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnTissueHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnModelHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(pnlParametersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnModelHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnProfileHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         pnlParametersLayout.setVerticalGroup(
@@ -686,11 +686,12 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
                             .addComponent(lblProfile)
                             .addComponent(cboBoxProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnlParametersLayout.createSequentialGroup()
-                        .addComponent(btnProfileHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTissueHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnModelHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                        .addComponent(btnTissueHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnProfileHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlCALayout = new javax.swing.GroupLayout(pnlCA);
@@ -703,7 +704,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
             pnlCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCALayout.createSequentialGroup()
                 .addComponent(pnlParameters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(375, Short.MAX_VALUE))
+                .addContainerGap(348, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Model", pnlCA);
@@ -1091,8 +1092,9 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
 
     private void btnProfileHelpActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnProfileHelpActionPerformed
     {//GEN-HEADEREND:event_btnProfileHelpActionPerformed
-        new HelpDialog(this, "Profile", false, "Select the heart tissue profile " +
-                "to use for this tissue.").setVisible(true);
+        Profile profile = (Profile) cboBoxProfile.getSelectedItem();
+        
+        new HelpDialog(this, "Profile", false, profile.getDescription()).setVisible(true);
 }//GEN-LAST:event_btnProfileHelpActionPerformed
 
     private void cboBoxProfileActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cboBoxProfileActionPerformed
