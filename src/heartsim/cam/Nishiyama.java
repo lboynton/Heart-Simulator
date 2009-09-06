@@ -4,7 +4,6 @@
  */
 package heartsim.cam;
 
-import heartsim.Application;
 import heartsim.cam.parameter.CAModelIntParameter;
 import heartsim.util.StringUtils;
 import java.util.Random;
@@ -20,7 +19,7 @@ public class Nishiyama extends CellularAutomataModel
     protected int delta[][]; // delta values for each cell
     protected Random generator = new Random();
     protected int N;
-    protected final int excitationValue = 1;
+    protected final int excitationThreshold = 1;
 
     public Nishiyama()
     {
@@ -140,7 +139,7 @@ public class Nishiyama extends CellularAutomataModel
     @Override
     public int getCellThreshold()
     {
-        return excitationValue;
+        return excitationThreshold;
     }
 
     @Override
