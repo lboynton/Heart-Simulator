@@ -17,6 +17,11 @@ public class Atria extends Profile
     public Atria()
     {
         super("Atria");
+
+        this.setDescription("The atrial walls have a slow conduction velocity " +
+                "and short action potential duration.");
+
+        this.setImage("./help_pictures/profile_atria.png");
     }
 
     @Override
