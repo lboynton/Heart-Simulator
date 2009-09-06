@@ -1094,7 +1094,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
     {//GEN-HEADEREND:event_btnProfileHelpActionPerformed
         Profile profile = (Profile) cboBoxProfile.getSelectedItem();
         
-        new HelpDialog(this, "Profile", false, profile.getDescription()).setVisible(true);
+        new HelpDialog(this, "Profile", false, profile.getDescription(), profile.getImage()).setVisible(true);
 }//GEN-LAST:event_btnProfileHelpActionPerformed
 
     private void cboBoxProfileActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cboBoxProfileActionPerformed
