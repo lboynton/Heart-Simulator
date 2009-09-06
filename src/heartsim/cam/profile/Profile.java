@@ -18,6 +18,7 @@ public abstract class Profile implements Comparable
     protected String description;
     protected List<CellularAutomataModel> models = Application.getInstance().getCAModels();
     protected List<String> aliases = new ArrayList<String>();
+    protected String image;
 
     public Profile(String name)
     {
@@ -94,5 +95,15 @@ public abstract class Profile implements Comparable
         if(!(o instanceof Profile)) return 0;
 
         return this.getOrder() - ((Profile)o).getOrder();
+    }
+
+    public String getImage()
+    {
+        return image;
+    }
+
+    public void setImage(String image)
+    {
+        this.image = image;
     }
 }
