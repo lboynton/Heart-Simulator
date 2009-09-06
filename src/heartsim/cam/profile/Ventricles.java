@@ -6,6 +6,7 @@ package heartsim.cam.profile;
 
 import heartsim.cam.CellularAutomataModel;
 import heartsim.cam.Nishiyama;
+import heartsim.cam.NishiyamaExtended;
 
 /**
  *
@@ -25,9 +26,15 @@ public class Ventricles extends Profile
     {
         if (model instanceof Nishiyama)
         {
-            model.getParameter("N").setValue("6");
-            model.getParameter("Delta 1").setValue("10");
-            model.getParameter("Delta 2").setValue("8");
+            model.getParameter("Delta 1").setValue("90");
+            model.getParameter("Delta 2").setValue("130");
+            model.getParameter("N").setValue("400");
+        }
+
+        if (model instanceof NishiyamaExtended)
+        {
+            model.getParameter("uUp").setValue("205");
+            model.getParameter("uDown").setValue("60");
         }
 
         return model;
