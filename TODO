@@ -3,7 +3,6 @@ TODO
 High priority items
 - Zoom in not working properly
 - Find out where bundle branches end and Purkinje fibres start and update SVG accordingly
-- Find out if valves are excitable and update SVG accordingly
 - Correct profiles
 - Correct the duration of the stimulus timer
 - Simulate the initial repolarisation phase
