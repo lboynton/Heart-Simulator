@@ -50,8 +50,7 @@ public class ActionPotentialChart extends ChartPanel
             false                     // urls
         );
 
-        // set maximum time steps range
-        ((XYPlot)chart.getPlot()).getDomainAxis().setRange(0, visibleTimeSteps);
+        reset();
 
         chart.setBackgroundPaint(null);
 
@@ -123,5 +122,14 @@ public class ActionPotentialChart extends ChartPanel
     public void setVoltageEnabled(boolean voltage)
     {
         ((XYPlot)chart.getPlot()).getRenderer().setSeriesVisible(0, voltage);
+    }
+
+    public void reset()
+    {
+        // set maximum time steps range
+        ((XYPlot)chart.getPlot()).getDomainAxis().setRange(0, visibleTimeSteps);
+
+        chartData.getSeries(0).clear();
+        chartData.getSeries(1).clear();
     }
 }

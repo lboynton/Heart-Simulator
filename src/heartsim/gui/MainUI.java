@@ -1026,6 +1026,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         simulation.stop();
         svgCanvas.getOverlays().remove(overlay);
         svgCanvas.repaint();
+        chartDialog.getChart().reset();
     }//GEN-LAST:event_btnStopActionPerformed
 
     private void btnStepForwardActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStepForwardActionPerformed
