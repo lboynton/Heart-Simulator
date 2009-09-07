@@ -2,32 +2,28 @@ TODO
 
 High priority items
 - Zoom in not working properly
-- Find out where bundle branches end and Purkinje fibres start and update SVG accordingly
-- Correct profiles
-- Correct the duration of the stimulus timer
 - Add images to the parameters to illustrate how they change the action potential
   appearance
-- Dynamically display a sample of the action potential shape of the selected
-  tissue and its parameters?
 - Switching between tissues loses custom parameter settings in GUI
 
 Medium priority items
 - Step forward and pause buttons don't really work
-- Zoom action potential chart. (Use correct type of chart)
 - Allow for small arbitrary region of cells to be selected and to have their
   parameters changed (so that cells can be killed)
 - Allow for a one off stimulation to simulate arrhythmia
 
 Low priority items
-- Add help buttons to simulation panel
+- Draw outline of heart on overlay
+- Colour waves
 - Implement Tyson CA model
-- Hide elements from canvas when they are disabled
 - Determine the optimum size of the stimulus in terms of the number of cells to
   stimulate
 - Work out why crosshair cursor doesn't show over JSVGCanvas
-- Use mulitple threads/CPU cores to speed up simulation?
 
 Wishlist items
+- Use mulitple threads/CPU cores to speed up simulation
+- Dynamically display a sample of the action potential shape of the selected
+  tissue and its parameters
 - Incorporate the prepotential in the SA and AV node in the CA model which
   causes the autorhythmicity characterstic of the pacemaker cells
 - Incorporate the relative refractory period into the CA model
