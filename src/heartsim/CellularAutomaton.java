@@ -215,4 +215,34 @@ public class CellularAutomaton
 
         return true;
     }
+
+    public int getMax()
+    {
+        int max = 0;
+
+        for(HeartTissue t:tissues)
+        {
+            if(t.getModel().getMax() > max)
+            {
+                max = t.getModel().getMax();
+            }
+        }
+
+        return max;
+    }
+
+    public int getMin()
+    {
+        int min = 0;
+
+        for(HeartTissue t:tissues)
+        {
+            if(t.getModel().getMin() < min)
+            {
+                min = t.getModel().getMax();
+            }
+        }
+
+        return min;
+    }
 }

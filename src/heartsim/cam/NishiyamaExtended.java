@@ -136,4 +136,20 @@ public class NishiyamaExtended extends Nishiyama
             u[row][col] += uUp;
         }
     }
+
+    @Override
+    public int getMax()
+    {
+        if(N % uUp == 0)
+        {
+            return N;
+        }
+
+        int times = (N / uUp) + 1;
+        double times2  = (double) N / uUp;
+
+        System.out.println(times + " " + times2);
+
+        return uUp * times;
+    }
 }

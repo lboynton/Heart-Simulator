@@ -38,7 +38,6 @@ public class ActionPotentialChart extends ChartPanel
         renderer = new LineRenderer3D();
         domainAxis = new CategoryAxis("Time");
         rangeAxis = new NumberAxis("Voltage");
-        rangeAxis.setAutoRange(true);
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         final CategoryPlot plot = new CategoryPlot(chartData, domainAxis, rangeAxis, renderer);
         chart = new JFreeChart("Action Potential for " + col + ", " + row, plot);
@@ -50,7 +49,7 @@ public class ActionPotentialChart extends ChartPanel
 
     public void setRange(int min, int max)
     {
-        rangeAxis.setRange(min, max);
+        rangeAxis.setRange(min, max + 10);
     }
 
     public void setVoltageValue(int time, int value)

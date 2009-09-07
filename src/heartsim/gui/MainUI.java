@@ -1190,6 +1190,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
 
     private void btnChartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnChartActionPerformed
     {//GEN-HEADEREND:event_btnChartActionPerformed
+        chartDialog.getChart().setRange(ca.getMin(), ca.getMax());
         chartDialog.setVisible(true);
     }//GEN-LAST:event_btnChartActionPerformed
 
