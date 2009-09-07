@@ -24,6 +24,8 @@ public class ActionPotentialChart extends ChartPanel
     private int row = 0;
     private String tissue;
     private int visibleTimeSteps = 2000;
+    private int min;
+    private int max;
 
     public ActionPotentialChart()
     {
@@ -59,7 +61,26 @@ public class ActionPotentialChart extends ChartPanel
 
     public void setRange(int min, int max)
     {
-        ((XYPlot)chart.getPlot()).getRangeAxis().setRange(min, max + 10);
+        this.min = min;
+        this.max = max + 10;
+        
+        setRangeRange();
+    }
+
+    public void setRangeRange()
+    {
+        ((XYPlot)chart.getPlot()).getRangeAxis().setRange(this.min, this.max);
+    }
+
+    public void setDomainRange()
+    {
+        ((XYPlot)chart.getPlot()).getDomainAxis().setRange(0, visibleTimeSteps);
+    }
+
+    public void setRanges()
+    {
+        setRangeRange();
+        setDomainRange();
     }
 
     public void setVoltageValue(int time, int value)
@@ -126,8 +147,7 @@ public class ActionPotentialChart extends ChartPanel
 
     public void reset()
     {
-        // set maximum time steps range
-        ((XYPlot)chart.getPlot()).getDomainAxis().setRange(0, visibleTimeSteps);
+        setRanges();
 
         chartData.getSeries(0).clear();
         chartData.getSeries(1).clear();

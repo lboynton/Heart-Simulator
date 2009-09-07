@@ -69,6 +69,7 @@ public class ChartDialog extends javax.swing.JDialog
         btnClose = new javax.swing.JButton();
         chkBoxVoltage = new javax.swing.JCheckBox();
         chkBoxRecovery = new javax.swing.JCheckBox();
+        btnReset = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -113,6 +114,13 @@ public class ChartDialog extends javax.swing.JDialog
             }
         });
 
+        btnReset.setText("Reset View");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -127,7 +135,9 @@ public class ChartDialog extends javax.swing.JDialog
                         .addComponent(chkBoxVoltage)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chkBoxRecovery)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 358, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 271, Short.MAX_VALUE)
+                        .addComponent(btnReset)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnClose)))
                 .addContainerGap())
         );
@@ -141,7 +151,8 @@ public class ChartDialog extends javax.swing.JDialog
                     .addComponent(toggleBtnChooseCell)
                     .addComponent(btnClose)
                     .addComponent(chkBoxVoltage)
-                    .addComponent(chkBoxRecovery))
+                    .addComponent(chkBoxRecovery)
+                    .addComponent(btnReset))
                 .addContainerGap())
         );
 
@@ -181,6 +192,11 @@ public class ChartDialog extends javax.swing.JDialog
         chart.setRecoveryEnabled(chkBoxRecovery.isSelected());
     }//GEN-LAST:event_chkBoxRecoveryActionPerformed
 
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnResetActionPerformed
+    {//GEN-HEADEREND:event_btnResetActionPerformed
+        chart.setRanges();
+    }//GEN-LAST:event_btnResetActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -204,6 +220,7 @@ public class ChartDialog extends javax.swing.JDialog
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
+    private javax.swing.JButton btnReset;
     private heartsim.gui.component.ActionPotentialChart chart;
     private javax.swing.JCheckBox chkBoxRecovery;
     private javax.swing.JCheckBox chkBoxVoltage;
