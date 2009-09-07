@@ -1386,6 +1386,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         btnStart.setEnabled(false);
         progressBar.setMaximum(simulation.getRunTime());
         resetProgressBar();
+        chartDialog.getChart().setRange(ca.getMin(), ca.getMax());
     }
 
     public void simulationPaused()

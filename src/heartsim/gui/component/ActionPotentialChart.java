@@ -4,13 +4,13 @@
  */
 package heartsim.gui.component;
 
+import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.CategoryAxis;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.renderer.category.LineAndShapeRenderer;
-import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 /**
  *
@@ -18,30 +18,41 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class ActionPotentialChart extends ChartPanel
 {
-    private final DefaultCategoryDataset chartData;
+    private final XYSeriesCollection chartData;
     private final JFreeChart chart;
-    private final CategoryAxis domainAxis;
-    private final NumberAxis rangeAxis;
-    private final LineAndShapeRenderer renderer;
     private int col = 0;
     private int row = 0;
     private String tissue;
-    private boolean voltage = true;
-    private boolean recovery = true;
+    private int visibleTimeSteps = 2000;
 
     public ActionPotentialChart()
     {
         // set the chart later
         super(null);
 
-        chartData = new DefaultCategoryDataset();
-        renderer = new LineAndShapeRenderer(true, false);
-        domainAxis = new CategoryAxis("Time");
-        rangeAxis = new NumberAxis("Voltage");
-        rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        final CategoryPlot plot = new CategoryPlot(chartData, domainAxis, rangeAxis, renderer);
-        chart = new JFreeChart("Action Potential for " + col + ", " + row, plot);
-        chart.removeLegend();
+        XYSeries voltageSeries = new XYSeries("Voltage");
+        XYSeries recoverySeries = new XYSeries("Recovery");
+
+        chartData = new XYSeriesCollection();
+        chartData.addSeries(voltageSeries);
+        chartData.addSeries(recoverySeries);
+
+//        chart = new JFreeChart("Action Potential for " + col + ", " + row, plot);
+
+        chart = ChartFactory.createXYLineChart(
+            "Action Potential",      // chart title
+            "Time",                      // x axis label
+            "Potential",                      // y axis label
+            chartData,                  // data
+            PlotOrientation.VERTICAL,
+            false,                     // include legend
+            true,                     // tooltips
+            false                     // urls
+        );
+
+        // set maximum time steps range
+        ((XYPlot)chart.getPlot()).getDomainAxis().setRange(0, visibleTimeSteps);
+
         chart.setBackgroundPaint(null);
 
         this.setChart(chart);
@@ -49,31 +60,27 @@ public class ActionPotentialChart extends ChartPanel
 
     public void setRange(int min, int max)
     {
-        rangeAxis.setRange(min, max + 10);
+        ((XYPlot)chart.getPlot()).getRangeAxis().setRange(min, max + 10);
     }
 
     public void setVoltageValue(int time, int value)
     {
-        if(!voltage) return;
+        chartData.getSeries(0).add(time, value);
 
-        if (chartData.getColumnCount() > 500)
+        if(time > visibleTimeSteps)
         {
-            chartData.removeColumn(0);
+            ((XYPlot)chart.getPlot()).getDomainAxis().setRange(time - visibleTimeSteps, time);
         }
-
-        chartData.addValue(value, "Voltage", String.valueOf(time));
     }
 
     public void setRecoveryValue(int time, int value)
     {
-        if(!recovery) return;
-        
-        if (chartData.getColumnCount() > 500)
-        {
-            chartData.removeColumn(0);
-        }
+        chartData.getSeries(1).add(time, value);
 
-        chartData.addValue(value, "Recovery", String.valueOf(time));
+        if(time > visibleTimeSteps)
+        {
+            ((XYPlot)chart.getPlot()).getDomainAxis().setRange(time - visibleTimeSteps, time);
+        }
     }
 
     public void setCell(int row, int col)
@@ -110,11 +117,11 @@ public class ActionPotentialChart extends ChartPanel
 
     public void setRecoveryEnabled(boolean recovery)
     {
-        this.recovery = recovery;
+        ((XYPlot)chart.getPlot()).getRenderer().setSeriesVisible(1, recovery);
     }
 
     public void setVoltageEnabled(boolean voltage)
     {
-        this.voltage = voltage;
+        ((XYPlot)chart.getPlot()).getRenderer().setSeriesVisible(0, voltage);
     }
 }

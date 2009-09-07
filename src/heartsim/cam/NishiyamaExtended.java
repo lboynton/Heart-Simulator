@@ -140,10 +140,14 @@ public class NishiyamaExtended extends Nishiyama
     @Override
     public int getMax()
     {
+        if(N == 0) return 0;
+
         if(N % uUp == 0)
         {
             return N;
         }
+
+        if(uUp == 0) return 0;
 
         int times = (N / uUp) + 1;
         double times2  = (double) N / uUp;
