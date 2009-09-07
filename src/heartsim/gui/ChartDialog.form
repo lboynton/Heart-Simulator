@@ -28,7 +28,11 @@
                   <Component id="chart" pref="652" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="toggleBtnChooseCell" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="520" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="191" max="-2" attributes="0"/>
+                      <Component id="chkBoxVoltage" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="chkBoxRecovery" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="173" max="32767" attributes="0"/>
                       <Component id="btnClose" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -45,6 +49,8 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="toggleBtnChooseCell" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnClose" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="chkBoxVoltage" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="chkBoxRecovery" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -81,6 +87,24 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCloseActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkBoxVoltage">
+      <Properties>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="Voltage"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkBoxVoltageActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkBoxRecovery">
+      <Properties>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="Recovery"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkBoxRecoveryActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

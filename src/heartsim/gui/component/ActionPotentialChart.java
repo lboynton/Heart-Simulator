@@ -26,6 +26,8 @@ public class ActionPotentialChart extends ChartPanel
     private int col = 0;
     private int row = 0;
     private String tissue;
+    private boolean voltage = true;
+    private boolean recovery = true;
 
     public ActionPotentialChart()
     {
@@ -53,6 +55,8 @@ public class ActionPotentialChart extends ChartPanel
 
     public void setVoltageValue(int time, int value)
     {
+        if(!voltage) return;
+
         if (chartData.getColumnCount() > 500)
         {
             chartData.removeColumn(0);
@@ -63,6 +67,8 @@ public class ActionPotentialChart extends ChartPanel
 
     public void setRecoveryValue(int time, int value)
     {
+        if(!recovery) return;
+        
         if (chartData.getColumnCount() > 500)
         {
             chartData.removeColumn(0);
@@ -101,5 +107,15 @@ public class ActionPotentialChart extends ChartPanel
     public int getCellRow()
     {
         return row;
+    }
+
+    public void setRecoveryEnabled(boolean recovery)
+    {
+        this.recovery = recovery;
+    }
+
+    public void setVoltageEnabled(boolean voltage)
+    {
+        this.voltage = voltage;
     }
 }
