@@ -150,9 +150,6 @@ public class NishiyamaExtended extends Nishiyama
         if(uUp == 0) return 0;
 
         int times = (N / uUp) + 1;
-        double times2  = (double) N / uUp;
-
-        System.out.println(times + " " + times2);
 
         return uUp * times;
     }

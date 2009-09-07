@@ -48,8 +48,6 @@ public class FileUtils
             //Create a temporary file with the specified extension
             File file = File.createTempFile("file", "." + getExtension(filename));
 
-            System.out.println(file.getName());
-
             FileSystemView view = FileSystemView.getFileSystemView();
             icon = view.getSystemIcon(file);
 
