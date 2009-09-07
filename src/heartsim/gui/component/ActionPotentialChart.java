@@ -9,7 +9,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.renderer.category.LineRenderer3D;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
@@ -22,7 +22,7 @@ public class ActionPotentialChart extends ChartPanel
     private final JFreeChart chart;
     private final CategoryAxis domainAxis;
     private final NumberAxis rangeAxis;
-    private final LineRenderer3D renderer;
+    private final LineAndShapeRenderer renderer;
     private int col = 0;
     private int row = 0;
     private String tissue;
@@ -35,7 +35,7 @@ public class ActionPotentialChart extends ChartPanel
         super(null);
 
         chartData = new DefaultCategoryDataset();
-        renderer = new LineRenderer3D();
+        renderer = new LineAndShapeRenderer(true, false);
         domainAxis = new CategoryAxis("Time");
         rangeAxis = new NumberAxis("Voltage");
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
