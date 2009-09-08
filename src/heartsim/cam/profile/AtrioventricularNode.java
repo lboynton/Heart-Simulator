@@ -20,6 +20,13 @@ public class AtrioventricularNode extends Profile
 
         this.addAlias("avnode");
 
+        this.setDescription("The atrioventricular node delays the impulse from " +
+                "the sinoatrial node so that the ventricles contract after they " +
+                "have filled up with blood from the atria, which contract before " +
+                "the ventricles.\n\n" +
+                "Consequently, the sinoatrial node is very slow at conducting " +
+                "waves. It also has a short action potential duration.");
+
         this.setImage("./help_pictures/profile_avnode.png");
     }
 
