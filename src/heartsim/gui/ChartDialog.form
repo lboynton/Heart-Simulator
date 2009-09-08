@@ -4,6 +4,8 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="btnGrpChooseCell">
     </Component>
+    <Component class="javax.swing.ButtonGroup" name="btnGrpChkBox">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
@@ -217,120 +219,151 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="chkBoxTissue1">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="btnGrpChkBox"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Tissue 1"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JToggleButton" name="toggleBtnChooseCell2">
       <Properties>
+        <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="getButtonAction()" type="code"/>
+        </Property>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="btnGrpChooseCell"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Choose cell"/>
+        <Property name="actionCommand" type="java.lang.String" value="1"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toggleBtnChooseCell2ActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="chkBoxTissue2">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="btnGrpChkBox"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Tissue 2"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JToggleButton" name="toggleBtnChooseCell3">
       <Properties>
+        <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="getButtonAction()" type="code"/>
+        </Property>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="btnGrpChooseCell"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Choose cell"/>
+        <Property name="actionCommand" type="java.lang.String" value="2"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toggleBtnChooseCell3ActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="chkBoxTissue3">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="btnGrpChkBox"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Tissue 3"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JToggleButton" name="toggleBtnChooseCell4">
       <Properties>
+        <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="getButtonAction()" type="code"/>
+        </Property>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="btnGrpChooseCell"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Choose cell"/>
+        <Property name="actionCommand" type="java.lang.String" value="3"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toggleBtnChooseCell4ActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="chkBoxTissue4">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="btnGrpChkBox"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Tissue 4"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JToggleButton" name="toggleBtnChooseCell5">
       <Properties>
+        <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="getButtonAction()" type="code"/>
+        </Property>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="btnGrpChooseCell"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Choose cell"/>
+        <Property name="actionCommand" type="java.lang.String" value="4"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toggleBtnChooseCell5ActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="chkBoxTissue5">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="btnGrpChkBox"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Tissue 5"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JToggleButton" name="toggleBtnChooseCell6">
       <Properties>
+        <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="getButtonAction()" type="code"/>
+        </Property>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="btnGrpChooseCell"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Choose cell"/>
+        <Property name="actionCommand" type="java.lang.String" value="5"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toggleBtnChooseCell6ActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="chkBoxTissue6">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="btnGrpChkBox"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Tissue 6"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JToggleButton" name="toggleBtnChooseCell7">
       <Properties>
+        <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="getButtonAction()" type="code"/>
+        </Property>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="btnGrpChooseCell"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Choose cell"/>
+        <Property name="actionCommand" type="java.lang.String" value="6"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toggleBtnChooseCell7ActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="chkBoxTissue7">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="btnGrpChkBox"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Tissue 7"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="chkBoxTissue8">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="btnGrpChkBox"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Tissue 8"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JToggleButton" name="toggleBtnChooseCell8">
       <Properties>
+        <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="getButtonAction()" type="code"/>
+        </Property>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="btnGrpChooseCell"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Choose cell"/>
+        <Property name="actionCommand" type="java.lang.String" value="7"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toggleBtnChooseCell8ActionPerformed"/>
-      </Events>
     </Component>
   </SubComponents>
 </Form>

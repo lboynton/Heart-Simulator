@@ -14,6 +14,11 @@ import heartsim.CellularAutomaton;
 import heartsim.SimulatorListener;
 import heartsim.gui.component.ActionPotentialChart;
 import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.util.Enumeration;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JCheckBox;
 import javax.swing.UIManager;
 
 /**
@@ -23,6 +28,11 @@ import javax.swing.UIManager;
 public class ChartDialog extends javax.swing.JDialog implements SimulatorListener
 {
     private ChartDialogEvent listener;
+    private int[] rows = new int[8];
+    private int[] cols = new int[8];
+    private boolean[] enabled = new boolean[8];
+    private int tissueNumber = 0;
+    private Action toggleButtonAction = new ToggleButtonAction();
 
     /** Creates new form ChartDialog */
     private ChartDialog(java.awt.Frame parent, boolean modal)
@@ -47,6 +57,11 @@ public class ChartDialog extends javax.swing.JDialog implements SimulatorListene
         initComponents();
     }
 
+    public Action getButtonAction()
+    {
+        return toggleButtonAction;
+    }
+
     public void setListener(ChartDialogEvent listener)
     {
         this.listener = listener;
@@ -55,6 +70,25 @@ public class ChartDialog extends javax.swing.JDialog implements SimulatorListene
     public ActionPotentialChart getChart()
     {
         return chart;
+    }
+
+    public void setCell(int row, int col)
+    {
+        this.rows[tissueNumber] = row;
+        this.cols[tissueNumber] = col;
+        this.enabled[tissueNumber] = true;
+
+        chart.addCell(row, col);
+
+        for(Enumeration e = btnGrpChkBox.getElements(); e.hasMoreElements();)
+        {
+            JCheckBox chkBox = (JCheckBox) e.nextElement();
+
+            if(chkBox.getActionCommand().equals(String.valueOf(tissueNumber)))
+            {
+                chkBox.setText(String.valueOf(row) + ", " + String.valueOf(col));
+            }
+        }
     }
 
     /** This method is called from within the constructor to
@@ -67,6 +101,7 @@ public class ChartDialog extends javax.swing.JDialog implements SimulatorListene
     private void initComponents() {
 
         btnGrpChooseCell = new javax.swing.ButtonGroup();
+        btnGrpChkBox = new javax.swing.ButtonGroup();
         chart = new heartsim.gui.component.ActionPotentialChart();
         toggleBtnChooseCell1 = new javax.swing.JToggleButton();
         btnClose = new javax.swing.JButton();
@@ -140,77 +175,64 @@ public class ChartDialog extends javax.swing.JDialog implements SimulatorListene
             }
         });
 
+        btnGrpChkBox.add(chkBoxTissue1);
         chkBoxTissue1.setText("Tissue 1");
 
+        toggleBtnChooseCell2.setAction(getButtonAction());
         btnGrpChooseCell.add(toggleBtnChooseCell2);
         toggleBtnChooseCell2.setText("Choose cell");
-        toggleBtnChooseCell2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toggleBtnChooseCell2ActionPerformed(evt);
-            }
-        });
+        toggleBtnChooseCell2.setActionCommand("1");
 
+        btnGrpChkBox.add(chkBoxTissue2);
         chkBoxTissue2.setText("Tissue 2");
 
+        toggleBtnChooseCell3.setAction(getButtonAction());
         btnGrpChooseCell.add(toggleBtnChooseCell3);
         toggleBtnChooseCell3.setText("Choose cell");
-        toggleBtnChooseCell3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toggleBtnChooseCell3ActionPerformed(evt);
-            }
-        });
+        toggleBtnChooseCell3.setActionCommand("2");
 
+        btnGrpChkBox.add(chkBoxTissue3);
         chkBoxTissue3.setText("Tissue 3");
 
+        toggleBtnChooseCell4.setAction(getButtonAction());
         btnGrpChooseCell.add(toggleBtnChooseCell4);
         toggleBtnChooseCell4.setText("Choose cell");
-        toggleBtnChooseCell4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toggleBtnChooseCell4ActionPerformed(evt);
-            }
-        });
+        toggleBtnChooseCell4.setActionCommand("3");
 
+        btnGrpChkBox.add(chkBoxTissue4);
         chkBoxTissue4.setText("Tissue 4");
 
+        toggleBtnChooseCell5.setAction(getButtonAction());
         btnGrpChooseCell.add(toggleBtnChooseCell5);
         toggleBtnChooseCell5.setText("Choose cell");
-        toggleBtnChooseCell5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toggleBtnChooseCell5ActionPerformed(evt);
-            }
-        });
+        toggleBtnChooseCell5.setActionCommand("4");
 
+        btnGrpChkBox.add(chkBoxTissue5);
         chkBoxTissue5.setText("Tissue 5");
 
+        toggleBtnChooseCell6.setAction(getButtonAction());
         btnGrpChooseCell.add(toggleBtnChooseCell6);
         toggleBtnChooseCell6.setText("Choose cell");
-        toggleBtnChooseCell6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toggleBtnChooseCell6ActionPerformed(evt);
-            }
-        });
+        toggleBtnChooseCell6.setActionCommand("5");
 
+        btnGrpChkBox.add(chkBoxTissue6);
         chkBoxTissue6.setText("Tissue 6");
 
+        toggleBtnChooseCell7.setAction(getButtonAction());
         btnGrpChooseCell.add(toggleBtnChooseCell7);
         toggleBtnChooseCell7.setText("Choose cell");
-        toggleBtnChooseCell7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toggleBtnChooseCell7ActionPerformed(evt);
-            }
-        });
+        toggleBtnChooseCell7.setActionCommand("6");
 
+        btnGrpChkBox.add(chkBoxTissue7);
         chkBoxTissue7.setText("Tissue 7");
 
+        btnGrpChkBox.add(chkBoxTissue8);
         chkBoxTissue8.setText("Tissue 8");
 
+        toggleBtnChooseCell8.setAction(getButtonAction());
         btnGrpChooseCell.add(toggleBtnChooseCell8);
         toggleBtnChooseCell8.setText("Choose cell");
-        toggleBtnChooseCell8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toggleBtnChooseCell8ActionPerformed(evt);
-            }
-        });
+        toggleBtnChooseCell8.setActionCommand("7");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -320,13 +342,13 @@ public class ChartDialog extends javax.swing.JDialog implements SimulatorListene
 
     private void toggleBtnChooseCell1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_toggleBtnChooseCell1ActionPerformed
     {//GEN-HEADEREND:event_toggleBtnChooseCell1ActionPerformed
-        if(listener == null)
+        if (listener == null)
         {
             System.err.println("No listeners are attached to the chart dialog. Can not set the cell.");
             return;
         }
 
-        if(toggleBtnChooseCell1.isSelected())
+        if (toggleBtnChooseCell1.isSelected())
         {
             listener.setCellSelectionMode();
         }
@@ -356,41 +378,6 @@ public class ChartDialog extends javax.swing.JDialog implements SimulatorListene
         chart.setRanges();
     }//GEN-LAST:event_btnResetActionPerformed
 
-    private void toggleBtnChooseCell2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_toggleBtnChooseCell2ActionPerformed
-    {//GEN-HEADEREND:event_toggleBtnChooseCell2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_toggleBtnChooseCell2ActionPerformed
-
-    private void toggleBtnChooseCell3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_toggleBtnChooseCell3ActionPerformed
-    {//GEN-HEADEREND:event_toggleBtnChooseCell3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_toggleBtnChooseCell3ActionPerformed
-
-    private void toggleBtnChooseCell4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_toggleBtnChooseCell4ActionPerformed
-    {//GEN-HEADEREND:event_toggleBtnChooseCell4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_toggleBtnChooseCell4ActionPerformed
-
-    private void toggleBtnChooseCell5ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_toggleBtnChooseCell5ActionPerformed
-    {//GEN-HEADEREND:event_toggleBtnChooseCell5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_toggleBtnChooseCell5ActionPerformed
-
-    private void toggleBtnChooseCell6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_toggleBtnChooseCell6ActionPerformed
-    {//GEN-HEADEREND:event_toggleBtnChooseCell6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_toggleBtnChooseCell6ActionPerformed
-
-    private void toggleBtnChooseCell7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_toggleBtnChooseCell7ActionPerformed
-    {//GEN-HEADEREND:event_toggleBtnChooseCell7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_toggleBtnChooseCell7ActionPerformed
-
-    private void toggleBtnChooseCell8ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_toggleBtnChooseCell8ActionPerformed
-    {//GEN-HEADEREND:event_toggleBtnChooseCell8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_toggleBtnChooseCell8ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -414,6 +401,7 @@ public class ChartDialog extends javax.swing.JDialog implements SimulatorListene
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
+    private javax.swing.ButtonGroup btnGrpChkBox;
     private javax.swing.ButtonGroup btnGrpChooseCell;
     private javax.swing.JButton btnReset;
     private heartsim.gui.component.ActionPotentialChart chart;
@@ -455,7 +443,21 @@ public class ChartDialog extends javax.swing.JDialog implements SimulatorListene
 
     public void simulationUpdated(int time, CellularAutomaton ca)
     {
-        getChart().setVoltageValue(time, ca.getU(getChart().getCellRow(), getChart().getCellColumn()));
-        getChart().setRecoveryValue(time, ca.getV(getChart().getCellRow(), getChart().getCellColumn()));
+        for(int i = 0; i < enabled.length; i++)
+        {
+            if(enabled[i])
+            {
+                chart.setVoltageValue(time, ca.getU(rows[i], cols[i]), rows[i], cols[i]);
+                chart.setRecoveryValue(time, ca.getU(rows[i], cols[i]), rows[i], cols[i]);
+            }
+        }
+    }
+
+    public class ToggleButtonAction extends AbstractAction
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            tissueNumber = Integer.parseInt(e.getActionCommand());
+        }
     }
 }

@@ -997,7 +997,8 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
             if (mouseClickAction == MouseClickAction.SetChartCell)
             {
                 // set chart cell location
-                chartDialog.getChart().setCell(evt.getY(), evt.getX(), cellGenerator.getTissueAt(evt.getY(), evt.getX()));
+                chartDialog.setCell(evt.getY(), evt.getX());
+               // chartDialog.getChart().setCell(evt.getY(), evt.getX(), cellGenerator.getTissueAt(evt.getY(), evt.getX()));
             }
         }
     }//GEN-LAST:event_svgCanvasMouseClicked
@@ -1303,7 +1304,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         {
             stimCol = cellGenerator.getStimulusColumn();
             stimRow = cellGenerator.getStimulusRow();
-            chartDialog.getChart().setCell(stimRow, stimCol, "Sinoatrial Node");
+            chartDialog.setCell(stimRow, stimCol);
         }
         else
         {
