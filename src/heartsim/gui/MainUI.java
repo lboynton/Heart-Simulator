@@ -20,7 +20,6 @@ import heartsim.cam.profile.Profile;
 import heartsim.Simulator;
 import heartsim.SimulatorListener;
 import heartsim.cam.CellularAutomataModel;
-import heartsim.cam.Nishiyama;
 import heartsim.cam.NishiyamaExtended;
 import heartsim.cam.parameter.CAModelParameter;
 import heartsim.cam.speed.Fast;

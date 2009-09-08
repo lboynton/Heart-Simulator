@@ -46,6 +46,8 @@ public class Nishiyama extends CellularAutomataModel
                 "an unnatural uniform wave with straight edges.");
         delta2.setDescription(delta1.getDescription());
 
+        Nparam.setImage("./help_pictures/nishiyama_n.png");
+
         // add parameters
         this.setParameter("N", Nparam);
         this.setParameter("Delta 1", delta1);
