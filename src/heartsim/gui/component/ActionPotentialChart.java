@@ -47,7 +47,7 @@ public class ActionPotentialChart extends ChartPanel
             "Potential",                      // y axis label
             chartData,                  // data
             PlotOrientation.VERTICAL,
-            false,                     // include legend
+            true,                     // include legend
             true,                     // tooltips
             false                     // urls
         );

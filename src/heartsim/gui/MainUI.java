@@ -120,6 +120,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
 
         simulation = new Simulator(overlay);
         simulation.addListener(this);
+        simulation.addListener(chartDialog);
         simulation.setHeartRate(70);
 
         // centre jframe on screen
@@ -1398,11 +1399,9 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         btnStart.setEnabled(true);
     }
 
-    public void simulationUpdated(int time)
+    public void simulationUpdated(int time, CellularAutomaton ca)
     {
         incrementProgressBar();
-        chartDialog.getChart().setVoltageValue(time, ca.getU(chartDialog.getChart().getCellRow(), chartDialog.getChart().getCellColumn()));
-        chartDialog.getChart().setRecoveryValue(time, ca.getV(chartDialog.getChart().getCellRow(), chartDialog.getChart().getCellColumn()));
         svgCanvas.repaint();
     }
 

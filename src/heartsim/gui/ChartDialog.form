@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="btnGrpChooseCell">
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
@@ -22,19 +26,64 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="chart" pref="657" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="toggleBtnChooseCell" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="chart" pref="509" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="chkBoxTissue1" min="-2" pref="146" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="toggleBtnChooseCell1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="chkBoxTissue2" min="-2" pref="146" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="toggleBtnChooseCell2" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="chkBoxTissue3" min="-2" pref="146" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="toggleBtnChooseCell3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="chkBoxTissue4" min="-2" pref="146" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="toggleBtnChooseCell4" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="chkBoxTissue5" min="-2" pref="146" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="toggleBtnChooseCell5" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="chkBoxTissue6" min="-2" pref="146" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="toggleBtnChooseCell6" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="chkBoxTissue7" min="-2" pref="146" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="toggleBtnChooseCell7" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="chkBoxTissue8" min="-2" pref="146" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="toggleBtnChooseCell8" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="btnReset" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Component id="chkBoxVoltage" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="chkBoxRecovery" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="271" max="32767" attributes="0"/>
-                      <Component id="btnReset" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace pref="453" max="32767" attributes="0"/>
                       <Component id="btnClose" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -45,14 +94,59 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="chart" pref="366" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="toggleBtnChooseCell1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkBoxTissue1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="toggleBtnChooseCell2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkBoxTissue2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="toggleBtnChooseCell3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkBoxTissue3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="toggleBtnChooseCell4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkBoxTissue4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="toggleBtnChooseCell5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkBoxTissue5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="toggleBtnChooseCell6" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkBoxTissue6" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="toggleBtnChooseCell7" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkBoxTissue7" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="toggleBtnChooseCell8" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkBoxTissue8" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="chart" pref="366" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="toggleBtnChooseCell" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnClose" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="chkBoxVoltage" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="chkBoxRecovery" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnClose" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnReset" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -66,7 +160,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="657" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="509" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -76,12 +170,15 @@
         </DimensionLayout>
       </Layout>
     </Container>
-    <Component class="javax.swing.JToggleButton" name="toggleBtnChooseCell">
+    <Component class="javax.swing.JToggleButton" name="toggleBtnChooseCell1">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="btnGrpChooseCell"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Choose cell"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toggleBtnChooseCellActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toggleBtnChooseCell1ActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnClose">
@@ -116,6 +213,123 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResetActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkBoxTissue1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tissue 1"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="toggleBtnChooseCell2">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="btnGrpChooseCell"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Choose cell"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toggleBtnChooseCell2ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkBoxTissue2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tissue 2"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="toggleBtnChooseCell3">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="btnGrpChooseCell"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Choose cell"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toggleBtnChooseCell3ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkBoxTissue3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tissue 3"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="toggleBtnChooseCell4">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="btnGrpChooseCell"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Choose cell"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toggleBtnChooseCell4ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkBoxTissue4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tissue 4"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="toggleBtnChooseCell5">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="btnGrpChooseCell"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Choose cell"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toggleBtnChooseCell5ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkBoxTissue5">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tissue 5"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="toggleBtnChooseCell6">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="btnGrpChooseCell"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Choose cell"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toggleBtnChooseCell6ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkBoxTissue6">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tissue 6"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="toggleBtnChooseCell7">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="btnGrpChooseCell"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Choose cell"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toggleBtnChooseCell7ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkBoxTissue7">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tissue 7"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkBoxTissue8">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tissue 8"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="toggleBtnChooseCell8">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="btnGrpChooseCell"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Choose cell"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toggleBtnChooseCell8ActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
