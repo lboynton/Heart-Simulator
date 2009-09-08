@@ -47,6 +47,8 @@ public class Nishiyama extends CellularAutomataModel
         delta2.setDescription(delta1.getDescription());
 
         Nparam.setImage("./help_pictures/nishiyama_n.png");
+        delta1.setImage("./help_pictures/nishiyama_deltas.png");
+        delta2.setImage("./help_pictures/nishiyama_deltas.png");
 
         // add parameters
         this.setParameter("N", Nparam);
