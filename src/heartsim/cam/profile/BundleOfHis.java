@@ -20,6 +20,8 @@ public class BundleOfHis extends Profile
 
         this.addAlias("AV bundle");
         this.addAlias("Atrioventricular bundle");
+
+        this.setImage("./help_pictures/profile_bundle_of_his.png");
     }
 
     @Override

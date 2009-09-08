@@ -22,6 +22,8 @@ public class PurkinjeFibres extends Profile
         this.addAlias("Purkyne fibres");
         this.addAlias("Purkyne fibers");
         this.addAlias("Subendocardial branches");
+
+        this.setImage("./help_pictures/profile_purkinje.png");
     }
 
     @Override

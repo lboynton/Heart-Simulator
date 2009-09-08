@@ -22,6 +22,8 @@ public class SinoatrialNode extends Profile
         // set the aliases of the heart tissue
         this.addAlias("SA node");
         this.addAlias("Sinus node");
+
+        this.setImage("./help_pictures/profile_sanode.png");
     }
 
     @Override

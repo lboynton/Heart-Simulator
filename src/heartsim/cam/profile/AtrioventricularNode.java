@@ -19,6 +19,8 @@ public class AtrioventricularNode extends Profile
         super("Atrioventricular node");
 
         this.addAlias("avnode");
+
+        this.setImage("./help_pictures/profile_avnode.png");
     }
 
     @Override

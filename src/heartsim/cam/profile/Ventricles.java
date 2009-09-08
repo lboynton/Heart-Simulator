@@ -19,6 +19,8 @@ public class Ventricles extends Profile
         super("Ventricles");
 
         this.setDescription("Ventricles have moderate conduction velocity");
+
+        this.setImage("./help_pictures/profile_ventricles.png");
     }
 
     @Override
