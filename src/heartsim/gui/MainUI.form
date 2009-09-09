@@ -350,7 +350,9 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblStatus" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="717" max="32767" attributes="0"/>
+                          <EmptySpace pref="600" max="32767" attributes="0"/>
+                          <Component id="btnStimulate" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="progressBar" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -363,13 +365,14 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="scrollPaneCanvas" pref="517" max="32767" attributes="1"/>
-                      <Component id="tabbedPane" alignment="0" pref="517" max="32767" attributes="2"/>
+                      <Component id="scrollPaneCanvas" pref="509" max="32767" attributes="1"/>
+                      <Component id="tabbedPane" alignment="0" pref="509" max="32767" attributes="2"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="progressBar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnStimulate" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
@@ -413,7 +416,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="pnlParameters" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="348" max="32767" attributes="0"/>
+                          <EmptySpace pref="340" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -614,7 +617,7 @@
                               <Component id="txtHeartRate" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblHeartRate" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="381" max="32767" attributes="0"/>
+                          <EmptySpace pref="373" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -712,6 +715,14 @@
             </Container>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JToggleButton" name="btnStimulate">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Stimulate a cell"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnStimulateActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
