@@ -86,7 +86,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
 
     public static enum MouseClickAction
     {
-        SetStimulusCell, SetChartCell, SetStimulateCell, None
+        SetStimulateCell, SetChartCell, None
     };
 
     /** Creates new form MainUI3 */
@@ -384,10 +384,10 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         }
-
+        
         GUIUtils.lock(rootPane, true, lock);
 
-        if (!lock)
+        if(!lock)
         {
             this.setCursor(null);
             btnPause.setEnabled(false);
@@ -443,7 +443,6 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         scrollPaneCanvas = new javax.swing.JScrollPane();
         pnlCanvasContainer = new javax.swing.JPanel();
         svgCanvas = new org.apache.batik.swing.JSVGCanvas();
-        btnStimulate = new javax.swing.JToggleButton();
         menuBar = new javax.swing.JMenuBar();
         mnuFile = new javax.swing.JMenu();
         mnuItmStimulationLocation = new javax.swing.JMenuItem();
@@ -608,6 +607,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         });
 
         btnModelHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/help-browser.png"))); // NOI18N
+        btnModelHelp.setBorder(null);
         btnModelHelp.setBorderPainted(false);
         btnModelHelp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -624,6 +624,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         });
 
         btnTissueHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/help-browser.png"))); // NOI18N
+        btnTissueHelp.setBorder(null);
         btnTissueHelp.setBorderPainted(false);
         btnTissueHelp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -632,6 +633,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         });
 
         btnProfileHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/help-browser.png"))); // NOI18N
+        btnProfileHelp.setBorder(null);
         btnProfileHelp.setBorderPainted(false);
         btnProfileHelp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -704,7 +706,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
             pnlCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCALayout.createSequentialGroup()
                 .addComponent(pnlParameters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(340, Short.MAX_VALUE))
+                .addContainerGap(348, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Model", pnlCA);
@@ -770,7 +772,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
                 .addGroup(pnlSimulationSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtHeartRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblHeartRate))
-                .addContainerGap(373, Short.MAX_VALUE))
+                .addContainerGap(381, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Simulation", pnlSimulationSettings);
@@ -805,13 +807,6 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
 
         scrollPaneCanvas.setViewportView(pnlCanvasContainer);
 
-        btnStimulate.setText("Stimulate a cell");
-        btnStimulate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnStimulateActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout pnlRootContainerLayout = new javax.swing.GroupLayout(pnlRootContainer);
         pnlRootContainer.setLayout(pnlRootContainerLayout);
         pnlRootContainerLayout.setHorizontalGroup(
@@ -825,9 +820,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
                         .addComponent(scrollPaneCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlRootContainerLayout.createSequentialGroup()
                         .addComponent(lblStatus)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 600, Short.MAX_VALUE)
-                        .addComponent(btnStimulate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 717, Short.MAX_VALUE)
                         .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -836,13 +829,12 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRootContainerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlRootContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
-                    .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE))
+                    .addComponent(scrollPaneCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
+                    .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlRootContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblStatus)
-                    .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnStimulate))
+                    .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -992,7 +984,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         // left click
         if (evt.getButton() == MouseEvent.BUTTON1)
         {
-            if (mouseClickAction == MouseClickAction.SetStimulusCell)
+            if (mouseClickAction == MouseClickAction.SetStimulateCell)
             {
                 // set stimulation location
                 stimCol = evt.getX();
@@ -1005,12 +997,6 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
             {
                 // set chart cell location
                 chartDialog.getChart().setCell(evt.getY(), evt.getX(), cellGenerator.getTissueAt(evt.getY(), evt.getX()));
-            }
-
-            if (mouseClickAction == MouseClickAction.SetStimulateCell)
-            {
-                // one off stimulation
-                ca.stimulate(evt.getY(), evt.getX());
             }
         }
     }//GEN-LAST:event_svgCanvasMouseClicked
@@ -1118,7 +1104,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
     private void btnProfileHelpActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnProfileHelpActionPerformed
     {//GEN-HEADEREND:event_btnProfileHelpActionPerformed
         Profile profile = (Profile) cboBoxProfile.getSelectedItem();
-
+        
         new HelpDialog(this, profile.getName() + " Profile", false, profile.getDescription(), profile.getImage()).setVisible(true);
 }//GEN-LAST:event_btnProfileHelpActionPerformed
 
@@ -1184,7 +1170,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
 
     private void mnuItmStimulationLocationActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuItmStimulationLocationActionPerformed
     {//GEN-HEADEREND:event_mnuItmStimulationLocationActionPerformed
-        mouseClickAction = MouseClickAction.SetStimulusCell;
+        mouseClickAction = MouseClickAction.SetStimulateCell;
     }//GEN-LAST:event_mnuItmStimulationLocationActionPerformed
 
     private void txtHeartRateKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_txtHeartRateKeyReleased
@@ -1212,21 +1198,8 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
     {//GEN-HEADEREND:event_mnuItmDeltaArrayActionPerformed
         HeartTissue tissue = (HeartTissue) cboBoxTissue.getSelectedItem();
 
-        new ArrayViewer(this, false, ((NishiyamaExtended) tissue.getModel()).getDelta()).setVisible(true);
+        new ArrayViewer(this, false, ((NishiyamaExtended)tissue.getModel()).getDelta()).setVisible(true);
     }//GEN-LAST:event_mnuItmDeltaArrayActionPerformed
-
-    private void btnStimulateActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStimulateActionPerformed
-    {//GEN-HEADEREND:event_btnStimulateActionPerformed
-        // one off stimulation
-        if (btnStimulate.isSelected())
-        {
-            this.mouseClickAction = MouseClickAction.SetStimulateCell;
-        }
-        else
-        {
-            this.mouseClickAction = MouseClickAction.None;
-        }
-    }//GEN-LAST:event_btnStimulateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1250,7 +1223,6 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
     private javax.swing.JButton btnProfileHelp;
     private javax.swing.JButton btnStart;
     private javax.swing.JButton btnStepForward;
-    private javax.swing.JToggleButton btnStimulate;
     private javax.swing.JButton btnStop;
     private javax.swing.JButton btnTissueHelp;
     private javax.swing.JButton btnZoomIn;
