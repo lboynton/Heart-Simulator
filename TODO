@@ -10,7 +10,6 @@ Medium priority items
 - Step forward and pause buttons don't really work
 - Allow for small arbitrary region of cells to be selected and to have their
   parameters changed (so that cells can be killed)
-- Allow for a one off stimulation to simulate arrhythmia
 
 Low priority items
 - Draw outline of heart on overlay
@@ -26,14 +25,12 @@ Wishlist items
   tissue and its parameters
 - Incorporate the prepotential in the SA and AV node in the CA model which
   causes the autorhythmicity characterstic of the pacemaker cells
-- Incorporate the relative refractory period into the CA model
 - Make visualisation more efficient
 - Implement other CA models
 - Code tidy up/refactor
 - GUI tidy up
 - More validation of CA model parameters?
 - Have a run forever option
-- Sort items in combo boxes and the heart tissue menu
 - Probability of assigning delta 1 or delta 2 in Nishiyama model
 - Devise a better way of applying parameters to different CA models in the profiles
 
