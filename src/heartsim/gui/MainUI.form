@@ -322,6 +322,19 @@
         </Component>
         <Component class="javax.swing.JToolBar$Separator" name="separatorZoom">
         </Component>
+        <Component class="javax.swing.JToggleButton" name="tglBtnStimulate">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Stimulate a cell"/>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tglBtnStimulateActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JToolBar$Separator" name="jSeparator5">
+        </Component>
         <Component class="javax.swing.JButton" name="btnAbout">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -525,6 +538,9 @@
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/heartsim/gui/icon/help-browser.png"/>
                         </Property>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="null"/>
+                        </Property>
                         <Property name="borderPainted" type="boolean" value="false"/>
                       </Properties>
                       <Events>
@@ -546,6 +562,9 @@
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/heartsim/gui/icon/help-browser.png"/>
                         </Property>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="null"/>
+                        </Property>
                         <Property name="borderPainted" type="boolean" value="false"/>
                       </Properties>
                       <Events>
@@ -556,6 +575,9 @@
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/heartsim/gui/icon/help-browser.png"/>
+                        </Property>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="null"/>
                         </Property>
                         <Property name="borderPainted" type="boolean" value="false"/>
                       </Properties>
