@@ -10,29 +10,23 @@
  */
 package heartsim.gui;
 
-import heartsim.CellularAutomaton;
-import heartsim.SimulatorListener;
 import heartsim.gui.component.ActionPotentialChart;
+import heartsim.gui.component.TissueSeries;
+import heartsim.gui.component.TissueSeriesListener;
+import heartsim.gui.component.TissueSeriesRenderer;
 import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.util.Enumeration;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JCheckBox;
+import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
 import javax.swing.UIManager;
 
 /**
  *
  * @author Lee Boynton
  */
-public class ChartDialog extends javax.swing.JDialog implements SimulatorListener
+public class ChartDialog extends javax.swing.JDialog implements TissueSeriesListener
 {
     private ChartDialogEvent listener;
-    private int[] rows = new int[8];
-    private int[] cols = new int[8];
-    private boolean[] enabled = new boolean[8];
-    private int tissueNumber = 0;
-    private Action toggleButtonAction = new ToggleButtonAction();
+    private DefaultListModel tissuesModel = new DefaultListModel();
 
     /** Creates new form ChartDialog */
     private ChartDialog(java.awt.Frame parent, boolean modal)
@@ -55,11 +49,8 @@ public class ChartDialog extends javax.swing.JDialog implements SimulatorListene
         }
 
         initComponents();
-    }
 
-    public Action getButtonAction()
-    {
-        return toggleButtonAction;
+        chart.addListener(this);
     }
 
     public void setListener(ChartDialogEvent listener)
@@ -72,23 +63,9 @@ public class ChartDialog extends javax.swing.JDialog implements SimulatorListene
         return chart;
     }
 
-    public void setCell(int row, int col)
+    public ListModel getTissuesModel()
     {
-        this.rows[tissueNumber] = row;
-        this.cols[tissueNumber] = col;
-        this.enabled[tissueNumber] = true;
-
-        chart.addCell(row, col);
-
-        for(Enumeration e = btnGrpChkBox.getElements(); e.hasMoreElements();)
-        {
-            JCheckBox chkBox = (JCheckBox) e.nextElement();
-
-            if(chkBox.getActionCommand().equals(String.valueOf(tissueNumber)))
-            {
-                chkBox.setText(String.valueOf(row) + ", " + String.valueOf(col));
-            }
-        }
+        return tissuesModel;
     }
 
     /** This method is called from within the constructor to
@@ -100,29 +77,16 @@ public class ChartDialog extends javax.swing.JDialog implements SimulatorListene
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnGrpChooseCell = new javax.swing.ButtonGroup();
-        btnGrpChkBox = new javax.swing.ButtonGroup();
         chart = new heartsim.gui.component.ActionPotentialChart();
-        toggleBtnChooseCell1 = new javax.swing.JToggleButton();
         btnClose = new javax.swing.JButton();
         chkBoxVoltage = new javax.swing.JCheckBox();
         chkBoxRecovery = new javax.swing.JCheckBox();
         btnReset = new javax.swing.JButton();
-        chkBoxTissue1 = new javax.swing.JCheckBox();
-        toggleBtnChooseCell2 = new javax.swing.JToggleButton();
-        chkBoxTissue2 = new javax.swing.JCheckBox();
-        toggleBtnChooseCell3 = new javax.swing.JToggleButton();
-        chkBoxTissue3 = new javax.swing.JCheckBox();
-        toggleBtnChooseCell4 = new javax.swing.JToggleButton();
-        chkBoxTissue4 = new javax.swing.JCheckBox();
-        toggleBtnChooseCell5 = new javax.swing.JToggleButton();
-        chkBoxTissue5 = new javax.swing.JCheckBox();
-        toggleBtnChooseCell6 = new javax.swing.JToggleButton();
-        chkBoxTissue6 = new javax.swing.JCheckBox();
-        toggleBtnChooseCell7 = new javax.swing.JToggleButton();
-        chkBoxTissue7 = new javax.swing.JCheckBox();
-        chkBoxTissue8 = new javax.swing.JCheckBox();
-        toggleBtnChooseCell8 = new javax.swing.JToggleButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstTissues = new javax.swing.JList();
+        bntAdd = new javax.swing.JButton();
+        btnRemove = new javax.swing.JButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -130,20 +94,12 @@ public class ChartDialog extends javax.swing.JDialog implements SimulatorListene
         chart.setLayout(chartLayout);
         chartLayout.setHorizontalGroup(
             chartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 509, Short.MAX_VALUE)
+            .addGap(0, 573, Short.MAX_VALUE)
         );
         chartLayout.setVerticalGroup(
             chartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 366, Short.MAX_VALUE)
         );
-
-        btnGrpChooseCell.add(toggleBtnChooseCell1);
-        toggleBtnChooseCell1.setText("Choose cell");
-        toggleBtnChooseCell1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toggleBtnChooseCell1ActionPerformed(evt);
-            }
-        });
 
         btnClose.setText("Close");
         btnClose.addActionListener(new java.awt.event.ActionListener() {
@@ -175,64 +131,29 @@ public class ChartDialog extends javax.swing.JDialog implements SimulatorListene
             }
         });
 
-        btnGrpChkBox.add(chkBoxTissue1);
-        chkBoxTissue1.setText("Tissue 1");
+        lstTissues.setModel(getTissuesModel());
+        jScrollPane1.setViewportView(lstTissues);
 
-        toggleBtnChooseCell2.setAction(getButtonAction());
-        btnGrpChooseCell.add(toggleBtnChooseCell2);
-        toggleBtnChooseCell2.setText("Choose cell");
-        toggleBtnChooseCell2.setActionCommand("1");
+        bntAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/list-add.png"))); // NOI18N
+        bntAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntAddActionPerformed(evt);
+            }
+        });
 
-        btnGrpChkBox.add(chkBoxTissue2);
-        chkBoxTissue2.setText("Tissue 2");
+        btnRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/list-remove.png"))); // NOI18N
+        btnRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveActionPerformed(evt);
+            }
+        });
 
-        toggleBtnChooseCell3.setAction(getButtonAction());
-        btnGrpChooseCell.add(toggleBtnChooseCell3);
-        toggleBtnChooseCell3.setText("Choose cell");
-        toggleBtnChooseCell3.setActionCommand("2");
-
-        btnGrpChkBox.add(chkBoxTissue3);
-        chkBoxTissue3.setText("Tissue 3");
-
-        toggleBtnChooseCell4.setAction(getButtonAction());
-        btnGrpChooseCell.add(toggleBtnChooseCell4);
-        toggleBtnChooseCell4.setText("Choose cell");
-        toggleBtnChooseCell4.setActionCommand("3");
-
-        btnGrpChkBox.add(chkBoxTissue4);
-        chkBoxTissue4.setText("Tissue 4");
-
-        toggleBtnChooseCell5.setAction(getButtonAction());
-        btnGrpChooseCell.add(toggleBtnChooseCell5);
-        toggleBtnChooseCell5.setText("Choose cell");
-        toggleBtnChooseCell5.setActionCommand("4");
-
-        btnGrpChkBox.add(chkBoxTissue5);
-        chkBoxTissue5.setText("Tissue 5");
-
-        toggleBtnChooseCell6.setAction(getButtonAction());
-        btnGrpChooseCell.add(toggleBtnChooseCell6);
-        toggleBtnChooseCell6.setText("Choose cell");
-        toggleBtnChooseCell6.setActionCommand("5");
-
-        btnGrpChkBox.add(chkBoxTissue6);
-        chkBoxTissue6.setText("Tissue 6");
-
-        toggleBtnChooseCell7.setAction(getButtonAction());
-        btnGrpChooseCell.add(toggleBtnChooseCell7);
-        toggleBtnChooseCell7.setText("Choose cell");
-        toggleBtnChooseCell7.setActionCommand("6");
-
-        btnGrpChkBox.add(chkBoxTissue7);
-        chkBoxTissue7.setText("Tissue 7");
-
-        btnGrpChkBox.add(chkBoxTissue8);
-        chkBoxTissue8.setText("Tissue 8");
-
-        toggleBtnChooseCell8.setAction(getButtonAction());
-        btnGrpChooseCell.add(toggleBtnChooseCell8);
-        toggleBtnChooseCell8.setText("Choose cell");
-        toggleBtnChooseCell8.setActionCommand("7");
+        jToggleButton1.setText("Select cell");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -242,92 +163,39 @@ public class ChartDialog extends javax.swing.JDialog implements SimulatorListene
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(chkBoxTissue1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(toggleBtnChooseCell1))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(chkBoxTissue2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(toggleBtnChooseCell2)))
+                        .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(chkBoxTissue3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(bntAdd)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(toggleBtnChooseCell3))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(chkBoxTissue4, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(toggleBtnChooseCell4))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(chkBoxTissue5, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(toggleBtnChooseCell5))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(chkBoxTissue6, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(toggleBtnChooseCell6))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(chkBoxTissue7, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(toggleBtnChooseCell7))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(chkBoxTissue8, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(toggleBtnChooseCell8))))
+                                .addComponent(btnRemove)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jToggleButton1))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnReset)
                         .addGap(10, 10, 10)
                         .addComponent(chkBoxVoltage)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chkBoxRecovery)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 453, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 460, Short.MAX_VALUE)
                         .addComponent(btnClose)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(toggleBtnChooseCell1)
-                            .addComponent(chkBoxTissue1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(toggleBtnChooseCell2)
-                            .addComponent(chkBoxTissue2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(toggleBtnChooseCell3)
-                            .addComponent(chkBoxTissue3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(toggleBtnChooseCell4)
-                            .addComponent(chkBoxTissue4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(toggleBtnChooseCell5)
-                            .addComponent(chkBoxTissue5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(toggleBtnChooseCell6)
-                            .addComponent(chkBoxTissue6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(toggleBtnChooseCell7)
-                            .addComponent(chkBoxTissue7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(toggleBtnChooseCell8)
-                            .addComponent(chkBoxTissue8)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jToggleButton1)
+                            .addComponent(btnRemove)
+                            .addComponent(bntAdd))
+                        .addGap(7, 7, 7)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE))
+                    .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(chkBoxVoltage)
@@ -339,24 +207,6 @@ public class ChartDialog extends javax.swing.JDialog implements SimulatorListene
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void toggleBtnChooseCell1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_toggleBtnChooseCell1ActionPerformed
-    {//GEN-HEADEREND:event_toggleBtnChooseCell1ActionPerformed
-        if (listener == null)
-        {
-            System.err.println("No listeners are attached to the chart dialog. Can not set the cell.");
-            return;
-        }
-
-        if (toggleBtnChooseCell1.isSelected())
-        {
-            listener.setCellSelectionMode();
-        }
-        else
-        {
-            listener.cancelCellSelectionMode();
-        }
-    }//GEN-LAST:event_toggleBtnChooseCell1ActionPerformed
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCloseActionPerformed
     {//GEN-HEADEREND:event_btnCloseActionPerformed
@@ -377,6 +227,28 @@ public class ChartDialog extends javax.swing.JDialog implements SimulatorListene
     {//GEN-HEADEREND:event_btnResetActionPerformed
         chart.setRanges();
     }//GEN-LAST:event_btnResetActionPerformed
+
+    private void bntAddActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_bntAddActionPerformed
+    {//GEN-HEADEREND:event_bntAddActionPerformed
+        chart.addTissue(0, 0, "New cell");
+    }//GEN-LAST:event_bntAddActionPerformed
+
+    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnRemoveActionPerformed
+    {//GEN-HEADEREND:event_btnRemoveActionPerformed
+        chart.removeTissue((TissueSeries) lstTissues.getSelectedValue());
+    }//GEN-LAST:event_btnRemoveActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jToggleButton1ActionPerformed
+    {//GEN-HEADEREND:event_jToggleButton1ActionPerformed
+        if(jToggleButton1.isSelected())
+        {
+            listener.setCellSelectionMode();
+        }
+        else
+        {
+            listener.cancelCellSelectionMode();
+        }
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -400,64 +272,25 @@ public class ChartDialog extends javax.swing.JDialog implements SimulatorListene
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bntAdd;
     private javax.swing.JButton btnClose;
-    private javax.swing.ButtonGroup btnGrpChkBox;
-    private javax.swing.ButtonGroup btnGrpChooseCell;
+    private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnReset;
     private heartsim.gui.component.ActionPotentialChart chart;
     private javax.swing.JCheckBox chkBoxRecovery;
-    private javax.swing.JCheckBox chkBoxTissue1;
-    private javax.swing.JCheckBox chkBoxTissue2;
-    private javax.swing.JCheckBox chkBoxTissue3;
-    private javax.swing.JCheckBox chkBoxTissue4;
-    private javax.swing.JCheckBox chkBoxTissue5;
-    private javax.swing.JCheckBox chkBoxTissue6;
-    private javax.swing.JCheckBox chkBoxTissue7;
-    private javax.swing.JCheckBox chkBoxTissue8;
     private javax.swing.JCheckBox chkBoxVoltage;
-    private javax.swing.JToggleButton toggleBtnChooseCell1;
-    private javax.swing.JToggleButton toggleBtnChooseCell2;
-    private javax.swing.JToggleButton toggleBtnChooseCell3;
-    private javax.swing.JToggleButton toggleBtnChooseCell4;
-    private javax.swing.JToggleButton toggleBtnChooseCell5;
-    private javax.swing.JToggleButton toggleBtnChooseCell6;
-    private javax.swing.JToggleButton toggleBtnChooseCell7;
-    private javax.swing.JToggleButton toggleBtnChooseCell8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JList lstTissues;
     // End of variables declaration//GEN-END:variables
 
-    public void simulationStarted()
+    public void tissueAdded(TissueSeries tissue)
     {
+        tissuesModel.addElement(tissue);
     }
 
-    public void simulationPaused()
+    public void tissueRemoved(TissueSeries tissue)
     {
-    }
-
-    public void simulationCompleted()
-    {
-    }
-
-    public void simulationStopped()
-    {
-    }
-
-    public void simulationUpdated(int time, CellularAutomaton ca)
-    {
-        for(int i = 0; i < enabled.length; i++)
-        {
-            if(enabled[i])
-            {
-                chart.setVoltageValue(time, ca.getU(rows[i], cols[i]), rows[i], cols[i]);
-                chart.setRecoveryValue(time, ca.getU(rows[i], cols[i]), rows[i], cols[i]);
-            }
-        }
-    }
-
-    public class ToggleButtonAction extends AbstractAction
-    {
-        public void actionPerformed(ActionEvent e)
-        {
-            tissueNumber = Integer.parseInt(e.getActionCommand());
-        }
+        tissuesModel.removeElement(tissue);
     }
 }

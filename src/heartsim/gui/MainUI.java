@@ -120,7 +120,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
 
         simulation = new Simulator(overlay);
         simulation.addListener(this);
-        simulation.addListener(chartDialog);
+        simulation.addListener(chartDialog.getChart());
         simulation.setHeartRate(70);
 
         // centre jframe on screen
@@ -997,7 +997,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
             if (mouseClickAction == MouseClickAction.SetChartCell)
             {
                 // set chart cell location
-                chartDialog.setCell(evt.getY(), evt.getX());
+                chartDialog.getChart().addTissue(evt.getY(), evt.getX(), cellGenerator.getTissueAt(evt.getY(), evt.getX()));
                // chartDialog.getChart().setCell(evt.getY(), evt.getX(), cellGenerator.getTissueAt(evt.getY(), evt.getX()));
             }
         }
@@ -1304,7 +1304,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         {
             stimCol = cellGenerator.getStimulusColumn();
             stimRow = cellGenerator.getStimulusRow();
-            chartDialog.setCell(stimRow, stimCol);
+            chartDialog.getChart().addTissue(stimRow, stimCol, "SA node");
         }
         else
         {

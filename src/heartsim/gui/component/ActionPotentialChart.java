@@ -4,7 +4,8 @@
  */
 package heartsim.gui.component;
 
-import java.awt.Point;
+import heartsim.CellularAutomaton;
+import heartsim.SimulatorListener;
 import java.util.ArrayList;
 import java.util.List;
 import org.jfree.chart.ChartFactory;
@@ -12,6 +13,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -19,14 +21,16 @@ import org.jfree.data.xy.XYSeriesCollection;
  *
  * @author Lee Boynton
  */
-public class ActionPotentialChart extends ChartPanel
+public class ActionPotentialChart extends ChartPanel implements SimulatorListener
 {
     private final XYSeriesCollection chartData = new XYSeriesCollection();
     private final JFreeChart chart;
     private int visibleTimeSteps = 2000;
     private int min;
     private int max;
-    private List<Point> cells = new ArrayList<Point>();
+    private List<TissueSeries> tissues = new ArrayList<TissueSeries>();
+    private List<TissueSeriesListener> listeners = new ArrayList<TissueSeriesListener>();
+    private int seriesNumber = 0;
 
     public ActionPotentialChart()
     {
@@ -48,9 +52,74 @@ public class ActionPotentialChart extends ChartPanel
 
         reset();
 
+
+
         chart.setBackgroundPaint(null);
 
         this.setChart(chart);
+    }
+
+    public void addListener(TissueSeriesListener listener)
+    {
+        listeners.add(listener);
+    }
+
+    public void removeListener(TissueSeriesListener listener)
+    {
+        listeners.remove(listener);
+    }
+
+    public void fireTissueSeriesAdded(TissueSeries tissue)
+    {
+        for (TissueSeriesListener l : listeners)
+        {
+            l.tissueAdded(tissue);
+        }
+    }
+
+    public void fireTissueSeriesRemoved(TissueSeries tissue)
+    {
+        for (TissueSeriesListener l : listeners)
+        {
+            l.tissueRemoved(tissue);
+        }
+    }
+
+    public void addTissue(int row, int col, String name)
+    {
+        TissueSeries tissue = new TissueSeries(row, col, name);
+
+        if (!tissues.contains(tissue))
+        {
+            tissues.add(tissue);
+
+            chartData.addSeries(tissue.getVoltage());
+            chartData.addSeries(tissue.getRecovery());
+
+            tissue.setVoltageSeries(seriesNumber);
+            tissue.setVoltageColor(((XYLineAndShapeRenderer) chart.getXYPlot().getRenderer()).getSeriesPaint(seriesNumber++));
+            
+
+            tissue.setRecoverySeries(seriesNumber);
+            tissue.setRecoveryColor(((XYLineAndShapeRenderer) chart.getXYPlot().getRenderer()).getSeriesPaint(seriesNumber++));
+            
+
+            fireTissueSeriesAdded(tissue);
+        }
+    }
+
+    public void removeTissue(TissueSeries tissue)
+    {
+        if (tissues.contains(tissue))
+        {
+            tissues.remove(tissue);
+            fireTissueSeriesRemoved(tissue);
+        }
+    }
+
+    public List<TissueSeries> getTissues()
+    {
+        return tissues;
     }
 
     public void setRange(int min, int max)
@@ -77,61 +146,20 @@ public class ActionPotentialChart extends ChartPanel
         setDomainRange();
     }
 
-    public void addCell(int row, int col)
+    public void setRecoveryEnabled(boolean enabled)
     {
-        Point point = new Point(col, row);
-
-        if (!cells.contains(point))
+        for (TissueSeries s : tissues)
         {
-            String uSeriesName = String.valueOf(row) + ", " + String.valueOf(col) + " voltage";
-            String vSeriesName = String.valueOf(row) + ", " + String.valueOf(col) + " recovery";
-
-            XYSeries uSeries = new XYSeries(uSeriesName);
-            XYSeries vSeries = new XYSeries(vSeriesName);
-
-            chartData.addSeries(uSeries);
-            chartData.addSeries(vSeries);
-
-            cells.add(point);
+            chart.getXYPlot().getRenderer().setSeriesVisible(s.getRecoverySeries(), enabled);
         }
     }
 
-    public void setVoltageValue(int time, int value, int row, int col)
+    public void setVoltageEnabled(boolean enabled)
     {
-        String series = String.valueOf(row) + ", " + String.valueOf(col) + " voltage";
-
-        XYSeries xySeries = chartData.getSeries(series);
-
-        xySeries.add(time, value);
-
-        if (time > visibleTimeSteps)
+        for (TissueSeries s : tissues)
         {
-            ((XYPlot) chart.getPlot()).getDomainAxis().setRange(time - visibleTimeSteps, time);
+            chart.getXYPlot().getRenderer().setSeriesVisible(s.getVoltageSeries(), enabled);
         }
-    }
-
-    public void setRecoveryValue(int time, int value, int row, int col)
-    {
-        String series = String.valueOf(row) + ", " + String.valueOf(col) + " recovery";
-
-        XYSeries xySeries = chartData.getSeries(series);
-
-        xySeries.add(time, value);
-
-        if (time > visibleTimeSteps)
-        {
-            ((XYPlot) chart.getPlot()).getDomainAxis().setRange(time - visibleTimeSteps, time);
-        }
-    }
-
-    public void setRecoveryEnabled(boolean recovery)
-    {
-        ((XYPlot) chart.getPlot()).getRenderer().setSeriesVisible(1, recovery);
-    }
-
-    public void setVoltageEnabled(boolean voltage)
-    {
-        ((XYPlot) chart.getPlot()).getRenderer().setSeriesVisible(0, voltage);
     }
 
     public void reset()
@@ -144,6 +172,31 @@ public class ActionPotentialChart extends ChartPanel
             {
                 ((XYSeries) obj).clear();
             }
+        }
+    }
+
+    public void simulationStarted()
+    {
+    }
+
+    public void simulationPaused()
+    {
+    }
+
+    public void simulationCompleted()
+    {
+    }
+
+    public void simulationStopped()
+    {
+    }
+
+    public void simulationUpdated(int time, CellularAutomaton ca)
+    {
+        for (TissueSeries s : tissues)
+        {
+            s.getRecovery().add(time, ca.getV(s.getRow(), s.getCol()));
+            s.getVoltage().add(time, ca.getU(s.getRow(), s.getCol()));
         }
     }
 }
