@@ -120,6 +120,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
 
         simulation = new Simulator(overlay);
         simulation.addListener(this);
+        simulation.addListener(chartDialog.getChart());
         simulation.setHeartRate(70);
 
         // centre jframe on screen
@@ -1010,7 +1011,8 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
             if (mouseClickAction == MouseClickAction.SetChartCell)
             {
                 // set chart cell location
-                chartDialog.getChart().setCell(evt.getY(), evt.getX(), cellGenerator.getTissueAt(evt.getY(), evt.getX()));
+                chartDialog.getChart().addTissue(evt.getY(), evt.getX(), cellGenerator.getTissueAt(evt.getY(), evt.getX()));
+               // chartDialog.getChart().setCell(evt.getY(), evt.getX(), cellGenerator.getTissueAt(evt.getY(), evt.getX()));
             }
 
             if (mouseClickAction == MouseClickAction.SetStimulateCell)
@@ -1337,7 +1339,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         {
             stimCol = cellGenerator.getStimulusColumn();
             stimRow = cellGenerator.getStimulusRow();
-            chartDialog.getChart().setCell(stimRow, stimCol, "Sinoatrial Node");
+            chartDialog.getChart().addTissue(stimRow, stimCol, "SA node");
         }
         else
         {
@@ -1433,11 +1435,9 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         btnStart.setEnabled(true);
     }
 
-    public void simulationUpdated(int time)
+    public void simulationUpdated(int time, CellularAutomaton ca)
     {
         incrementProgressBar();
-        chartDialog.getChart().setVoltageValue(time, ca.getU(chartDialog.getChart().getCellRow(), chartDialog.getChart().getCellColumn()));
-        chartDialog.getChart().setRecoveryValue(time, ca.getV(chartDialog.getChart().getCellRow(), chartDialog.getChart().getCellColumn()));
         svgCanvas.repaint();
     }
 

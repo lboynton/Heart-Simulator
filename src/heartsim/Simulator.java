@@ -152,7 +152,7 @@ public class Simulator
     {
         for (SimulatorListener listener : listeners)
         {
-            listener.simulationUpdated(currentTime);
+            listener.simulationUpdated(currentTime, ca);
         }
     }
 
