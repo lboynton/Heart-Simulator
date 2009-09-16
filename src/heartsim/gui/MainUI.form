@@ -335,7 +335,7 @@
         </Component>
         <Component class="javax.swing.JToggleButton" name="tglBtnManual">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Alter group of cells"/>
+            <Property name="text" type="java.lang.String" value="Select group of cells"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>

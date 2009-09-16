@@ -49,7 +49,7 @@ public class ManualCellsDialog extends javax.swing.JDialog
 
         lblCells.setText("Number of cells");
 
-        cboBoxCells.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "9", "25", "49", "81", "121" }));
+        cboBoxCells.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "9", "25", "49", "81", "121", "169", "225" }));
 
         btnOk.setText("OK");
         btnOk.addActionListener(new java.awt.event.ActionListener() {

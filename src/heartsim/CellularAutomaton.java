@@ -36,6 +36,27 @@ public class CellularAutomaton
         }
     }
 
+    /**
+     * Add square tissue to cellular automaton grid
+     * @param tissue
+     * @param startRow
+     * @param startCol
+     * @param endRow
+     * @param endCol
+     */
+    public void addTissue(HeartTissue tissue, int startRow, int startCol, int endRow, int endCol)
+    {       
+        tissues.add(tissue);
+
+        for(int row = startRow; row < endRow; row++)
+        {
+            for(int col = startCol; col < endCol; col++)
+            {
+                tissueLocations[row][col] = tissue.getName();
+            }
+        }
+    }
+
     public void setTissues(List<HeartTissue> tissues)
     {
         this.tissues = tissues;

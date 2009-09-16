@@ -294,7 +294,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         // set up menu
         mnuHeartTissue.removeAll();
 
-        for (final HeartTissue tissue : cellGenerator.getTissues())
+        for (final HeartTissue tissue : ca.getTissues())
         {
             if (cellGenerator.isEnabled(tissue))
             {
@@ -594,7 +594,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         });
         toolbar.add(tglBtnStimulate);
 
-        tglBtnManual.setText("Alter group of cells");
+        tglBtnManual.setText("Select group of cells");
         tglBtnManual.setFocusable(false);
         tglBtnManual.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         tglBtnManual.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -1038,6 +1038,22 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
             {
                 // one off stimulation
                 ca.stimulate(evt.getY(), evt.getX());
+            }
+
+            if (mouseClickAction == MouseClickAction.SetManualCells)
+            {
+                // manually set parameters of cells
+                HeartTissue manualCellsTissue = new HeartTissue(evt.getX() + ", " + evt.getY());
+                
+                int gridLength = (int) Math.sqrt(cells);
+
+                int startRow = evt.getY() - (gridLength / 2);
+                int startCol = evt.getX() - (gridLength / 2);
+                int endRow = evt.getY() + (gridLength / 2);
+                int endCol = evt.getX() + (gridLength / 2);
+
+                ca.addTissue(manualCellsTissue, startRow, startCol, endRow, endCol);
+                loadHeartTissues();
             }
         }
     }//GEN-LAST:event_svgCanvasMouseClicked

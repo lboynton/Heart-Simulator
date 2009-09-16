@@ -112,6 +112,12 @@ public class CellGenerator implements SVGDocumentLoaderListener
 
     public boolean isEnabled(HeartTissue tissue)
     {
+        // return true if hashmap value is true OR is null
+        if(tissues.get(tissue) == null)
+        {
+            return true;
+        }
+
         return tissues.get(tissue);
     }
 
