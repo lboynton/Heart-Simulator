@@ -83,10 +83,12 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
     private ChartDialog chartDialog = new ChartDialog(this, false, this);
     private MouseClickAction mouseClickAction = MouseClickAction.None;
     private Cursor crossHairCursor = new Cursor(Cursor.CROSSHAIR_CURSOR);
+    private ManualCellsDialog cellsDialog = new ManualCellsDialog(this);
+    private int cells;
 
     public static enum MouseClickAction
     {
-        SetStimulusCell, SetChartCell, SetStimulateCell, None
+        SetStimulusCell, SetChartCell, SetStimulateCell, None, SetManualCells
     };
 
     /** Creates new form MainUI3 */
@@ -419,6 +421,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         btnZoomIn = new javax.swing.JButton();
         separatorZoom = new javax.swing.JToolBar.Separator();
         tglBtnStimulate = new javax.swing.JToggleButton();
+        tglBtnManual = new javax.swing.JToggleButton();
         jSeparator5 = new javax.swing.JToolBar.Separator();
         btnAbout = new javax.swing.JButton();
         pnlRootContainer = new javax.swing.JPanel();
@@ -590,6 +593,17 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
             }
         });
         toolbar.add(tglBtnStimulate);
+
+        tglBtnManual.setText("Alter group of cells");
+        tglBtnManual.setFocusable(false);
+        tglBtnManual.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        tglBtnManual.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tglBtnManual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tglBtnManualActionPerformed(evt);
+            }
+        });
+        toolbar.add(tglBtnManual);
         toolbar.add(jSeparator5);
 
         btnAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/heartsim/gui/icon/help-browser.png"))); // NOI18N
@@ -1017,7 +1031,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
             {
                 // set chart cell location
                 chartDialog.getChart().addTissue(evt.getY(), evt.getX(), cellGenerator.getTissueAt(evt.getY(), evt.getX()));
-               // chartDialog.getChart().setCell(evt.getY(), evt.getX(), cellGenerator.getTissueAt(evt.getY(), evt.getX()));
+                // chartDialog.getChart().setCell(evt.getY(), evt.getX(), cellGenerator.getTissueAt(evt.getY(), evt.getX()));
             }
 
             if (mouseClickAction == MouseClickAction.SetStimulateCell)
@@ -1131,7 +1145,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
     private void btnProfileHelpActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnProfileHelpActionPerformed
     {//GEN-HEADEREND:event_btnProfileHelpActionPerformed
         Profile profile = (Profile) cboBoxProfile.getSelectedItem();
-        
+
         new HelpDialog(this, profile.getName() + " Profile", false, profile.getDescription(), profile.getImage()).setVisible(true);
 }//GEN-LAST:event_btnProfileHelpActionPerformed
 
@@ -1246,6 +1260,20 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         new AboutDialog(this, false).setVisible(true);
     }//GEN-LAST:event_btnAboutActionPerformed
 
+    private void tglBtnManualActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_tglBtnManualActionPerformed
+    {//GEN-HEADEREND:event_tglBtnManualActionPerformed
+        // manually change parameters of group of cells
+        if (tglBtnManual.isSelected())
+        {
+            cells = cellsDialog.showDialog();
+            this.mouseClickAction = MouseClickAction.SetManualCells;
+        }
+        else
+        {
+            this.mouseClickAction = MouseClickAction.None;
+        }
+    }//GEN-LAST:event_tglBtnManualActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1320,6 +1348,7 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
     private javax.swing.JToolBar.Separator separatorZoom;
     private org.apache.batik.swing.JSVGCanvas svgCanvas;
     private javax.swing.JTabbedPane tabbedPane;
+    private javax.swing.JToggleButton tglBtnManual;
     private javax.swing.JToggleButton tglBtnStimulate;
     private javax.swing.JToolBar toolbar;
     private javax.swing.JTextField txtHeartRate;
