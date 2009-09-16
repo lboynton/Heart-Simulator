@@ -597,6 +597,11 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
         btnAbout.setFocusable(false);
         btnAbout.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnAbout.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAboutActionPerformed(evt);
+            }
+        });
         toolbar.add(btnAbout);
 
         progressBar.setMaximum(7);
@@ -1235,6 +1240,11 @@ public class MainUI extends javax.swing.JFrame implements CellGeneratorListener,
             this.mouseClickAction = MouseClickAction.None;
         }
     }//GEN-LAST:event_tglBtnStimulateActionPerformed
+
+    private void btnAboutActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAboutActionPerformed
+    {//GEN-HEADEREND:event_btnAboutActionPerformed
+        new AboutDialog(this, false).setVisible(true);
+    }//GEN-LAST:event_btnAboutActionPerformed
 
     /**
      * @param args the command line arguments
