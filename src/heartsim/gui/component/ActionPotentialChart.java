@@ -37,8 +37,6 @@ public class ActionPotentialChart extends ChartPanel implements SimulatorListene
         // set the chart later
         super(null);
 
-//        chart = new JFreeChart("Action Potential for " + col + ", " + row, plot);
-
         chart = ChartFactory.createXYLineChart(
                 "Action Potential", // chart title
                 "Time", // x axis label
@@ -51,8 +49,6 @@ public class ActionPotentialChart extends ChartPanel implements SimulatorListene
                 );
 
         reset();
-
-
 
         chart.setBackgroundPaint(null);
 

@@ -13,7 +13,6 @@ package heartsim.gui;
 import heartsim.gui.component.ActionPotentialChart;
 import heartsim.gui.component.TissueSeries;
 import heartsim.gui.component.TissueSeriesListener;
-import heartsim.gui.component.TissueSeriesRenderer;
 import java.awt.Frame;
 import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
