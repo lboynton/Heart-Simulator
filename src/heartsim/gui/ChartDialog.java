@@ -89,6 +89,7 @@ public class ChartDialog extends javax.swing.JDialog implements TissueSeriesList
         jToggleButton1 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Action Potentials");
 
         javax.swing.GroupLayout chartLayout = new javax.swing.GroupLayout(chart);
         chart.setLayout(chartLayout);
