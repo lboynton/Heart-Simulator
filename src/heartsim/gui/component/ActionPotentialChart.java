@@ -193,6 +193,10 @@ public class ActionPotentialChart extends ChartPanel implements SimulatorListene
         {
             s.getRecovery().add(time, ca.getV(s.getRow(), s.getCol()));
             s.getVoltage().add(time, ca.getU(s.getRow(), s.getCol()));
+            if(time > visibleTimeSteps)
+            {
+                ((XYPlot) chart.getPlot()).getDomainAxis().setRange(time - visibleTimeSteps, time);
+            }
         }
     }
 }
